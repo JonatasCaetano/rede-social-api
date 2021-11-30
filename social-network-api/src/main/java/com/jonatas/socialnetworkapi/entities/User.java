@@ -17,7 +17,10 @@ public class User {
 	private String password;
 	
 	@DBRef(lazy = true)
-	List<Worker> workers = new ArrayList<>();
+	private Follower follower;
+	
+	@DBRef(lazy = true)
+	private List<Worker> workers = new ArrayList<>();
 	
 	public User() {
 	}
@@ -60,6 +63,16 @@ public class User {
 	public List<Worker> getWorkers() {
 		return workers;
 	}
+
+	public Follower getFollower() {
+		return follower;
+	}
+
+	public void setFollower(Follower follower) {
+		this.follower = follower;
+	}
+	
+	
 	
 	
 

@@ -16,7 +16,7 @@ public class Entity {
 	private String description;
 	
 	@DBRef(lazy = true)
-	List<Worker> workers = new ArrayList<>();
+	private List<Worker> workers = new ArrayList<>();
 	
 	public Entity() {
 	}
