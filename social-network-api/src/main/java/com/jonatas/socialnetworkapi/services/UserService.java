@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.entities.Auth;
+import com.jonatas.socialnetworkapi.dto.AuthDTO;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
@@ -22,7 +22,7 @@ public class UserService {
 		return ResponseEntity.ok().body(users);
 	}
 	
-	public ResponseEntity<Object> auth(Auth auth){
+	public ResponseEntity<Object> auth(AuthDTO auth){
 		try {
 			User user = userRepository.findByEmail(auth.getEmail());
             if(auth.getPassword().hashCode() == user.getPassword().hashCode()) {
@@ -34,4 +34,13 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}	
+	
+	public ResponseEntity<User> saveUser(User user){
+		try {
+			User obj = userRepository.insert(user);
+			return ResponseEntity.created(null).body(obj);
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 }

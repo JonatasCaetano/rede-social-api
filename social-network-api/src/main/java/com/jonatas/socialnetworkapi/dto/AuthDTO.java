@@ -1,14 +1,14 @@
-package com.jonatas.socialnetworkapi.entities;
+package com.jonatas.socialnetworkapi.dto;
 
-public class Auth {
+public class AuthDTO {
 
 	private String email;
 	private String password;
 	
-	public Auth() {
+	public AuthDTO() {
 	}
 
-	public Auth(String email, String password) {
+	public AuthDTO(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}
