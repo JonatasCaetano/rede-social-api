@@ -1,6 +1,10 @@
 package com.jonatas.socialnetworkapi.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -10,6 +14,9 @@ public class Entity {
 	private String id;
 	private String name;
 	private String description;
+	
+	@DBRef(lazy = true)
+	List<Worker> workers = new ArrayList<>();
 	
 	public Entity() {
 	}
@@ -40,5 +47,10 @@ public class Entity {
 		return id;
 	}
 
+	public List<Worker> getWorkers() {
+		return workers;
+	}
+
+	
 	
 }

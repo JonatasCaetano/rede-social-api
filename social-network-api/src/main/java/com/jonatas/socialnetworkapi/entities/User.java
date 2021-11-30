@@ -1,6 +1,10 @@
 package com.jonatas.socialnetworkapi.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -11,6 +15,9 @@ public class User {
 	private String name;
 	private String email;
 	private String password;
+	
+	@DBRef(lazy = true)
+	List<Worker> workers = new ArrayList<>();
 	
 	public User() {
 	}
@@ -49,5 +56,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public List<Worker> getWorkers() {
+		return workers;
+	}
+	
+	
 
 }

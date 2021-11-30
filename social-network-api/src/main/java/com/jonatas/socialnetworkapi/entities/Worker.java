@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class Workers {
+public class Worker {
 	
 	@Id
 	private String id;
@@ -12,11 +12,10 @@ public class Workers {
 	private String entity;
 	private String role;
 	
-	public Workers() {
+	public Worker() {
 	}
 
-	public Workers(String id, String user, String entity, String role) {
-		super();
+	public Worker(String id, String user, String entity, String role) {
 		this.id = id;
 		this.user = user;
 		this.entity = entity;
@@ -50,8 +49,5 @@ public class Workers {
 	public String getId() {
 		return id;
 	}
-
-	
-	
 	
 }

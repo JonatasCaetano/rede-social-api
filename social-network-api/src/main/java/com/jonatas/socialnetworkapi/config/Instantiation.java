@@ -10,6 +10,7 @@ import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
+import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
 
 @Configuration
 public class Instantiation implements CommandLineRunner{
@@ -20,11 +21,15 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private EntityRepository entityRepository;
 	
+	@Autowired
+	private WorkerRepository workerRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		
 		userRepository.deleteAll();
 		entityRepository.deleteAll();
+		workerRepository.deleteAll();
 
 		User user1 = new User(null, "marley", "marley@gmail.com","123456");//123456
 		User user2 = new User(null, "bela", "bela@gmail.com","654351");//654351
@@ -36,6 +41,7 @@ public class Instantiation implements CommandLineRunner{
 		Entity entity2 = new Entity(null, "O Senhor dos Anéis - A Sociedade do Anel", "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal." );
 		
 		entityRepository.saveAll(Arrays.asList(entity1, entity2));
+		
 		
 
 
