@@ -14,12 +14,15 @@ public class Worker  implements Serializable{
 	
 	@Id
 	private String id;
+	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
+	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Entity entity;
+	
 	private String role;
 	
 	public Worker() {
@@ -65,6 +68,5 @@ public class Worker  implements Serializable{
 		return id;
 	}
 
-	
 	
 }

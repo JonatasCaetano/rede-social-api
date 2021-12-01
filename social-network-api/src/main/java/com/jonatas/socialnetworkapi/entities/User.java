@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.jonatas.socialnetworkapi.dto.UserDTO;
 
 @Document
 public class User implements Serializable{
@@ -36,6 +37,12 @@ public class User implements Serializable{
 		this.name = name;
 		this.email = email;
 		this.password = password;
+	}
+	
+	public User(UserDTO userDTO) {
+		this.name = userDTO.getName();
+		this.email = userDTO.getEmail();
+		this.password = userDTO.getPassword();
 	}
 
 	public String getId() {

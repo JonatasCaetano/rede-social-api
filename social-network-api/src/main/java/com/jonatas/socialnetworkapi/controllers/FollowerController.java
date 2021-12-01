@@ -1,5 +1,7 @@
 package com.jonatas.socialnetworkapi.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +19,16 @@ public class FollowerController {
 
 	@Autowired
 	private FollowerService followerService;
+	
+	@GetMapping
+	public ResponseEntity<List<Follower>> findAll(){
+		return followerService.findAll();
+	}
+	
+	@GetMapping(value = "user/{id}")
+	public ResponseEntity<Follower> findByUser(@PathVariable String id) {
+		return followerService.findByUser(id);
+	}
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Follower> findById(@PathVariable String id){

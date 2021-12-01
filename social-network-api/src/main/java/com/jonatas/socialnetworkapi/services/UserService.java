@@ -44,11 +44,12 @@ public class UserService {
 	public ResponseEntity<User> saveUser(User user){
 		try {
 			User obj = userRepository.insert(user);
-			Follower follower = followerRepository.insert(new Follower(null, obj.getId()));
+			Follower follower = followerRepository.insert(new Follower(null, obj));
 			obj.setFollower(follower);
 			userRepository.save(obj);
 			return ResponseEntity.created(null).body(obj);
 		}catch(RuntimeException e) {
+			e.printStackTrace();
 			return ResponseEntity.badRequest().build();
 		}
 	}

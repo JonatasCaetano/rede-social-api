@@ -16,7 +16,10 @@ public class Follower implements Serializable{
 	
 	@Id
 	private String id;
-	private String user;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private User user;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -26,28 +29,32 @@ public class Follower implements Serializable{
 		
 	}
 
-	public Follower(String id, String user) {
+	public Follower(String id, User user) {
+		super();
 		this.id = id;
 		this.user = user;
 	}
 
-	public String getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
+	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public List<User> getFollowing() {
+		return following;
+	}
+
+	public void setFollowing(List<User> following) {
+		this.following = following;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public List<User> getFollowing() {
-		return following;
-	} 
-	
-	
-	
+		
 	
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.AuthDTO;
+import com.jonatas.socialnetworkapi.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.services.UserService;
@@ -23,27 +24,24 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping
+	@GetMapping(value = "get/all")
 	public ResponseEntity<List<User>> findAll() {
 		return userService.findAll();
 	}
 	
-	@GetMapping(value = "/auth")
+	@GetMapping(value = "get/auth")
 	public ResponseEntity<Object> auth(@RequestBody AuthDTO auth){
 		return userService.auth(auth);
 		
 	}
 	
-	@GetMapping(value = "/{id}/workers")
+	@GetMapping(value = "get/workers/{id}")
 	public ResponseEntity<List<Worker>> getWorkers(@PathVariable String id){
 		return userService.getWorkers(id);
 	}
 	
-	@PostMapping(value = "/save")
-	public ResponseEntity<User> saveUser(@RequestBody User user){
-		return userService.saveUser(user);
+	@PostMapping(value = "post/user")
+	public ResponseEntity<User> saveUser(@RequestBody UserDTO userDTO){
+		return userService.saveUser(new User(userDTO));
 	}
-	
-	
-
 }

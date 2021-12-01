@@ -30,4 +30,13 @@ public class EntityService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	public ResponseEntity<Entity> saveEntity(Entity entity){
+		try {
+			Entity obj = entityRepository.insert(entity);
+			return ResponseEntity.created(null).body(obj);
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 }

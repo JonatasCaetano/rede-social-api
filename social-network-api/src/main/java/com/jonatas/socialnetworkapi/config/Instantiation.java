@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.jonatas.socialnetworkapi.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
@@ -74,9 +75,9 @@ public class Instantiation implements CommandLineRunner{
 		workerService.saveNewWorker(worker2);
 		workerService.saveNewWorker(worker3);
 		
-		followerService.addFollowing(user1.getId(), user2.getId());
 		followerService.addFollowing(user1.getId(), user3.getId());
-		followerService.addFollowing(user3.getId(), user1.getId());
+		followerService.addFollowing(user2.getId(), user1.getId());
+		followerService.addFollowing(user3.getId(), user2.getId());
 
 
 	}

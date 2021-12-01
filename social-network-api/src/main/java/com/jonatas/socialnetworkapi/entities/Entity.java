@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.jonatas.socialnetworkapi.dto.EntityDTO;
 
 @Document
 public class Entity implements Serializable{
@@ -30,6 +31,11 @@ public class Entity implements Serializable{
 		this.id = id;
 		this.name = name;
 		this.description = description;
+	}
+	
+	public Entity(EntityDTO entityDTO) {
+		this.name = entityDTO.getName();
+		this.description = entityDTO.getDescription();
 	}
 
 	public String getName() {
