@@ -29,6 +29,10 @@ public class User implements Serializable{
 	@JsonBackReference
 	private List<Worker> workers = new ArrayList<>();
 	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private Invitation invitation;
+	
 	public User() {
 	}
 
