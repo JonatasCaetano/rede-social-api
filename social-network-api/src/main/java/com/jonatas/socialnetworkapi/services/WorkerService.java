@@ -33,8 +33,8 @@ public class WorkerService {
 	public ResponseEntity<Worker> saveNewWorker(Worker worker) {
 		try {
 			workerRepository.save(worker);
-			User user = userRepository.findById(worker.getUser()).get();
-			Entity entity = entityRepository.findById(worker.getEntity()).get();
+			User user = userRepository.findById(worker.getUser().getId()).get();
+			Entity entity = entityRepository.findById(worker.getEntity().getId()).get();
 			user.getWorkers().add(worker);
 			userRepository.save(user);
 			entity.getWorkers().add(worker);

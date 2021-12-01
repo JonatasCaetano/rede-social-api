@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,9 +8,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document
-public class User {
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
+@Document
+public class User implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	private String id;
 	private String name;
@@ -17,9 +21,11 @@ public class User {
 	private String password;
 	
 	@DBRef(lazy = true)
+	@JsonBackReference
 	private Follower follower;
 	
 	@DBRef(lazy = true)
+	@JsonBackReference
 	private List<Worker> workers = new ArrayList<>();
 	
 	public User() {

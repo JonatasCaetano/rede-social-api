@@ -8,9 +8,15 @@ import org.springframework.context.annotation.Configuration;
 
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
+import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
+import com.jonatas.socialnetworkapi.services.EntityService;
+import com.jonatas.socialnetworkapi.services.FollowerService;
+import com.jonatas.socialnetworkapi.services.UserService;
+import com.jonatas.socialnetworkapi.services.WorkerService;
 
 @Configuration
 public class Instantiation implements CommandLineRunner{
@@ -24,25 +30,53 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private WorkerRepository workerRepository;
 	
+	@Autowired
+	private FollowerRepository followerRepository;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private EntityService entityService;
+	
+	@Autowired
+	private WorkerService workerService;
+	
+	@Autowired
+	private FollowerService followerService;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		
 		userRepository.deleteAll();
 		entityRepository.deleteAll();
 		workerRepository.deleteAll();
+		followerRepository.deleteAll();
 
 		User user1 = new User(null, "marley", "marley@gmail.com","123456");//123456
 		User user2 = new User(null, "bela", "bela@gmail.com","654351");//654351
 		User user3 = new User(null, "mel", "mel@gmail.com","681236");//681236
 		
-		userRepository.saveAll(Arrays.asList(user1, user2, user3));
+		userService.saveUser(user1);
+		userService.saveUser(user2);
+		userService.saveUser(user3);
 		
 		Entity entity1 = new Entity(null, "Vingadores", "Loki (Tom Hiddleston) retorna à Terra enviado pelos chitauri, uma raça alienígena que pretende dominar os humanos.");
 		Entity entity2 = new Entity(null, "O Senhor dos Anéis - A Sociedade do Anel", "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal." );
 		
 		entityRepository.saveAll(Arrays.asList(entity1, entity2));
 		
+		Worker worker1 = new Worker(null, user1, entity2, "ator");
+		Worker worker2 = new Worker(null, user2, entity2, "atriz");
+		Worker worker3 = new Worker(null, user1, entity1, "Diretor");
 		
+		workerService.saveNewWorker(worker1);
+		workerService.saveNewWorker(worker2);
+		workerService.saveNewWorker(worker3);
+		
+		followerService.addFollowing(user1.getId(), user2.getId());
+		followerService.addFollowing(user1.getId(), user3.getId());
+		followerService.addFollowing(user3.getId(), user1.getId());
 
 
 	}

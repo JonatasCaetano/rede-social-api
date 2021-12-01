@@ -7,5 +7,7 @@ import com.jonatas.socialnetworkapi.entities.Follower;
 
 @Repository
 public interface FollowerRepository extends MongoRepository<Follower, String>{
+	
+	public Follower findByUser(String user);
 
 }
