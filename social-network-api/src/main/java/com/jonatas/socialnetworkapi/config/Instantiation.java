@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import com.jonatas.socialnetworkapi.dto.UserDTO;
+import com.jonatas.socialnetworkapi.dto.WorkerDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Invitation;
@@ -98,13 +99,13 @@ public class Instantiation implements CommandLineRunner{
 		
 		entityRepository.saveAll(Arrays.asList(entity1, entity2));
 		
-		Worker worker1 = new Worker(null, user1, entity2, "ator");
-		Worker worker2 = new Worker(null, user2, entity2, "atriz");
-		Worker worker3 = new Worker(null, user1, entity1, "Diretor");
+		WorkerDTO worker1 = new WorkerDTO(user1.getId(), entity2.getId(), "ator");
+		WorkerDTO worker2 = new WorkerDTO(user2.getId(), entity2.getId(), "atriz");
+		WorkerDTO worker3 = new WorkerDTO(user1.getId(), entity1.getId(), "Diretor");
 		
-		workerService.saveNewWorker(worker1);
-		workerService.saveNewWorker(worker2);
-		workerService.saveNewWorker(worker3);
+		workerService.create(worker1);
+		workerService.create(worker2);
+		workerService.create(worker3);
 		
 		followerService.addFollowing(user1.getId(), user3.getId());
 		followerService.addFollowing(user2.getId(), user1.getId());

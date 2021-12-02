@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.dto.WorkerDTO;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.services.WorkerService;
 
@@ -20,13 +21,13 @@ public class WorkerController {
 	@Autowired
 	private WorkerService workerService;
 	
-	@GetMapping
+	@GetMapping(value = "get/all")
 	public ResponseEntity<List<Worker>> findAll(){
 		return workerService.findAll();
 	}
 	
-	@PostMapping(value = "/save")
-	public ResponseEntity<Worker> saveNewWorker(@RequestBody Worker worker){
-		return workerService.saveNewWorker(worker);
+	@PostMapping(value = "post/create")
+	public ResponseEntity<Worker> create(@RequestBody WorkerDTO workerDTO){
+		return workerService.create(workerDTO);
 	}
 }

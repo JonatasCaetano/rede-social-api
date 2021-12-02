@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.WorkerDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
@@ -30,11 +31,12 @@ public class WorkerService {
 		return ResponseEntity.ok(list);
 	}
 	
-	public ResponseEntity<Worker> saveNewWorker(Worker worker) {
+	public ResponseEntity<Worker> create(WorkerDTO workerDTO) {
 		try {
+			User user = userRepository.findById(workerDTO.getUser()).get();
+			Entity entity = entityRepository.findById(workerDTO.getEntity()).get();
+			Worker worker = new Worker(null, user, entity, workerDTO.getRole());
 			workerRepository.save(worker);
-			User user = userRepository.findById(worker.getUser().getId()).get();
-			Entity entity = entityRepository.findById(worker.getEntity().getId()).get();
 			user.getWorkers().add(worker);
 			userRepository.save(user);
 			entity.getWorkers().add(worker);
