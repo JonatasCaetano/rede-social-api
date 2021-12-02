@@ -20,23 +20,28 @@ public class FollowerController {
 	@Autowired
 	private FollowerService followerService;
 	
-	@GetMapping
+	@GetMapping(value = "get/all")
 	public ResponseEntity<List<Follower>> findAll(){
 		return followerService.findAll();
 	}
 	
-	@GetMapping(value = "user/{id}")
+	@GetMapping(value = "get/user/{id}")
 	public ResponseEntity<Follower> findByUser(@PathVariable String id) {
 		return followerService.findByUser(id);
 	}
 	
-	@GetMapping(value = "/{id}")
+	@GetMapping(value = "get/{id}")
 	public ResponseEntity<Follower> findById(@PathVariable String id){
 		return followerService.findById(id);
 	}
 	
-	@PostMapping(value = "/add/{userId}/{following}")
-	public ResponseEntity<Object> addFollowing(@PathVariable String userId, @PathVariable String following){
-		return followerService.addFollowing(userId, following);
+	@PostMapping(value = "post/add/{followerId}/{followingId}")
+	public ResponseEntity<Void> addFollowing(@PathVariable String followerId, @PathVariable String followingId){
+		return followerService.addFollowing(followerId, followingId);
+	}
+	
+	@PostMapping(value = "post/remove/{followerId}/{followingId}")
+	public ResponseEntity<Void> removeFollowing(@PathVariable String followerId, @PathVariable String followingId){
+		return followerService.removeFollowing(followerId, followingId);
 	}
 }

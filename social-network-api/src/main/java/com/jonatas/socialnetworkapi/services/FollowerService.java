@@ -48,17 +48,59 @@ public class FollowerService {
 		}
 	}
 	
-	public ResponseEntity<Object> addFollowing(String followerId, String followingId){
+	public ResponseEntity<Void> addFollowing(String followerId, String followingId){
 		try {
+			boolean exists = false;
 			User userFollower = userRepository.findById(followerId).get();
 			User userFollowing = userRepository.findById(followingId).get();
 			Follower follower = followerRepository.findByUser(userFollower);
-			follower.getFollowing().add(userFollowing);
-			followerRepository.save(follower);
-			return ResponseEntity.accepted().build();
+			List<User> users = follower.getFollowing();
+			for(User user : users) {
+				System.out.println("users add: " + user.getId());
+				if(user.getId().hashCode() == followingId.hashCode()) {
+					exists = true;
+				}
+			}
+			if(exists) {
+				return ResponseEntity.ok().build();
+			}else {
+				follower.getFollowing().add(userFollowing);
+				followerRepository.save(follower);
+				return ResponseEntity.accepted().build();
+			}
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 		
+	}
+	
+	public ResponseEntity<Void> removeFollowing(String followerId, String followingId){
+		try {
+			boolean exists = false;
+			int n = 0;
+			User userFollower = userRepository.findById(followerId).get();
+			User userFollowing = userRepository.findById(followingId).get();
+			Follower follower = followerRepository.findByUser(userFollower);
+			List<User> users = follower.getFollowing();
+			
+			for(User user : users) {
+				System.out.println("users remove: " + user.getId());
+				if(user.getId().hashCode() == followingId.hashCode()) {
+					exists = true;
+					n = users.indexOf(user);
+				}
+			}
+			if(!exists) {
+				return ResponseEntity.ok().build();
+			}else {
+				follower.getFollowing().remove(n);
+				followerRepository.save(follower);
+				return ResponseEntity.accepted().build();
+			}
+			
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+
 	}
 }
