@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.AuthDTO;
+import com.jonatas.socialnetworkapi.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
+import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
@@ -22,6 +24,9 @@ public class UserService {
 	
 	@Autowired
 	private FollowerRepository followerRepository;
+	
+	@Autowired
+	private InvitationService invitationService;
 	
 	public ResponseEntity<List<User>> findAll() {
 		List<User> users = userRepository.findAll();
@@ -41,13 +46,18 @@ public class UserService {
 		}
 	}	
 	
-	public ResponseEntity<User> saveUser(User user){
+	public ResponseEntity<UserDTO> saveUser(User user, String invitation){
+	
 		try {
 			User obj = userRepository.insert(user);
+			invitationService.addInvited(obj.getId(), invitation);
 			Follower follower = followerRepository.insert(new Follower(null, obj));
 			obj.setFollower(follower);
 			userRepository.save(obj);
-			return ResponseEntity.created(null).body(obj);
+			Invitation result = invitationService.createdInvitation(obj.getId());
+			UserDTO userDTO = new UserDTO(obj);
+			userDTO.setInvitation(result.getValue());
+			return ResponseEntity.created(null).body(userDTO);
 		}catch(RuntimeException e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().build();

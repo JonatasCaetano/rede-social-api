@@ -8,4 +8,5 @@ import com.jonatas.socialnetworkapi.entities.Invitation;
 @Repository
 public interface InvitationRepository extends MongoRepository<Invitation, String>{
 
+	public Invitation findByValue(String value);
 }

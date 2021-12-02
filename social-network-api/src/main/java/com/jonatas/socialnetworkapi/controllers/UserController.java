@@ -41,7 +41,7 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "post/user")
-	public ResponseEntity<User> saveUser(@RequestBody UserDTO userDTO){
-		return userService.saveUser(new User(userDTO));
+	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO){
+		return userService.saveUser(new User(userDTO), userDTO.getInvitation());
 	}
 }

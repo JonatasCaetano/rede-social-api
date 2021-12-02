@@ -88,6 +88,14 @@ public class User implements Serializable{
 	public void setFollower(Follower follower) {
 		this.follower = follower;
 	}
+
+	public Invitation getInvitation() {
+		return invitation;
+	}
+
+	public void setInvitation(Invitation invitation) {
+		this.invitation = invitation;
+	}
 	
 	
 	

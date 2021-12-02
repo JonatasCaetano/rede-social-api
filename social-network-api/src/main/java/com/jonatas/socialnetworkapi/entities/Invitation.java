@@ -17,6 +17,8 @@ public class Invitation implements Serializable{
 	@Id
 	private String id;
 	
+	private String value;
+	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
@@ -29,10 +31,10 @@ public class Invitation implements Serializable{
 		
 	}
 
-	public Invitation(String id, User user) {
-		super();
+	public Invitation(String id, User user, String value) {
 		this.id = id;
 		this.user = user;
+		this.value = value;
 	}
 
 	public User getUser() {
@@ -49,6 +51,14 @@ public class Invitation implements Serializable{
 
 	public String getId() {
 		return id;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	
