@@ -1,11 +1,15 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.AuthDTO;
+import com.jonatas.socialnetworkapi.dto.AuthorDTO;
+import com.jonatas.socialnetworkapi.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
@@ -50,18 +54,10 @@ public class FollowerService {
 	
 	public ResponseEntity<Void> addFollowing(String followerId, String followingId){
 		try {
-			boolean exists = false;
 			User userFollower = userRepository.findById(followerId).get();
 			User userFollowing = userRepository.findById(followingId).get();
 			Follower follower = followerRepository.findByUser(userFollower);
-			List<User> users = follower.getFollowing();
-			for(User user : users) {
-				System.out.println("users add: " + user.getId());
-				if(user.getId().hashCode() == followingId.hashCode()) {
-					exists = true;
-				}
-			}
-			if(exists) {
+			if(follower.getFollowing().contains(userFollowing)) {
 				return ResponseEntity.ok().build();
 			}else {
 				follower.getFollowing().add(userFollowing);
@@ -76,31 +72,43 @@ public class FollowerService {
 	
 	public ResponseEntity<Void> removeFollowing(String followerId, String followingId){
 		try {
-			boolean exists = false;
-			int n = 0;
 			User userFollower = userRepository.findById(followerId).get();
 			User userFollowing = userRepository.findById(followingId).get();
 			Follower follower = followerRepository.findByUser(userFollower);
-			List<User> users = follower.getFollowing();
-			
-			for(User user : users) {
-				System.out.println("users remove: " + user.getId());
-				if(user.getId().hashCode() == followingId.hashCode()) {
-					exists = true;
-					n = users.indexOf(user);
-				}
-			}
-			if(!exists) {
+			if(!follower.getFollowing().contains(userFollowing)) {
 				return ResponseEntity.ok().build();
 			}else {
-				follower.getFollowing().remove(n);
+				follower.getFollowing().remove(userFollowing);
 				followerRepository.save(follower);
 				return ResponseEntity.accepted().build();
 			}
-			
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 
 	}
+	
+	
+	public ResponseEntity<List<AuthorDTO>> getAllFollowing(String userId){
+		try {
+			User user = userRepository.findById(userId).get();
+			Follower follower = followerRepository.findByUser(user);
+			List<User> users = follower.getFollowing();
+			List<AuthorDTO> authorDTOs = new ArrayList<>();
+			for(User userList : users) {
+				AuthorDTO authorDTO = new AuthorDTO(userList);
+				authorDTOs.add(authorDTO);
+			}
+			return ResponseEntity.ok().body(authorDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		
+		}
+		
+		
+	}
+	
+	
+	
+	
 }

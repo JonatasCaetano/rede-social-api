@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.dto.AuthorDTO;
+import com.jonatas.socialnetworkapi.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 
@@ -33,6 +35,11 @@ public class FollowerController {
 	@GetMapping(value = "get/{id}")
 	public ResponseEntity<Follower> findById(@PathVariable String id){
 		return followerService.findById(id);
+	}
+	
+	@GetMapping(value = "get/followings/all/{userId}")
+	public ResponseEntity<List<AuthorDTO>> getAllFollowing(@PathVariable String userId){
+		return followerService.getAllFollowing(userId);
 	}
 	
 	@PostMapping(value = "post/add/{followerId}/{followingId}")
