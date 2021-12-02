@@ -47,4 +47,22 @@ public class WorkerService {
 		}
 		
 	}
+	
+	public ResponseEntity<Void> delete(String id){
+		try {
+			Worker worker = workerRepository.findById(id).get();
+			User user = worker.getUser();
+			user.getWorkers().remove(worker);
+			Entity entity = worker.getEntity();
+			entity.getWorkers().remove(worker);
+			workerRepository.delete(worker);
+			userRepository.save(user);
+			entityRepository.save(entity);
+			return ResponseEntity.ok().build();
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	
 }
