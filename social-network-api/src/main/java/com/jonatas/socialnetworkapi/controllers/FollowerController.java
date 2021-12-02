@@ -42,6 +42,11 @@ public class FollowerController {
 		return followerService.getAllFollowing(userId);
 	}
 	
+	@GetMapping(value = "get/followers/all/{userId}")
+	public ResponseEntity<List<AuthorDTO>> getAllFollower(@PathVariable String userId){
+		return followerService.getAllFollower(userId);
+	}
+	
 	@PostMapping(value = "post/add/{followerId}/{followingId}")
 	public ResponseEntity<Void> addFollowing(@PathVariable String followerId, @PathVariable String followingId){
 		return followerService.addFollowing(followerId, followingId);

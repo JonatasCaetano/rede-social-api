@@ -108,6 +108,24 @@ public class FollowerService {
 		
 	}
 	
+	public ResponseEntity<List<AuthorDTO>> getAllFollower(String userId){
+		try {
+			User user = userRepository.findById(userId).get();
+			List<Follower> followers = followerRepository.findAll();
+			List<AuthorDTO> authorDTOs = new ArrayList<>();
+			for(Follower follower : followers) {
+				if(follower.getFollowing().contains(user)) {
+					AuthorDTO authorDTO = new AuthorDTO(follower.getUser());
+					authorDTOs.add(authorDTO);
+				}
+			}
+			return ResponseEntity.ok().body(authorDTOs);
+			
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	
 	
 	
