@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.AuthDTO;
-import com.jonatas.socialnetworkapi.dto.UserDTO;
+import com.jonatas.socialnetworkapi.dto.CreationUser;
+import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.services.UserService;
@@ -24,14 +24,16 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	//get
+	
 	@GetMapping(value = "get/all")
 	public ResponseEntity<List<User>> findAll() {
 		return userService.findAll();
 	}
 	
 	@GetMapping(value = "get/auth")
-	public ResponseEntity<Object> auth(@RequestBody AuthDTO auth){
-		return userService.auth(auth);
+	public ResponseEntity<Object> auth(@RequestBody UserAuthDTO userAuthDTO){
+		return userService.auth(userAuthDTO);
 		
 	}
 	
@@ -40,8 +42,10 @@ public class UserController {
 		return userService.getWorkers(id);
 	}
 	
+	//post
+	
 	@PostMapping(value = "post/user")
-	public ResponseEntity<UserDTO> saveUser(@RequestBody UserDTO userDTO){
-		return userService.saveUser(new User(userDTO), userDTO.getInvitation());
+	public ResponseEntity<CreationUser> saveUser(@RequestBody CreationUser creationUser){
+		return userService.saveUser(new User(creationUser), creationUser.getInvitation());
 	}
 }

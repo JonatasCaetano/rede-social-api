@@ -1,7 +1,10 @@
 package com.jonatas.socialnetworkapi.dto;
 
-public class WorkerDTO {
+import java.io.Serializable;
 
+public class WorkerDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String user;
 	private String entity;
 	private String role;

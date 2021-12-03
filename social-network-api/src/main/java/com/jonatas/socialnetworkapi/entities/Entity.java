@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.dto.EntityDTO;
+import com.jonatas.socialnetworkapi.dto.EntityMiniDTO;
 
 @Document
 public class Entity implements Serializable{
@@ -41,9 +41,9 @@ public class Entity implements Serializable{
 		this.type = type;
 	}
 
-	public Entity(EntityDTO entityDTO) {
-		this.name = entityDTO.getName();
-		this.description = entityDTO.getDescription();
+	public Entity(EntityMiniDTO entityMiniDTO) {
+		this.name = entityMiniDTO.getName();
+		this.description = entityMiniDTO.getDescription();
 	}
 
 	public String getName() {

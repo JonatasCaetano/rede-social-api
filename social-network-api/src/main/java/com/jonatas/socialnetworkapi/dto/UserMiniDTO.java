@@ -1,30 +1,28 @@
 package com.jonatas.socialnetworkapi.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.jonatas.socialnetworkapi.entities.User;
 
-public class AuthorDTO implements Serializable{
+public class UserMiniDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String name;
 	private String image;
-	
-	
-	public AuthorDTO() {
+		
+	public UserMiniDTO() {
 		super();
 	}
 
-	public AuthorDTO(String id, String name, String image) {
+	public UserMiniDTO(String id, String name, String image) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.image = image;
 	}
-	
-	public AuthorDTO(User user) {
+
+	public UserMiniDTO(User user) {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
@@ -55,24 +53,5 @@ public class AuthorDTO implements Serializable{
 		this.image = image;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AuthorDTO other = (AuthorDTO) obj;
-		return Objects.equals(id, other.id);
-	}
-	
-	
-	
-	
 }

@@ -23,15 +23,21 @@ public class WorkerController {
 	@Autowired
 	private WorkerService workerService;
 	
+	//get
+	
 	@GetMapping(value = "get/all")
 	public ResponseEntity<List<Worker>> findAll(){
 		return workerService.findAll();
 	}
 	
+	//post
+	
 	@PostMapping(value = "post/create")
 	public ResponseEntity<Worker> create(@RequestBody WorkerDTO workerDTO){
 		return workerService.create(workerDTO);
 	}
+	
+	//delete
 	
 	@DeleteMapping(value = "delete/{id}")
 	public ResponseEntity<Void> delete(@PathVariable String id){

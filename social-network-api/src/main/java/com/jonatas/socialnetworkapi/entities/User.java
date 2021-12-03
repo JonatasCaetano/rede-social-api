@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.dto.UserDTO;
+import com.jonatas.socialnetworkapi.dto.CreationUser;
 
 @Document
 public class User implements Serializable{
@@ -25,6 +25,7 @@ public class User implements Serializable{
 	private String description;
 	private boolean status = true;
 	private boolean privacy = false;
+	private boolean checked = false;
 	private int following = 0;
 	private int followers = 0;
 	
@@ -53,11 +54,11 @@ public class User implements Serializable{
 		this.description = description;
 	}
 
-	public User(UserDTO userDTO) {
+	public User(CreationUser creationUser) {
 		super();
-		this.name = userDTO.getName();
-		this.email = userDTO.getEmail();
-		this.password = userDTO.getPassword();
+		this.name = creationUser.getName();
+		this.email = creationUser.getEmail();
+		this.password = creationUser.getPassword();
 	}
 	
 
@@ -139,6 +140,14 @@ public class User implements Serializable{
 
 	public void setPrivacy(boolean privacy) {
 		this.privacy = privacy;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 
 	public int getFollowing() {

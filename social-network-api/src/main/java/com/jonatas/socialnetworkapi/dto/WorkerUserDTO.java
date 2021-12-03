@@ -7,31 +7,31 @@ import com.jonatas.socialnetworkapi.entities.Worker;
 public class WorkerUserDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private EntityDTO entityDTO;
+	private EntityMiniDTO entity;
 	private String role;
 		
 	public WorkerUserDTO() {
 		super();
 	}
 
-	public WorkerUserDTO(EntityDTO entityDTO, String role) {
+	public WorkerUserDTO(EntityMiniDTO entityDTO, String role) {
 		super();
-		this.entityDTO = entityDTO;
+		this.entity = entityDTO;
 		this.role = role;
 	}
 	
 	public WorkerUserDTO(Worker worker) {
 		super();
-		this.entityDTO = new EntityDTO(worker.getEntity());
+		this.entity = new EntityMiniDTO(worker.getEntity());
 		this.role = worker.getRole();
 	}
 
-	public EntityDTO getEntityDTO() {
-		return entityDTO;
+	public EntityMiniDTO getEntity() {
+		return entity;
 	}
 
-	public void setEntityDTO(EntityDTO entityDTO) {
-		this.entityDTO = entityDTO;
+	public void setEntity(EntityMiniDTO entity) {
+		this.entity = entity;
 	}
 
 	public String getRole() {
@@ -41,6 +41,7 @@ public class WorkerUserDTO implements Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
+
 	
 	
 	

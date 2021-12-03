@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.InvitationDTO;
-import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 
 @RestController
@@ -19,6 +18,8 @@ public class InvitationController {
 	
 	@Autowired
 	private InvitationService invitationService;
+	
+	//get
 	
 	@GetMapping(value = "get/all")
 	public ResponseEntity<List<InvitationDTO>> findAll(){

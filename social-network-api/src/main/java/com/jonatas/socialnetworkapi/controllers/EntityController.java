@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.EntityDTO;
+import com.jonatas.socialnetworkapi.dto.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
-import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.services.EntityService;
 
 @RestController
@@ -38,8 +37,8 @@ public class EntityController {
 	
 	//post methods
 	
-	@PostMapping(value = "/post")
-	public ResponseEntity<Entity> saveEntity(@RequestBody EntityDTO entityDTO){
-		return entityService.saveEntity(new Entity(entityDTO));
+	@PostMapping(value = "/post/{id}")
+	public ResponseEntity<Entity> saveEntity(@RequestBody EntityMiniDTO entityMiniDTO, @PathVariable String id){
+		return entityService.saveEntity(new Entity(entityMiniDTO), id);
 	}
 }

@@ -1,32 +1,34 @@
 package com.jonatas.socialnetworkapi.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.jonatas.socialnetworkapi.entities.Entity;
 
-public class EntityDTO implements Serializable{
+public class EntityMiniDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
 	private String name;
+	private String image;
 	private String description;
 	
-	public EntityDTO() {
+	public EntityMiniDTO() {
 		super();
 	}
 
-	public EntityDTO(String id, String name, String description) {
+	public EntityMiniDTO(String id, String name, String image, String description) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.setImage(image);
 		this.description = description;
 	}
-	
-	public EntityDTO(Entity entity) {
+
+	public EntityMiniDTO(Entity entity) {
 		super();
 		this.id = entity.getId();
 		this.name = entity.getName();
+		this.setImage(entity.getImage());
 		this.description = entity.getDescription();
 	}
 
@@ -46,29 +48,20 @@ public class EntityDTO implements Serializable{
 		this.name = name;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		EntityDTO other = (EntityDTO) obj;
-		return Objects.equals(id, other.id);
 	}
 	
 	

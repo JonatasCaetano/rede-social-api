@@ -1,15 +1,18 @@
 package com.jonatas.socialnetworkapi.dto;
 
-public class AuthDTO {
+import java.io.Serializable;
 
+public class UserAuthDTO implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String email;
 	private String password;
 	
-	public AuthDTO() {
+	public UserAuthDTO() {
 		super();
 	}
 
-	public AuthDTO(String email, String password) {
+	public UserAuthDTO(String email, String password) {
 		super();
 		this.email = email;
 		this.password = password;

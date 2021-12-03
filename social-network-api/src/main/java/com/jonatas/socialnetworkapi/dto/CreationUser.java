@@ -1,11 +1,10 @@
 package com.jonatas.socialnetworkapi.dto;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 import com.jonatas.socialnetworkapi.entities.User;
 
-public class UserDTO  implements Serializable{
+public class CreationUser  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
@@ -14,12 +13,11 @@ public class UserDTO  implements Serializable{
 	private String invitation;
 	private String password;
 
-	
-	public UserDTO() {
+	public CreationUser() {
 		super();
 	}
-
-	public UserDTO(String id, String name, String email, String invitation, String password) {
+	
+	public CreationUser(String id, String name, String email, String invitation, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -28,7 +26,7 @@ public class UserDTO  implements Serializable{
 		this.password = password;
 	}
 
-	public UserDTO(User user) {
+	public CreationUser(User user) {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
@@ -76,24 +74,6 @@ public class UserDTO  implements Serializable{
 		this.password = password;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserDTO other = (UserDTO) obj;
-		return Objects.equals(id, other.id);
-	}
-
-
-	
 	
 }

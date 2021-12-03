@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.AuthDTO;
-import com.jonatas.socialnetworkapi.dto.AuthorDTO;
-import com.jonatas.socialnetworkapi.dto.UserDTO;
+import com.jonatas.socialnetworkapi.dto.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
@@ -97,17 +95,17 @@ public class FollowerService {
 	}
 	
 	
-	public ResponseEntity<List<AuthorDTO>> getAllFollowing(String userId){
+	public ResponseEntity<List<UserMiniDTO>> getAllFollowing(String userId){
 		try {
 			User user = userRepository.findById(userId).get();
 			Follower follower = followerRepository.findByUser(user);
 			List<User> users = follower.getFollowing();
-			List<AuthorDTO> authorDTOs = new ArrayList<>();
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
 			for(User userList : users) {
-				AuthorDTO authorDTO = new AuthorDTO(userList);
-				authorDTOs.add(authorDTO);
+				UserMiniDTO userMiniDTO = new UserMiniDTO(userList);
+				userMiniDTOs.add(userMiniDTO);
 			}
-			return ResponseEntity.ok().body(authorDTOs);
+			return ResponseEntity.ok().body(userMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		
@@ -116,18 +114,18 @@ public class FollowerService {
 		
 	}
 	
-	public ResponseEntity<List<AuthorDTO>> getAllFollower(String userId){
+	public ResponseEntity<List<UserMiniDTO>> getAllFollower(String userId){
 		try {
 			User user = userRepository.findById(userId).get();
 			List<Follower> followers = followerRepository.findAll();
-			List<AuthorDTO> authorDTOs = new ArrayList<>();
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
 			for(Follower follower : followers) {
 				if(follower.getFollowing().contains(user)) {
-					AuthorDTO authorDTO = new AuthorDTO(follower.getUser());
-					authorDTOs.add(authorDTO);
+					UserMiniDTO userMiniDTO = new UserMiniDTO(follower.getUser());
+					userMiniDTOs.add(userMiniDTO);
 				}
 			}
-			return ResponseEntity.ok().body(authorDTOs);
+			return ResponseEntity.ok().body(userMiniDTOs);
 			
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();

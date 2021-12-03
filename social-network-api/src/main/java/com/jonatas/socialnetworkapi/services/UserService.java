@@ -8,8 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.AuthDTO;
-import com.jonatas.socialnetworkapi.dto.UserDTO;
+import com.jonatas.socialnetworkapi.dto.CreationUser;
+import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
@@ -34,10 +34,10 @@ public class UserService {
 		return ResponseEntity.ok().body(users);
 	}
 	
-	public ResponseEntity<Object> auth(AuthDTO auth){
+	public ResponseEntity<Object> auth(UserAuthDTO userAuthDTO){
 		try {
-			User user = userRepository.findByEmail(auth.getEmail());
-            if(auth.getPassword().hashCode() == user.getPassword().hashCode()) {
+			User user = userRepository.findByEmail(userAuthDTO.getEmail());
+            if(userAuthDTO.getPassword().hashCode() == user.getPassword().hashCode()) {
             	return ResponseEntity.ok().body(user.getId());
             }else {
             	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -47,7 +47,7 @@ public class UserService {
 		}
 	}	
 	
-	public ResponseEntity<UserDTO> saveUser(User user, String invitation){
+	public ResponseEntity<CreationUser> saveUser(User user, String invitation){
 	
 		try {
 			User obj = userRepository.insert(user);
@@ -56,8 +56,8 @@ public class UserService {
 			obj.setFollower(follower);
 			userRepository.save(obj);
 			invitationService.createdInvitation(obj.getId());
-			UserDTO userDTO = new UserDTO(obj);
-			return ResponseEntity.created(null).body(userDTO);
+			CreationUser creationUser = new CreationUser(obj);
+			return ResponseEntity.created(null).body(creationUser);
 		}catch(RuntimeException e) {
 			e.printStackTrace();
 			return ResponseEntity.badRequest().build();

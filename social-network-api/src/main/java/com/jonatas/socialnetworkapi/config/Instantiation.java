@@ -6,22 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import com.jonatas.socialnetworkapi.dto.UserDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Follower;
-import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
-import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
-import com.jonatas.socialnetworkapi.services.EntityService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
-import com.jonatas.socialnetworkapi.services.UserService;
 import com.jonatas.socialnetworkapi.services.WorkerService;
 
 @Configuration
@@ -46,12 +41,12 @@ public class Instantiation implements CommandLineRunner{
 	
 	//Services
 	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private EntityService entityService;
-	
+//	@Autowired
+//	private UserService userService;
+//	
+//	@Autowired
+//	private EntityService entityService;
+//	
 	@Autowired
 	private WorkerService workerService;
 	
@@ -79,6 +74,9 @@ public class Instantiation implements CommandLineRunner{
 		userRepository.insert(user1);
 		userRepository.insert(user2);
 		userRepository.insert(user3);
+		
+		user1.setChecked(true);
+		userRepository.save(user1);
 		
 		Follower follower1 = followerRepository.insert(new Follower(null, user1));
 		user1.setFollower(follower1);
