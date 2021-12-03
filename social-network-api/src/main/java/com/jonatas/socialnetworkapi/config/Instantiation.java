@@ -72,9 +72,9 @@ public class Instantiation implements CommandLineRunner{
 		followerRepository.deleteAll();
 		invitationRepository.deleteAll();
 
-		User user1 = new User(null, "marley", "marley@gmail.com","123456");//123456
-		User user2 = new User(null, "bela", "bela@gmail.com","654351");//654351
-		User user3 = new User(null, "melisa", "mel@gmail.com","681236");//681236
+		User user1 = new User("marley", "marley@gmail.com","123456", null, "um cachorro legal");//123456
+		User user2 = new User("bela", "bela@gmail.com","654351", null, "viciada em bola");//654351
+		User user3 = new User("melisa", "mel@gmail.com","681236", null, "a menina da vovó");//681236
 		
 		userRepository.insert(user1);
 		userRepository.insert(user2);

@@ -21,6 +21,10 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
+	private String image;
+	private String description;
+	private boolean status = true;
+	private boolean privacy = false;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -35,20 +39,25 @@ public class User implements Serializable{
 	private Invitation invitation;
 	
 	public User() {
+		super();
 	}
-
-	public User(String id, String name, String email, String password) {
-		this.id = id;
+	
+	public User(String name, String email, String password, String image, String description) {
+		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.image = image;
+		this.description = description;
 	}
-	
+
 	public User(UserDTO userDTO) {
+		super();
 		this.name = userDTO.getName();
 		this.email = userDTO.getEmail();
 		this.password = userDTO.getPassword();
 	}
+	
 
 	public String getId() {
 		return id;
@@ -96,6 +105,38 @@ public class User implements Serializable{
 
 	public void setInvitation(Invitation invitation) {
 		this.invitation = invitation;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public boolean isPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(boolean privacy) {
+		this.privacy = privacy;
 	}
 
 	@Override

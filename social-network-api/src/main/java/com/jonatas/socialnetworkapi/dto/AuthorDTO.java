@@ -10,21 +10,25 @@ public class AuthorDTO implements Serializable{
 	
 	private String id;
 	private String name;
+	private String image;
+	
 	
 	public AuthorDTO() {
 		super();
 	}
 
-	public AuthorDTO(String id, String name) {
+	public AuthorDTO(String id, String name, String image) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.image = image;
 	}
 	
 	public AuthorDTO(User user) {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
+		this.image = user.getImage();
 	}
 
 	public String getId() {
