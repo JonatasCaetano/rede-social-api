@@ -1,11 +1,14 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
+import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
@@ -21,11 +24,16 @@ public class EntityService {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	public ResponseEntity<List<Worker>> getWorkers(String id){
+	public ResponseEntity<List<WorkerEntityDTO>> getWorkers(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
-			List<Worker> list = entity.getWorkers();
-			return ResponseEntity.ok().body(list);
+			List<Worker> workers = entity.getWorkers();
+			List<WorkerEntityDTO> workerEntityDTOs = new ArrayList<>();
+			for(Worker worker : workers) {
+				WorkerEntityDTO workerEntityDTO = new WorkerEntityDTO(worker);
+				workerEntityDTOs.add(workerEntityDTO);
+			}
+			return ResponseEntity.ok().body(workerEntityDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

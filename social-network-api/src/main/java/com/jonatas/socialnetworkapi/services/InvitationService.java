@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.InvitationDTO;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
@@ -22,15 +24,20 @@ public class InvitationService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	public ResponseEntity<List<Invitation>> findAll(){
+	public ResponseEntity<List<InvitationDTO>> findAll(){
 		List<Invitation> list = invitationRepository.findAll();
-		return ResponseEntity.ok().body(list);
+		List<InvitationDTO> invitationDTOs = new ArrayList<>();
+		for(Invitation invitation : list) {
+			InvitationDTO invitationDTO = new InvitationDTO(invitation);
+			invitationDTOs.add(invitationDTO);
+		}
+		return ResponseEntity.ok().body(invitationDTOs);
 	}
 	
-	public ResponseEntity<Invitation> findByValue(String value){
+	public ResponseEntity<InvitationDTO> findByValue(String value){
 		try {
 			Invitation invitation = invitationRepository.findByValue(value);
-			return ResponseEntity.ok().body(invitation);
+			return ResponseEntity.ok().body(new InvitationDTO(invitation));
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

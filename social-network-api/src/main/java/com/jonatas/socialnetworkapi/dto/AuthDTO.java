@@ -6,9 +6,11 @@ public class AuthDTO {
 	private String password;
 	
 	public AuthDTO() {
+		super();
 	}
 
 	public AuthDTO(String email, String password) {
+		super();
 		this.email = email;
 		this.password = password;
 	}
@@ -28,9 +30,6 @@ public class AuthDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
-	
 	
 	
 }

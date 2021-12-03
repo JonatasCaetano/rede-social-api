@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.AuthDTO;
 import com.jonatas.socialnetworkapi.dto.UserDTO;
+import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.entities.User;
-import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @RestController
@@ -36,7 +36,7 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "get/workers/{id}")
-	public ResponseEntity<List<Worker>> getWorkers(@PathVariable String id){
+	public ResponseEntity<List<WorkerUserDTO>> getWorkers(@PathVariable String id){
 		return userService.getWorkers(id);
 	}
 	

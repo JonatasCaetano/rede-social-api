@@ -3,6 +3,7 @@ package com.jonatas.socialnetworkapi.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -59,6 +60,23 @@ public class Invitation implements Serializable{
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(value);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Invitation other = (Invitation) obj;
+		return Objects.equals(value, other.value);
 	}
 
 	

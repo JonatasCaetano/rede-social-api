@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.AuthDTO;
 import com.jonatas.socialnetworkapi.dto.UserDTO;
+import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
-import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
@@ -54,9 +55,8 @@ public class UserService {
 			Follower follower = followerRepository.insert(new Follower(null, obj));
 			obj.setFollower(follower);
 			userRepository.save(obj);
-			Invitation result = invitationService.createdInvitation(obj.getId());
+			invitationService.createdInvitation(obj.getId());
 			UserDTO userDTO = new UserDTO(obj);
-			userDTO.setInvitation(result.getValue());
 			return ResponseEntity.created(null).body(userDTO);
 		}catch(RuntimeException e) {
 			e.printStackTrace();
@@ -64,11 +64,16 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<List<Worker>> getWorkers(String id){
+	public ResponseEntity<List<WorkerUserDTO>> getWorkers(String id){
 		try {
 			User user = userRepository.findById(id).get();
-			List<Worker> list = user.getWorkers();
-			return ResponseEntity.ok().body(list);
+			List<Worker> workers = user.getWorkers();
+			List<WorkerUserDTO> workerUserDTOs = new ArrayList<>();
+			for(Worker worker : workers) {
+				WorkerUserDTO workerUserDTO = new WorkerUserDTO(worker);
+				workerUserDTOs.add(workerUserDTO);
+			}
+			return ResponseEntity.ok().body(workerUserDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

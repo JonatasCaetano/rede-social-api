@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.dto.InvitationDTO;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 
@@ -20,12 +21,12 @@ public class InvitationController {
 	private InvitationService invitationService;
 	
 	@GetMapping(value = "get/all")
-	public ResponseEntity<List<Invitation>> findAll(){
+	public ResponseEntity<List<InvitationDTO>> findAll(){
 		return invitationService.findAll();
 	}
 	
 	@GetMapping(value = "get/invitation/{value}")
-	public ResponseEntity<Invitation> findByValue(@PathVariable String value){
+	public ResponseEntity<InvitationDTO> findByValue(@PathVariable String value){
 		return invitationService.findByValue(value);
 	}
 	
