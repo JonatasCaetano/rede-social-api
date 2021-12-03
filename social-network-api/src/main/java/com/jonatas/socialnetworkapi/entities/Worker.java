@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -14,6 +15,8 @@ public class Worker  implements Serializable{
 	
 	@Id
 	private String id;
+	
+	private Date release;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -66,6 +69,14 @@ public class Worker  implements Serializable{
 
 	public String getId() {
 		return id;
+	}
+
+	public Date getRelease() {
+		return release;
+	}
+
+	public void setRelease(Date release) {
+		this.release = release;
 	}
 
 	

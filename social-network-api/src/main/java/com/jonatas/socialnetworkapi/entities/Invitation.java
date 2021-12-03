@@ -2,6 +2,7 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,6 +18,8 @@ public class Invitation implements Serializable{
 	
 	@Id
 	private String id;
+	
+	private Date release;
 	
 	private String value;
 	
@@ -60,6 +63,14 @@ public class Invitation implements Serializable{
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public Date getRelease() {
+		return release;
+	}
+
+	public void setRelease(Date release) {
+		this.release = release;
 	}
 
 	@Override

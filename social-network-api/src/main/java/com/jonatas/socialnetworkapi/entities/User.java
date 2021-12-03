@@ -2,6 +2,7 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +29,7 @@ public class User implements Serializable{
 	private boolean checked = false;
 	private int following = 0;
 	private int followers = 0;
+	private Date release;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -165,7 +167,15 @@ public class User implements Serializable{
 	public void setFollowers(int followers) {
 		this.followers = followers;
 	}
+	
+	public Date getRelease() {
+		return release;
+	}
 
+	public void setRelease(Date release) {
+		this.release = release;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -182,7 +192,6 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
 	
 	
 	

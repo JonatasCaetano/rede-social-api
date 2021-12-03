@@ -2,6 +2,7 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,10 +24,15 @@ public class Entity implements Serializable{
 	private String image;
 	private String year;
 	private int type;
+	private Date release;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Worker> workers = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Season> seasons = new ArrayList<>();
 	
 	public Entity() {
 		super();
@@ -92,6 +98,18 @@ public class Entity implements Serializable{
 
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	public List<Season> getSeasons() {
+		return seasons;
+	}
+
+	public Date getRelease() {
+		return release;
+	}
+
+	public void setRelease(Date release) {
+		this.release = release;
 	}
 
 	@Override

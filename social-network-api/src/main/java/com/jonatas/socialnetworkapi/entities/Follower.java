@@ -2,6 +2,7 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -16,6 +17,8 @@ public class Follower implements Serializable{
 	
 	@Id
 	private String id;
+	
+	private Date release;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -53,6 +56,14 @@ public class Follower implements Serializable{
 
 	public String getId() {
 		return id;
+	}
+
+	public Date getRelease() {
+		return release;
+	}
+
+	public void setRelease(Date release) {
+		this.release = release;
 	}
 
 		
