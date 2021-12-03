@@ -47,6 +47,14 @@ public class AuthorDTO implements Serializable{
 		this.name = name;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

@@ -94,8 +94,8 @@ public class Instantiation implements CommandLineRunner{
 		invitationService.createdInvitation(user2.getId());
 		invitationService.createdInvitation(user3.getId());
 		
-		Entity entity1 = new Entity(null, "Vingadores", "Loki (Tom Hiddleston) retorna à Terra enviado pelos chitauri, uma raça alienígena que pretende dominar os humanos.");
-		Entity entity2 = new Entity(null, "O Senhor dos Anéis - A Sociedade do Anel", "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal." );
+		Entity entity1 = new Entity("Vingadores", "Loki (Tom Hiddleston) retorna à Terra enviado pelos chitauri, uma raça alienígena que pretende dominar os humanos.", null, "2012", 0);
+		Entity entity2 = new Entity("O Senhor dos Anéis - A Sociedade do Anel", "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal.", null, "2001", 0 );
 		
 		entityRepository.saveAll(Arrays.asList(entity1, entity2));
 		
