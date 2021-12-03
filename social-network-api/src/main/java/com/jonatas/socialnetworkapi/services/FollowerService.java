@@ -62,6 +62,10 @@ public class FollowerService {
 			}else {
 				follower.getFollowing().add(userFollowing);
 				followerRepository.save(follower);
+				userFollower.setFollowing(userFollower.getFollowing() + 1);
+				userRepository.save(userFollower);
+				userFollowing.setFollowers(userFollowing.getFollowers() + 1);
+				userRepository.save(userFollowing);
 				return ResponseEntity.accepted().build();
 			}
 		}catch(RuntimeException e) {
@@ -80,6 +84,10 @@ public class FollowerService {
 			}else {
 				follower.getFollowing().remove(userFollowing);
 				followerRepository.save(follower);
+				userFollower.setFollowing(userFollower.getFollowing() - 1);
+				userRepository.save(userFollower);
+				userFollowing.setFollowers(userFollowing.getFollowers() - 1);
+				userRepository.save(userFollowing);
 				return ResponseEntity.accepted().build();
 			}
 		}catch(RuntimeException e) {
