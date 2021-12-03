@@ -4,13 +4,18 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+@Document
 public class Season implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	private String id;
 	private String name;
 	private String image;
 	private String description;
@@ -33,6 +38,10 @@ public class Season implements Serializable{
 		this.release = release;
 		this.number = number;
 		this.entity = entity;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
 	public String getName() {
