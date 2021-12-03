@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.EntityMiniDTO;
+import com.jonatas.socialnetworkapi.dto.SeasonEntityDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.services.EntityService;
@@ -33,6 +34,11 @@ public class EntityController {
 	@GetMapping(value = "get/workers/{id}")
 	public ResponseEntity<List<WorkerEntityDTO>> getWorkers(@PathVariable String id){
 		return entityService.getWorkers(id);
+	}
+	
+	@GetMapping(value = "get/seasons/{id}")
+	public ResponseEntity<List<SeasonEntityDTO>> findAllSeasons(@PathVariable String id){
+		return entityService.findAllSeasons(id);
 	}
 	
 	//post methods

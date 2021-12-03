@@ -25,6 +25,7 @@ public class Entity implements Serializable{
 	private String year;
 	private int type;
 	private Date release;
+	private int season = 0;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -112,6 +113,14 @@ public class Entity implements Serializable{
 		this.release = release;
 	}
 
+	public int getSeason() {
+		return season;
+	}
+
+	public void setSeason(int season) {
+		this.season = season;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, type, year);
@@ -128,7 +137,7 @@ public class Entity implements Serializable{
 		Entity other = (Entity) obj;
 		return Objects.equals(name, other.name) && type == other.type && Objects.equals(year, other.year);
 	}
-	
+
 	
 
 	
