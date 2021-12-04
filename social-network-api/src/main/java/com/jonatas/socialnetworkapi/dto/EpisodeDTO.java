@@ -2,6 +2,8 @@ package com.jonatas.socialnetworkapi.dto;
 
 import java.util.Date;
 
+import com.jonatas.socialnetworkapi.entities.Episode;
+
 public class EpisodeDTO {
 
 	private String name;
@@ -19,6 +21,14 @@ public class EpisodeDTO {
 		this.image = image;
 		this.release = release;
 		this.number = number;
+	}
+	
+	public EpisodeDTO(Episode episode) {
+		super();
+		this.name = episode.getName();
+		this.image = episode.getImage();
+		this.release = episode.getRelease();
+		this.number = episode.getNumber();
 	}
 
 	public String getName() {
