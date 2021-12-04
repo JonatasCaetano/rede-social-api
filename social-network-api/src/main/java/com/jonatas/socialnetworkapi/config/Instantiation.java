@@ -6,17 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Follower;
+import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
+import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
+import com.jonatas.socialnetworkapi.services.EpisodeService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 import com.jonatas.socialnetworkapi.services.SeasonService;
@@ -45,6 +49,9 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private SeasonRepository seasonRepository;
 	
+	@Autowired
+	private EpisodeRepository episodeRepository;
+	
 	//Services
 	
 //	@Autowired
@@ -65,6 +72,9 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private SeasonService seasonService;
 	
+	@Autowired
+	private EpisodeService episodeService;
+	
 	//start of function 
 	
 	@Override
@@ -76,6 +86,7 @@ public class Instantiation implements CommandLineRunner{
 		followerRepository.deleteAll();
 		invitationRepository.deleteAll();
 		seasonRepository.deleteAll();
+		episodeRepository.deleteAll();
 
 		User user1 = new User("marley", "marley@gmail.com","123456", null, "um cachorro legal");//123456
 		User user2 = new User("bela", "bela@gmail.com","654351", null, "viciada em bola");//654351
@@ -121,15 +132,19 @@ public class Instantiation implements CommandLineRunner{
 		followerService.addFollowing(user2.getId(), user1.getId());
 		followerService.addFollowing(user3.getId(), user2.getId());
 		
-		SeasonDTO seasonDTO1 = new SeasonDTO("Murder House", null, "A primeira temporada, intitulada Murder House, tem como tema principal a infidelidade. Explorando temas como o amor, a família, e o perdão.", null, 1);
-		SeasonDTO seasonDTO2 = new SeasonDTO("Asylum", null, "A segunda temporada, intitulada Asylum, tem como tema a sanidade. A história se passa em 1964 e acompanha os pacientes, médicos e freiras que ocupam a Instituição Mental Briarcliff, fundada para tratar e abrigar os criminosos insanos.", null, 2);
-		SeasonDTO seasonDTO3 = new SeasonDTO("1ª temporada", null, "Rick Grimes é o xerife de uma pequena cidade do estado da Georgia, quando certo dia, é baleado por criminosos durante uma perseguição e entra em coma. Semanas depois, ele acorda em um hospital abandonado e totalmente danificado.", null, 1);
+		SeasonDTO seasonDTO1 = new SeasonDTO("Murder House", "A primeira temporada, intitulada Murder House, tem como tema principal a infidelidade. Explorando temas como o amor, a família, e o perdão.", null, null, 1);
+		SeasonDTO seasonDTO2 = new SeasonDTO("Asylum", "A segunda temporada, intitulada Asylum, tem como tema a sanidade. A história se passa em 1964 e acompanha os pacientes, médicos e freiras que ocupam a Instituição Mental Briarcliff, fundada para tratar e abrigar os criminosos insanos.", null, null, 2);
+		SeasonDTO seasonDTO3 = new SeasonDTO("1ª temporada", "Rick Grimes é o xerife de uma pequena cidade do estado da Georgia, quando certo dia, é baleado por criminosos durante uma perseguição e entra em coma. Semanas depois, ele acorda em um hospital abandonado e totalmente danificado.", null, null, 1);
 		
-		seasonService.newSeason(seasonDTO1, user1.getId(), entity3.getId());
-		seasonService.newSeason(seasonDTO2, user1.getId(), entity3.getId());
-		seasonService.newSeason(seasonDTO3, user1.getId(), entity4.getId());
+		Season season1 = seasonService.newSeason(seasonDTO1, user1.getId(), entity3.getId()).getBody();
+		Season season2 = seasonService.newSeason(seasonDTO2, user1.getId(), entity3.getId()).getBody();
+		Season season3 = seasonService.newSeason(seasonDTO3, user1.getId(), entity4.getId()).getBody();
+		
+		EpisodeDTO episodeDTO1 = new EpisodeDTO("Pilot", "Em 1978, dois gêmeos ultrapassam o portão da Casa dos Assassinatos. Adelaide os avisa que, se entrarem na casa, irão morrer. Eles desobedecem e entram mesmo assim.",  null, null, 1);
+		EpisodeDTO episodeDTO2 = new EpisodeDTO("Home Invasion", "Em 1968, Maria é enganada ao ajudar um rapaz que finge estar ferido e acaba sendo assassinada a facadas por ele. Em 2011, Tate provoca Ben durante sua consulta ao lembrar de sua infidelidade à Vivien.", null, null, 2);
 
-
+		episodeService.newEpisode(episodeDTO1, user1.getId(), season1.getId());
+		episodeService.newEpisode(episodeDTO2, user1.getId(), season1.getId());
 	}
 
 	

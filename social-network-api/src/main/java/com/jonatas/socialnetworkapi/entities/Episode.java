@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
 
 @Document
 public class Episode implements Serializable{
@@ -17,6 +18,7 @@ public class Episode implements Serializable{
 	@Id
 	private String id;
 	private String name;
+	private String description;
 	private String image;
 	private Date release;
 	private int number;
@@ -29,14 +31,24 @@ public class Episode implements Serializable{
 		super();
 	}
 
-	public Episode(String id, String name, String image, Date release, int number, Season season) {
+	public Episode(String id, String name, String description, String image, Date release, int number, Season season) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.description = description;
 		this.image = image;
 		this.release = release;
 		this.number = number;
 		this.season = season;
+	}
+	
+	public Episode(EpisodeDTO episodeDTO) {
+		super();
+		this.name = episodeDTO.getName();
+		this.description = episodeDTO.getDescription();
+		this.image = episodeDTO.getImage();
+		this.release = episodeDTO.getRelease();
+		this.number = episodeDTO.getNumber();
 	}
 
 	public String getName() {
@@ -81,6 +93,14 @@ public class Episode implements Serializable{
 
 	public String getId() {
 		return id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

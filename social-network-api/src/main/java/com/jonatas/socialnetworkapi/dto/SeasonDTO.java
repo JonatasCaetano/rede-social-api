@@ -8,6 +8,7 @@ import com.jonatas.socialnetworkapi.entities.Season;
 public class SeasonDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	private String id;
 	private String name;
 	private String image;
 	private String description;
@@ -19,20 +20,21 @@ public class SeasonDTO implements Serializable{
 		super();
 	}
 	
-	public SeasonDTO(String name, String image, String description, Date release, int number) {
+	public SeasonDTO(String name, String description, String image, Date release, int number) {
 		super();
 		this.name = name;
-		this.image = image;
 		this.description = description;
+		this.image = image;
 		this.release = release;
 		this.number = number;
 	}
 	
 	public SeasonDTO(Season season) {
 		super();
+		this.id = season.getId();
 		this.name = season.getName();
-		this.image = season.getImage();
 		this.description = season.getDescription();
+		this.image = season.getImage();
 		this.release = season.getRelease();
 		this.number = season.getNumber();
 		this.episode = season.getEpisode();
@@ -84,6 +86,14 @@ public class SeasonDTO implements Serializable{
 
 	public void setEpisode(int episode) {
 		this.episode = episode;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

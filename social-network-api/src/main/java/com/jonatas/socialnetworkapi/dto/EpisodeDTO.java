@@ -6,7 +6,9 @@ import com.jonatas.socialnetworkapi.entities.Episode;
 
 public class EpisodeDTO {
 
+	private String id;
 	private String name;
+	private String description;
 	private String image;
 	private Date release;
 	private int number;
@@ -15,9 +17,10 @@ public class EpisodeDTO {
 		super();
 	}
 
-	public EpisodeDTO(String name, String image, Date release, int number) {
+	public EpisodeDTO(String name, String description, String image, Date release, int number) {
 		super();
 		this.name = name;
+		this.description = description;
 		this.image = image;
 		this.release = release;
 		this.number = number;
@@ -25,7 +28,9 @@ public class EpisodeDTO {
 	
 	public EpisodeDTO(Episode episode) {
 		super();
+		this.id = episode.getId();
 		this.name = episode.getName();
+		this.description = episode.getDescription();
 		this.image = episode.getImage();
 		this.release = episode.getRelease();
 		this.number = episode.getNumber();
@@ -61,6 +66,22 @@ public class EpisodeDTO {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	

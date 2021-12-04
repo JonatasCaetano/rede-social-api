@@ -62,7 +62,7 @@ public class SeasonService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 		}catch (RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 }
