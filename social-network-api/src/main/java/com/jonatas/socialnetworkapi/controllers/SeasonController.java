@@ -31,8 +31,8 @@ public class SeasonController {
 	
 	//post
 	
-	@PostMapping(value = "post/{id}")
-	public ResponseEntity<Season> newSeason(@RequestBody SeasonDTO seasonDTO, @PathVariable String id){
-		return seasonService.newSeason(seasonDTO, id);
+	@PostMapping(value = "post/{idUser}/{idEntity}")
+	public ResponseEntity<Season> newSeason(@RequestBody SeasonDTO seasonDTO, @PathVariable String idUser, @PathVariable String idEntity){
+		return seasonService.newSeason(seasonDTO, idUser, idEntity);
 	}
 }

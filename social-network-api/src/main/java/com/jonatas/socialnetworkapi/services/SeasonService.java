@@ -38,10 +38,10 @@ public class SeasonService {
 		return ResponseEntity.ok().body(seasonDTOs);
 	}
 	
-	public ResponseEntity<Season> newSeason(SeasonDTO seasonDTO, String id){
+	public ResponseEntity<Season> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
 		try {
-			User user = userRepository.findById(id).get();
-			Entity entity = entityRepository.findById(seasonDTO.getEntity()).get();
+			User user = userRepository.findById(idUser).get();
+			Entity entity = entityRepository.findById(idEntity).get();
 			Season season = new Season(seasonDTO);
 			List<Season> seasons = entity.getSeasons();
 			if(user.isChecked()) {

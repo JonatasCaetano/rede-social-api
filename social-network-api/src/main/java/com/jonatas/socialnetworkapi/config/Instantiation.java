@@ -121,13 +121,13 @@ public class Instantiation implements CommandLineRunner{
 		followerService.addFollowing(user2.getId(), user1.getId());
 		followerService.addFollowing(user3.getId(), user2.getId());
 		
-		SeasonDTO seasonDTO1 = new SeasonDTO("Murder House", null, "A primeira temporada, intitulada Murder House, tem como tema principal a infidelidade. Explorando temas como o amor, a família, e o perdão.", null, 1, entity3.getId());
-		SeasonDTO seasonDTO2 = new SeasonDTO("Asylum", null, "A segunda temporada, intitulada Asylum, tem como tema a sanidade. A história se passa em 1964 e acompanha os pacientes, médicos e freiras que ocupam a Instituição Mental Briarcliff, fundada para tratar e abrigar os criminosos insanos.", null, 2, entity3.getId());
-		SeasonDTO seasonDTO3 = new SeasonDTO("1ª temporada", null, "Rick Grimes é o xerife de uma pequena cidade do estado da Georgia, quando certo dia, é baleado por criminosos durante uma perseguição e entra em coma. Semanas depois, ele acorda em um hospital abandonado e totalmente danificado.", null, 1, entity4.getId());
+		SeasonDTO seasonDTO1 = new SeasonDTO("Murder House", null, "A primeira temporada, intitulada Murder House, tem como tema principal a infidelidade. Explorando temas como o amor, a família, e o perdão.", null, 1);
+		SeasonDTO seasonDTO2 = new SeasonDTO("Asylum", null, "A segunda temporada, intitulada Asylum, tem como tema a sanidade. A história se passa em 1964 e acompanha os pacientes, médicos e freiras que ocupam a Instituição Mental Briarcliff, fundada para tratar e abrigar os criminosos insanos.", null, 2);
+		SeasonDTO seasonDTO3 = new SeasonDTO("1ª temporada", null, "Rick Grimes é o xerife de uma pequena cidade do estado da Georgia, quando certo dia, é baleado por criminosos durante uma perseguição e entra em coma. Semanas depois, ele acorda em um hospital abandonado e totalmente danificado.", null, 1);
 		
-		seasonService.newSeason(seasonDTO1, user1.getId());
-		seasonService.newSeason(seasonDTO2, user1.getId());
-		seasonService.newSeason(seasonDTO3, user1.getId());
+		seasonService.newSeason(seasonDTO1, user1.getId(), entity3.getId());
+		seasonService.newSeason(seasonDTO2, user1.getId(), entity3.getId());
+		seasonService.newSeason(seasonDTO3, user1.getId(), entity4.getId());
 
 
 	}
