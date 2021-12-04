@@ -14,6 +14,7 @@ public class SeasonDTO implements Serializable{
 	private Date release;
 	private int number;
 	private String entity;
+	private int episode = 0;
 	
 	public SeasonDTO() {
 		super();
@@ -37,6 +38,7 @@ public class SeasonDTO implements Serializable{
 		this.release = season.getRelease();
 		this.number = season.getNumber();
 		this.entity = season.getEntity().getId() != null ? season.getEntity().getId() : null;
+		this.episode = season.getEpisode();
 	}
 
 	public String getName() {
@@ -85,6 +87,14 @@ public class SeasonDTO implements Serializable{
 
 	public void setEntity(String entity) {
 		this.entity = entity;
+	}
+
+	public int getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(int episode) {
+		this.episode = episode;
 	}
 	
 	

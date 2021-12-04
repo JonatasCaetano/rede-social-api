@@ -11,6 +11,7 @@ public class SeasonEntityDTO {
 	private String image;
 	private Date release;
 	private int number;
+	private int episode = 0;
 	
 	public SeasonEntityDTO() {
 		super();
@@ -32,6 +33,7 @@ public class SeasonEntityDTO {
 		this.image = season.getImage();
 		this.release = season.getRelease();
 		this.number = season.getNumber();
+		this.episode = season.getEpisode();
 	}
 
 	public String getId() {
@@ -72,6 +74,14 @@ public class SeasonEntityDTO {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public int getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(int episode) {
+		this.episode = episode;
 	}
 	
 	

@@ -1,65 +1,42 @@
 package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 
 @Document
-public class Season implements Serializable{
+public class Episode implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private String id;
 	private String name;
 	private String image;
-	private String description;
 	private Date release;
 	private int number;
-	private int episode = 0;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
-	private Entity entity;
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
-	private List<Episode> episodes = new ArrayList<>(); 
-	
-	public Season() {
+	private Season season;
+
+	public Episode() {
 		super();
 	}
 
-	public Season(String name, String image, String description, Date release, int number, Entity entity) {
+	public Episode(String id, String name, String image, Date release, int number, Season season) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.image = image;
-		this.description = description;
 		this.release = release;
 		this.number = number;
-		this.entity = entity;
-	}
-	
-	public Season(SeasonDTO seasonDTO) {
-		super();
-		this.name = seasonDTO.getName();
-		this.image = seasonDTO.getImage();
-		this.description = seasonDTO.getDescription();
-		this.release = seasonDTO.getRelease();
-		this.number = seasonDTO.getNumber();
-	}
-	
-	public String getId() {
-		return id;
+		this.season = season;
 	}
 
 	public String getName() {
@@ -78,14 +55,6 @@ public class Season implements Serializable{
 		this.image = image;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	public Date getRelease() {
 		return release;
 	}
@@ -102,24 +71,16 @@ public class Season implements Serializable{
 		this.number = number;
 	}
 
-	public Entity getEntity() {
-		return entity;
+	public Season getSeason() {
+		return season;
 	}
 
-	public void setEntity(Entity entity) {
-		this.entity = entity;
+	public void setSeason(Season season) {
+		this.season = season;
 	}
 
-	public int getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(int episode) {
-		this.episode = episode;
-	}
-	
-	public List<Episode> getEpisodes() {
-		return episodes;
+	public String getId() {
+		return id;
 	}
 
 	@Override
@@ -135,10 +96,11 @@ public class Season implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Season other = (Season) obj;
+		Episode other = (Episode) obj;
 		return number == other.number;
 	}
-
+	
+	
 	
 	
 
