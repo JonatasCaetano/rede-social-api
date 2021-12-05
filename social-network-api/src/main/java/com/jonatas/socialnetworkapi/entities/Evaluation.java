@@ -1,0 +1,113 @@
+package com.jonatas.socialnetworkapi.entities;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+@Document
+public class Evaluation implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	//attributes
+	
+	@Id
+	private String id;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private User user;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Entity entity;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Season season;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Episode episode;
+	
+	private int value;
+	private Date release;
+	
+	//builders
+	
+	public Evaluation() {
+		super();
+	}
+
+	public Evaluation(String id, User user, Entity entity, Season season, Episode episode, int value, Date release) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.entity = entity;
+		this.season = season;
+		this.episode = episode;
+		this.value = value;
+		this.release = release;
+	}
+
+	//getters and setters
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Entity getEntity() {
+		return entity;
+	}
+
+	public void setEntity(Entity entity) {
+		this.entity = entity;
+	}
+
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
+	public Episode getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Episode episode) {
+		this.episode = episode;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public Date getRelease() {
+		return release;
+	}
+
+	public void setRelease(Date release) {
+		this.release = release;
+	}
+
+	public String getId() {
+		return id;
+	}
+	
+	
+
+}

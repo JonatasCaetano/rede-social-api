@@ -45,6 +45,10 @@ public class User implements Serializable{
 	@JsonBackReference
 	private Invitation invitation;
 	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Evaluation> evaluation = new ArrayList<>();
+	
 	//builders
 	
 	public User() {
@@ -181,6 +185,10 @@ public class User implements Serializable{
 		this.release = release;
 	}
 	
+	public List<Evaluation> getEvaluation() {
+		return evaluation;
+	}
+
 	//hashCode and equals
 	
 	@Override

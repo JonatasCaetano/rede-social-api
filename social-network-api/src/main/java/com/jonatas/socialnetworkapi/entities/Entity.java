@@ -28,9 +28,7 @@ public class Entity implements Serializable{
 	private int type;
 	private Date release;
 	private int season = 0;
-	
-	//builders
-	
+		
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Worker> workers = new ArrayList<>();
@@ -38,6 +36,12 @@ public class Entity implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Season> seasons = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Evaluation> evaluation = new ArrayList<>();
+	
+	//builders
 	
 	public Entity() {
 		super();
@@ -125,6 +129,10 @@ public class Entity implements Serializable{
 
 	public void setSeason(int season) {
 		this.season = season;
+	}
+	
+	public List<Evaluation> getEvaluation() {
+		return evaluation;
 	}
 	
 	//hashCode and equals

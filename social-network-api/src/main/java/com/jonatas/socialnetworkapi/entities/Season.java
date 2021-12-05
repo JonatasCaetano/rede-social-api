@@ -37,6 +37,10 @@ public class Season implements Serializable{
 	@JsonBackReference
 	private List<Episode> episodes = new ArrayList<>(); 
 	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Evaluation> evaluation = new ArrayList<>();
+	
 	//builders
 	
 	public Season() {
@@ -127,9 +131,13 @@ public class Season implements Serializable{
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
-
-	//hashCode and equals
+		
+	public List<Evaluation> getEvaluation() {
+		return evaluation;
+	}
 	
+	//hashCode and equals
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(number);

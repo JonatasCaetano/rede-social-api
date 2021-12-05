@@ -1,13 +1,16 @@
 package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
 
@@ -28,6 +31,10 @@ public class Episode implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Season season;
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Evaluation> evaluation = new ArrayList<>();
 
 	//builders
 	
@@ -107,6 +114,10 @@ public class Episode implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public List<Evaluation> getEvaluation() {
+		return evaluation;
 	}
 	
 	//hashCode and equals
