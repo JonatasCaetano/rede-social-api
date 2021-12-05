@@ -7,10 +7,14 @@ import com.jonatas.socialnetworkapi.entities.User;
 public class UserMiniDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+
 	private String id;
 	private String name;
 	private String image;
 		
+	//builders
+	
 	public UserMiniDTO() {
 		super();
 	}
@@ -28,6 +32,8 @@ public class UserMiniDTO implements Serializable{
 		this.name = user.getName();
 		this.image = user.getImage();
 	}
+	
+	//getters and setters
 
 	public String getId() {
 		return id;

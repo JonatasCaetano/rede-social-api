@@ -32,7 +32,7 @@ public class InvitationController {
 	}
 	
 	@GetMapping(value = "get/check/{invitationValue}")
-	public ResponseEntity<Void> checkAvailability(@PathVariable String invitationValue){
+	public ResponseEntity<Boolean> checkAvailability(@PathVariable String invitationValue){
 		return invitationService.checkAvailability(invitationValue);
 	}
 

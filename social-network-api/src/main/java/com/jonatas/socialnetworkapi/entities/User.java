@@ -11,12 +11,14 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.dto.CreationUser;
+import com.jonatas.socialnetworkapi.dto.UserCreation;
 
 @Document
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+		
 	@Id
 	private String id;
 	private String name;
@@ -43,6 +45,8 @@ public class User implements Serializable{
 	@JsonBackReference
 	private Invitation invitation;
 	
+	//builders
+	
 	public User() {
 		super();
 	}
@@ -56,13 +60,14 @@ public class User implements Serializable{
 		this.description = description;
 	}
 
-	public User(CreationUser creationUser) {
+	public User(UserCreation creationUser) {
 		super();
 		this.name = creationUser.getName();
 		this.email = creationUser.getEmail();
 		this.password = creationUser.getPassword();
 	}
 	
+	//getters and setters
 
 	public String getId() {
 		return id;
@@ -176,6 +181,8 @@ public class User implements Serializable{
 		this.release = release;
 	}
 	
+	//hashCode and equals
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -191,6 +198,14 @@ public class User implements Serializable{
 			return false;
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", image=" + image
+				+ ", description=" + description + ", status=" + status + ", privacy=" + privacy + ", checked="
+				+ checked + ", following=" + following + ", followers=" + followers + ", release=" + release
+				+ ", follower=" + follower + ", workers=" + workers + ", invitation=" + invitation + "]";
 	}
 	
 	

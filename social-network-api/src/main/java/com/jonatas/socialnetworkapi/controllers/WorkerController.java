@@ -19,6 +19,8 @@ import com.jonatas.socialnetworkapi.services.WorkerService;
 @RestController
 @RequestMapping("/workers")
 public class WorkerController {
+	
+	//services
 
 	@Autowired
 	private WorkerService workerService;
@@ -30,6 +32,11 @@ public class WorkerController {
 		return workerService.findAll();
 	}
 	
+	@GetMapping(value = "get/id/{id}")
+	public ResponseEntity<Worker> findById(@PathVariable String id){
+		return workerService.findById(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post/create")
@@ -39,8 +46,9 @@ public class WorkerController {
 	
 	//delete
 	
-	@DeleteMapping(value = "delete/{id}")
-	public ResponseEntity<Void> delete(@PathVariable String id){
-		return workerService.delete(id);
+	@DeleteMapping(value = "delete/worker/{idWorker}/user/{idUser}")
+	public ResponseEntity<Void> delete(@PathVariable String idWorker, @PathVariable String idUser){
+		return workerService.delete(idWorker, idUser);
+	
 	}
 }

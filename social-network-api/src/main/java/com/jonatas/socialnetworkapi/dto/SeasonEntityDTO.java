@@ -6,12 +6,16 @@ import com.jonatas.socialnetworkapi.entities.Season;
 
 public class SeasonEntityDTO {
 
+	//attributes
+	
 	private String id;
 	private String name;
 	private String image;
 	private Date release;
 	private int number;
 	private int episode = 0;
+	
+	//builders
 	
 	public SeasonEntityDTO() {
 		super();
@@ -35,6 +39,8 @@ public class SeasonEntityDTO {
 		this.number = season.getNumber();
 		this.episode = season.getEpisode();
 	}
+	
+	//getters and setters
 
 	public String getId() {
 		return id;

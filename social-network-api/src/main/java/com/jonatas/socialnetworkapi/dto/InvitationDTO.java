@@ -10,10 +10,14 @@ import com.jonatas.socialnetworkapi.entities.User;
 public class InvitationDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	//attributes
+	
 	private String id;
 	private String value;
 	private UserMiniDTO user;
 	private List<User> invited = new ArrayList<>();
+	
+	//builders
 	
 	public InvitationDTO() {
 		super();
@@ -35,6 +39,8 @@ public class InvitationDTO implements Serializable{
 		this.invited = invitation.getInvited();
 	}
 
+	//getters and setters
+	
 	public String getId() {
 		return id;
 	}

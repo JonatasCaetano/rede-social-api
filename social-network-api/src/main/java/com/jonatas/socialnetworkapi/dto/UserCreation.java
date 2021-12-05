@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 import com.jonatas.socialnetworkapi.entities.User;
 
-public class CreationUser  implements Serializable{
+public class UserCreation  implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
+	//attributes
 	
 	private String id;
 	private String name;
@@ -13,11 +15,13 @@ public class CreationUser  implements Serializable{
 	private String invitation;
 	private String password;
 
-	public CreationUser() {
+	//builders
+	
+	public UserCreation() {
 		super();
 	}
 	
-	public CreationUser(String id, String name, String email, String invitation, String password) {
+	public UserCreation(String id, String name, String email, String invitation, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -26,13 +30,16 @@ public class CreationUser  implements Serializable{
 		this.password = password;
 	}
 
-	public CreationUser(User user) {
+	public UserCreation(User user) {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
 		this.email = user.getEmail();
+		this.invitation = user.getInvitation().getValue() != null ? user.getInvitation().getValue() : null;
 		this.password = user.getPassword();
 	}
+	
+	//getters and setters
 
 	public String getId() {
 		return id;

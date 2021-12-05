@@ -7,8 +7,12 @@ import com.jonatas.socialnetworkapi.entities.Worker;
 public class WorkerEntityDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+	
 	private UserMiniDTO user;
 	private String role;
+	
+	//builders
 	
 	public WorkerEntityDTO() {
 		super();
@@ -25,6 +29,8 @@ public class WorkerEntityDTO implements Serializable{
 		this.user = new UserMiniDTO(worker.getUser());
 		this.role = worker.getRole();
 	}
+	
+	//getters and setters
 
 	public UserMiniDTO getUser() {
 		return user;

@@ -31,7 +31,7 @@ public class EpisodeController {
 	
 	//post
 	
-	@PostMapping(value = "post/{idUser}/{idSeason}")
+	@PostMapping(value = "post/user/{idUser}/season/{idSeason}")
 	public ResponseEntity<Episode> newEpisode(@RequestBody EpisodeDTO episodeDTO, @PathVariable String idUser, @PathVariable String idSeason){
 		return episodeService.newEpisode(episodeDTO, idUser, idSeason);
 	}

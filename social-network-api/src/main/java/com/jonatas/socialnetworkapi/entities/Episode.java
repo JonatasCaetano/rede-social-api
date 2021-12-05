@@ -15,6 +15,8 @@ import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
 public class Episode implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+	
 	@Id
 	private String id;
 	private String name;
@@ -27,6 +29,8 @@ public class Episode implements Serializable{
 	@JsonManagedReference
 	private Season season;
 
+	//builders
+	
 	public Episode() {
 		super();
 	}
@@ -50,6 +54,8 @@ public class Episode implements Serializable{
 		this.release = episodeDTO.getRelease();
 		this.number = episodeDTO.getNumber();
 	}
+	
+	//getters and setters
 
 	public String getName() {
 		return name;
@@ -102,6 +108,8 @@ public class Episode implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	//hashCode and equals
 
 	@Override
 	public int hashCode() {

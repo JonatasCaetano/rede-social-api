@@ -18,6 +18,8 @@ import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 public class Season implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+	
 	@Id
 	private String id;
 	private String name;
@@ -34,6 +36,8 @@ public class Season implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Episode> episodes = new ArrayList<>(); 
+	
+	//builders
 	
 	public Season() {
 		super();
@@ -57,6 +61,8 @@ public class Season implements Serializable{
 		this.release = seasonDTO.getRelease();
 		this.number = seasonDTO.getNumber();
 	}
+	
+	//getters and setters
 	
 	public String getId() {
 		return id;
@@ -122,6 +128,8 @@ public class Season implements Serializable{
 		return episodes;
 	}
 
+	//hashCode and equals
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(number);

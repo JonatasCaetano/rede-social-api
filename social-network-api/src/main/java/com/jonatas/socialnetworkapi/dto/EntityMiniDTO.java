@@ -7,10 +7,14 @@ import com.jonatas.socialnetworkapi.entities.Entity;
 public class EntityMiniDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+	
 	private String id;
 	private String name;
 	private String image;
 	private String description;
+	
+	//builders
 	
 	public EntityMiniDTO() {
 		super();
@@ -31,6 +35,8 @@ public class EntityMiniDTO implements Serializable{
 		this.setImage(entity.getImage());
 		this.description = entity.getDescription();
 	}
+	
+	//getters and setters
 
 	public String getId() {
 		return id;

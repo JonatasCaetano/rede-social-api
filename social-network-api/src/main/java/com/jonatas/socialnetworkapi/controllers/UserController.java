@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.CreationUser;
+import com.jonatas.socialnetworkapi.dto.UserCreation;
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.entities.User;
@@ -20,6 +20,8 @@ import com.jonatas.socialnetworkapi.services.UserService;
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
+	
+	//services
 
 	@Autowired
 	private UserService userService;
@@ -29,6 +31,11 @@ public class UserController {
 	@GetMapping(value = "get/all")
 	public ResponseEntity<List<User>> findAll() {
 		return userService.findAll();
+	}
+	
+	@GetMapping(value = "get/id/{id}")
+	public ResponseEntity<User> findById(@PathVariable String id){
+		return userService.findById(id);
 	}
 	
 	@GetMapping(value = "get/auth")
@@ -44,8 +51,10 @@ public class UserController {
 	
 	//post
 	
-	@PostMapping(value = "post/user")
-	public ResponseEntity<CreationUser> saveUser(@RequestBody CreationUser creationUser){
-		return userService.saveUser(new User(creationUser), creationUser.getInvitation());
+	@PostMapping(value = "post")
+	public ResponseEntity<Object> createUser(@RequestBody UserCreation creationUser){
+		return userService.createUser(creationUser);
 	}
+	
+
 }

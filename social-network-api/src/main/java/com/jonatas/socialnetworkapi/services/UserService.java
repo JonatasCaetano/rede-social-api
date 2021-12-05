@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.CreationUser;
+import com.jonatas.socialnetworkapi.dto.UserCreation;
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
@@ -19,6 +19,8 @@ import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
 public class UserService {
+	
+	//repositories
 
 	@Autowired
 	private UserRepository userRepository;
@@ -26,12 +28,25 @@ public class UserService {
 	@Autowired
 	private FollowerRepository followerRepository;
 	
+	//services
+	
 	@Autowired
 	private InvitationService invitationService;
+		
+	//methods
 	
 	public ResponseEntity<List<User>> findAll() {
 		List<User> users = userRepository.findAll();
 		return ResponseEntity.ok().body(users);
+	}
+	
+	public ResponseEntity<User> findById(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			return ResponseEntity.ok().body(user);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	public ResponseEntity<Object> auth(UserAuthDTO userAuthDTO){
@@ -47,19 +62,40 @@ public class UserService {
 		}
 	}	
 	
-	public ResponseEntity<CreationUser> saveUser(User user, String invitation){
-	
+	public ResponseEntity<Object> createUser(UserCreation userCreation){
 		try {
-			User obj = userRepository.insert(user);
-			invitationService.addInvited(obj.getId(), invitation);
-			Follower follower = followerRepository.insert(new Follower(null, obj));
-			obj.setFollower(follower);
-			userRepository.save(obj);
-			invitationService.createdInvitation(obj.getId());
-			CreationUser creationUser = new CreationUser(obj);
-			return ResponseEntity.created(null).body(creationUser);
+			try {
+				String[] name = userCreation.getName().split(" ");
+				String name1 = name[0];
+				String name2 = name[1];
+				if(name1.length() <= 3 || name2.length() <= 4) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}catch (RuntimeException e) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			if(testEmail(userCreation.getEmail())) {
+				return ResponseEntity.badRequest().body(userCreation.getEmail());
+			}else {
+				if(!invitationService.checkAvailability(userCreation.getInvitation()).getBody()) {
+					return ResponseEntity.badRequest().body(userCreation.getInvitation());
+				}else {
+					User obj = userRepository.insert(new User(userCreation));
+					invitationService.addInvited(obj, userCreation.getInvitation());
+					//change followerRepository to followerService
+					Follower follower = followerRepository.insert(new Follower(null, obj));
+					obj.setFollower(follower);
+					userRepository.save(obj);
+					System.out.println("---");
+					obj = invitationService.createdInvitation(obj).getBody();
+					userRepository.save(obj);
+					UserCreation creationUser = new UserCreation(obj);
+					return ResponseEntity.created(null).body(creationUser);
+					
+				}
+			}
 		}catch(RuntimeException e) {
-			e.printStackTrace();
+			System.out.println("erro no try");
 			return ResponseEntity.badRequest().build();
 		}
 	}
@@ -76,6 +112,26 @@ public class UserService {
 			return ResponseEntity.ok().body(workerUserDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<User> save(User user){
+		try {
+			User obj = userRepository.save(user);
+			return ResponseEntity.accepted().body(obj);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public boolean testEmail(String email) {
+		try {
+			User user = userRepository.findByEmail(email);
+			user.getId();
+			user.getName();
+			return true;
+		}catch (RuntimeException e) {
+			return false;
 		}
 	}
 }

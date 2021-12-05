@@ -33,29 +33,29 @@ public class FollowerController {
 		return followerService.findByUser(id);
 	}
 	
-	@GetMapping(value = "get/{id}")
+	@GetMapping(value = "get/id/{id}")
 	public ResponseEntity<Follower> findById(@PathVariable String id){
 		return followerService.findById(id);
 	}
 	
-	@GetMapping(value = "get/followings/all/{userId}")
+	@GetMapping(value = "get/followings/all/user/{userId}")
 	public ResponseEntity<List<UserMiniDTO>> getAllFollowing(@PathVariable String userId){
 		return followerService.getAllFollowing(userId);
 	}
 	
-	@GetMapping(value = "get/followers/all/{userId}")
+	@GetMapping(value = "get/followers/all/user/{userId}")
 	public ResponseEntity<List<UserMiniDTO>> getAllFollower(@PathVariable String userId){
 		return followerService.getAllFollower(userId);
 	}
 	
 	//post
 	
-	@PostMapping(value = "post/add/{followerId}/{followingId}")
+	@PostMapping(value = "post/add/follower/{followerId}/following/{followingId}")
 	public ResponseEntity<Void> addFollowing(@PathVariable String followerId, @PathVariable String followingId){
 		return followerService.addFollowing(followerId, followingId);
 	}
 	
-	@PostMapping(value = "post/remove/{followerId}/{followingId}")
+	@PostMapping(value = "post/remove/follower/{followerId}/following/{followingId}")
 	public ResponseEntity<Void> removeFollowing(@PathVariable String followerId, @PathVariable String followingId){
 		return followerService.removeFollowing(followerId, followingId);
 	}

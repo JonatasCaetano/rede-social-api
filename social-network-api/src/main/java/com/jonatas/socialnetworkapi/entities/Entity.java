@@ -17,6 +17,8 @@ import com.jonatas.socialnetworkapi.dto.EntityMiniDTO;
 public class Entity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+	
 	@Id
 	private String id;
 	private String name;
@@ -26,6 +28,8 @@ public class Entity implements Serializable{
 	private int type;
 	private Date release;
 	private int season = 0;
+	
+	//builders
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -52,6 +56,8 @@ public class Entity implements Serializable{
 		this.name = entityMiniDTO.getName();
 		this.description = entityMiniDTO.getDescription();
 	}
+	
+	//getters and setters
 
 	public String getName() {
 		return name;
@@ -120,6 +126,8 @@ public class Entity implements Serializable{
 	public void setSeason(int season) {
 		this.season = season;
 	}
+	
+	//hashCode and equals
 	
 	@Override
 	public int hashCode() {

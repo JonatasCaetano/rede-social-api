@@ -5,9 +5,13 @@ import java.io.Serializable;
 public class WorkerDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+	
 	private String user;
 	private String entity;
 	private String role;
+	
+	//builders
 	
 	public WorkerDTO() {
 		super();
@@ -19,6 +23,8 @@ public class WorkerDTO implements Serializable{
 		this.entity = entity;
 		this.role = role;
 	}
+	
+	//getters and setters
 
 	public String getUser() {
 		return user;

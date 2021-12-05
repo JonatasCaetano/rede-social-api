@@ -12,21 +12,25 @@ import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
-import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
-import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
 public class SeasonService {
 
+	//repositories
+	
 	@Autowired
 	private SeasonRepository seasonRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
+	//services
 	
 	@Autowired
-	private EntityRepository entityRepository;
+	private UserService userService;
+	
+	@Autowired
+	private EntityService entityService;
+	
+	//methods
 	
 	public ResponseEntity<List<SeasonDTO>> findAll(){
 		List<Season> seasons = seasonRepository.findAll();
@@ -38,10 +42,28 @@ public class SeasonService {
 		return ResponseEntity.ok().body(seasonDTOs);
 	}
 	
+	public ResponseEntity<Season> findById(String id){
+		try {
+			Season season = seasonRepository.findById(id).get();
+			return ResponseEntity.ok().body(season);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Season> save(Season season){
+		try {
+			Season obj = seasonRepository.save(season);
+			return ResponseEntity.accepted().body(obj);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	public ResponseEntity<Season> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
 		try {
-			User user = userRepository.findById(idUser).get();
-			Entity entity = entityRepository.findById(idEntity).get();
+			User user = userService.findById(idUser).getBody();
+			Entity entity = entityService.findById(idEntity).getBody();
 			Season season = new Season(seasonDTO);
 			List<Season> seasons = entity.getSeasons();
 			if(user.isChecked()) {
@@ -53,7 +75,7 @@ public class SeasonService {
 						Season obj = seasonRepository.insert(season);
 						entity.getSeasons().add(obj);
 						entity.setSeason(entity.getSeason() + 1);
-						entityRepository.save(entity);
+						entityService.save(entity);
 						return ResponseEntity.created(null).body(obj);
 					}catch(RuntimeException e) {
 						return ResponseEntity.badRequest().build();

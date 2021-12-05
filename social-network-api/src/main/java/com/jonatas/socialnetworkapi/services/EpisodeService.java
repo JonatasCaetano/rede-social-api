@@ -13,20 +13,24 @@ import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
-import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
-import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
 public class EpisodeService {
 
+	//repositories
+	
 	@Autowired
 	private EpisodeRepository episodeRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
+	//services
 	
 	@Autowired
-	private SeasonRepository seasonRepository;
+	private UserService userService;
+	
+	@Autowired
+	private SeasonService seasonService;
+	
+	//methods
 	
 	public ResponseEntity<List<EpisodeDTO>> findAll(){
 		List<Episode> episodes = episodeRepository.findAll();
@@ -40,8 +44,8 @@ public class EpisodeService {
 	
 	public ResponseEntity<Episode> newEpisode(EpisodeDTO episodeDTO, String idUser, String idSeason){
 		try {
-			User user = userRepository.findById(idUser).get();
-			Season season = seasonRepository.findById(idSeason).get();
+			User user = userService.findById(idUser).getBody();
+			Season season = seasonService.findById(idSeason).getBody();
 			Episode episode = new Episode(episodeDTO);
 			List<Episode> episodes = season.getEpisodes();
 			if(user.isChecked()) {
@@ -53,7 +57,7 @@ public class EpisodeService {
 					Episode obj = episodeRepository.insert(episode);
 					season.getEpisodes().add(obj);
 					season.setEpisode(season.getEpisode() + 1);
-					seasonRepository.save(season);
+					seasonService.save(season);
 					return ResponseEntity.created(null).body(obj);
 				}catch(RuntimeException e) {
 					return ResponseEntity.badRequest().build();

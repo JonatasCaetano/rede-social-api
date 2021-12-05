@@ -16,6 +16,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class Invitation implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//attributes
+	
 	@Id
 	private String id;
 	
@@ -31,6 +33,8 @@ public class Invitation implements Serializable{
 	@JsonManagedReference
 	private List<User>  invited = new ArrayList<>();
 	
+	//builders
+	
 	public Invitation() {
 		
 	}
@@ -40,6 +44,8 @@ public class Invitation implements Serializable{
 		this.user = user;
 		this.value = value;
 	}
+	
+	//getters and setters
 
 	public User getUser() {
 		return user;
@@ -72,6 +78,8 @@ public class Invitation implements Serializable{
 	public void setRelease(Date release) {
 		this.release = release;
 	}
+	
+	//hashCode and equals
 
 	@Override
 	public int hashCode() {

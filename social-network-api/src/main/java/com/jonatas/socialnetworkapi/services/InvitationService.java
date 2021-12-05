@@ -13,16 +13,16 @@ import com.jonatas.socialnetworkapi.dto.InvitationDTO;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
-import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
 public class InvitationService {
 
-	@Autowired
-	private InvitationRepository invitationRepository;
+	//repositories
 	
 	@Autowired
-	private UserRepository userRepository;
+	private InvitationRepository invitationRepository;
+		
+	//methods
 	
 	public ResponseEntity<List<InvitationDTO>> findAll(){
 		List<Invitation> list = invitationRepository.findAll();
@@ -44,29 +44,39 @@ public class InvitationService {
 	}
 	
 	
-	public Invitation createdInvitation(String id) {
+	public ResponseEntity<User> createdInvitation(User user) {
+		String nameFinal;
 		Random random = new Random();
 		int numero = random.nextInt(24);
 		int a = (numero - 4 < 0) ? 0 : numero - 4;
 		int b = numero;
-		System.out.println(a);
-		System.out.println(b);
+		System.out.println("a: " + a);
+		System.out.println("b: " + b);
 		try {
-			User user = userRepository.findById(id).get();
 			String nameUser = user.getName();
 			String idUser = user.getId();
-			String invitationFirst = nameUser.substring(0, 4);
+			String[] name = nameUser.split(" ");
+			int name1 = name[0].length();
+			int name2 = name[1].length();
+			System.out.println("name1: " + name1);
+			System.out.println("name2: " + name2);
+			if(name1 >= 4) {
+				nameFinal = name[0].substring(0, 4);
+			}else {
+				nameFinal = name[1].substring(0, 4);
+			}
+			System.out.println(nameFinal);
+			String invitationFirst = nameFinal.substring(0, 4);
 			String invitationLast = idUser.substring(a, b);
 			String invitationTotal = invitationFirst + invitationLast;
 			System.out.println(invitationTotal);
 				while(testInvitation(invitationTotal) == true) {
-					System.out.println("entrou no while");
 					numero = random.nextInt(24);
 					a = (numero - 4 < 0) ? 0 : numero - 4;
 					b = numero;
-					System.out.println(a);
-					System.out.println(b);
-					invitationFirst = nameUser.substring(0, 4);
+					System.out.println("a: " + a);
+					System.out.println("b: " + b);
+					invitationFirst = nameFinal.substring(0, 4);
 					invitationLast = idUser.substring(a, b);
 					invitationTotal = invitationFirst + invitationLast;
 					System.out.println(invitationTotal);
@@ -74,11 +84,9 @@ public class InvitationService {
 				Invitation invitation = new Invitation(null, user, invitationTotal);
 				Invitation result = invitationRepository.insert(invitation);
 				user.setInvitation(result);
-				userRepository.save(user);
-				return result;
+				return ResponseEntity.created(null).body(user);
 
 		}catch (RuntimeException e) {
-			System.out.println("erro lançado: createdInvitation");
 			throw new RuntimeException(e.getMessage());
 		}
 			
@@ -96,32 +104,30 @@ public class InvitationService {
 		}
 		
 		
-		public ResponseEntity<Void> addInvited(String userId, String invitationValue){
+		public ResponseEntity<Void> addInvited(User user, String invitationValue){
 			try {
-				User user = userRepository.findById(userId).get();
 				Invitation invitation = invitationRepository.findByValue(invitationValue);
 				invitation.getInvited().add(user);
 				invitationRepository.save(invitation);
 				return ResponseEntity.accepted().build();
 			}catch(RuntimeException e) {
-				System.out.println("erro lançado: addInvited");
 				throw new RuntimeException(e.getMessage());
 			}
 			
 		}
 		
-		public ResponseEntity<Void> checkAvailability(String invitationValue){
+		public ResponseEntity<Boolean> checkAvailability(String invitationValue){
 			try {
 				Invitation invitation = invitationRepository.findByValue(invitationValue);
 				List<User> list = invitation.getInvited();
 				if(list.size() >= 5) {
 					System.out.println("Lista invited contem: " + list.size());
-					return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();			
+					return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);			
 				}else {
-					return ResponseEntity.accepted().build();
+					return ResponseEntity.accepted().body(true);
 				}
 			}catch(RuntimeException e) {
-				return ResponseEntity.notFound().build();
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);	
 			}
 	
 			

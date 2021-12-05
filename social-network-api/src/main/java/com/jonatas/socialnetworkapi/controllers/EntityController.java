@@ -44,7 +44,7 @@ public class EntityController {
 	//post methods
 	
 	@PostMapping(value = "/post/{id}")
-	public ResponseEntity<Entity> saveEntity(@RequestBody EntityMiniDTO entityMiniDTO, @PathVariable String id){
-		return entityService.saveEntity(new Entity(entityMiniDTO), id);
+	public ResponseEntity<Entity> createEntity(@RequestBody EntityMiniDTO entityMiniDTO, @PathVariable String id){
+		return entityService.createEntity(new Entity(entityMiniDTO), id);
 	}
 }

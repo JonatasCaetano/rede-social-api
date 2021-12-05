@@ -16,20 +16,34 @@ import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
-import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
 public class EntityService {
 
+	//repositories
+	
 	@Autowired
 	private EntityRepository entityRepository;
 	
+	//services
+	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
+	
+	//methods
 	
 	public ResponseEntity<List<Entity>> findAll(){
 		List<Entity> list = entityRepository.findAll();
 		return ResponseEntity.ok().body(list);
+	}
+	
+	public ResponseEntity<Entity> findById(String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			return ResponseEntity.ok().body(entity);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	public ResponseEntity<List<WorkerEntityDTO>> getWorkers(String id){
@@ -62,9 +76,9 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Entity> saveEntity(Entity entity, String id){
+	public ResponseEntity<Entity> createEntity(Entity entity, String id){
 		try {
-			User user = userRepository.findById(id).get();
+			User user = userService.findById(id).getBody();
 			if(user.isChecked()) {
 				try {
 					Entity obj = entityRepository.insert(entity);
@@ -80,5 +94,14 @@ public class EntityService {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 		
+	}
+	
+	public ResponseEntity<Entity> save(Entity entity){
+		try {
+			Entity obj = entityRepository.save(entity);
+			return ResponseEntity.ok().body(obj);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 }

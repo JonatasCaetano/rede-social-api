@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -14,6 +15,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Document
 public class Follower implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
+	//attributes
 	
 	@Id
 	private String id;
@@ -28,6 +31,8 @@ public class Follower implements Serializable{
 	@JsonManagedReference
 	private List<User> following = new ArrayList<>();
 
+	//builders
+
 	public Follower() {
 		
 	}
@@ -37,6 +42,8 @@ public class Follower implements Serializable{
 		this.id = id;
 		this.user = user;
 	}
+	
+	//getters and setters
 
 	public User getUser() {
 		return user;
@@ -65,7 +72,26 @@ public class Follower implements Serializable{
 	public void setRelease(Date release) {
 		this.release = release;
 	}
+	
+	//hashCode and equals
 
-		
+	@Override
+	public int hashCode() {
+		return Objects.hash(user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Follower other = (Follower) obj;
+		return Objects.equals(user, other.user);
+	}
+
+	
 	
 }

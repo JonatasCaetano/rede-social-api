@@ -20,10 +20,12 @@ import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
+import com.jonatas.socialnetworkapi.services.EntityService;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 import com.jonatas.socialnetworkapi.services.SeasonService;
+import com.jonatas.socialnetworkapi.services.UserService;
 import com.jonatas.socialnetworkapi.services.WorkerService;
 
 @Configuration
@@ -54,12 +56,12 @@ public class Instantiation implements CommandLineRunner{
 	
 	//Services
 	
-//	@Autowired
-//	private UserService userService;
-//	
-//	@Autowired
-//	private EntityService entityService;
-//	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private EntityService entityService;
+	
 	@Autowired
 	private WorkerService workerService;
 	
@@ -88,9 +90,9 @@ public class Instantiation implements CommandLineRunner{
 		seasonRepository.deleteAll();
 		episodeRepository.deleteAll();
 
-		User user1 = new User("marley", "marley@gmail.com","123456", null, "um cachorro legal");//123456
-		User user2 = new User("bela", "bela@gmail.com","654351", null, "viciada em bola");//654351
-		User user3 = new User("melisa", "mel@gmail.com","681236", null, "a menina da vovó");//681236
+		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal");//123456
+		User user2 = new User("bela caetano", "bela@gmail.com","654351", null, "viciada em bola");//654351
+		User user3 = new User("mel alexandre", "mel@gmail.com","681236", null, "a menina da vovó");//681236
 		
 		userRepository.insert(user1);
 		userRepository.insert(user2);
@@ -109,9 +111,9 @@ public class Instantiation implements CommandLineRunner{
 		user3.setFollower(follower3);
 		userRepository.save(user3);
 		
-		invitationService.createdInvitation(user1.getId());
-		invitationService.createdInvitation(user2.getId());
-		invitationService.createdInvitation(user3.getId());
+		invitationService.createdInvitation(user1);
+		invitationService.createdInvitation(user2);
+		invitationService.createdInvitation(user3);
 		
 		Entity entity1 = new Entity("Vingadores", "Loki (Tom Hiddleston) retorna à Terra enviado pelos chitauri, uma raça alienígena que pretende dominar os humanos.", null, "2012", 0);
 		Entity entity2 = new Entity("O Senhor dos Anéis - A Sociedade do Anel", "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal.", null, "2001", 0 );

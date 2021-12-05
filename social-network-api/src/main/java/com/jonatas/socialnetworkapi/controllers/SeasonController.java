@@ -19,6 +19,8 @@ import com.jonatas.socialnetworkapi.services.SeasonService;
 @RequestMapping(value = "/seasons")
 public class SeasonController {
 
+	//services
+	
 	@Autowired
 	private SeasonService seasonService;
 	
@@ -31,7 +33,7 @@ public class SeasonController {
 	
 	//post
 	
-	@PostMapping(value = "post/{idUser}/{idEntity}")
+	@PostMapping(value = "post/user/{idUser}/entity/{idEntity}")
 	public ResponseEntity<Season> newSeason(@RequestBody SeasonDTO seasonDTO, @PathVariable String idUser, @PathVariable String idEntity){
 		return seasonService.newSeason(seasonDTO, idUser, idEntity);
 	}
