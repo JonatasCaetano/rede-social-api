@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
-import com.jonatas.socialnetworkapi.dto.SeasonEntityDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
@@ -31,6 +32,7 @@ public class EntityService {
 	//services
 	
 	@Autowired
+	@Lazy
 	private UserService userService;
 		
 	//methods
@@ -73,12 +75,12 @@ public class EntityService {
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			List<Season> seasons = entity.getSeasons();
-			List<SeasonEntityDTO> seasonEntityDTOs = new ArrayList<>();
+			List<SeasonMiniDTO> seasonMiniDTOs = new ArrayList<>();
 			for(Season season : seasons) {
-				SeasonEntityDTO seasonEntityDTO = new SeasonEntityDTO(season);
-				seasonEntityDTOs.add(seasonEntityDTO);
+				SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+				seasonMiniDTOs.add(seasonMiniDTO);
 			}
-			return ResponseEntity.ok().body(seasonEntityDTOs);
+			return ResponseEntity.ok().body(seasonMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.noContent().build();
 		}

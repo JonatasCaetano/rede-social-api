@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
-import com.jonatas.socialnetworkapi.dto.UserCreation;
+import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @RestController
@@ -35,8 +35,8 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "get/auth")
-	public ResponseEntity<Object> auth(@RequestBody UserAuthDTO userAuthDTO){
-		return userService.auth(userAuthDTO);
+	public ResponseEntity<Object> login(@RequestBody UserAuthDTO userAuthDTO){
+		return userService.login(userAuthDTO);
 		
 	}
 	
@@ -53,7 +53,7 @@ public class UserController {
 	//post
 	
 	@PostMapping(value = "post")
-	public ResponseEntity<Object> createUser(@RequestBody UserCreation creationUser){
+	public ResponseEntity<Object> createUser(@RequestBody UserCreationDTO creationUser){
 		return userService.createUser(creationUser);
 	}
 	

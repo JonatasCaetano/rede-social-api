@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.dto.UserCreation;
+import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 
 @Document
 public class User implements Serializable{
@@ -67,7 +67,7 @@ public class User implements Serializable{
 		this.city = city;
 	}
 
-	public User(UserCreation creationUser) {
+	public User(UserCreationDTO creationUser) {
 		super();
 		this.name = creationUser.getName();
 		this.email = creationUser.getEmail();

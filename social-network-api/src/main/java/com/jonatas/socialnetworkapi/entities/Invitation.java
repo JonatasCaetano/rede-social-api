@@ -98,8 +98,12 @@ public class Invitation implements Serializable{
 		return Objects.equals(value, other.value);
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "Invitation [id=" + id + ", release=" + release + ", value=" + value + ", user=" + user + ", invited="
+				+ invited + "]";
+	}
+
 	
 	
 

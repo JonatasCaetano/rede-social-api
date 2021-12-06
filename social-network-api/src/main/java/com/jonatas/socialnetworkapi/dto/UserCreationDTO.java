@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import com.jonatas.socialnetworkapi.entities.User;
 
-public class UserCreation  implements Serializable{
+public class UserCreationDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	//attributes
@@ -17,11 +17,11 @@ public class UserCreation  implements Serializable{
 
 	//builders
 	
-	public UserCreation() {
+	public UserCreationDTO() {
 		super();
 	}
 	
-	public UserCreation(String name, String email, String invitation, String password) {
+	public UserCreationDTO(String name, String email, String invitation, String password) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -29,7 +29,7 @@ public class UserCreation  implements Serializable{
 		this.password = password;
 	}
 
-	public UserCreation(User user) {
+	public UserCreationDTO(User user) {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
@@ -80,6 +80,13 @@ public class UserCreation  implements Serializable{
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "UserCreationDTO [id=" + id + ", name=" + name + ", email=" + email + ", invitation=" + invitation
+				+ ", password=" + password + "]";
+	}
+
+	
 
 	
 }

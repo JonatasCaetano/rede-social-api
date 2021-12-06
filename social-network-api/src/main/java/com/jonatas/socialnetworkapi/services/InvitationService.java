@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class InvitationService {
 	
 	@Autowired
 	private InvitationRepository invitationRepository;
+	
+	@Autowired
+	@Lazy
+	private FollowerService followerService;
 		
 	//methods
 	
@@ -108,7 +113,7 @@ public class InvitationService {
 			try {
 				Invitation invitation = invitationRepository.findByValue(invitationValue);
 				invitation.getInvited().add(user);
-				invitationRepository.save(invitation);
+				invitationRepository.save(invitation);			
 				return ResponseEntity.accepted().build();
 			}catch(RuntimeException e) {
 				throw new RuntimeException(e.getMessage());
@@ -131,6 +136,16 @@ public class InvitationService {
 			}
 	
 			
+		}
+		
+		public ResponseEntity<Object> returnUser(String value){
+			try {
+				Invitation invitation = invitationRepository.findByValue(value);
+				User user = invitation.getUser();
+				return ResponseEntity.ok().body(user);
+			}catch (RuntimeException e) {
+				throw new RuntimeException(e.getMessage());
+			}
 		}
 	
 	

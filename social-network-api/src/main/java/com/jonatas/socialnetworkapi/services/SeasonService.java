@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
+import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
@@ -28,9 +31,11 @@ public class SeasonService {
 	//services
 	
 	@Autowired
+	@Lazy
 	private UserService userService;
 	
 	@Autowired
+	@Lazy
 	private EntityService entityService;
 	
 	//methods
@@ -105,4 +110,20 @@ public class SeasonService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	public ResponseEntity<Object> findAllEpisodes(String id){
+		try {
+			Season season = seasonRepository.findById(id).get();
+			List<Episode> episodes = season.getEpisodes();
+			List<EpisodeMiniDTO> episodeMiniDTOs = new ArrayList<>();
+			for(Episode episode : episodes) {
+				EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(episode);
+				episodeMiniDTOs.add(episodeMiniDTO);
+			}
+			return ResponseEntity.ok().body(episodeMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 }

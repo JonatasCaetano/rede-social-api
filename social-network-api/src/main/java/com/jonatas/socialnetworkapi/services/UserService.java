@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EvaluationUserDTO;
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
-import com.jonatas.socialnetworkapi.dto.UserCreation;
+import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
+import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
-import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
@@ -28,12 +29,14 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-	private FollowerRepository followerRepository;
-		
 	//services
 	
 	@Autowired
+	@Lazy
+	private FollowerService followerService;
+	
+	@Autowired
+	@Lazy
 	private InvitationService invitationService;
 		
 	//methods
@@ -57,7 +60,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Object> auth(UserAuthDTO userAuthDTO){
+	public ResponseEntity<Object> login(UserAuthDTO userAuthDTO){
 		try {
 			User user = userRepository.findByEmail(userAuthDTO.getEmail());
             if(userAuthDTO.getPassword().hashCode() == user.getPassword().hashCode()) {
@@ -70,13 +73,15 @@ public class UserService {
 		}
 	}	
 	
-	public ResponseEntity<Object> createUser(UserCreation userCreation){
+	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){
+		System.out.println("---");
+		System.out.println(userCreation);
 		try {
 			try {
 				String[] name = userCreation.getName().split(" ");
 				String name1 = name[0];
 				String name2 = name[1];
-				if(name1.length() <= 3 || name2.length() <= 4) {
+				if(name1.length() < 3 || name2.length() < 4) {
 					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 				}
 			}catch (RuntimeException e) {
@@ -90,15 +95,17 @@ public class UserService {
 				}else {
 					User obj = userRepository.insert(new User(userCreation));
 					invitationService.addInvited(obj, userCreation.getInvitation());
-					//change followerRepository to followerService
-					Follower follower = followerRepository.insert(new Follower(null, obj));
+					User user = (User) invitationService.returnUser(userCreation.getInvitation()).getBody();			
+					Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
 					obj.setFollower(follower);
 					userRepository.save(obj);
-					System.out.println("---");
+					if(user.getId() != null) {
+						followerService.addFollowing(obj.getId(), user.getId());
+						followerService.addFollowing(user.getId(), obj.getId());
+						}
 					obj = (User) invitationService.createdInvitation(obj).getBody();
 					userRepository.save(obj);
-					UserCreation creationUser = new UserCreation(obj);
-					return ResponseEntity.created(null).body(creationUser);
+					return ResponseEntity.created(null).body(obj);
 					
 				}
 			}
