@@ -20,14 +20,14 @@ public class EpisodeMiniDTO {
 	}
 
 	public EpisodeMiniDTO(String id, String name, String image, String description, int number,
-		double evaluationAverage) {
-		super();
+			double evaluationAverage) {
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.description = description;
 		this.number = number;
 		this.evaluationAverage = evaluationAverage;
+
 	}
 
 	public EpisodeMiniDTO(Episode episode) {

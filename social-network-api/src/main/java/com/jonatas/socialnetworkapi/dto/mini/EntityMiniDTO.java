@@ -11,6 +11,7 @@ public class EntityMiniDTO {
 	private String image;
 	private String description;
 	private double evaluationAverage = 0.0;
+	private int season = 0;
 	
 	//builders
 	
@@ -18,13 +19,15 @@ public class EntityMiniDTO {
 		super();
 	}
 
-	public EntityMiniDTO(String id, String name, String image, String description, double evaluationAverage) {
+	public EntityMiniDTO(String id, String name, String image, String description, double evaluationAverage,
+			int season) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.image = image;
 		this.description = description;
 		this.evaluationAverage = evaluationAverage;
+		this.season = season;
 	}
 
 	public EntityMiniDTO(Entity entity) {
@@ -34,6 +37,7 @@ public class EntityMiniDTO {
 		this.image = entity.getImage();
 		this.description = entity.getDescription();
 		this.evaluationAverage = entity.getEvaluationAverage();
+		this.season = entity.getSeason();
 	}
 	
 	//getters and setters
@@ -76,6 +80,14 @@ public class EntityMiniDTO {
 
 	public void setEvaluationAverage(double evaluationAverage) {
 		this.evaluationAverage = evaluationAverage;
+	}
+
+	public int getSeason() {
+		return season;
+	}
+
+	public void setSeason(int season) {
+		this.season = season;
 	}
 	
 	
