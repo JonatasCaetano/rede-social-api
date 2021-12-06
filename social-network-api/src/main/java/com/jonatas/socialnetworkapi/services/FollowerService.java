@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.UserMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
@@ -27,7 +27,7 @@ public class FollowerService {
 	
 	//methods
 	
-	public ResponseEntity<List<Follower>> findAll(){
+	public ResponseEntity<Object> findAll(){
 		try {		
 			List<Follower> followers = followerRepository.findAll();
 			return ResponseEntity.ok().body(followers);
@@ -36,7 +36,7 @@ public class FollowerService {
 		}
 	}
 	
-	public ResponseEntity<Follower> findById(String id) {
+	public ResponseEntity<Object> findById(String id) {
 		try {		
 			Follower follower = followerRepository.findById(id).get();
 			return ResponseEntity.ok().body(follower);
@@ -45,9 +45,9 @@ public class FollowerService {
 		}
 	}
 	
-	public ResponseEntity<Follower> findByUser(String id) {
+	public ResponseEntity<Object> findByUser(String id) {
 		try {		
-			User user = userService.findById(id).getBody();
+			User user = (User) userService.findById(id).getBody();
 			Follower follower = followerRepository.findByUser(user);
 			return ResponseEntity.ok().body(follower);
 		}catch(RuntimeException e) {
@@ -57,17 +57,17 @@ public class FollowerService {
 	
 	public ResponseEntity<Void> addFollowing(String followerId, String followingId){
 		try {
-			User userFollower = userService.findById(followerId).getBody();
-			User userFollowing = userService.findById(followingId).getBody();
+			User userFollower = (User) userService.findById(followerId).getBody();
+			User userFollowing = (User) userService.findById(followingId).getBody();
 			Follower follower = followerRepository.findByUser(userFollower);
 			if(follower.getFollowing().contains(userFollowing)) {
 				return ResponseEntity.ok().build();
 			}else {
 				follower.getFollowing().add(userFollowing);
 				followerRepository.save(follower);
-				userFollower.setFollowing(userFollower.getFollowing() + 1);
+				userFollower.setFollowing(1);
 				userService.save(userFollower);
-				userFollowing.setFollowers(userFollowing.getFollowers() + 1);
+				userFollowing.setFollowers(1);
 				userService.save(userFollowing);
 				return ResponseEntity.accepted().build();
 			}
@@ -79,17 +79,17 @@ public class FollowerService {
 	
 	public ResponseEntity<Void> removeFollowing(String followerId, String followingId){
 		try {
-			User userFollower = userService.findById(followerId).getBody();
-			User userFollowing = userService.findById(followingId).getBody();
+			User userFollower = (User) userService.findById(followerId).getBody();
+			User userFollowing = (User) userService.findById(followingId).getBody();
 			Follower follower = followerRepository.findByUser(userFollower);
 			if(!follower.getFollowing().contains(userFollowing)) {
 				return ResponseEntity.ok().build();
 			}else {
 				follower.getFollowing().remove(userFollowing);
 				followerRepository.save(follower);
-				userFollower.setFollowing(userFollower.getFollowing() - 1);
+				userFollower.setFollowing(- 1);
 				userService.save(userFollower);
-				userFollowing.setFollowers(userFollowing.getFollowers() - 1);
+				userFollowing.setFollowers(- 1);
 				userService.save(userFollowing);
 				return ResponseEntity.accepted().build();
 			}
@@ -100,9 +100,9 @@ public class FollowerService {
 	}
 	
 	
-	public ResponseEntity<List<UserMiniDTO>> getAllFollowing(String userId){
+	public ResponseEntity<Object> getAllFollowing(String userId){
 		try {
-			User user = userService.findById(userId).getBody();
+			User user = (User) userService.findById(userId).getBody();
 			Follower follower = followerRepository.findByUser(user);
 			List<User> users = follower.getFollowing();
 			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
@@ -119,9 +119,9 @@ public class FollowerService {
 		
 	}
 	
-	public ResponseEntity<List<UserMiniDTO>> getAllFollower(String userId){
+	public ResponseEntity<Object> getAllFollower(String userId){
 		try {
-			User user = userService.findById(userId).getBody();
+			User user = (User) userService.findById(userId).getBody();
 			List<Follower> followers = followerRepository.findAll();
 			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
 			for(Follower follower : followers) {
@@ -137,7 +137,7 @@ public class FollowerService {
 		}
 	}
 	
-	public ResponseEntity<Follower> insert(Follower follower){
+	public ResponseEntity<Object> insert(Follower follower){
 		try {
 			Follower obj = followerRepository.insert(follower);
 			return ResponseEntity.ok().body(obj);

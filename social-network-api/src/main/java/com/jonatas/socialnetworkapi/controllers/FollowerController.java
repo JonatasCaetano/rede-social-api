@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.UserMiniDTO;
-import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 
 @RestController
@@ -24,27 +20,27 @@ public class FollowerController {
 	//get
 	
 	@GetMapping(value = "get/all")
-	public ResponseEntity<List<Follower>> findAll(){
+	public ResponseEntity<Object> findAll(){
 		return followerService.findAll();
 	}
 	
 	@GetMapping(value = "get/user/{id}")
-	public ResponseEntity<Follower> findByUser(@PathVariable String id) {
+	public ResponseEntity<Object> findByUser(@PathVariable String id) {
 		return followerService.findByUser(id);
 	}
 	
 	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Follower> findById(@PathVariable String id){
+	public ResponseEntity<Object> findById(@PathVariable String id){
 		return followerService.findById(id);
 	}
 	
 	@GetMapping(value = "get/followings/all/user/{userId}")
-	public ResponseEntity<List<UserMiniDTO>> getAllFollowing(@PathVariable String userId){
+	public ResponseEntity<Object> getAllFollowing(@PathVariable String userId){
 		return followerService.getAllFollowing(userId);
 	}
 	
 	@GetMapping(value = "get/followers/all/user/{userId}")
-	public ResponseEntity<List<UserMiniDTO>> getAllFollower(@PathVariable String userId){
+	public ResponseEntity<Object> getAllFollower(@PathVariable String userId){
 		return followerService.getAllFollower(userId);
 	}
 	

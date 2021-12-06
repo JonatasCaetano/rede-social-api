@@ -1,11 +1,8 @@
-package com.jonatas.socialnetworkapi.dto;
-
-import java.io.Serializable;
+package com.jonatas.socialnetworkapi.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Entity;
 
-public class EntityMiniDTO implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class EntityMiniDTO {
 	
 	//attributes
 	
@@ -13,6 +10,7 @@ public class EntityMiniDTO implements Serializable{
 	private String name;
 	private String image;
 	private String description;
+	private double evaluationAverage = 0.0;
 	
 	//builders
 	
@@ -20,20 +18,22 @@ public class EntityMiniDTO implements Serializable{
 		super();
 	}
 
-	public EntityMiniDTO(String id, String name, String image, String description) {
+	public EntityMiniDTO(String id, String name, String image, String description, double evaluationAverage) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.setImage(image);
+		this.image = image;
 		this.description = description;
+		this.evaluationAverage = evaluationAverage;
 	}
 
 	public EntityMiniDTO(Entity entity) {
 		super();
 		this.id = entity.getId();
 		this.name = entity.getName();
-		this.setImage(entity.getImage());
+		this.image = entity.getImage();
 		this.description = entity.getDescription();
+		this.evaluationAverage = entity.getEvaluationAverage();
 	}
 	
 	//getters and setters
@@ -68,6 +68,14 @@ public class EntityMiniDTO implements Serializable{
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public double getEvaluationAverage() {
+		return evaluationAverage;
+	}
+
+	public void setEvaluationAverage(double evaluationAverage) {
+		this.evaluationAverage = evaluationAverage;
 	}
 	
 	

@@ -34,7 +34,7 @@ public class Evaluation implements Serializable{
 	@JsonManagedReference
 	private Episode episode;
 	
-	private int value;
+	private double value;
 	private Date release;
 	
 	//builders
@@ -43,9 +43,8 @@ public class Evaluation implements Serializable{
 		super();
 	}
 
-	public Evaluation(String id, User user, Entity entity, Season season, Episode episode, int value, Date release) {
+	public Evaluation(User user, Entity entity, Season season, Episode episode, double value, Date release) {
 		super();
-		this.id = id;
 		this.user = user;
 		this.entity = entity;
 		this.season = season;
@@ -53,7 +52,7 @@ public class Evaluation implements Serializable{
 		this.value = value;
 		this.release = release;
 	}
-
+	
 	//getters and setters
 	
 	public User getUser() {
@@ -88,11 +87,11 @@ public class Evaluation implements Serializable{
 		this.episode = episode;
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 

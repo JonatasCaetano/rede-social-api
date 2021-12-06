@@ -9,7 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
+import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Episode;
+import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
@@ -32,20 +35,29 @@ public class EpisodeService {
 	
 	//methods
 	
-	public ResponseEntity<List<EpisodeDTO>> findAll(){
-		List<Episode> episodes = episodeRepository.findAll();
-		List<EpisodeDTO> episodeDTOs = new ArrayList<>();
-		for(Episode episode : episodes) {
-			EpisodeDTO episodeDTO = new EpisodeDTO(episode);
-			episodeDTOs.add(episodeDTO);
+	public ResponseEntity<Object> findAll(){
+		List<Episode> list = episodeRepository.findAll();
+		List<EpisodeMiniDTO> episodeMiniDTOs = new ArrayList<>();
+		for(Episode episode : list) {
+			EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(episode);
+			episodeMiniDTOs.add(episodeMiniDTO);
 		}
-		return ResponseEntity.ok().body(episodeDTOs);
+		return ResponseEntity.ok().body(episodeMiniDTOs);
 	}
 	
-	public ResponseEntity<Episode> newEpisode(EpisodeDTO episodeDTO, String idUser, String idSeason){
+	public ResponseEntity<Object> findById(String id){
 		try {
-			User user = userService.findById(idUser).getBody();
-			Season season = seasonService.findById(idSeason).getBody();
+			Episode episode = episodeRepository.findById(id).get();
+			return ResponseEntity.ok().body(episode);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> newEpisode(EpisodeDTO episodeDTO, String idUser, String idSeason){
+		try {
+			User user = (User) userService.findById(idUser).getBody();
+			Season season = (Season) seasonService.findById(idSeason).getBody();
 			Episode episode = new Episode(episodeDTO);
 			List<Episode> episodes = season.getEpisodes();
 			if(user.isChecked()) {
@@ -56,7 +68,7 @@ public class EpisodeService {
 					episode.setSeason(season);
 					Episode obj = episodeRepository.insert(episode);
 					season.getEpisodes().add(obj);
-					season.setEpisode(season.getEpisode() + 1);
+					season.setEpisode(1);
 					seasonService.save(season);
 					return ResponseEntity.created(null).body(obj);
 				}catch(RuntimeException e) {
@@ -67,6 +79,30 @@ public class EpisodeService {
 			}
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> save(Episode episode){
+		try {
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getEvaluationsEpisode(String id){
+		try {
+			Episode episode = episodeRepository.findById(id).get();
+			List<Evaluation> evaluations = episode.getEvaluations();
+			List<EvaluationEntityDTO> evaluationEntityDTOs = new ArrayList<>();
+			for(Evaluation evaluation : evaluations) {
+				EvaluationEntityDTO evaluationEntityDTO = new EvaluationEntityDTO(evaluation);
+				evaluationEntityDTOs.add(evaluationEntityDTO);
+			}
+			return ResponseEntity.ok().body(evaluationEntityDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
 	}
 }

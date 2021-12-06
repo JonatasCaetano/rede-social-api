@@ -2,6 +2,7 @@ package com.jonatas.socialnetworkapi.dto;
 
 import java.io.Serializable;
 
+import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Worker;
 
 public class WorkerEntityDTO implements Serializable{

@@ -21,9 +21,8 @@ public class UserCreation  implements Serializable{
 		super();
 	}
 	
-	public UserCreation(String id, String name, String email, String invitation, String password) {
+	public UserCreation(String name, String email, String invitation, String password) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.invitation = invitation;

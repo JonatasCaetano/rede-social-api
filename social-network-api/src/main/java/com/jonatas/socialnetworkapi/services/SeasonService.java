@@ -8,8 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
+import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
+import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
@@ -32,17 +35,17 @@ public class SeasonService {
 	
 	//methods
 	
-	public ResponseEntity<List<SeasonDTO>> findAll(){
-		List<Season> seasons = seasonRepository.findAll();
-		List<SeasonDTO> seasonDTOs = new ArrayList<>();
-		for(Season season : seasons) {
-			SeasonDTO seasonDTO = new SeasonDTO(season);
-			seasonDTOs.add(seasonDTO);
+	public ResponseEntity<Object> findAll(){
+		List<Season> list = seasonRepository.findAll();
+		List<SeasonMiniDTO> seasonMiniDTOs = new ArrayList<>();
+		for(Season season : list) {
+			SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+			seasonMiniDTOs.add(seasonMiniDTO);
 		}
-		return ResponseEntity.ok().body(seasonDTOs);
+		return ResponseEntity.ok().body(seasonMiniDTOs);
 	}
 	
-	public ResponseEntity<Season> findById(String id){
+	public ResponseEntity<Object> findById(String id){
 		try {
 			Season season = seasonRepository.findById(id).get();
 			return ResponseEntity.ok().body(season);
@@ -51,7 +54,7 @@ public class SeasonService {
 		}
 	}
 	
-	public ResponseEntity<Season> save(Season season){
+	public ResponseEntity<Object> save(Season season){
 		try {
 			Season obj = seasonRepository.save(season);
 			return ResponseEntity.accepted().body(obj);
@@ -60,10 +63,10 @@ public class SeasonService {
 		}
 	}
 	
-	public ResponseEntity<Season> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
+	public ResponseEntity<Object> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
 		try {
-			User user = userService.findById(idUser).getBody();
-			Entity entity = entityService.findById(idEntity).getBody();
+			User user = (User) userService.findById(idUser).getBody();
+			Entity entity = (Entity) entityService.findById(idEntity).getBody();
 			Season season = new Season(seasonDTO);
 			List<Season> seasons = entity.getSeasons();
 			if(user.isChecked()) {
@@ -74,7 +77,7 @@ public class SeasonService {
 						season.setEntity(entity);
 						Season obj = seasonRepository.insert(season);
 						entity.getSeasons().add(obj);
-						entity.setSeason(entity.getSeason() + 1);
+						entity.setSeason(1);
 						entityService.save(entity);
 						return ResponseEntity.created(null).body(obj);
 					}catch(RuntimeException e) {
@@ -85,6 +88,21 @@ public class SeasonService {
 			}
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getEvaluationsSeason(String id){
+		try {
+			Season season = seasonRepository.findById(id).get();
+			List<Evaluation> evaluations = season.getEvaluations();
+			List<EvaluationEntityDTO> evaluationEntityDTOs = new ArrayList<>();
+			for(Evaluation evaluation : evaluations) {
+				EvaluationEntityDTO evaluationEntityDTO = new EvaluationEntityDTO(evaluation);
+				evaluationEntityDTOs.add(evaluationEntityDTO);
+			}
+			return ResponseEntity.ok().body(evaluationEntityDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
 	}
 }

@@ -24,7 +24,7 @@ public class InvitationService {
 		
 	//methods
 	
-	public ResponseEntity<List<InvitationDTO>> findAll(){
+	public ResponseEntity<Object> findAll(){
 		List<Invitation> list = invitationRepository.findAll();
 		List<InvitationDTO> invitationDTOs = new ArrayList<>();
 		for(Invitation invitation : list) {
@@ -34,7 +34,7 @@ public class InvitationService {
 		return ResponseEntity.ok().body(invitationDTOs);
 	}
 	
-	public ResponseEntity<InvitationDTO> findByValue(String value){
+	public ResponseEntity<Object> findByValue(String value){
 		try {
 			Invitation invitation = invitationRepository.findByValue(value);
 			return ResponseEntity.ok().body(new InvitationDTO(invitation));
@@ -44,7 +44,7 @@ public class InvitationService {
 	}
 	
 	
-	public ResponseEntity<User> createdInvitation(User user) {
+	public ResponseEntity<Object> createdInvitation(User user) {
 		String nameFinal;
 		Random random = new Random();
 		int numero = random.nextInt(24);

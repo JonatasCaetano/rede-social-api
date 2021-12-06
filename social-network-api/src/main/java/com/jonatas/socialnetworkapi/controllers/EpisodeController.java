@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
-import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
 
 @RestController
@@ -25,14 +22,19 @@ public class EpisodeController {
 	//get
 	
 	@GetMapping(value = "get/all")
-	public ResponseEntity<List<EpisodeDTO>> findAll(){
+	public ResponseEntity<Object> findAll(){
 		return episodeService.findAll();
+	}
+	
+	@GetMapping(value = "get/evaluations/{id}")
+	public ResponseEntity<Object> getEvaluationsEntity(@PathVariable String id){
+		return episodeService.getEvaluationsEpisode(id);
 	}
 	
 	//post
 	
 	@PostMapping(value = "post/user/{idUser}/season/{idSeason}")
-	public ResponseEntity<Episode> newEpisode(@RequestBody EpisodeDTO episodeDTO, @PathVariable String idUser, @PathVariable String idSeason){
+	public ResponseEntity<Object> newEpisode(@RequestBody EpisodeDTO episodeDTO, @PathVariable String idUser, @PathVariable String idSeason){
 		return episodeService.newEpisode(episodeDTO, idUser, idSeason);
 	}
 }

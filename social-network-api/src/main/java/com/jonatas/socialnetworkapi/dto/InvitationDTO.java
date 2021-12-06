@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 

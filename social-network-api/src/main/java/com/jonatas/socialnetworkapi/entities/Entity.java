@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.dto.EntityMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
 
 @Document
 public class Entity implements Serializable{
@@ -28,6 +28,9 @@ public class Entity implements Serializable{
 	private int type;
 	private Date release;
 	private int season = 0;
+	private double evaluationAverage = 0.0;
+	private double evaluationSum = 0.0;
+	private int evaluationQuantity = 0;
 		
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -39,7 +42,7 @@ public class Entity implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
-	private List<Evaluation> evaluation = new ArrayList<>();
+	private List<Evaluation> evaluations = new ArrayList<>();
 	
 	//builders
 	
@@ -128,15 +131,39 @@ public class Entity implements Serializable{
 	}
 
 	public void setSeason(int season) {
-		this.season = season;
+		this.season += season;
 	}
 	
-	public List<Evaluation> getEvaluation() {
-		return evaluation;
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+			
+	public double getEvaluationAverage() {
+		return evaluationAverage;
+	}
+
+	public void setEvaluationAverage() {
+		this.evaluationAverage = this.evaluationSum / this.evaluationQuantity;
+	}
+
+	public double getEvaluationSum() {
+		return evaluationSum;
+	}
+
+	public void setEvaluationSum(double evaluationSum) {
+		this.evaluationSum += evaluationSum;
+	}
+
+	public int getEvaluationQuantity() {
+		return evaluationQuantity;
+	}
+
+	public void setEvaluationQuantity(int evaluationQuantity) {
+		this.evaluationQuantity += evaluationQuantity;
 	}
 	
 	//hashCode and equals
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, type, year);

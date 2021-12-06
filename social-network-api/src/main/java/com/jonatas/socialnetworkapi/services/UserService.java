@@ -8,9 +8,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.UserCreation;
+import com.jonatas.socialnetworkapi.dto.EvaluationUserDTO;
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
+import com.jonatas.socialnetworkapi.dto.UserCreation;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
+import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
@@ -27,7 +30,7 @@ public class UserService {
 	
 	@Autowired
 	private FollowerRepository followerRepository;
-	
+		
 	//services
 	
 	@Autowired
@@ -35,12 +38,17 @@ public class UserService {
 		
 	//methods
 	
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<Object> findAll() {
 		List<User> users = userRepository.findAll();
-		return ResponseEntity.ok().body(users);
+		List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+		for(User user : users) {
+			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+			userMiniDTOs.add(userMiniDTO);
+		}
+		return ResponseEntity.ok().body(userMiniDTOs);
 	}
 	
-	public ResponseEntity<User> findById(String id){
+	public ResponseEntity<Object> findById(String id){
 		try {
 			User user = userRepository.findById(id).get();
 			return ResponseEntity.ok().body(user);
@@ -87,7 +95,7 @@ public class UserService {
 					obj.setFollower(follower);
 					userRepository.save(obj);
 					System.out.println("---");
-					obj = invitationService.createdInvitation(obj).getBody();
+					obj = (User) invitationService.createdInvitation(obj).getBody();
 					userRepository.save(obj);
 					UserCreation creationUser = new UserCreation(obj);
 					return ResponseEntity.created(null).body(creationUser);
@@ -100,7 +108,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<List<WorkerUserDTO>> getWorkers(String id){
+	public ResponseEntity<Object> getWorkers(String id){
 		try {
 			User user = userRepository.findById(id).get();
 			List<Worker> workers = user.getWorkers();
@@ -115,7 +123,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<User> save(User user){
+	public ResponseEntity<Object> save(User user){
 		try {
 			User obj = userRepository.save(user);
 			return ResponseEntity.accepted().body(obj);
@@ -132,6 +140,21 @@ public class UserService {
 			return true;
 		}catch (RuntimeException e) {
 			return false;
+		}
+	}
+	
+	public ResponseEntity<Object> getEvaluationsUser(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Evaluation> evaluations = user.getEvaluations();
+			List<EvaluationUserDTO> evaluationUserDTOs = new ArrayList<>();
+			for(Evaluation evaluation : evaluations) {
+				EvaluationUserDTO evaluationUserDTO = new EvaluationUserDTO(evaluation);
+				evaluationUserDTOs.add(evaluationUserDTO);
+			}
+			return ResponseEntity.ok().body(evaluationUserDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
 	}
 }

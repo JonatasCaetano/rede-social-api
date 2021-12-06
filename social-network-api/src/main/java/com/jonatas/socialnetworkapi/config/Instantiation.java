@@ -1,20 +1,26 @@
 package com.jonatas.socialnetworkapi.config;
 
+
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.jonatas.socialnetworkapi.controllers.EvaluationController;
 import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
+import com.jonatas.socialnetworkapi.dto.EvaluationDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
+import com.jonatas.socialnetworkapi.entities.Episode;
+import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
+import com.jonatas.socialnetworkapi.repositories.EvaluationRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
@@ -22,6 +28,7 @@ import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
 import com.jonatas.socialnetworkapi.services.EntityService;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
+import com.jonatas.socialnetworkapi.services.EvaluationService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 import com.jonatas.socialnetworkapi.services.SeasonService;
@@ -30,6 +37,7 @@ import com.jonatas.socialnetworkapi.services.WorkerService;
 
 @Configuration
 public class Instantiation implements CommandLineRunner{
+	
 	
 	//Repositories
 
@@ -54,6 +62,9 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private EpisodeRepository episodeRepository;
 	
+	@Autowired
+	private EvaluationRepository evaluationRepository;
+	
 	//Services
 	
 	@Autowired
@@ -77,6 +88,9 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private EpisodeService episodeService;
 	
+	@Autowired
+	private EvaluationService evaluationService;
+	
 	//start of function 
 	
 	@Override
@@ -89,10 +103,11 @@ public class Instantiation implements CommandLineRunner{
 		invitationRepository.deleteAll();
 		seasonRepository.deleteAll();
 		episodeRepository.deleteAll();
+		evaluationRepository.deleteAll();
 
-		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal");//123456
-		User user2 = new User("bela caetano", "bela@gmail.com","654351", null, "viciada em bola");//654351
-		User user3 = new User("mel alexandre", "mel@gmail.com","681236", null, "a menina da vovó");//681236
+		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal", null, "Bauru");//123456
+		User user2 = new User("bela caetano", "bela@gmail.com","654351", null, "viciada em bola", null, "Iacanga");//654351
+		User user3 = new User("mel alexandre", "mel@gmail.com","681236", null, "a menina da vovó", null, "Macatuba");//681236
 		
 		userRepository.insert(user1);
 		userRepository.insert(user2);
@@ -138,15 +153,27 @@ public class Instantiation implements CommandLineRunner{
 		SeasonDTO seasonDTO2 = new SeasonDTO("Asylum", "A segunda temporada, intitulada Asylum, tem como tema a sanidade. A história se passa em 1964 e acompanha os pacientes, médicos e freiras que ocupam a Instituição Mental Briarcliff, fundada para tratar e abrigar os criminosos insanos.", null, null, 2);
 		SeasonDTO seasonDTO3 = new SeasonDTO("1ª temporada", "Rick Grimes é o xerife de uma pequena cidade do estado da Georgia, quando certo dia, é baleado por criminosos durante uma perseguição e entra em coma. Semanas depois, ele acorda em um hospital abandonado e totalmente danificado.", null, null, 1);
 		
-		Season season1 = seasonService.newSeason(seasonDTO1, user1.getId(), entity3.getId()).getBody();
-		Season season2 = seasonService.newSeason(seasonDTO2, user1.getId(), entity3.getId()).getBody();
-		Season season3 = seasonService.newSeason(seasonDTO3, user1.getId(), entity4.getId()).getBody();
+		Season season1 = (Season) seasonService.newSeason(seasonDTO1, user1.getId(), entity3.getId()).getBody();
+		Season season2 = (Season) seasonService.newSeason(seasonDTO2, user1.getId(), entity3.getId()).getBody();
+		Season season3 = (Season) seasonService.newSeason(seasonDTO3, user1.getId(), entity4.getId()).getBody();
 		
 		EpisodeDTO episodeDTO1 = new EpisodeDTO("Pilot", "Em 1978, dois gêmeos ultrapassam o portão da Casa dos Assassinatos. Adelaide os avisa que, se entrarem na casa, irão morrer. Eles desobedecem e entram mesmo assim.",  null, null, 1);
 		EpisodeDTO episodeDTO2 = new EpisodeDTO("Home Invasion", "Em 1968, Maria é enganada ao ajudar um rapaz que finge estar ferido e acaba sendo assassinada a facadas por ele. Em 2011, Tate provoca Ben durante sua consulta ao lembrar de sua infidelidade à Vivien.", null, null, 2);
 
-		episodeService.newEpisode(episodeDTO1, user1.getId(), season1.getId());
-		episodeService.newEpisode(episodeDTO2, user1.getId(), season1.getId());
+		Episode ep1 = (Episode) episodeService.newEpisode(episodeDTO1, user1.getId(), season1.getId()).getBody();
+		Episode ep2 = (Episode) episodeService.newEpisode(episodeDTO2, user1.getId(), season1.getId()).getBody();
+		
+		EvaluationDTO evaluation1 = new EvaluationDTO(user2.getId(), entity4.getId(), season3.getId(), ep1.getId(), 3.0, null);
+		EvaluationDTO evaluation2 = new EvaluationDTO(user2.getId(), entity4.getId(), season3.getId(), ep2.getId(), 4.0, null);
+		EvaluationDTO evaluation3 = new EvaluationDTO(user2.getId(), entity4.getId(), null, null, 2.5, null);
+		EvaluationDTO evaluation4 = new EvaluationDTO(user2.getId(), entity4.getId(), season3.getId(), null, 3.5, null);
+		EvaluationDTO evaluation5 = new EvaluationDTO(user1.getId(), entity4.getId(), season3.getId(), ep2.getId(), 1.0, null);
+		
+		evaluationService.newEvaluation(evaluation1);
+		evaluationService.newEvaluation(evaluation2);
+		evaluationService.newEvaluation(evaluation3);
+		evaluationService.newEvaluation(evaluation4);
+		evaluationService.newEvaluation(evaluation5);
 	}
 
 	

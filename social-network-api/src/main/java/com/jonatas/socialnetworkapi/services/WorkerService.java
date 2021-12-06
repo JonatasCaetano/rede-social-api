@@ -31,12 +31,12 @@ public class WorkerService {
 	
 	//methods
 	
-	public ResponseEntity<List<Worker>> findAll(){
+	public ResponseEntity<Object> findAll(){
 		List<Worker> list = workerRepository.findAll();
 		return ResponseEntity.ok(list);
 	}
 	
-	public ResponseEntity<Worker> findById(String id){
+	public ResponseEntity<Object> findById(String id){
 		try {
 			Worker worker = workerRepository.findById(id).get();
 			return ResponseEntity.ok().body(worker);
@@ -45,10 +45,10 @@ public class WorkerService {
 		}
 	}
 	
-	public ResponseEntity<Worker> create(WorkerDTO workerDTO) {
+	public ResponseEntity<Object> create(WorkerDTO workerDTO) {
 		try {
-			User user = userService.findById(workerDTO.getUser()).getBody();
-			Entity entity = entityService.findById(workerDTO.getEntity()).getBody();
+			User user = (User) userService.findById(workerDTO.getUser()).getBody();
+			Entity entity = (Entity) entityService.findById(workerDTO.getEntity()).getBody();
 			Worker worker = new Worker(null, workerDTO.getRole(), user, entity);
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -66,7 +66,7 @@ public class WorkerService {
 		
 	}
 	
-	public ResponseEntity<Void> delete(String idWorker, String idUser){
+	public ResponseEntity<Object> delete(String idWorker, String idUser){
 		try {
 			Worker worker = workerRepository.findById(idWorker).get();
 			User user = worker.getUser();

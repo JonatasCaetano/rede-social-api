@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.UserCreation;
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
-import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
-import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.dto.UserCreation;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @RestController
@@ -29,12 +25,12 @@ public class UserController {
 	//get
 	
 	@GetMapping(value = "get/all")
-	public ResponseEntity<List<User>> findAll() {
+	public ResponseEntity<Object> findAll() {
 		return userService.findAll();
 	}
 	
 	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<User> findById(@PathVariable String id){
+	public ResponseEntity<Object> findById(@PathVariable String id){
 		return userService.findById(id);
 	}
 	
@@ -45,8 +41,13 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "get/workers/{id}")
-	public ResponseEntity<List<WorkerUserDTO>> getWorkers(@PathVariable String id){
+	public ResponseEntity<Object> getWorkers(@PathVariable String id){
 		return userService.getWorkers(id);
+	}
+	
+	@GetMapping(value = "get/evaluations/{id}")
+	public ResponseEntity<Object> getEvaluationUser(@PathVariable String id){
+		return userService.getEvaluationsUser(id);
 	}
 	
 	//post

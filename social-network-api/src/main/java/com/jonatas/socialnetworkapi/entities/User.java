@@ -32,6 +32,7 @@ public class User implements Serializable{
 	private int following = 0;
 	private int followers = 0;
 	private Date release;
+	private String city;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -39,15 +40,15 @@ public class User implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
-	private List<Worker> workers = new ArrayList<>();
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
 	private Invitation invitation;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
-	private List<Evaluation> evaluation = new ArrayList<>();
+	private List<Worker> workers = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Evaluation> evaluations = new ArrayList<>();
 	
 	//builders
 	
@@ -55,13 +56,15 @@ public class User implements Serializable{
 		super();
 	}
 	
-	public User(String name, String email, String password, String image, String description) {
+	public User(String name, String email, String password, String image, String description, Date release, String city) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.image = image;
 		this.description = description;
+		this.release = release;
+		this.city = city;
 	}
 
 	public User(UserCreation creationUser) {
@@ -166,7 +169,7 @@ public class User implements Serializable{
 	}
 
 	public void setFollowing(int following) {
-		this.following = following;
+		this.following += following;
 	}
 
 	public int getFollowers() {
@@ -174,7 +177,7 @@ public class User implements Serializable{
 	}
 
 	public void setFollowers(int followers) {
-		this.followers = followers;
+		this.followers += followers;
 	}
 	
 	public Date getRelease() {
@@ -184,11 +187,19 @@ public class User implements Serializable{
 	public void setRelease(Date release) {
 		this.release = release;
 	}
-	
-	public List<Evaluation> getEvaluation() {
-		return evaluation;
+		
+	public String getCity() {
+		return city;
 	}
 
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+	
 	//hashCode and equals
 	
 	@Override

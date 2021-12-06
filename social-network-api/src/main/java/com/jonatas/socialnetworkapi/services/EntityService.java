@@ -9,9 +9,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonEntityDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
+import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
@@ -29,15 +32,20 @@ public class EntityService {
 	
 	@Autowired
 	private UserService userService;
-	
+		
 	//methods
 	
-	public ResponseEntity<List<Entity>> findAll(){
+	public ResponseEntity<Object> findAll(){
 		List<Entity> list = entityRepository.findAll();
-		return ResponseEntity.ok().body(list);
+		List<EntityMiniDTO> entityMiniDTOs = new ArrayList<>();
+		for(Entity entity : list) {
+			EntityMiniDTO entityMiniDTO = new EntityMiniDTO(entity);
+			entityMiniDTOs.add(entityMiniDTO);
+		}
+		return ResponseEntity.ok().body(entityMiniDTOs);
 	}
 	
-	public ResponseEntity<Entity> findById(String id){
+	public ResponseEntity<Object> findById(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			return ResponseEntity.ok().body(entity);
@@ -46,7 +54,7 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<List<WorkerEntityDTO>> getWorkers(String id){
+	public ResponseEntity<Object> getWorkers(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			List<Worker> workers = entity.getWorkers();
@@ -61,7 +69,7 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<List<SeasonEntityDTO>> findAllSeasons(@PathVariable String id){
+	public ResponseEntity<Object> findAllSeasons(@PathVariable String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			List<Season> seasons = entity.getSeasons();
@@ -76,9 +84,9 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Entity> createEntity(Entity entity, String id){
+	public ResponseEntity<Object> createEntity(Entity entity, String id){
 		try {
-			User user = userService.findById(id).getBody();
+			User user = (User) userService.findById(id).getBody();
 			if(user.isChecked()) {
 				try {
 					Entity obj = entityRepository.insert(entity);
@@ -96,12 +104,27 @@ public class EntityService {
 		
 	}
 	
-	public ResponseEntity<Entity> save(Entity entity){
+	public ResponseEntity<Object> save(Entity entity){
 		try {
 			Entity obj = entityRepository.save(entity);
 			return ResponseEntity.ok().body(obj);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getEvaluationsEntity(String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			List<Evaluation> evaluations = entity.getEvaluations();
+			List<EvaluationEntityDTO> evaluationEntityDTOs = new ArrayList<>();
+			for(Evaluation evaluation : evaluations) {
+				EvaluationEntityDTO evaluationEntityDTO = new EvaluationEntityDTO(evaluation);
+				evaluationEntityDTOs.add(evaluationEntityDTO);
+			}
+			return ResponseEntity.ok().body(evaluationEntityDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
 	}
 }
