@@ -21,18 +21,21 @@ public class User implements Serializable{
 		
 	@Id
 	private String id;
+	
 	private String name;
 	private String email;
 	private String password;
 	private String image;
 	private String description;
-	private boolean status = true;
+	private Date birthDate;
+	private String city;
 	private boolean privacy = false;
+	
+	private boolean status = true;
 	private boolean checked = false;
 	private int following = 0;
 	private int followers = 0;
 	private Date release;
-	private String city;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -66,15 +69,15 @@ public class User implements Serializable{
 		this.release = release;
 		this.city = city;
 	}
-
-	public User(UserCreationDTO creationUser) {
-		super();
-		this.name = creationUser.getName();
-		this.email = creationUser.getEmail();
-		this.password = creationUser.getPassword();
-	}
-	
+		
 	//getters and setters
+
+	public User(UserCreationDTO userCreation) {
+		super();
+		this.name = userCreation.getName();
+		this.email = userCreation.getEmail();
+		this.password = userCreation.getPassword();
+	}
 
 	public String getId() {
 		return id;
@@ -199,9 +202,17 @@ public class User implements Serializable{
 	public List<Evaluation> getEvaluations() {
 		return evaluations;
 	}
+		
+	public Date getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
 	
 	//hashCode and equals
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

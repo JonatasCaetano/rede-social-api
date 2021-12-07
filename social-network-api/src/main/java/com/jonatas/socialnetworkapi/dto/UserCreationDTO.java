@@ -9,7 +9,6 @@ public class UserCreationDTO  implements Serializable{
 	
 	//attributes
 	
-	private String id;
 	private String name;
 	private String email;
 	private String invitation;
@@ -28,25 +27,8 @@ public class UserCreationDTO  implements Serializable{
 		this.invitation = invitation;
 		this.password = password;
 	}
-
-	public UserCreationDTO(User user) {
-		super();
-		this.id = user.getId();
-		this.name = user.getName();
-		this.email = user.getEmail();
-		this.invitation = user.getInvitation().getValue() != null ? user.getInvitation().getValue() : null;
-		this.password = user.getPassword();
-	}
 	
 	//getters and setters
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -78,12 +60,6 @@ public class UserCreationDTO  implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	@Override
-	public String toString() {
-		return "UserCreationDTO [id=" + id + ", name=" + name + ", email=" + email + ", invitation=" + invitation
-				+ ", password=" + password + "]";
 	}
 
 	

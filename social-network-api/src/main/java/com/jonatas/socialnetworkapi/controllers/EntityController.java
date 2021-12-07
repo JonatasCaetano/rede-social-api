@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
-import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.services.EntityService;
 
 @RestController
@@ -46,6 +45,6 @@ public class EntityController {
 	
 	@PostMapping(value = "/post/{id}")
 	public ResponseEntity<Object> createEntity(@RequestBody EntityMiniDTO entityMiniDTO, @PathVariable String id){
-		return entityService.createEntity(new Entity(entityMiniDTO), id);
+		return entityService.createEntity(entityMiniDTO, id);
 	}
 }

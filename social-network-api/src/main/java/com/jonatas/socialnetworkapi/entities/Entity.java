@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
 
 @Document
 public class Entity implements Serializable{
@@ -21,12 +20,13 @@ public class Entity implements Serializable{
 	
 	@Id
 	private String id;
+	
 	private String name;
-	private String description;
 	private String image;
-	private String year;
-	private int type;
+	private String description;
 	private Date release;
+	private int type;
+	
 	private int season = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
@@ -49,23 +49,23 @@ public class Entity implements Serializable{
 	public Entity() {
 		super();
 	}
-
-	public Entity(String name, String description, String image, String year, int type) {
+	
+	public Entity(String name, String image, String description, Date release, int type) {
 		super();
 		this.name = name;
-		this.description = description;
 		this.image = image;
-		this.year = year;
+		this.description = description;
+		this.release = release;
 		this.type = type;
 	}
 
-	public Entity(EntityMiniDTO entityMiniDTO) {
-		this.name = entityMiniDTO.getName();
-		this.description = entityMiniDTO.getDescription();
-	}
 	
 	//getters and setters
 
+	public String getId() {
+		return id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -73,23 +73,7 @@ public class Entity implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public List<Worker> getWorkers() {
-		return workers;
-	}
-
+	
 	public String getImage() {
 		return image;
 	}
@@ -98,14 +82,15 @@ public class Entity implements Serializable{
 		this.image = image;
 	}
 
-	public String getYear() {
-		return year;
+
+	public String getDescription() {
+		return description;
 	}
 
-	public void setYear(String year) {
-		this.year = year;
+	public void setDescription(String description) {
+		this.description = description;
 	}
-
+	
 	public int getType() {
 		return type;
 	}
@@ -114,16 +99,20 @@ public class Entity implements Serializable{
 		this.type = type;
 	}
 	
-	public List<Season> getSeasons() {
-		return seasons;
-	}
-
 	public Date getRelease() {
 		return release;
 	}
 
 	public void setRelease(Date release) {
 		this.release = release;
+	}
+	
+	public List<Worker> getWorkers() {
+		return workers;
+	}
+
+	public List<Season> getSeasons() {
+		return seasons;
 	}
 
 	public int getSeason() {
@@ -166,7 +155,7 @@ public class Entity implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, type, year);
+		return Objects.hash(name);
 	}
 
 	@Override
@@ -178,11 +167,18 @@ public class Entity implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Entity other = (Entity) obj;
-		return Objects.equals(name, other.name) && type == other.type && Objects.equals(year, other.year);
+		return Objects.equals(name, other.name);
 	}
 
+	@Override
+	public String toString() {
+		return "Entity [id=" + id + ", name=" + name + ", image=" + image + ", description=" + description
+				+ ", release=" + release + ", type=" + type + ", season=" + season + ", evaluationAverage="
+				+ evaluationAverage + ", evaluationSum=" + evaluationSum + ", evaluationQuantity=" + evaluationQuantity
+				+ ", workers=" + workers + ", seasons=" + seasons + ", evaluations=" + evaluations + "]";
+	}
+	
 	
 
-	
 	
 }

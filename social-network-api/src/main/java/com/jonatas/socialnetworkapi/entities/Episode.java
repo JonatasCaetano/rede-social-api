@@ -22,11 +22,13 @@ public class Episode implements Serializable{
 	
 	@Id
 	private String id;
+	
 	private String name;
-	private String description;
 	private String image;
+	private String description;
 	private Date release;
 	private int number;
+	
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;

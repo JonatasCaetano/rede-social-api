@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
-import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
@@ -164,4 +164,95 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//put
+	
+	public ResponseEntity<Void> updateName(String name, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setName(name);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateEmail(String email, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setEmail(email);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updatePassword(String password, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setPassword(password);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateImage(String image, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setImage(image);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateDescription(String description, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setDescription(description);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateBirthDate(Date birthDate, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setBirthDate(birthDate);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateCity(String city, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setCity(city);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updatePrivacy(boolean privacy, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setChecked(privacy);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 }

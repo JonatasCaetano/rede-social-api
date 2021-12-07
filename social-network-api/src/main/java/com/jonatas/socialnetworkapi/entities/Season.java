@@ -22,11 +22,13 @@ public class Season implements Serializable{
 	
 	@Id
 	private String id;
+	
 	private String name;
 	private String image;
 	private String description;
 	private Date release;
 	private int number;
+	
 	private int episode = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;

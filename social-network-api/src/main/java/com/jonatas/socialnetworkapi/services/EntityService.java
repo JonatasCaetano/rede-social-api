@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
+import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
@@ -86,9 +88,10 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Object> createEntity(Entity entity, String id){
+	public ResponseEntity<Object> createEntity(EntityMiniDTO entityMiniDTO, String id){
 		try {
 			User user = (User) userService.findById(id).getBody();
+			Entity entity = new Entity(entityMiniDTO.getName(), entityMiniDTO.getImage(), entityMiniDTO.getDescription(), entityMiniDTO.getRelease(), entityMiniDTO.getType());
 			if(user.isChecked()) {
 				try {
 					Entity obj = entityRepository.insert(entity);
@@ -129,4 +132,71 @@ public class EntityService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//put
+	
+	public ResponseEntity<Void> updateName(String name, String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			entity.setName(name);
+			entityRepository.save(entity);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateImage(String image, String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			entity.setImage(image);
+			entityRepository.save(entity);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateDescription(String description, String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			entity.setDescription(description);
+			entityRepository.save(entity);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateRelease(Date release, String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			entity.setRelease(release);
+			entityRepository.save(entity);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateType(int type, String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			entity.setType(type);
+			entityRepository.save(entity);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
