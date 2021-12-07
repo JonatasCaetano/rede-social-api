@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +10,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
 import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
+import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
@@ -108,4 +111,80 @@ public class EpisodeService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//put
+	
+	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			episode.setName((String) editionDTO.getCurrent());
+			episodeRepository.save(episode);
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			episode.getEditions().add(edition);
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			episode.setImage((String) editionDTO.getCurrent());
+			episodeRepository.save(episode);
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			episode.getEditions().add(edition);
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			episode.setDescription((String) editionDTO.getCurrent());
+			episodeRepository.save(episode);
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			episode.getEditions().add(edition);
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			episode.setRelease((Date) editionDTO.getCurrent());
+			episodeRepository.save(episode);
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			episode.getEditions().add(edition);
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+		
+	}
+	
 }

@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.services.EntityService;
 
@@ -47,4 +49,27 @@ public class EntityController {
 	public ResponseEntity<Object> createEntity(@RequestBody EntityMiniDTO entityMiniDTO, @PathVariable String id){
 		return entityService.createEntity(entityMiniDTO, id);
 	}
+	
+	//put
+	
+	@PutMapping(value = "put/name")
+	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
+		return entityService.updateName(editionDTO);
+	}
+	
+	@PutMapping(value = "put/image")
+	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+		return entityService.updateImage(editionDTO);
+	}
+	
+	@PutMapping(value = "put/description")
+	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
+		return entityService.updateDescription(editionDTO);
+	}
+	
+	@PutMapping(value = "put/release")
+	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
+		return entityService.updateRelease(editionDTO);
+	}
+
 }

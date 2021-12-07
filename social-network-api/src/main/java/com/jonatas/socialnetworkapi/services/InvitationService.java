@@ -55,26 +55,19 @@ public class InvitationService {
 		int numero = random.nextInt(24);
 		int a = (numero - 4 < 0) ? 0 : numero - 4;
 		int b = numero;
-		System.out.println("a: " + a);
-		System.out.println("b: " + b);
 		try {
 			String nameUser = user.getName();
 			String idUser = user.getId();
 			String[] name = nameUser.split(" ");
 			int name1 = name[0].length();
-			int name2 = name[1].length();
-			System.out.println("name1: " + name1);
-			System.out.println("name2: " + name2);
 			if(name1 >= 4) {
 				nameFinal = name[0].substring(0, 4);
 			}else {
 				nameFinal = name[1].substring(0, 4);
 			}
-			System.out.println(nameFinal);
 			String invitationFirst = nameFinal.substring(0, 4);
 			String invitationLast = idUser.substring(a, b);
 			String invitationTotal = invitationFirst + invitationLast;
-			System.out.println(invitationTotal);
 				while(testInvitation(invitationTotal) == true) {
 					numero = random.nextInt(24);
 					a = (numero - 4 < 0) ? 0 : numero - 4;
@@ -84,7 +77,6 @@ public class InvitationService {
 					invitationFirst = nameFinal.substring(0, 4);
 					invitationLast = idUser.substring(a, b);
 					invitationTotal = invitationFirst + invitationLast;
-					System.out.println(invitationTotal);
 				}
 				Invitation invitation = new Invitation(null, user, invitationTotal);
 				Invitation result = invitationRepository.insert(invitation);

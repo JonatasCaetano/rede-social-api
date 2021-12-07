@@ -151,12 +151,12 @@ public class Instantiation implements CommandLineRunner{
 		Episode ep1 = (Episode) episodeService.newEpisode(episodeDTO1, user1.getId(), season1.getId()).getBody();
 		Episode ep2 = (Episode) episodeService.newEpisode(episodeDTO2, user1.getId(), season1.getId()).getBody();
 		
-		EvaluationDTO evaluation1 = new EvaluationDTO(user2.getId(), entity3.getId(), season1.getId(), ep1.getId(), 3.0, null);
-		EvaluationDTO evaluation2 = new EvaluationDTO(user2.getId(), entity3.getId(), season1.getId(), ep2.getId(), 4.0, null);
+		EvaluationDTO evaluation1 = new EvaluationDTO(user2.getId(), null, null, ep1.getId(), 3.0, null);
+		EvaluationDTO evaluation2 = new EvaluationDTO(user2.getId(), null, null, ep2.getId(), 4.0, null);
 		EvaluationDTO evaluation3 = new EvaluationDTO(user1.getId(), entity4.getId(), null, null, 2.5, null);
-		EvaluationDTO evaluation4 = new EvaluationDTO(user1.getId(), entity3.getId(), season2.getId(), null, 3.5, null);
-		EvaluationDTO evaluation5 = new EvaluationDTO(user1.getId(), entity4.getId(), season3.getId(), null, 1.0, null);
-		EvaluationDTO evaluation6 = new EvaluationDTO(user1.getId(), entity3.getId(), season1.getId(), ep1.getId(), 1.0, null);
+		EvaluationDTO evaluation4 = new EvaluationDTO(user1.getId(), null, season2.getId(), null, 3.5, null);
+		EvaluationDTO evaluation5 = new EvaluationDTO(user1.getId(), null, season3.getId(), null, 1.0, null);
+		EvaluationDTO evaluation6 = new EvaluationDTO(user1.getId(), null, null, ep1.getId(), 1.0, null);
 		
 		evaluationService.newEvaluation(evaluation1);
 		evaluationService.newEvaluation(evaluation2);

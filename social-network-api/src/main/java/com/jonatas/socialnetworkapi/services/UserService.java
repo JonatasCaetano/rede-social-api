@@ -74,8 +74,6 @@ public class UserService {
 	}	
 	
 	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){
-		System.out.println("---");
-		System.out.println(userCreation);
 		try {
 			try {
 				String[] name = userCreation.getName().split(" ");

@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.services;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
+import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
@@ -121,6 +124,80 @@ public class SeasonService {
 				episodeMiniDTOs.add(episodeMiniDTO);
 			}
 			return ResponseEntity.ok().body(episodeMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	//put
+	
+	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			season.setName((String) editionDTO.getCurrent());
+			seasonRepository.save(season);
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			season.getEditions().add(edition);
+			seasonRepository.save(season);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			season.setImage((String) editionDTO.getCurrent());
+			seasonRepository.save(season);
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			season.getEditions().add(edition);
+			seasonRepository.save(season);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			season.setDescription((String) editionDTO.getCurrent());
+			seasonRepository.save(season);
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			season.getEditions().add(edition);
+			seasonRepository.save(season);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			season.setRelease((Date) editionDTO.getCurrent());
+			seasonRepository.save(season);
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			season.getEditions().add(edition);
+			seasonRepository.save(season);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

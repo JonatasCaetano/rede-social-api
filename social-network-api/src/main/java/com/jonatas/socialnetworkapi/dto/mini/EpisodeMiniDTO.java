@@ -11,23 +11,13 @@ public class EpisodeMiniDTO {
 	private String image;
 	private String description;
 	private int number;
+	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	
 	//builders
 	
 	public EpisodeMiniDTO() {
 		super();
-	}
-
-	public EpisodeMiniDTO(String id, String name, String image, String description, int number,
-			double evaluationAverage) {
-		this.id = id;
-		this.name = name;
-		this.image = image;
-		this.description = description;
-		this.number = number;
-		this.evaluationAverage = evaluationAverage;
-
 	}
 
 	public EpisodeMiniDTO(Episode episode) {
@@ -38,6 +28,7 @@ public class EpisodeMiniDTO {
 		this.description = episode.getDescription();
 		this.number = episode.getNumber();
 		this.evaluationAverage = episode.getEvaluationAverage();
+		this.evaluationQuantity = episode.getEvaluationQuantity();
 	}
 	
 	//getters and setters
@@ -80,6 +71,14 @@ public class EpisodeMiniDTO {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+
+	public int getEvaluationQuantity() {
+		return evaluationQuantity;
+	}
+
+	public void setEvaluationQuantity(int evaluationQuantity) {
+		this.evaluationQuantity = evaluationQuantity;
 	}
 
 	public double getEvaluationAverage() {

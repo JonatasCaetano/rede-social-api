@@ -27,8 +27,8 @@ public class Season implements Serializable{
 	private String image;
 	private String description;
 	private Date release;
-	private int number;
 	
+	private int number;
 	private int episode = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
@@ -45,6 +45,11 @@ public class Season implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Evaluation> evaluations = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Edition> editions = new ArrayList<>();
+	
 	
 	//builders
 	
@@ -163,6 +168,10 @@ public class Season implements Serializable{
 
 	public void setEvaluationQuantity(int evaluationQuantity) {
 		this.evaluationQuantity += evaluationQuantity;
+	}
+	
+	public List<Edition> getEditions() {
+		return editions;
 	}
 	
 	//hashCode and equals

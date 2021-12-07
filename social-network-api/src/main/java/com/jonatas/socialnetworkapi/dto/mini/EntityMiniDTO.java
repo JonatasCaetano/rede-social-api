@@ -13,6 +13,7 @@ public class EntityMiniDTO {
 	private String image;
 	private String description;
 	private Date release;
+	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private int season = 0;
 	private int type;
@@ -21,19 +22,6 @@ public class EntityMiniDTO {
 	
 	public EntityMiniDTO() {
 		super();
-	}
-
-	public EntityMiniDTO(String id, String name, String image, String description, double evaluationAverage,
-			int season, Date release, int type) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.image = image;
-		this.description = description;
-		this.evaluationAverage = evaluationAverage;
-		this.season = season;
-		this.release = release;
-		this.type = type;
 	}
 
 	public EntityMiniDTO(Entity entity) {
@@ -46,6 +34,7 @@ public class EntityMiniDTO {
 		this.season = entity.getSeason();
 		this.release = entity.getRelease();
 		this.type = entity.getType();
+		this.evaluationQuantity = entity.getEvaluationQuantity();
 	}
 	
 	//getters and setters
@@ -80,6 +69,14 @@ public class EntityMiniDTO {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public int getEvaluationQuantity() {
+		return evaluationQuantity;
+	}
+
+	public void setEvaluationQuantity(int evaluationQuantity) {
+		this.evaluationQuantity = evaluationQuantity;
 	}
 
 	public double getEvaluationAverage() {

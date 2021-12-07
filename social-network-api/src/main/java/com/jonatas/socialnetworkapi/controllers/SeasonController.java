@@ -5,10 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.services.SeasonService;
 
@@ -44,4 +46,27 @@ public class SeasonController {
 	public ResponseEntity<Object> newSeason(@RequestBody SeasonDTO seasonDTO, @PathVariable String idUser, @PathVariable String idEntity){
 		return seasonService.newSeason(seasonDTO, idUser, idEntity);
 	}
+	
+	//put
+	
+	@PutMapping(value = "put/name")
+	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
+		return seasonService.updateName(editionDTO);
+	}
+	
+	@PutMapping(value = "put/image")
+	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+		return seasonService.updateImage(editionDTO);
+	}
+	
+	@PutMapping(value = "put/description")
+	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
+		return seasonService.updateDescription(editionDTO);
+	}
+	
+	@PutMapping(value = "put/release")
+	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
+		return seasonService.updateRelease(editionDTO);
+	}
+
 }

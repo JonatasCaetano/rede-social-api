@@ -11,6 +11,7 @@ public class SeasonMiniDTO {
 	private String image;
 	private String description;
 	private int number;
+	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private int episode = 0;
 	
@@ -18,18 +19,6 @@ public class SeasonMiniDTO {
 		
 	public SeasonMiniDTO() {
 		super();
-	}
-
-	public SeasonMiniDTO(String id, String name, String image, String description, int number, double evaluationAverage,
-			int episode) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.image = image;
-		this.description = description;
-		this.number = number;
-		this.evaluationAverage = evaluationAverage;
-		this.episode = episode;
 	}
 
 	public SeasonMiniDTO(Season season) {
@@ -41,6 +30,7 @@ public class SeasonMiniDTO {
 		this.number = season.getNumber();
 		this.evaluationAverage = season.getEvaluationAverage();
 		this.episode = season.getEpisode();
+		this.evaluationQuantity = season.getEvaluationQuantity();
 	}
 	
 	//getters and setters
@@ -83,6 +73,14 @@ public class SeasonMiniDTO {
 
 	public void setNumber(int number) {
 		this.number = number;
+	}
+	
+	public int getEvaluationQuantity() {
+		return evaluationQuantity;
+	}
+
+	public void setEvaluationQuantity(int evaluationQuantity) {
+		this.evaluationQuantity = evaluationQuantity;
 	}
 
 	public double getEvaluationAverage() {

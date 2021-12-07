@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
@@ -36,6 +37,10 @@ public class EntityService {
 	@Autowired
 	@Lazy
 	private UserService userService;
+	
+	@Autowired
+	@Lazy
+	private EditionService editionService;
 		
 	//methods
 	
@@ -135,10 +140,17 @@ public class EntityService {
 	
 	//put
 	
-	public ResponseEntity<Void> updateName(String name, String id){
+	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
 		try {
-			Entity entity = entityRepository.findById(id).get();
-			entity.setName(name);
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			entity.setName((String) editionDTO.getCurrent());
+			entityRepository.save(entity);
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -146,10 +158,17 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateImage(String image, String id){
+	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
 		try {
-			Entity entity = entityRepository.findById(id).get();
-			entity.setImage(image);
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			entity.setImage((String) editionDTO.getCurrent());
+			entityRepository.save(entity);
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -157,10 +176,17 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateDescription(String description, String id){
+	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
 		try {
-			Entity entity = entityRepository.findById(id).get();
-			entity.setDescription(description);
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Entity entity = entityRepository.findById(editionDTO.getUser()).get();
+			entity.setDescription((String) editionDTO.getCurrent());
+			entityRepository.save(entity);
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -168,10 +194,17 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateRelease(Date release, String id){
+	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
 		try {
-			Entity entity = entityRepository.findById(id).get();
-			entity.setRelease(release);
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			entity.setRelease((Date) editionDTO.getCurrent());
+			entityRepository.save(entity);
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -179,21 +212,7 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateType(int type, String id){
-		try {
-			Entity entity = entityRepository.findById(id).get();
-			entity.setType(type);
-			entityRepository.save(entity);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	
-	
-	
-	
+		
 	
 	
 	

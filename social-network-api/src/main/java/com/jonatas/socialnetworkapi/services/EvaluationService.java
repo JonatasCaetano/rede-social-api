@@ -76,35 +76,33 @@ public class EvaluationService {
 				System.out.println("usuario nulo");
 				return ResponseEntity.badRequest().build();
 			}
-			if(entity == null) {
-				System.out.println("entidade nula");
-				return ResponseEntity.badRequest().build();
-			}
-			Evaluation obj = evaluationRepository.insert(evaluation);
-			user.getEvaluations().add(obj);
+			evaluation = evaluationRepository.insert(evaluation);
+			user.getEvaluations().add(evaluation);
 			userService.save(user);
-			if(season == null && episode == null) {
-				entity.getEvaluations().add(obj);
+			if(entity != null) {
+				entity.getEvaluations().add(evaluation);
 				entity.setEvaluationQuantity(1);
 				entity.setEvaluationSum(evaluation.getValue());
 				entity.setEvaluationAverage();
 				entityService.save(entity);
-			}else if(episode == null) {
+			}else if(season != null) {
 				
-					season.getEvaluations().add(obj);
+					season.getEvaluations().add(evaluation);
 					season.setEvaluationQuantity(1);
 					season.setEvaluationSum(evaluation.getValue());
 					season.setEvaluationAverage();
 					seasonService.save(season);
 		
-			}else{
-				episode.getEvaluations().add(obj);
+			}else if(episode != null){
+				episode.getEvaluations().add(evaluation);
 				episode.setEvaluationQuantity(1);
 				episode.setEvaluationSum(evaluation.getValue());
 				episode.setEvaluationAverage();
 				episodeService.save(episode);	
+			}else {
+				return ResponseEntity.badRequest().build();
 			}
-			return ResponseEntity.created(null).body(obj);
+			return ResponseEntity.created(null).body(evaluation);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
