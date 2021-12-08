@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
 import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Episode;
@@ -38,6 +39,10 @@ public class EpisodeService {
 	@Autowired
 	@Lazy
 	private SeasonService seasonService;
+	
+	@Autowired
+	@Lazy
+	private EditionService editionService;
 	
 	//methods
 	
@@ -112,6 +117,22 @@ public class EpisodeService {
 		}
 	}
 	
+	public ResponseEntity<Object> getEditions(String id){
+		try {
+			Episode episode = episodeRepository.findById(id).get();
+			List<Edition> editions = episode.getEditions();
+			List<EditionMiniDTO> editionMiniDTOs = new ArrayList<>();
+			for(Edition edition : editions) {
+				EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
+				editionMiniDTOs.add(editionMiniDTO);
+			}
+			return ResponseEntity.ok().body(editionMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	
 	//put
 	
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
@@ -121,9 +142,12 @@ public class EpisodeService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			editionDTO.setAttribute("name");
+			editionDTO.setPrevius(episode.getName());
 			episode.setName((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
@@ -139,9 +163,12 @@ public class EpisodeService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			editionDTO.setAttribute("image");
+			editionDTO.setPrevius(episode.getImage());
 			episode.setImage((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
@@ -157,9 +184,12 @@ public class EpisodeService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			editionDTO.setAttribute("description");
+			editionDTO.setPrevius(episode.getDescription());
 			episode.setDescription((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
@@ -175,9 +205,12 @@ public class EpisodeService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			editionDTO.setAttribute("release");
+			editionDTO.setPrevius(episode.getRelease());
 			episode.setRelease((Date) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();

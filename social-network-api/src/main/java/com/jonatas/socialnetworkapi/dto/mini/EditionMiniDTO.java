@@ -11,10 +11,10 @@ public class EditionMiniDTO {
 	private EntityMiniDTO entity;
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
-	private Date release;
+	private String attribute;
 	private Object previus;
 	private Object current;
-	private String attribute;
+	private Date release;
 	
 	public EditionMiniDTO() {
 		super();
@@ -23,10 +23,10 @@ public class EditionMiniDTO {
 	public EditionMiniDTO(Edition edition) {
 		super();
 		this.id = edition.getId();
-		this.user = new UserMiniDTO(edition.getUser());
-		this.entity = new EntityMiniDTO(edition.getEntity());
-		this.season = new SeasonMiniDTO(edition.getSeason());
-		this.episode = new EpisodeMiniDTO(edition.getEpisode());
+		this.user = edition.getUser() != null ? new UserMiniDTO(edition.getUser()) : null;
+		this.entity = edition.getEntity() != null ? new EntityMiniDTO(edition.getEntity()): null;
+		this.season = edition.getSeason() != null ? new SeasonMiniDTO(edition.getSeason()) : null;
+		this.episode = edition.getEpisode() != null ? new EpisodeMiniDTO(edition.getEpisode()) : null;
 		this.release = edition.getRelease();
 		this.previus = edition.getPrevius();
 		this.current = edition.getCurrent();

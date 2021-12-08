@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
@@ -40,6 +41,10 @@ public class SeasonService {
 	@Autowired
 	@Lazy
 	private EntityService entityService;
+	
+	@Autowired
+	@Lazy
+	private EditionService editionService;
 	
 	//methods
 	
@@ -129,6 +134,22 @@ public class SeasonService {
 		}
 	}
 	
+	public ResponseEntity<Object> getEditions(String id){
+		try {
+			Season season = seasonRepository.findById(id).get();
+			List<Edition> editions = season.getEditions();
+			List<EditionMiniDTO> editionMiniDTOs = new ArrayList<>();
+			for(Edition edition : editions) {
+				EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
+				editionMiniDTOs.add(editionMiniDTO);
+			}
+			return ResponseEntity.ok().body(editionMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	
 	//put
 	
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
@@ -138,9 +159,12 @@ public class SeasonService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			editionDTO.setAttribute("name");
+			editionDTO.setPrevius(season.getName());
 			season.setName((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
@@ -156,9 +180,12 @@ public class SeasonService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			editionDTO.setAttribute("image");
+			editionDTO.setPrevius(season.getImage());
 			season.setImage((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
@@ -174,9 +201,12 @@ public class SeasonService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			editionDTO.setAttribute("description");
+			editionDTO.setPrevius(season.getDescription());
 			season.setDescription((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
@@ -192,9 +222,12 @@ public class SeasonService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			editionDTO.setAttribute("release");
+			editionDTO.setPrevius(season.getRelease());
 			season.setRelease((Date) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();

@@ -45,6 +45,11 @@ public class SeasonController {
 		return seasonService.findAllEpisodes(id);
 	}
 	
+	@GetMapping(value = "get/editions/{id}")
+	public ResponseEntity<Object> getEditions(@PathVariable String id){
+		return seasonService.getEditions(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post/user/{idUser}/entity/{idEntity}")
@@ -55,22 +60,22 @@ public class SeasonController {
 	//put
 	
 	@PutMapping(value = "put/name")
-	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateName(@RequestBody EditionDTO editionDTO){
 		return seasonService.updateName(editionDTO);
 	}
 	
 	@PutMapping(value = "put/image")
-	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateImage(@RequestBody EditionDTO editionDTO){
 		return seasonService.updateImage(editionDTO);
 	}
 	
 	@PutMapping(value = "put/description")
-	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateDescription(@RequestBody EditionDTO editionDTO){
 		return seasonService.updateDescription(editionDTO);
 	}
 	
 	@PutMapping(value = "put/release")
-	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
 		return seasonService.updateRelease(editionDTO);
 	}
 

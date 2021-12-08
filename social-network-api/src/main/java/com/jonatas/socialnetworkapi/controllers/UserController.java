@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.controllers;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
+import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @RestController
@@ -62,49 +61,49 @@ public class UserController {
 	
 	//put
 	
-	@PutMapping(value = "put/{id}/name")
-	public ResponseEntity<Void> updateName(@RequestBody String name, @PathVariable String id){
-		return userService.updateName(name, id);
+	@PutMapping(value = "put/name")
+	public ResponseEntity<Void> updateName(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updateName(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/email")
-	public ResponseEntity<Void> updateEmail(@RequestBody String email, @PathVariable String id){
-		return userService.updateEmail(email, id);
+	@PutMapping(value = "put/email")
+	public ResponseEntity<Void> updateEmail(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updateEmail(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/password")
-	public ResponseEntity<Void> updatePassword(@RequestBody String password, @PathVariable String id){
-		return userService.updatePassword(password, id);
+	@PutMapping(value = "put/password")
+	public ResponseEntity<Void> updatePassword(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updatePassword(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/image")
-	public ResponseEntity<Void> updateImage(@RequestBody String image, @PathVariable String id){
-		return userService.updateImage(image, id);
+	@PutMapping(value = "put/image")
+	public ResponseEntity<Void> updateImage(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updateImage(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/description")
-	public ResponseEntity<Void> updateDescription(@RequestBody String description, @PathVariable String id){
-		return userService.updateDescription(description, id);
+	@PutMapping(value = "put/description")
+	public ResponseEntity<Void> updateDescription(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updateDescription(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/birthDate")
-	public ResponseEntity<Void> updateBirthDate(@RequestBody Date birthDate, @PathVariable String id){
-		return userService.updateBirthDate(birthDate, id);
+	@PutMapping(value = "put/birthDate")
+	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updateBirthDate(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/city")
-	public ResponseEntity<Void> updateCity(@RequestBody String city, @PathVariable String id){
-		return userService.updateCity(city, id);
+	@PutMapping(value = "put/city")
+	public ResponseEntity<Void> updateCity(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updateCity(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/privacy")
-	public ResponseEntity<Void> updatePrivacy(@RequestBody boolean privacy, @PathVariable String id){
-		return userService.updatePrivacy(privacy, id);
+	@PutMapping(value = "put/privacy")
+	public ResponseEntity<Void> updatePrivacy(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updatePrivacy(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/{id}/status")
-	public ResponseEntity<Void> updateStatus(@RequestBody boolean status, @PathVariable String id){
-		return userService.updateStatus(status, id);
+	@PutMapping(value = "put/status")
+	public ResponseEntity<Void> updateStatus(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+		return userService.updateStatus(userUpdateDTO);
 	}
 	
 

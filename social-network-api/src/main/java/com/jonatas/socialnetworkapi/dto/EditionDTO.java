@@ -96,6 +96,13 @@ public class EditionDTO {
 		this.attribute = attribute;
 	}
 
+	@Override
+	public String toString() {
+		return "EditionDTO [user=" + user + ", entity=" + entity + ", season=" + season + ", episode=" + episode
+				+ ", release=" + release + ", previus=" + previus + ", current=" + current + ", attribute=" + attribute
+				+ "]";
+	}
+
 	
 	
 	

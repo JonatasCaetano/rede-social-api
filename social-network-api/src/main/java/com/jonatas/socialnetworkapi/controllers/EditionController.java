@@ -3,9 +3,13 @@ package com.jonatas.socialnetworkapi.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.services.EditionService;
 
 @RestController
@@ -18,5 +22,15 @@ public class EditionController {
 	@GetMapping(value = "get/all")
 	public ResponseEntity<Object> findAll(){
 		return editionService.findAll();
+	}
+	
+	@GetMapping(value = "get/id/{id}")
+	public ResponseEntity<Object> findById(@PathVariable String id){
+		return editionService.findById(id);
+	}
+	
+	@PostMapping(value = "post")
+	public ResponseEntity<Object> newEdition(@RequestBody Edition edition){
+		return editionService.newEdition(edition);
 	}
 }

@@ -31,6 +31,15 @@ public class EditionService {
 		return ResponseEntity.ok().body(editionMiniDTOs);
 	}
 	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			Edition edition = editionRepository.findById(id).get();
+			return ResponseEntity.ok().body(edition);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	public ResponseEntity<Object> newEdition(Edition edition){
 		try {
 			edition = editionRepository.insert(edition);

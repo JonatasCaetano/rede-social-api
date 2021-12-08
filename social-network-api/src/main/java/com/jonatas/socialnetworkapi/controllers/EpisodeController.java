@@ -38,6 +38,11 @@ public class EpisodeController {
 		return episodeService.getEvaluationsEpisode(id);
 	}
 	
+	@GetMapping(value = "get/editions/{id}")
+	public ResponseEntity<Object> getEditions(@PathVariable String id){
+		return episodeService.getEditions(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post/user/{idUser}/season/{idSeason}")
@@ -48,22 +53,22 @@ public class EpisodeController {
 	//put
 	
 	@PutMapping(value = "put/name")
-	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateName(@RequestBody EditionDTO editionDTO){
 		return episodeService.updateName(editionDTO);
 	}
 	
 	@PutMapping(value = "put/image")
-	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateImage(@RequestBody EditionDTO editionDTO){
 		return episodeService.updateImage(editionDTO);
 	}
 	
 	@PutMapping(value = "put/description")
-	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateDescription(@RequestBody EditionDTO editionDTO){
 		return episodeService.updateDescription(editionDTO);
 	}
 	
 	@PutMapping(value = "put/release")
-	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
 		return episodeService.updateRelease(editionDTO);
 	}
 }

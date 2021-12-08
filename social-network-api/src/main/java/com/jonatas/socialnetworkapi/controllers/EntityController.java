@@ -48,6 +48,11 @@ public class EntityController {
 		return entityService.getEvaluationsEntity(id);
 	}
 	
+	@GetMapping(value = "get/editions/{id}")
+	public ResponseEntity<Object> getEditions(@PathVariable String id){
+		return entityService.getEditions(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "/post/user/{id}")
@@ -58,22 +63,22 @@ public class EntityController {
 	//put
 	
 	@PutMapping(value = "put/name")
-	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateName(@RequestBody EditionDTO editionDTO){
 		return entityService.updateName(editionDTO);
 	}
 	
 	@PutMapping(value = "put/image")
-	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateImage(@RequestBody EditionDTO editionDTO){
 		return entityService.updateImage(editionDTO);
 	}
 	
 	@PutMapping(value = "put/description")
-	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateDescription(@RequestBody EditionDTO editionDTO){
 		return entityService.updateDescription(editionDTO);
 	}
 	
 	@PutMapping(value = "put/release")
-	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
 		return entityService.updateRelease(editionDTO);
 	}
 
