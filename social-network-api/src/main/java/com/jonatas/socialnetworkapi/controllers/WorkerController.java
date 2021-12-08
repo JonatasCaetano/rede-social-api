@@ -36,16 +36,16 @@ public class WorkerController {
 	
 	//post
 	
-	@PostMapping(value = "post/create")
-	public ResponseEntity<Object> create(@RequestBody WorkerDTO workerDTO){
-		return workerService.create(workerDTO);
+	@PostMapping(value = "post")
+	public ResponseEntity<Object> newWorker(@RequestBody WorkerDTO workerDTO){
+		return workerService.newWorker(workerDTO);
 	}
 	
 	//delete
 	
 	@DeleteMapping(value = "delete/worker/{idWorker}/user/{idUser}")
 	public ResponseEntity<Object> delete(@PathVariable String idWorker, @PathVariable String idUser){
-		return workerService.delete(idWorker, idUser);
+		return workerService.deleteWorker(idWorker, idUser);
 	
 	}
 }

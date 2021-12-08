@@ -253,4 +253,15 @@ public class UserService {
 		}
 	}
 	
+	public ResponseEntity<Void> updateStatus(boolean status, String id){
+		try {
+			User user = userRepository.findById(id).get();
+			user.setStatus(status);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 }

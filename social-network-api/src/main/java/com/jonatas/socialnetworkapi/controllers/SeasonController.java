@@ -30,6 +30,11 @@ public class SeasonController {
 		return seasonService.findAll();
 	}
 	
+	@GetMapping(value = "get/id/{id}")
+	public ResponseEntity<Object> findById(@PathVariable String id){
+		return seasonService.findById(id);
+	}
+	
 	@GetMapping(value = "get/evaluations/{id}")
 	public ResponseEntity<Object> getEvaluationsEntity(@PathVariable String id){
 		return seasonService.getEvaluationsSeason(id);

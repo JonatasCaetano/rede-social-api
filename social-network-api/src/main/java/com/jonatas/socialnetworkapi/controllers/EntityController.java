@@ -21,11 +21,16 @@ public class EntityController {
 	@Autowired
 	private EntityService entityService;
 	
-	//get methods
+	//get
 	
 	@GetMapping(value = "get/all")
 	public ResponseEntity<Object> findAll(){
 		return entityService.findAll();
+	}
+	
+	@GetMapping(value = "get/id/{id}")
+	public ResponseEntity<Object> findById(@PathVariable String id){
+		return entityService.findById(id);
 	}
 	
 	@GetMapping(value = "get/workers/{id}")
@@ -43,9 +48,9 @@ public class EntityController {
 		return entityService.getEvaluationsEntity(id);
 	}
 	
-	//post methods
+	//post
 	
-	@PostMapping(value = "/post/{id}")
+	@PostMapping(value = "/post/user/{id}")
 	public ResponseEntity<Object> createEntity(@RequestBody EntityMiniDTO entityMiniDTO, @PathVariable String id){
 		return entityService.createEntity(entityMiniDTO, id);
 	}

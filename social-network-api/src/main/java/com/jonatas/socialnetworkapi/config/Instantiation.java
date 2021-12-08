@@ -16,6 +16,7 @@ import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.repositories.EditionRepository;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
 import com.jonatas.socialnetworkapi.repositories.EvaluationRepository;
@@ -62,6 +63,9 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private EvaluationRepository evaluationRepository;
 	
+	@Autowired
+	private EditionRepository editionRepository;
+	
 	//Services
 	
 	@Autowired
@@ -101,6 +105,7 @@ public class Instantiation implements CommandLineRunner{
 		seasonRepository.deleteAll();
 		episodeRepository.deleteAll();
 		evaluationRepository.deleteAll();
+		editionRepository.deleteAll();
 
 		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal", null, "Bauru");//123456
 
@@ -133,9 +138,9 @@ public class Instantiation implements CommandLineRunner{
 		WorkerDTO worker2 = new WorkerDTO(user2.getId(), entity2.getId(), "atriz");
 		WorkerDTO worker3 = new WorkerDTO(user3.getId(), entity1.getId(), "Diretor");
 		
-		workerService.create(worker1);
-		workerService.create(worker2);
-		workerService.create(worker3);
+		workerService.newWorker(worker1);
+		workerService.newWorker(worker2);
+		workerService.newWorker(worker3);
 		
 		SeasonDTO seasonDTO1 = new SeasonDTO("Murder House", "A primeira temporada, intitulada Murder House, tem como tema principal a infidelidade. Explorando temas como o amor, a família, e o perdão.", null, null, 1);
 		SeasonDTO seasonDTO2 = new SeasonDTO("Asylum", "A segunda temporada, intitulada Asylum, tem como tema a sanidade. A história se passa em 1964 e acompanha os pacientes, médicos e freiras que ocupam a Instituição Mental Briarcliff, fundada para tratar e abrigar os criminosos insanos.", null, null, 2);

@@ -2,8 +2,6 @@ package com.jonatas.socialnetworkapi.dto;
 
 import java.io.Serializable;
 
-import com.jonatas.socialnetworkapi.entities.User;
-
 public class UserCreationDTO  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	

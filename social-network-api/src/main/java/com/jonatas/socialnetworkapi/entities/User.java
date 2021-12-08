@@ -30,8 +30,8 @@ public class User implements Serializable{
 	private Date birthDate;
 	private String city;
 	private boolean privacy = false;
-	
 	private boolean status = true;
+	
 	private boolean checked = false;
 	private int following = 0;
 	private int followers = 0;

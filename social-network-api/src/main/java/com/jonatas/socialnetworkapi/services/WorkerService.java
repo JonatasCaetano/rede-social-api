@@ -48,7 +48,7 @@ public class WorkerService {
 		}
 	}
 	
-	public ResponseEntity<Object> create(WorkerDTO workerDTO) {
+	public ResponseEntity<Object> newWorker(WorkerDTO workerDTO) {
 		try {
 			User user = (User) userService.findById(workerDTO.getUser()).getBody();
 			Entity entity = (Entity) entityService.findById(workerDTO.getEntity()).getBody();
@@ -69,7 +69,7 @@ public class WorkerService {
 		
 	}
 	
-	public ResponseEntity<Object> delete(String idWorker, String idUser){
+	public ResponseEntity<Object> deleteWorker(String idWorker, String idUser){
 		try {
 			Worker worker = workerRepository.findById(idWorker).get();
 			User user = worker.getUser();

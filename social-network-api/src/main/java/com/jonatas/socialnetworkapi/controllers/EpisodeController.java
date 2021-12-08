@@ -28,6 +28,11 @@ public class EpisodeController {
 		return episodeService.findAll();
 	}
 	
+	@GetMapping(value = "get/id/{id}")
+	public ResponseEntity<Object> findById(@PathVariable String id){
+		return episodeService.findById(id);
+	}
+	
 	@GetMapping(value = "get/evaluations/{id}")
 	public ResponseEntity<Object> getEvaluationsEntity(@PathVariable String id){
 		return episodeService.getEvaluationsEpisode(id);

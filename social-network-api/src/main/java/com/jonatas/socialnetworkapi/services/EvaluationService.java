@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -73,7 +74,6 @@ public class EvaluationService {
 			Episode episode = (Episode) episodeService.findById(evaluationDTO.getEpisode()).getBody();
 			Evaluation evaluation = new Evaluation(user, entity, season, episode, evaluationDTO.getValue(), evaluationDTO.getRelease());
 			if(user == null) {
-				System.out.println("usuario nulo");
 				return ResponseEntity.badRequest().build();
 			}
 			evaluation = evaluationRepository.insert(evaluation);
@@ -103,6 +103,87 @@ public class EvaluationService {
 				return ResponseEntity.badRequest().build();
 			}
 			return ResponseEntity.created(null).body(evaluation);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateEvaluation(EvaluationDTO evaluationDTO){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			double current = evaluationDTO.getValue();
+			if(current > 5.0) {
+				return ResponseEntity.badRequest().build();
+			}
+			double previus = evaluation.getValue();
+			evaluation.setValue(current);
+			evaluationRepository.save(evaluation);
+			Entity entity = evaluation.getEntity();
+			Season season = evaluation.getSeason();
+			Episode episode = evaluation.getEpisode();
+			if(entity != null) {
+				entity.setEvaluationSum(- previus);
+				entity.setEvaluationSum(current);
+				entity.setEvaluationAverage();
+				entityService.save(entity);
+			}else if(season != null) {
+				season.setEvaluationSum(- previus);
+				season.setEvaluationSum(current);
+				season.setEvaluationAverage();
+				seasonService.save(season);
+			}else if(episode != null){
+				episode.setEvaluationSum(- previus);
+				episode.setEvaluationSum(current);
+				episode.setEvaluationAverage();
+				episodeService.save(episode);	
+			}else {
+				return ResponseEntity.badRequest().build();
+			}
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> deleteEvaluation(EvaluationDTO evaluationDTO){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			user.getEvaluations().remove(evaluation);
+			double previus = evaluation.getValue();
+			Entity entity = evaluation.getEntity();
+			Season season = evaluation.getSeason();
+			Episode episode = evaluation.getEpisode();
+			if(entity != null) {
+				entity.setEvaluationSum(- previus);
+				entity.setEvaluationQuantity(- 1);
+				entity.setEvaluationAverage();
+				entity.getEvaluations().remove(evaluation);
+				entityService.save(entity);
+			}else if(season != null) {
+					season.setEvaluationSum(- previus);
+					season.setEvaluationQuantity(- 1);
+					season.setEvaluationAverage();
+					season.getEvaluations().remove(evaluation);
+					seasonService.save(season);
+			}else if(episode != null){
+				episode.setEvaluationSum(- previus);
+				episode.setEvaluationQuantity(- 1);
+				episode.setEvaluationAverage();
+				episode.getEvaluations().remove(evaluation);
+				episodeService.save(episode);	
+			}else {
+				return ResponseEntity.badRequest().build();
+			}
+			evaluationRepository.delete(evaluation);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}

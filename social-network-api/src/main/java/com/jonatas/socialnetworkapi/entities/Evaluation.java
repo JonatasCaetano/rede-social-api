@@ -106,6 +106,12 @@ public class Evaluation implements Serializable{
 	public String getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "Evaluation [id=" + id + ", value=" + value + ", release=" + release + "]";
+	}
+
 	
 	
 

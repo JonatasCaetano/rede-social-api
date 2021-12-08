@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,9 +28,7 @@ public class InvitationController {
 		return invitationService.checkAvailability(invitationValue);
 	}
 	
-	//post
-	
-	@PostMapping(value = "post/invitation/{value}")
+	@GetMapping(value = "get/invitation/{value}")
 	public ResponseEntity<Object> findByValue(@PathVariable String value){
 		return invitationService.findByValue(value);
 	}

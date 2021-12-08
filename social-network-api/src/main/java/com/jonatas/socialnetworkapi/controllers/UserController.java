@@ -102,5 +102,10 @@ public class UserController {
 		return userService.updatePrivacy(privacy, id);
 	}
 	
+	@PutMapping(value = "put/{id}/status")
+	public ResponseEntity<Void> updateStatus(@RequestBody boolean status, @PathVariable String id){
+		return userService.updateStatus(status, id);
+	}
+	
 
 }
