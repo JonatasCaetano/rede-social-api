@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +29,8 @@ public class EntitySaveController {
 	}
 		
 	@GetMapping(value = "get/id/{id}")
-	public String findById() {
-		return "get all";
+	public ResponseEntity<Object> findById(@PathVariable String id){
+		return entitySaveService.findById(id);
 	}
 	
 	//post

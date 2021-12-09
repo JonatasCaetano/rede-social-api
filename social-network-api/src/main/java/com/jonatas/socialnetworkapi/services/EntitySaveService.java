@@ -28,4 +28,13 @@ public class EntitySaveService {
 		}
 	}
 	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			EntitySave entitySave = entitySaveRepository.findById(id).get();
+			return ResponseEntity.ok(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 }
