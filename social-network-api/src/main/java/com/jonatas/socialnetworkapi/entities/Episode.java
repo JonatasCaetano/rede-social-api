@@ -27,6 +27,7 @@ public class Episode implements Serializable{
 	private String image;
 	private String description;
 	private Date release;
+	private String genre;
 	
 	private int number;
 	private double evaluationAverage = 0.0;
@@ -55,7 +56,7 @@ public class Episode implements Serializable{
 		super();
 	}
 
-	public Episode(String id, String name, String description, String image, Date release, int number, Season season) {
+	public Episode(String id, String name, String description, String image, Date release, int number, Season season, String genre) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -64,6 +65,7 @@ public class Episode implements Serializable{
 		this.release = release;
 		this.number = number;
 		this.season = season;
+		this.genre = genre;
 	}
 	
 	public Episode(EpisodeDTO episodeDTO) {
@@ -165,6 +167,13 @@ public class Episode implements Serializable{
 		return editions;
 	}
 	
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
 	
 	//hashCode and equals
 

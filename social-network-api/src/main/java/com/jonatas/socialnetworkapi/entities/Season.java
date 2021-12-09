@@ -27,6 +27,7 @@ public class Season implements Serializable{
 	private String image;
 	private String description;
 	private Date release;
+	private String genre;
 	
 	private int number;
 	private int episode = 0;
@@ -61,7 +62,7 @@ public class Season implements Serializable{
 		super();
 	}
 
-	public Season(String name, String image, String description, Date release, int number, Entity entity) {
+	public Season(String name, String image, String description, Date release, int number, Entity entity, String genre) {
 		super();
 		this.name = name;
 		this.image = image;
@@ -69,6 +70,7 @@ public class Season implements Serializable{
 		this.release = release;
 		this.number = number;
 		this.entity = entity;
+		this.genre = genre;
 	}
 	
 	public Season(SeasonDTO seasonDTO) {
@@ -180,6 +182,14 @@ public class Season implements Serializable{
 	
 	public List<Edition> getEditions() {
 		return editions;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 	
 	//hashCode and equals

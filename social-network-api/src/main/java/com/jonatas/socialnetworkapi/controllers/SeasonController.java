@@ -78,5 +78,10 @@ public class SeasonController {
 	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
 		return seasonService.updateRelease(editionDTO);
 	}
+	
+	@PutMapping(value = "put/genre")
+	public ResponseEntity<Void> updateGenre(@RequestBody EditionDTO editionDTO){
+		return seasonService.updateGenre(editionDTO);
+	}
 
 }

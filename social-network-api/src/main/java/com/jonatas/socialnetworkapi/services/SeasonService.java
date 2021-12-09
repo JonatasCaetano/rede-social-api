@@ -236,4 +236,31 @@ public class SeasonService {
 		}
 	}
 	
+	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			editionDTO.setAttribute("genre");
+			editionDTO.setPrevius(season.getGenre());
+			season.setGenre((String) editionDTO.getCurrent());
+			seasonRepository.save(season);
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
+			season.getEditions().add(edition);
+			seasonRepository.save(season);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }

@@ -81,5 +81,10 @@ public class EntityController {
 	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
 		return entityService.updateRelease(editionDTO);
 	}
+	
+	@PutMapping(value = "put/genre")
+	public ResponseEntity<Void> updateGenre(@RequestBody EditionDTO editionDTO){
+		return entityService.updateGenre(editionDTO);
+	}
 
 }

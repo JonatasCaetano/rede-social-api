@@ -220,4 +220,26 @@ public class EpisodeService {
 		
 	}
 	
+	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			editionDTO.setAttribute("genre");
+			editionDTO.setPrevius(episode.getGenre());
+			episode.setGenre((String) editionDTO.getCurrent());
+			episodeRepository.save(episode);
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
+			episode.getEditions().add(edition);
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+		
+	}
+	
 }

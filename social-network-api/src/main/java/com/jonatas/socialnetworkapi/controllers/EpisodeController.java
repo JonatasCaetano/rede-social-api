@@ -71,4 +71,10 @@ public class EpisodeController {
 	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
 		return episodeService.updateRelease(editionDTO);
 	}
+	
+	@PutMapping(value = "put/genre")
+	public ResponseEntity<Void> updateGenre(@RequestBody EditionDTO editionDTO){
+		return episodeService.updateGenre(editionDTO);
+	}
+
 }

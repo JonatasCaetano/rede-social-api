@@ -18,6 +18,7 @@ import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EditionRepository;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
+import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
 import com.jonatas.socialnetworkapi.repositories.EvaluationRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
@@ -66,6 +67,9 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private EditionRepository editionRepository;
 	
+	@Autowired
+	private EntitySaveRepository entitySaveRepository;
+	
 	//Services
 	
 	@Autowired
@@ -92,6 +96,12 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private EvaluationService evaluationService;
 	
+//	@Autowired
+//	private EditionService editionService;
+	
+//	@Autowired
+//	private EntitySaveService entitySaveService;
+	
 	//start of function 
 	
 	@Override
@@ -106,6 +116,7 @@ public class Instantiation implements CommandLineRunner{
 		episodeRepository.deleteAll();
 		evaluationRepository.deleteAll();
 		editionRepository.deleteAll();
+		entitySaveRepository.deleteAll();
 
 		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal", null, "Bauru");//123456
 
@@ -124,10 +135,10 @@ public class Instantiation implements CommandLineRunner{
 		User user2 = (User) userService.createUser(userCreation2).getBody();
 		User user3 = (User) userService.createUser(userCreation3).getBody();
 				
-		Entity entity1 = new Entity("Vingadores", null, "Loki (Tom Hiddleston) retorna à Terra enviado pelos chitauri, uma raça alienígena que pretende dominar os humanos.", null, 0);
-		Entity entity2 = new Entity("O Senhor dos Anéis - A Sociedade do Anel", null, "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal.", null, 0 );
-		Entity entity3 = new Entity("American Horror Story", null, "A série gira em torno dos Harmon, uma família de três que se desloca de Boston para Los Angeles a fim de resolver alguns problemas do passado.", null, 1);
-		Entity entity4 = new Entity("The Walking Dead", null, "Baseado na história em quadrinhos escrita por Robert Kirkman, este drama potente e visceral retrata a vida nos Estados Unidos pós-apocalíptico.", null, 1);
+		Entity entity1 = new Entity("Vingadores", null, "Loki (Tom Hiddleston) retorna à Terra enviado pelos chitauri, uma raça alienígena que pretende dominar os humanos.", null, 0, null);
+		Entity entity2 = new Entity("O Senhor dos Anéis - A Sociedade do Anel", null, "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal.", null, 0, null );
+		Entity entity3 = new Entity("American Horror Story", null, "A série gira em torno dos Harmon, uma família de três que se desloca de Boston para Los Angeles a fim de resolver alguns problemas do passado.", null, 1, null);
+		Entity entity4 = new Entity("The Walking Dead", null, "Baseado na história em quadrinhos escrita por Robert Kirkman, este drama potente e visceral retrata a vida nos Estados Unidos pós-apocalíptico.", null, 1, null);
 				
 		entity1 = (Entity) entityService.createEntity(new EntityMiniDTO(entity1), user1.getId()).getBody();
 		entity2 = (Entity) entityService.createEntity(new EntityMiniDTO(entity2), user1.getId()).getBody();
@@ -156,12 +167,12 @@ public class Instantiation implements CommandLineRunner{
 		Episode ep1 = (Episode) episodeService.newEpisode(episodeDTO1, user1.getId(), season1.getId()).getBody();
 		Episode ep2 = (Episode) episodeService.newEpisode(episodeDTO2, user1.getId(), season1.getId()).getBody();
 		
-		EvaluationDTO evaluation1 = new EvaluationDTO(user2.getId(), null, null, ep1.getId(), 3.0, null);
-		EvaluationDTO evaluation2 = new EvaluationDTO(user2.getId(), null, null, ep2.getId(), 4.0, null);
-		EvaluationDTO evaluation3 = new EvaluationDTO(user1.getId(), entity4.getId(), null, null, 2.5, null);
-		EvaluationDTO evaluation4 = new EvaluationDTO(user1.getId(), null, season2.getId(), null, 3.5, null);
-		EvaluationDTO evaluation5 = new EvaluationDTO(user1.getId(), null, season3.getId(), null, 1.0, null);
-		EvaluationDTO evaluation6 = new EvaluationDTO(user1.getId(), null, null, ep1.getId(), 1.0, null);
+		EvaluationDTO evaluation1 = new EvaluationDTO(user2.getId(), null, null, ep1.getId(), 3.0, null, 2);
+		EvaluationDTO evaluation2 = new EvaluationDTO(user2.getId(), null, null, ep2.getId(), 4.0, null, 2);
+		EvaluationDTO evaluation3 = new EvaluationDTO(user1.getId(), entity4.getId(), null, null, 2.5, null, 0);
+		EvaluationDTO evaluation4 = new EvaluationDTO(user1.getId(), null, season2.getId(), null, 3.5, null, 1);
+		EvaluationDTO evaluation5 = new EvaluationDTO(user1.getId(), null, season3.getId(), null, 1.0, null, 1);
+		EvaluationDTO evaluation6 = new EvaluationDTO(user1.getId(), null, null, ep1.getId(), 1.0, null, 2);
 		
 		evaluationService.newEvaluation(evaluation1);
 		evaluationService.newEvaluation(evaluation2);

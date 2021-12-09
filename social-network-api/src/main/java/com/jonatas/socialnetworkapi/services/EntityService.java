@@ -97,7 +97,7 @@ public class EntityService {
 	public ResponseEntity<Object> createEntity(EntityMiniDTO entityMiniDTO, String id){
 		try {
 			User user = (User) userService.findById(id).getBody();
-			Entity entity = new Entity(entityMiniDTO.getName(), entityMiniDTO.getImage(), entityMiniDTO.getDescription(), entityMiniDTO.getRelease(), entityMiniDTO.getType());
+			Entity entity = new Entity(entityMiniDTO);
 			if(user.isChecked()) {
 				try {
 					Entity obj = entityRepository.insert(entity);
@@ -240,7 +240,26 @@ public class EntityService {
 		}
 	}
 	
-		
+	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			editionDTO.setAttribute("genre");
+			editionDTO.setPrevius(entity.getGenre());
+			entity.setGenre((String) editionDTO.getCurrent());
+			entityRepository.save(entity);
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			edition = (Edition) editionService.newEdition(edition).getBody();
+			entity.getEditions().add(edition);
+			entityRepository.save(entity);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
 	
 	

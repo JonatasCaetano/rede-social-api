@@ -72,20 +72,20 @@ public class EvaluationService {
 			Entity entity = (Entity) entityService.findById(evaluationDTO.getEntity()).getBody();
 			Season season = (Season) seasonService.findById(evaluationDTO.getSeason()).getBody();
 			Episode episode = (Episode) episodeService.findById(evaluationDTO.getEpisode()).getBody();
-			Evaluation evaluation = new Evaluation(user, entity, season, episode, evaluationDTO.getValue(), evaluationDTO.getRelease());
+			Evaluation evaluation = new Evaluation(user, entity, season, episode, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
 			if(user == null) {
 				return ResponseEntity.badRequest().build();
 			}
 			evaluation = evaluationRepository.insert(evaluation);
 			user.getEvaluations().add(evaluation);
 			userService.save(user);
-			if(entity != null) {
+			if(evaluation.getType() == 0) {
 				entity.getEvaluations().add(evaluation);
 				entity.setEvaluationQuantity(1);
 				entity.setEvaluationSum(evaluation.getValue());
 				entity.setEvaluationAverage();
 				entityService.save(entity);
-			}else if(season != null) {
+			}else if(evaluation.getType() == 1) {
 				
 					season.getEvaluations().add(evaluation);
 					season.setEvaluationQuantity(1);
@@ -93,7 +93,7 @@ public class EvaluationService {
 					season.setEvaluationAverage();
 					seasonService.save(season);
 		
-			}else if(episode != null){
+			}else if(evaluation.getType() == 2){
 				episode.getEvaluations().add(evaluation);
 				episode.setEvaluationQuantity(1);
 				episode.setEvaluationSum(evaluation.getValue());
@@ -125,17 +125,17 @@ public class EvaluationService {
 			Entity entity = evaluation.getEntity();
 			Season season = evaluation.getSeason();
 			Episode episode = evaluation.getEpisode();
-			if(entity != null) {
+			if(evaluation.getType() == 0) {
 				entity.setEvaluationSum(- previus);
 				entity.setEvaluationSum(current);
 				entity.setEvaluationAverage();
 				entityService.save(entity);
-			}else if(season != null) {
+			}else if(evaluation.getType() == 1) {
 				season.setEvaluationSum(- previus);
 				season.setEvaluationSum(current);
 				season.setEvaluationAverage();
 				seasonService.save(season);
-			}else if(episode != null){
+			}else if(evaluation.getType() == 2){
 				episode.setEvaluationSum(- previus);
 				episode.setEvaluationSum(current);
 				episode.setEvaluationAverage();
@@ -161,19 +161,19 @@ public class EvaluationService {
 			Entity entity = evaluation.getEntity();
 			Season season = evaluation.getSeason();
 			Episode episode = evaluation.getEpisode();
-			if(entity != null) {
+			if(evaluation.getType() == 0) {
 				entity.setEvaluationSum(- previus);
 				entity.setEvaluationQuantity(- 1);
 				entity.setEvaluationAverage();
 				entity.getEvaluations().remove(evaluation);
 				entityService.save(entity);
-			}else if(season != null) {
+			}else if(evaluation.getType() == 1) {
 					season.setEvaluationSum(- previus);
 					season.setEvaluationQuantity(- 1);
 					season.setEvaluationAverage();
 					season.getEvaluations().remove(evaluation);
 					seasonService.save(season);
-			}else if(episode != null){
+			}else if(evaluation.getType() == 2){
 				episode.setEvaluationSum(- previus);
 				episode.setEvaluationQuantity(- 1);
 				episode.setEvaluationAverage();

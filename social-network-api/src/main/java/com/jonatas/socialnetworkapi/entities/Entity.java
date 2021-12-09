@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
 
 @Document
 public class Entity implements Serializable{
@@ -25,6 +26,7 @@ public class Entity implements Serializable{
 	private String image;
 	private String description;
 	private Date release;
+	private String genre;
 	
 	private int type;
 	private int season = 0;
@@ -58,13 +60,24 @@ public class Entity implements Serializable{
 		super();
 	}
 	
-	public Entity(String name, String image, String description, Date release, int type) {
+	public Entity(String name, String image, String description, Date release, int type, String genre) {
 		super();
 		this.name = name;
 		this.image = image;
 		this.description = description;
 		this.release = release;
 		this.type = type;
+		this.genre = genre;
+	}
+	
+	public Entity(EntityMiniDTO entityMiniDTO) {
+		super();
+		this.name = entityMiniDTO.getName();
+		this.image = entityMiniDTO.getImage();
+		this.description = entityMiniDTO.getDescription();
+		this.release = entityMiniDTO.getRelease();
+		this.type = entityMiniDTO.getType();
+		this.genre = entityMiniDTO.getGenre();
 	}
 
 	
@@ -165,6 +178,14 @@ public class Entity implements Serializable{
 	
 	public List<Edition> getEditions() {
 		return editions;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 	
 	//hashCode and equals

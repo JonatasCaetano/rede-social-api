@@ -17,6 +17,7 @@ public class EntityMiniDTO {
 	private double evaluationAverage = 0.0;
 	private int season = 0;
 	private int type;
+	private String genre;
 	
 	//builders
 	
@@ -35,6 +36,7 @@ public class EntityMiniDTO {
 		this.release = entity.getRelease();
 		this.type = entity.getType();
 		this.evaluationQuantity = entity.getEvaluationQuantity();
+		this.setGenre(entity.getGenre());
 	}
 	
 	//getters and setters
@@ -109,6 +111,14 @@ public class EntityMiniDTO {
 
 	public void setType(int type) {
 		this.type = type;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 	
 	
