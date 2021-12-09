@@ -53,15 +53,25 @@ public class EntitySaveController {
 	}
 	
 	//put
-	@PutMapping(value = "put/id/{id}")
-	public String updateEntitySave() {
-		return "update entitySave";
+	@PutMapping(value = "put")
+	public ResponseEntity<Object> updateEntitySave(@RequestBody EntitySaveDTO entitySaveDTO){
+		return entitySaveService.updateEntitySave(entitySaveDTO);
 	}
 	
 	//delete
 	
-	@DeleteMapping(value = "delete")
-	public String deleteEntitySave() {
-		return "delete entitySave";
+	@DeleteMapping(value = "delete/entity")
+	public ResponseEntity<Object> deleteEntitySaveEntity(EntitySaveDTO entitySaveDTO){
+		return entitySaveService.deleteEntitySaveEntity(entitySaveDTO);
+	}
+	
+	@DeleteMapping(value = "delete/season")
+	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
+		return entitySaveService.deleteEntitySaveSeason(entitySaveDTO);
+	}
+	
+	@DeleteMapping(value = "delete/episode")
+	public ResponseEntity<Object> deleteEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
+		return entitySaveService.deleteEntitySaveEpisode(entitySaveDTO);
 	}
 }

@@ -2,6 +2,8 @@ package com.jonatas.socialnetworkapi.dto;
 
 import java.util.Date;
 
+import com.jonatas.socialnetworkapi.entities.Evaluation;
+
 public class EvaluationDTO {
 	
 	//attributes
@@ -29,6 +31,17 @@ public class EvaluationDTO {
 		this.episode = episode;
 		this.value = value;
 		this.release = release;
+	}
+	
+	public EvaluationDTO(Evaluation evaluation) {
+		super();
+		this.id = evaluation.getId();
+		this.user = evaluation.getUser().getId() != null ? evaluation.getUser().getId() : null;
+		this.user = evaluation.getEntity().getId() != null ? evaluation.getEntity().getId() : null;
+		this.user = evaluation.getSeason().getId() != null ? evaluation.getSeason().getId() : null;
+		this.user = evaluation.getEpisode().getId() != null ? evaluation.getEpisode().getId() : null;
+		this.value = evaluation.getValue();
+		this.release = evaluation.getRelease();
 	}
 	
 	//getters and setters

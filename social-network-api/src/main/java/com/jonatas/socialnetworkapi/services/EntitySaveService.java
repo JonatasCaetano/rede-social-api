@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EntitySaveDTO;
+import com.jonatas.socialnetworkapi.dto.EvaluationDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
+import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
@@ -40,6 +42,10 @@ public class EntitySaveService {
 	@Autowired
 	@Lazy
 	private EpisodeService episodeService;
+	
+	@Autowired
+	@Lazy
+	private EvaluationService evaluationService;
 
 	//methods
 	
@@ -90,7 +96,7 @@ public class EntitySaveService {
 	public ResponseEntity<Object> newEntitySaveSeason(EntitySaveDTO entitySaveDTO){
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Season season = (Season) seasonService.findById(entitySaveDTO.getEntity()).getBody();
+			Season season = (Season) seasonService.findById(entitySaveDTO.getSeason()).getBody();
 			EntitySave entitySave = new EntitySave(
 					user,
 					null,
@@ -116,7 +122,7 @@ public class EntitySaveService {
 	public ResponseEntity<Object> newEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Episode episode = (Episode) episodeService.findById(entitySaveDTO.getEntity()).getBody();
+			Episode episode = (Episode) episodeService.findById(entitySaveDTO.getEpisode()).getBody();
 			EntitySave entitySave = new EntitySave(
 					user,
 					null,
@@ -139,9 +145,9 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> updateEntitySaveEntity(EntitySaveDTO entitySaveDTO){
+	public ResponseEntity<Object> updateEntitySave(EntitySaveDTO entitySaveDTO){
 		try {
-]			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
 			entitySave.setCategory(entitySaveDTO.getCategory());
 			switch (entitySaveDTO.getCategory()) {
 			case 5: 
@@ -160,5 +166,84 @@ public class EntitySaveService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	public ResponseEntity<Object> deleteEntitySaveEntity(EntitySaveDTO entitySaveDTO){
+		try {
+			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
+			Entity entity = (Entity) entityService.findById(entitySaveDTO.getEntity()).getBody();
+			List<Evaluation> evaluations = entity.getEvaluations();
+			for(Evaluation evaluation : evaluations) {
+				if(evaluation.getUser().getId().hashCode() == user.getId().hashCode()) {
+					entity.getEvaluations().remove(evaluation);
+					entityService.save(entity);
+					user.getEvaluations().remove(evaluation);
+					userService.save(user);
+					evaluationService.deleteEvaluation(new EvaluationDTO(evaluation));
+				}
+			}
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			user.getEntitySaves().remove(entitySave);
+			userService.save(user);
+			entity.getEntitySaves().remove(entitySave);
+			entityService.save(entity);
+			entitySaveRepository.delete(entitySave);
+			return ResponseEntity.ok(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
+		try {
+			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
+			Season season = (Season) seasonService.findById(entitySaveDTO.getSeason()).getBody();
+			List<Evaluation> evaluations = season.getEvaluations();
+			for(Evaluation evaluation : evaluations) {
+				if(evaluation.getUser().getId().hashCode() == user.getId().hashCode()) {
+					season.getEvaluations().remove(evaluation);
+					seasonService.save(season);
+					user.getEvaluations().remove(evaluation);
+					userService.save(user);
+					evaluationService.deleteEvaluation(new EvaluationDTO(evaluation));
+				}
+			}
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			user.getEntitySaves().remove(entitySave);
+			userService.save(user);
+			season.getEntitySaves().remove(entitySave);
+			seasonService.save(season);
+			entitySaveRepository.delete(entitySave);
+			return ResponseEntity.ok(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> deleteEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
+		try {
+			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
+			Episode episode = (Episode) entityService.findById(entitySaveDTO.getEpisode()).getBody();
+			List<Evaluation> evaluations = episode.getEvaluations();
+			for(Evaluation evaluation : evaluations) {
+				if(evaluation.getUser().getId().hashCode() == user.getId().hashCode()) {
+					episode.getEvaluations().remove(evaluation);
+					episodeService.save(episode);
+					user.getEvaluations().remove(evaluation);
+					userService.save(user);
+					evaluationService.deleteEvaluation(new EvaluationDTO(evaluation));
+				}
+			}
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			user.getEntitySaves().remove(entitySave);
+			userService.save(user);
+			episode.getEntitySaves().remove(entitySave);
+			episodeService.save(episode);
+			entitySaveRepository.delete(entitySave);
+			return ResponseEntity.ok(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	
 }
