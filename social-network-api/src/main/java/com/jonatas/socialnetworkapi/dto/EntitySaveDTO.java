@@ -4,28 +4,35 @@ import java.util.Date;
 
 public class EntitySaveDTO {
 
+	private String id;
 	private String user;
 	private String entity;
 	private String season;
 	private String episode;
 	private int category;
 	private Date release;
-//	private boolean review = false;
-//	private boolean goal = false;
-//	private boolean rated = false;
 	
 	public EntitySaveDTO() {
 		super();
 	}
 	
-	public EntitySaveDTO(String user, String entity, String season, String episode, int category, Date release) {
-		super();
-		this.user = user;
-		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
-		this.category = category;
-		this.release = release;
+	public EntitySaveDTO(String id, String user, String entity, String season, String episode, int category, Date release) {
+	super();
+	this.id = id;
+	this.user = user;
+	this.entity = entity;
+	this.season = season;
+	this.episode = episode;
+	this.category = category;
+	this.release = release;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getUser() {
@@ -75,6 +82,8 @@ public class EntitySaveDTO {
 	public void setRelease(Date release) {
 		this.release = release;
 	}
+
+	
 
 	
 	

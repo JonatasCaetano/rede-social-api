@@ -28,16 +28,16 @@ public class EntitySave implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
-	private Season season;
+	private List<Season> seasons = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
-	private Episode episode;
+	private List<Episode> episodes = new ArrayList<>();
 	
 	private int category;
-	private boolean review = false;
 	private boolean goal = false;
 	private boolean rated = false;
+	private boolean review = false;
 	
 	List<Date> historic = new ArrayList<>();
 
@@ -45,18 +45,14 @@ public class EntitySave implements Serializable{
 		super();
 	}
 
-	public EntitySave(String id, User user, Entity entity, Season season, Episode episode, int category, boolean review,
-			boolean goal, boolean rated) {
+	public EntitySave(User user, Entity entity, int category, boolean goal, boolean rated, boolean review) {
 		super();
-		this.id = id;
 		this.user = user;
 		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
 		this.category = category;
-		this.review = review;
 		this.goal = goal;
 		this.rated = rated;
+		this.review = review;
 	}
 
 	public User getUser() {
@@ -73,22 +69,6 @@ public class EntitySave implements Serializable{
 
 	public void setEntity(Entity entity) {
 		this.entity = entity;
-	}
-
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
-
-	public Episode getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(Episode episode) {
-		this.episode = episode;
 	}
 
 	public int getCategory() {
@@ -123,13 +103,27 @@ public class EntitySave implements Serializable{
 		this.rated = rated;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	public String getId() {
 		return id;
+	}
+
+	public List<Season> getSeasons() {
+		return seasons;
+	}
+
+	public List<Episode> getEpisodes() {
+		return episodes;
 	}
 
 	public List<Date> getHistoric() {
 		return historic;
 	}
+
+	
 	
 	
 }

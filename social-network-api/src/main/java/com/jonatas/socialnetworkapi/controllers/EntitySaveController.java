@@ -7,9 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.dto.EntitySaveDTO;
 import com.jonatas.socialnetworkapi.services.EntitySaveService;
 
 @RestController
@@ -36,8 +38,8 @@ public class EntitySaveController {
 	//post
 	
 	@PostMapping(value = "post")
-	public String newEntitySave() {
-		return "new entitySave";
+	public ResponseEntity<Object> newEntitySave(@RequestBody EntitySaveDTO entitySaveDTO){
+		return entitySaveService.newEntitySave(entitySaveDTO);
 	}
 	
 	//put
