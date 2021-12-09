@@ -44,6 +44,10 @@ public class Episode implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Edition> editions = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<EntitySave> entitySaves = new ArrayList<>();
 
 	//builders
 	
@@ -152,10 +156,15 @@ public class Episode implements Serializable{
 	public void setEvaluationQuantity(int evaluationQuantity) {
 		this.evaluationQuantity += evaluationQuantity;
 	}
-	
+		
+	public List<EntitySave> getEntitySaves() {
+		return entitySaves;
+	}
+
 	public List<Edition> getEditions() {
 		return editions;
 	}
+	
 	
 	//hashCode and equals
 

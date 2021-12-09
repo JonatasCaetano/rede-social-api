@@ -50,6 +50,10 @@ public class Season implements Serializable{
 	@JsonBackReference
 	private List<Edition> editions = new ArrayList<>();
 	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<EntitySave> entitySaves = new ArrayList<>();
+	
 	
 	//builders
 	
@@ -168,6 +172,10 @@ public class Season implements Serializable{
 
 	public void setEvaluationQuantity(int evaluationQuantity) {
 		this.evaluationQuantity += evaluationQuantity;
+	}
+	
+	public List<EntitySave> getEntitySaves() {
+		return entitySaves;
 	}
 	
 	public List<Edition> getEditions() {
