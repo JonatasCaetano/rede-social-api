@@ -11,12 +11,13 @@ public class EntitySaveDTO {
 	private String episode;
 	private int category;
 	private Date release;
+	private int type;
 	
 	public EntitySaveDTO() {
 		super();
 	}
 	
-	public EntitySaveDTO(String id, String user, String entity, String season, String episode, int category, Date release) {
+	public EntitySaveDTO(String id, String user, String entity, String season, String episode, int category, Date release, int type) {
 	super();
 	this.id = id;
 	this.user = user;
@@ -25,6 +26,7 @@ public class EntitySaveDTO {
 	this.episode = episode;
 	this.category = category;
 	this.release = release;
+	this.type = type;
 	}
 
 	public String getId() {
@@ -81,6 +83,14 @@ public class EntitySaveDTO {
 
 	public void setRelease(Date release) {
 		this.release = release;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	

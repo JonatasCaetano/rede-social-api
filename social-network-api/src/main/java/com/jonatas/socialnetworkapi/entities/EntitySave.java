@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -28,16 +29,17 @@ public class EntitySave implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
-	private List<Season> seasons = new ArrayList<>();
+	private Season season;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
-	private List<Episode> episodes = new ArrayList<>();
+	private Episode episode;
 	
 	private int category;
 	private boolean goal = false;
 	private boolean rated = false;
 	private boolean review = false;
+	private int type;
 	
 	List<Date> historic = new ArrayList<>();
 
@@ -45,14 +47,18 @@ public class EntitySave implements Serializable{
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, int category, boolean goal, boolean rated, boolean review) {
+	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, boolean goal,
+			boolean rated, boolean review, int type) {
 		super();
 		this.user = user;
 		this.entity = entity;
+		this.season = season;
+		this.episode = episode;
 		this.category = category;
 		this.goal = goal;
 		this.rated = rated;
 		this.review = review;
+		this.type = type;
 	}
 
 	public User getUser() {
@@ -71,20 +77,28 @@ public class EntitySave implements Serializable{
 		this.entity = entity;
 	}
 
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
+	public Episode getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Episode episode) {
+		this.episode = episode;
+	}
+
 	public int getCategory() {
 		return category;
 	}
 
 	public void setCategory(int category) {
 		this.category = category;
-	}
-
-	public boolean isReview() {
-		return review;
-	}
-
-	public void setReview(boolean review) {
-		this.review = review;
 	}
 
 	public boolean isGoal() {
@@ -103,25 +117,48 @@ public class EntitySave implements Serializable{
 		this.rated = rated;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public boolean isReview() {
+		return review;
+	}
+
+	public void setReview(boolean review) {
+		this.review = review;
+	}
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public List<Season> getSeasons() {
-		return seasons;
-	}
-
-	public List<Episode> getEpisodes() {
-		return episodes;
-	}
-
 	public List<Date> getHistoric() {
 		return historic;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EntitySave other = (EntitySave) obj;
+		return Objects.equals(id, other.id);
+	}
+
+	
 
 	
 	

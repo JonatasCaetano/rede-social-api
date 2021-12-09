@@ -37,9 +37,19 @@ public class EntitySaveController {
 	
 	//post
 	
-	@PostMapping(value = "post")
-	public ResponseEntity<Object> newEntitySave(@RequestBody EntitySaveDTO entitySaveDTO){
-		return entitySaveService.newEntitySave(entitySaveDTO);
+	@PostMapping(value = "post/entity")
+	public ResponseEntity<Object> newEntitySaveEntity(@RequestBody EntitySaveDTO entitySaveDTO){
+		return entitySaveService.newEntitySaveEntity(entitySaveDTO);
+	}
+	
+	@PostMapping(value = "post/season")
+	public ResponseEntity<Object> newEntitySaveSeason(@RequestBody EntitySaveDTO entitySaveDTO){
+		return entitySaveService.newEntitySaveSeason(entitySaveDTO);
+	}
+	
+	@PostMapping(value = "post/episode")
+	public ResponseEntity<Object> newEntitySaveEpisode(@RequestBody EntitySaveDTO entitySaveDTO){
+		return entitySaveService.newEntitySaveEpisode(entitySaveDTO);
 	}
 	
 	//put
