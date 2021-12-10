@@ -45,6 +45,10 @@ public class Episode implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Post> posts = new ArrayList<>();
 
 	//builders
 	
@@ -161,6 +165,10 @@ public class Episode implements Serializable{
 
 	public List<Edition> getEditions() {
 		return editions;
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
 	}
 	
 	public String getGenre() {

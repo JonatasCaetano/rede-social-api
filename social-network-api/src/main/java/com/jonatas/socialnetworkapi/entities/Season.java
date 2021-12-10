@@ -51,6 +51,9 @@ public class Season implements Serializable{
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
 	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Post> posts = new ArrayList<>();
 	
 	//builders
 	
@@ -179,11 +182,15 @@ public class Season implements Serializable{
 	public List<Edition> getEditions() {
 		return editions;
 	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
 
 	public String getGenre() {
 		return genre;
 	}
-
+		
 	public void setGenre(String genre) {
 		this.genre = genre;
 	}

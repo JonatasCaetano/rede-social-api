@@ -53,6 +53,10 @@ public class User implements Serializable{
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
 	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Post> posts = new ArrayList<>();
+	
 	//builders
 	
 	public User() {
@@ -206,7 +210,11 @@ public class User implements Serializable{
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	
+		
+	public List<Post> getPosts() {
+		return posts;
+	}
+
 	public List<EntitySave> getEntitySaves() {
 		return entitySaves;
 	}

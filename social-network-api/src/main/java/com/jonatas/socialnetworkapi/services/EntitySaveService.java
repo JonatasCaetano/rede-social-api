@@ -177,7 +177,7 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveCategory(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
-			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
+			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
 			entitySave.setCategory(entitySaveDTO.getCategory());
