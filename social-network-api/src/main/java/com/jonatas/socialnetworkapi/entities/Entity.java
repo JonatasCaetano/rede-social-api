@@ -44,10 +44,6 @@ public class Entity implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
-	private List<Evaluation> evaluations = new ArrayList<>();
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
 	private List<Edition> editions = new ArrayList<>();
 	
 	@DBRef(lazy = true)
@@ -143,17 +139,17 @@ public class Entity implements Serializable{
 	public void setSeason(int season) {
 		this.season += season;
 	}
-	
-	public List<Evaluation> getEvaluations() {
-		return evaluations;
-	}
 			
 	public double getEvaluationAverage() {
 		return evaluationAverage;
 	}
 
 	public void setEvaluationAverage() {
-		this.evaluationAverage = this.evaluationSum / this.evaluationQuantity;
+		if(this.evaluationSum == 0 || this.evaluationQuantity == 0) {
+			this.evaluationAverage = 0.0;
+		}else {
+			this.evaluationAverage = this.evaluationSum / this.evaluationQuantity;
+		}
 	}
 
 	public double getEvaluationSum() {
@@ -192,7 +188,7 @@ public class Entity implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -204,16 +200,13 @@ public class Entity implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Entity other = (Entity) obj;
-		return Objects.equals(name, other.name);
+		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "Entity [id=" + id + ", name=" + name + ", image=" + image + ", description=" + description
-				+ ", release=" + release + ", type=" + type + ", season=" + season + ", evaluationAverage="
-				+ evaluationAverage + ", evaluationSum=" + evaluationSum + ", evaluationQuantity=" + evaluationQuantity
-				+ ", workers=" + workers + ", seasons=" + seasons + ", evaluations=" + evaluations + "]";
-	}
+	
+	
+
+	
 	
 	
 

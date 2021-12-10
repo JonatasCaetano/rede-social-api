@@ -11,6 +11,9 @@ public class EntitySaveDTO {
 	private String episode;
 	private int category;
 	private Date release;
+	private boolean goal;
+	private boolean rated;
+	private boolean review;
 	private int type;
 	
 	public EntitySaveDTO() {
@@ -93,7 +96,29 @@ public class EntitySaveDTO {
 		this.type = type;
 	}
 
-	
+	public boolean isGoal() {
+		return goal;
+	}
+
+	public void setGoal(boolean goal) {
+		this.goal = goal;
+	}
+
+	public boolean isRated() {
+		return rated;
+	}
+
+	public void setRated(boolean rated) {
+		this.rated = rated;
+	}
+
+	public boolean isReview() {
+		return review;
+	}
+
+	public void setReview(boolean review) {
+		this.review = review;	
+	}
 
 	
 	

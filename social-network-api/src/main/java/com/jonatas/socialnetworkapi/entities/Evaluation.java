@@ -18,6 +18,10 @@ public class Evaluation implements Serializable{
 	@Id
 	private String id;
 	
+	private int type;
+	private double value;
+	private Date release;
+	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
@@ -34,9 +38,10 @@ public class Evaluation implements Serializable{
 	@JsonManagedReference
 	private Episode episode;
 	
-	private double value;
-	private Date release;
-	private int type;
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private EntitySave entitySave;
+		
 	
 	//builders
 	

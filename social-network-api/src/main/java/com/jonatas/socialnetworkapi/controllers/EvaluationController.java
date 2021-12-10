@@ -37,18 +37,48 @@ public class EvaluationController {
 	
 	//post
 	
-	@PostMapping(value = "post")
-	private ResponseEntity<Object> newEvaluation(@RequestBody EvaluationDTO evaluationDTO){
-		return evaluationService.newEvaluation(evaluationDTO);
+	@PostMapping(value = "post/entity")
+	private ResponseEntity<Object> newEvaluationEntity(@RequestBody EvaluationDTO evaluationDTO){
+		return evaluationService.newEvaluationEntity(evaluationDTO);
 	}
 	
-	@PutMapping(value = "put/update")
-	private ResponseEntity<Void> updateEvaluation(@RequestBody EvaluationDTO evaluationTO){
-		return evaluationService.updateEvaluation(evaluationTO);
+	@PostMapping(value = "post/season")
+	private ResponseEntity<Object> newEvaluationSeason(@RequestBody EvaluationDTO evaluationDTO){
+		return evaluationService.newEvaluationSeason(evaluationDTO);
 	}
 	
-	@DeleteMapping(value = "delete")
-	public ResponseEntity<Void> deleteEvaluation(@RequestBody EvaluationDTO evaluationDTO){
-		return evaluationService.deleteEvaluation(evaluationDTO);
+	@PostMapping(value = "post/episode")
+	private ResponseEntity<Object> newEvaluationEpisode(@RequestBody EvaluationDTO evaluationDTO){
+		return evaluationService.newEvaluationEpisode(evaluationDTO);
+	}
+	
+	@PutMapping(value = "put/entity")
+	private ResponseEntity<Void> updateEvaluationEntity(@RequestBody EvaluationDTO evaluationTO){
+		return evaluationService.updateEvaluationEntity(evaluationTO);
+	}
+	
+	@PutMapping(value = "put/season")
+	private ResponseEntity<Void> updateEvaluationSeason(@RequestBody EvaluationDTO evaluationTO){
+		return evaluationService.updateEvaluationSeason(evaluationTO);
+	}
+	
+	@PutMapping(value = "put/episode")
+	private ResponseEntity<Void> updateEvaluationEpisode(@RequestBody EvaluationDTO evaluationTO){
+		return evaluationService.updateEvaluationEpisode(evaluationTO);
+	}
+	
+	@DeleteMapping(value = "delete/entity")
+	public ResponseEntity<Void> deleteEvaluationEntity(@RequestBody EvaluationDTO evaluationDTO){
+		return evaluationService.deleteEvaluationEntity(evaluationDTO);
+	}
+	
+	@DeleteMapping(value = "delete/season")
+	public ResponseEntity<Void> deleteEvaluationSeason(@RequestBody EvaluationDTO evaluationDTO){
+		return evaluationService.deleteEvaluationSeason(evaluationDTO);
+	}
+	
+	@DeleteMapping(value = "delete/episode")
+	public ResponseEntity<Void> deleteEvaluationEpisode(@RequestBody EvaluationDTO evaluationDTO){
+		return evaluationService.deleteEvaluationEpisode(evaluationDTO);
 	}
 }

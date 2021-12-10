@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Document
@@ -18,6 +19,12 @@ public class EntitySave implements Serializable{
 
 	@Id
 	private String id;
+	
+	private int type;
+	private int category;
+	private boolean goal = false;
+	private boolean rated = false;
+	private boolean review = false;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -35,11 +42,12 @@ public class EntitySave implements Serializable{
 	@JsonManagedReference
 	private Episode episode;
 	
-	private int category;
-	private boolean goal = false;
-	private boolean rated = false;
-	private boolean review = false;
-	private int type;
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private Evaluation evaluation;
+	
+	
+	
 	
 	List<Date> historic = new ArrayList<>();
 
@@ -141,6 +149,14 @@ public class EntitySave implements Serializable{
 		return historic;
 	}
 
+	public Evaluation getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(Evaluation evaluation) {
+		this.evaluation = evaluation;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -157,6 +173,7 @@ public class EntitySave implements Serializable{
 		EntitySave other = (EntitySave) obj;
 		return Objects.equals(id, other.id);
 	}
+
 
 	
 

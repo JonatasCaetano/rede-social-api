@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.dto.EvaluationDTO;
 import com.jonatas.socialnetworkapi.dto.EvaluationUserDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
+import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
@@ -44,6 +45,10 @@ public class EvaluationService {
 	@Lazy
 	private EpisodeService episodeService;
 	
+	@Autowired
+	@Lazy
+	private EntitySaveService entitySaveService;
+	
 	
 	//methods
 	
@@ -66,51 +71,175 @@ public class EvaluationService {
 		}
 	}
 	
-	public ResponseEntity<Object> newEvaluation(EvaluationDTO evaluationDTO){
+	public ResponseEntity<Object> newEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
 			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
 			Entity entity = (Entity) entityService.findById(evaluationDTO.getEntity()).getBody();
-			Season season = (Season) seasonService.findById(evaluationDTO.getSeason()).getBody();
-			Episode episode = (Episode) episodeService.findById(evaluationDTO.getEpisode()).getBody();
-			Evaluation evaluation = new Evaluation(user, entity, season, episode, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
+			
 			if(user == null) {
 				return ResponseEntity.badRequest().build();
 			}
-			evaluation = evaluationRepository.insert(evaluation);
-			user.getEvaluations().add(evaluation);
-			userService.save(user);
-			if(evaluation.getType() == 0) {
-				entity.getEvaluations().add(evaluation);
-				entity.setEvaluationQuantity(1);
-				entity.setEvaluationSum(evaluation.getValue());
-				entity.setEvaluationAverage();
-				entityService.save(entity);
-			}else if(evaluation.getType() == 1) {
-				
-					season.getEvaluations().add(evaluation);
-					season.setEvaluationQuantity(1);
-					season.setEvaluationSum(evaluation.getValue());
-					season.setEvaluationAverage();
-					seasonService.save(season);
-		
-			}else if(evaluation.getType() == 2){
-				episode.getEvaluations().add(evaluation);
-				episode.setEvaluationQuantity(1);
-				episode.setEvaluationSum(evaluation.getValue());
-				episode.setEvaluationAverage();
-				episodeService.save(episode);	
-			}else {
-				return ResponseEntity.badRequest().build();
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			if(entitySaves.size() == 0) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
+			for(EntitySave entitySave : entitySaves) {
+				boolean entitySaveExists = false;
+				if(entitySave.getEntity().getId().hashCode() == entity.getId().hashCode()) {
+					entitySaveExists = true;
+					if(entitySave.isRated()) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
+				}
+				if(!entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
+			Evaluation evaluation = new Evaluation(user, entity, null, null, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
+			evaluation = evaluationRepository.insert(evaluation);
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.getEntity().getId().hashCode() == entity.getId().hashCode()) {
+					entitySave.setEvaluation(evaluation);
+					entitySave.setRated(true);
+					entitySaveService.save(entitySave);
+				}
+			}
+			entity.setEvaluationQuantity(1);
+			entity.setEvaluationSum(evaluation.getValue());
+			entity.setEvaluationAverage();
+			entityService.save(entity);
 			return ResponseEntity.created(null).body(evaluation);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Void> updateEvaluation(EvaluationDTO evaluationDTO){
+	public ResponseEntity<Object> newEvaluationSeason(EvaluationDTO evaluationDTO){
+		try {
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Season season = (Season) seasonService.findById(evaluationDTO.getSeason()).getBody();
+			if(user == null) {
+				return ResponseEntity.badRequest().build();
+			}
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			if(entitySaves.size() == 0) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			for(EntitySave entitySave : entitySaves) {
+				boolean entitySaveExists = false;
+				if(entitySave.getSeason().getId().hashCode() == season.getId().hashCode()) {
+					entitySaveExists = true;
+					if(entitySave.isRated()) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
+				}
+				if(!entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
+			Evaluation evaluation = new Evaluation(user, null, season, null, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
+			evaluation = evaluationRepository.insert(evaluation);
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.getSeason().getId().hashCode() == season.getId().hashCode()) {
+					entitySave.setEvaluation(evaluation);
+					entitySave.setRated(true);
+					entitySaveService.save(entitySave);
+				}
+			}
+			season.setEvaluationQuantity(1);
+			season.setEvaluationSum(evaluation.getValue());
+			season.setEvaluationAverage();
+			seasonService.save(season);
+			return ResponseEntity.created(null).body(evaluation);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> newEvaluationEpisode(EvaluationDTO evaluationDTO){
+		try {
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Episode episode = (Episode) episodeService.findById(evaluationDTO.getEpisode()).getBody();
+			if(user == null) {
+				return ResponseEntity.badRequest().build();
+			}
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			if(entitySaves.size() == 0) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			for(EntitySave entitySave : entitySaves) {
+				boolean entitySaveExists = false;
+				if(entitySave.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
+					entitySaveExists = true;
+					if(entitySave.isRated()) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
+				}
+				if(!entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
+			Evaluation evaluation = new Evaluation(user, null, null, episode, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
+			evaluation = evaluationRepository.insert(evaluation);
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
+					entitySave.setEvaluation(evaluation);
+					entitySave.setRated(true);
+					entitySaveService.save(entitySave);
+				}
+			}
+			episode.setEvaluationQuantity(1);
+			episode.setEvaluationSum(evaluation.getValue());
+			episode.setEvaluationAverage();
+			episodeService.save(episode);	
+			return ResponseEntity.created(null).body(evaluation);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
 			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Entity entity = evaluation.getEntity();
+			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			double current = evaluationDTO.getValue();
+			if(current > 5.0) {
+				return ResponseEntity.badRequest().build();
+			}
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				boolean entitySaveExists = false;
+				if(entitySave.getEntity().getId().hashCode() == entity.getId().hashCode()) {
+					entitySaveExists = true;
+					if(!entitySave.isRated()) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
+				}
+				if(!entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
+			double previus = evaluation.getValue();
+			evaluation.setValue(current);
+			evaluationRepository.save(evaluation);
+			entity.setEvaluationSum(- previus);
+			entity.setEvaluationSum(current);
+			entity.setEvaluationAverage();
+			entityService.save(entity);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateEvaluationSeason(EvaluationDTO evaluationDTO){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			Season season = evaluation.getSeason();
 			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -119,68 +248,146 @@ public class EvaluationService {
 			if(current > 5.0) {
 				return ResponseEntity.badRequest().build();
 			}
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				boolean entitySaveExists = false;
+				if(entitySave.getSeason().getId().hashCode() == season.getId().hashCode()) {
+					entitySaveExists = true;
+					if(!entitySave.isRated()) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
+				}
+				if(!entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
 			double previus = evaluation.getValue();
 			evaluation.setValue(current);
-			evaluationRepository.save(evaluation);
-			Entity entity = evaluation.getEntity();
-			Season season = evaluation.getSeason();
-			Episode episode = evaluation.getEpisode();
-			if(evaluation.getType() == 0) {
-				entity.setEvaluationSum(- previus);
-				entity.setEvaluationSum(current);
-				entity.setEvaluationAverage();
-				entityService.save(entity);
-			}else if(evaluation.getType() == 1) {
-				season.setEvaluationSum(- previus);
-				season.setEvaluationSum(current);
-				season.setEvaluationAverage();
-				seasonService.save(season);
-			}else if(evaluation.getType() == 2){
-				episode.setEvaluationSum(- previus);
-				episode.setEvaluationSum(current);
-				episode.setEvaluationAverage();
-				episodeService.save(episode);	
-			}else {
-				return ResponseEntity.badRequest().build();
-			}
+			evaluationRepository.save(evaluation);	
+			season.setEvaluationSum(- previus);
+			season.setEvaluationSum(current);
+			season.setEvaluationAverage();
+			seasonService.save(season);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Void> deleteEvaluation(EvaluationDTO evaluationDTO){
+	public ResponseEntity<Void> updateEvaluationEpisode(EvaluationDTO evaluationDTO){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Episode episode = evaluation.getEpisode();
+			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			double current = evaluationDTO.getValue();
+			if(current > 5.0) {
+				return ResponseEntity.badRequest().build();
+			}
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				boolean entitySaveExists = false;
+				if(entitySave.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
+					entitySaveExists = true;
+					if(!entitySave.isRated()) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
+				}
+				if(!entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
+			double previus = evaluation.getValue();
+			evaluation.setValue(current);
+			evaluationRepository.save(evaluation);
+			episode.setEvaluationSum(- previus);
+			episode.setEvaluationSum(current);
+			episode.setEvaluationAverage();
+			episodeService.save(episode);	
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> deleteEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
 			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
 			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			user.getEvaluations().remove(evaluation);
 			double previus = evaluation.getValue();
 			Entity entity = evaluation.getEntity();
-			Season season = evaluation.getSeason();
-			Episode episode = evaluation.getEpisode();
-			if(evaluation.getType() == 0) {
 				entity.setEvaluationSum(- previus);
 				entity.setEvaluationQuantity(- 1);
 				entity.setEvaluationAverage();
-				entity.getEvaluations().remove(evaluation);
 				entityService.save(entity);
-			}else if(evaluation.getType() == 1) {
-					season.setEvaluationSum(- previus);
-					season.setEvaluationQuantity(- 1);
-					season.setEvaluationAverage();
-					season.getEvaluations().remove(evaluation);
-					seasonService.save(season);
-			}else if(evaluation.getType() == 2){
-				episode.setEvaluationSum(- previus);
-				episode.setEvaluationQuantity(- 1);
-				episode.setEvaluationAverage();
-				episode.getEvaluations().remove(evaluation);
-				episodeService.save(episode);	
-			}else {
-				return ResponseEntity.badRequest().build();
+			List<EntitySave> entitySaves = user.getEntitySaves();	
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.getEntity().getId().hashCode() == entity.getId().hashCode()) {
+					entitySave.setEvaluation(null);
+					entitySave.setRated(false);
+					entitySaveService.save(entitySave);
+				}
+			}
+			evaluationRepository.delete(evaluation);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> deleteEvaluationSeason(EvaluationDTO evaluationDTO){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			double previus = evaluation.getValue();
+			Season season = evaluation.getSeason();
+			season.setEvaluationSum(- previus);
+			season.setEvaluationQuantity(- 1);
+			season.setEvaluationAverage();
+			seasonService.save(season);
+			List<EntitySave> entitySaves = user.getEntitySaves();	
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.getSeason().getId().hashCode() == season.getId().hashCode()) {
+					entitySave.setEvaluation(null);
+					entitySave.setRated(false);
+					entitySaveService.save(entitySave);
+				}
+			}
+			evaluationRepository.delete(evaluation);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> deleteEvaluationEpisode(EvaluationDTO evaluationDTO){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			double previus = evaluation.getValue();
+			Episode episode = evaluation.getEpisode();
+			episode.setEvaluationSum(- previus);
+			episode.setEvaluationQuantity(- 1);
+			episode.setEvaluationAverage();
+			episodeService.save(episode);	
+			List<EntitySave> entitySaves = user.getEntitySaves();	
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
+					entitySave.setEvaluation(null);
+					entitySave.setRated(false);
+					entitySaveService.save(entitySave);
+				}
 			}
 			evaluationRepository.delete(evaluation);
 			return ResponseEntity.accepted().build();

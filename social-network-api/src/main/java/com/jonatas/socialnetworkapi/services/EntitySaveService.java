@@ -4,15 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EntitySaveDTO;
-import com.jonatas.socialnetworkapi.dto.EvaluationDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
-import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
@@ -77,11 +76,21 @@ public class EntitySaveService {
 					null,
 					null,
 					entitySaveDTO.getCategory(),
-					entitySaveDTO.getCategory() == 5 ? true : false,
-					entitySaveDTO.getCategory() == 6 ? true : false,
-					entitySaveDTO.getCategory() == 7 ? true : false,
+					false,
+					false,
+					false,
 					0
 					);
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave obj : entitySaves) {
+				boolean entitySaveExists = false;
+				if(obj.getEntity().getId().hashCode() == entity.getId().hashCode()) {
+					entitySaveExists = true;
+				}
+				if(entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
 			entitySave = entitySaveRepository.insert(entitySave);
 			user.getEntitySaves().add(entitySave);
 			userService.save(user);
@@ -103,11 +112,21 @@ public class EntitySaveService {
 					season,
 					null,
 					entitySaveDTO.getCategory(),
-					entitySaveDTO.getCategory() == 5 ? true : false,
-					entitySaveDTO.getCategory() == 6 ? true : false,
-					entitySaveDTO.getCategory() == 7 ? true : false,
+					false,
+					false,
+					false,
 					1
 					);
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave obj : entitySaves) {
+				boolean entitySaveExists = false;
+				if(obj.getSeason().getId().hashCode() == season.getId().hashCode()) {
+					entitySaveExists = true;
+				}
+				if(entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
 			entitySave = entitySaveRepository.insert(entitySave);
 			user.getEntitySaves().add(entitySave);
 			userService.save(user);
@@ -129,11 +148,21 @@ public class EntitySaveService {
 					null,
 					episode,
 					entitySaveDTO.getCategory(),
-					entitySaveDTO.getCategory() == 5 ? true : false,
-					entitySaveDTO.getCategory() == 6 ? true : false,
-					entitySaveDTO.getCategory() == 7 ? true : false,
+					false,
+					false,
+					false,
 					2
 					);
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave obj : entitySaves) {
+				boolean entitySaveExists = false;
+				if(obj.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
+					entitySaveExists = true;
+				}
+				if(entitySaveExists) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
 			entitySave = entitySaveRepository.insert(entitySave);
 			user.getEntitySaves().add(entitySave);
 			userService.save(user);
@@ -145,21 +174,46 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> updateEntitySave(EntitySaveDTO entitySaveDTO){
+	public ResponseEntity<Object> updateEntitySaveCategory(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
+				return ResponseEntity.badRequest().build();
+			}
 			entitySave.setCategory(entitySaveDTO.getCategory());
-			switch (entitySaveDTO.getCategory()) {
-			case 5: 
-				entitySave.setGoal(true);
-				break;
-			case 6: 
-				entitySave.setRated(true);
-				break;
-			case 7: 
-				entitySave.setReview(true);
-				break;	
-			}			
+			entitySave = entitySaveRepository.save(entitySave);
+			return ResponseEntity.ok(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> updateEntitySaveGoal(EntitySaveDTO entitySaveDTO){
+		try {
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			entitySave.setGoal(entitySaveDTO.isGoal());		
+			entitySave = entitySaveRepository.save(entitySave);
+			return ResponseEntity.ok(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> updateEntitySaveRated(EntitySaveDTO entitySaveDTO){
+		try {
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			entitySave.setRated(entitySaveDTO.isRated());		
+			entitySave = entitySaveRepository.save(entitySave);
+			return ResponseEntity.ok(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO){
+		try {
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			entitySave.setReview(entitySaveDTO.isReview());		
 			entitySave = entitySaveRepository.save(entitySave);
 			return ResponseEntity.ok(entitySave);
 		}catch (RuntimeException e) {
@@ -171,16 +225,6 @@ public class EntitySaveService {
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
 			Entity entity = (Entity) entityService.findById(entitySaveDTO.getEntity()).getBody();
-			List<Evaluation> evaluations = entity.getEvaluations();
-			for(Evaluation evaluation : evaluations) {
-				if(evaluation.getUser().getId().hashCode() == user.getId().hashCode()) {
-					entity.getEvaluations().remove(evaluation);
-					entityService.save(entity);
-					user.getEvaluations().remove(evaluation);
-					userService.save(user);
-					evaluationService.deleteEvaluation(new EvaluationDTO(evaluation));
-				}
-			}
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
 			user.getEntitySaves().remove(entitySave);
 			userService.save(user);
@@ -197,16 +241,6 @@ public class EntitySaveService {
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
 			Season season = (Season) seasonService.findById(entitySaveDTO.getSeason()).getBody();
-			List<Evaluation> evaluations = season.getEvaluations();
-			for(Evaluation evaluation : evaluations) {
-				if(evaluation.getUser().getId().hashCode() == user.getId().hashCode()) {
-					season.getEvaluations().remove(evaluation);
-					seasonService.save(season);
-					user.getEvaluations().remove(evaluation);
-					userService.save(user);
-					evaluationService.deleteEvaluation(new EvaluationDTO(evaluation));
-				}
-			}
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
 			user.getEntitySaves().remove(entitySave);
 			userService.save(user);
@@ -223,16 +257,6 @@ public class EntitySaveService {
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
 			Episode episode = (Episode) entityService.findById(entitySaveDTO.getEpisode()).getBody();
-			List<Evaluation> evaluations = episode.getEvaluations();
-			for(Evaluation evaluation : evaluations) {
-				if(evaluation.getUser().getId().hashCode() == user.getId().hashCode()) {
-					episode.getEvaluations().remove(evaluation);
-					episodeService.save(episode);
-					user.getEvaluations().remove(evaluation);
-					userService.save(user);
-					evaluationService.deleteEvaluation(new EvaluationDTO(evaluation));
-				}
-			}
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
 			user.getEntitySaves().remove(entitySave);
 			userService.save(user);
@@ -245,5 +269,13 @@ public class EntitySaveService {
 		}
 	}
 	
+	public ResponseEntity<Object> save(EntitySave entitySave){
+		try {
+			entitySave = entitySaveRepository.save(entitySave);
+			return ResponseEntity.accepted().body(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 }

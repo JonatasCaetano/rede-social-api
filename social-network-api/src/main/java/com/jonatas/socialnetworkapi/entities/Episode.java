@@ -40,10 +40,6 @@ public class Episode implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
-	private List<Evaluation> evaluations = new ArrayList<>();
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
 	private List<Edition> editions = new ArrayList<>();
 	
 	@DBRef(lazy = true)
@@ -131,16 +127,16 @@ public class Episode implements Serializable{
 		this.description = description;
 	}
 	
-	public List<Evaluation> getEvaluations() {
-		return evaluations;
-	}
-	
 	public double getEvaluationAverage() {
 		return evaluationAverage;
 	}
 
 	public void setEvaluationAverage() {
-		this.evaluationAverage = this.evaluationSum / this.evaluationQuantity;
+		if(this.evaluationSum == 0 || this.evaluationQuantity == 0) {
+			this.evaluationAverage = 0.0;
+		}else {
+			this.evaluationAverage = this.evaluationSum / this.evaluationQuantity;
+		}
 	}
 
 	public double getEvaluationSum() {

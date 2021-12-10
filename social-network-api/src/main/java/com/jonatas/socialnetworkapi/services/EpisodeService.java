@@ -16,6 +16,7 @@ import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
+import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
@@ -105,7 +106,13 @@ public class EpisodeService {
 	public ResponseEntity<Object> getEvaluationsEpisode(String id){
 		try {
 			Episode episode = episodeRepository.findById(id).get();
-			List<Evaluation> evaluations = episode.getEvaluations();
+			List<Evaluation> evaluations = new ArrayList<>();
+			List<EntitySave> entitySaves = episode.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.isRated()) {
+					evaluations.add(entitySave.getEvaluation());
+				}
+			}
 			List<EvaluationEntityDTO> evaluationEntityDTOs = new ArrayList<>();
 			for(Evaluation evaluation : evaluations) {
 				EvaluationEntityDTO evaluationEntityDTO = new EvaluationEntityDTO(evaluation);

@@ -15,6 +15,7 @@ import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
@@ -151,7 +152,13 @@ public class UserService {
 	public ResponseEntity<Object> getEvaluationsUser(String id){
 		try {
 			User user = userRepository.findById(id).get();
-			List<Evaluation> evaluations = user.getEvaluations();
+			List<Evaluation> evaluations = new ArrayList<>();
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.isRated()) {
+					evaluations.add(entitySave.getEvaluation());
+				}
+			}
 			List<EvaluationUserDTO> evaluationUserDTOs = new ArrayList<>();
 			for(Evaluation evaluation : evaluations) {
 				EvaluationUserDTO evaluationUserDTO = new EvaluationUserDTO(evaluation);

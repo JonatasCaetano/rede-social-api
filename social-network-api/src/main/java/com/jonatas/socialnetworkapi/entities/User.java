@@ -51,10 +51,6 @@ public class User implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
-	private List<Evaluation> evaluations = new ArrayList<>();
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
 	
 	//builders
@@ -202,10 +198,6 @@ public class User implements Serializable{
 	public void setCity(String city) {
 		this.city = city;
 	}
-
-	public List<Evaluation> getEvaluations() {
-		return evaluations;
-	}
 		
 	public Date getBirthDate() {
 		return birthDate;
@@ -238,13 +230,6 @@ public class User implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", image=" + image
-				+ ", description=" + description + ", status=" + status + ", privacy=" + privacy + ", checked="
-				+ checked + ", following=" + following + ", followers=" + followers + ", release=" + release
-				+ ", follower=" + follower + ", workers=" + workers + ", invitation=" + invitation + "]";
-	}
 	
 	
 	

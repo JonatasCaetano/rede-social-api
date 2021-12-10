@@ -174,12 +174,12 @@ public class Instantiation implements CommandLineRunner{
 		EvaluationDTO evaluation5 = new EvaluationDTO(user1.getId(), null, season3.getId(), null, 1.0, null, 1);
 		EvaluationDTO evaluation6 = new EvaluationDTO(user1.getId(), null, null, ep1.getId(), 1.0, null, 2);
 		
-		evaluationService.newEvaluation(evaluation1);
-		evaluationService.newEvaluation(evaluation2);
-		evaluationService.newEvaluation(evaluation3);
-		evaluationService.newEvaluation(evaluation4);
-		evaluationService.newEvaluation(evaluation5);
-		evaluationService.newEvaluation(evaluation6);
+		evaluationService.newEvaluationEpisode(evaluation1);
+		evaluationService.newEvaluationEpisode(evaluation2);
+		evaluationService.newEvaluationEntity(evaluation3);
+		evaluationService.newEvaluationSeason(evaluation4);
+		evaluationService.newEvaluationSeason(evaluation5);
+		evaluationService.newEvaluationEpisode(evaluation6);
 	}
 
 	
