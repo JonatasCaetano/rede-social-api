@@ -47,6 +47,16 @@ public class UserController {
 		return userService.getWorkers(id);
 	}
 	
+	@GetMapping(value = "get/posts/{id}")
+	public ResponseEntity<Object> getPosts(@PathVariable String id){
+		return userService.getPosts(id);
+	}
+	
+	@GetMapping(value = "get/comments/{id}")
+	public ResponseEntity<Object> getComments(@PathVariable String id){
+		return userService.getComments(id);
+	}
+	
 	@GetMapping(value = "get/evaluations/{id}")
 	public ResponseEntity<Object> getEvaluationUser(@PathVariable String id){
 		return userService.getEvaluationsUser(id);

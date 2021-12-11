@@ -15,9 +15,11 @@ import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
 import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
 import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
+import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
@@ -124,6 +126,26 @@ public class UserService {
 				workerUserDTOs.add(workerUserDTO);
 			}
 			return ResponseEntity.ok().body(workerUserDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getPosts(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Post> posts = user.getPosts();
+			return ResponseEntity.ok().body(posts);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getComments(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Comment> comments = user.getComments();
+			return ResponseEntity.ok().body(comments);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
