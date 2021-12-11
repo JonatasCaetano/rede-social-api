@@ -14,7 +14,7 @@ import com.jonatas.socialnetworkapi.dto.PostDTO;
 import com.jonatas.socialnetworkapi.services.PostService;
 
 @RestController
-@RequestMapping
+@RequestMapping(value = "/posts")
 public class PostController {
 
 	@Autowired
