@@ -124,4 +124,13 @@ public class PostService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	public ResponseEntity<Void> save(Post post){
+		try {
+			postRepository.save(post);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 }
