@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +99,9 @@ public class PostService {
 			Season season = (Season) seasonService.findById(postDTO.getSeason()).getBody();
 			Episode episode = (Episode) episodeService.findById(postDTO.getEpisode()).getBody();
 			Post post = postRepository.findById(postDTO.getId()).get();
+			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
 			user.getPosts().remove(post);
 			userService.save(user);
 			switch (post.getCategory()) {

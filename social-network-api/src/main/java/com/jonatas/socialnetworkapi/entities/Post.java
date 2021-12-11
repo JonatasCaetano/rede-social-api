@@ -1,7 +1,9 @@
 package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -35,6 +37,10 @@ public class Post implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Episode episode;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private List<Comment> comments = new ArrayList<>();
 
 	public Post() {
 		super();
@@ -119,6 +125,10 @@ public class Post implements Serializable{
 
 	public void setEpisode(Episode episode) {
 		this.episode = episode;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
 	}
 	
 	
