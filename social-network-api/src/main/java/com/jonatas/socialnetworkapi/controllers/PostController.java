@@ -32,6 +32,11 @@ public class PostController {
 		return postService.findById(id);
 	}
 	
+	@GetMapping(value = "/get/comments/id/{id}")
+	public ResponseEntity<Object> getComments(@PathVariable String id){
+		return postService.getComments(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post")

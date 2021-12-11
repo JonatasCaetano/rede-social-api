@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.PostDTO;
+import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Post;
@@ -129,6 +130,16 @@ public class PostService {
 		try {
 			postRepository.save(post);
 			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getComments(String id){
+		try {
+			Post post = postRepository.findById(id).get();
+			List<Comment> comments = post.getComments();
+			return ResponseEntity.ok().body(comments);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
