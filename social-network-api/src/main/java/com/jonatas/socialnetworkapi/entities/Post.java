@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -9,8 +10,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Document
-public class Post {
-
+public class Post implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	private String id;
 	private int type;
@@ -29,12 +31,17 @@ public class Post {
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Season season;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Episode episode;
 
 	public Post() {
 		super();
 	}
 
-	public Post(int type, Date release, String body, int category, User user, Entity entity, Season season) {
+	public Post(int type, Date release, String body, int category, User user, Entity entity, Season season,
+			Episode episode) {
 		super();
 		this.type = type;
 		this.release = release;
@@ -43,6 +50,7 @@ public class Post {
 		this.user = user;
 		this.entity = entity;
 		this.season = season;
+		this.episode = episode;
 	}
 
 	public int getType() {
@@ -103,6 +111,14 @@ public class Post {
 
 	public String getId() {
 		return id;
+	}
+
+	public Episode getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Episode episode) {
+		this.episode = episode;
 	}
 	
 	
