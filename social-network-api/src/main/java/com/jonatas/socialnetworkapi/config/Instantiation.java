@@ -97,28 +97,6 @@ public class Instantiation implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		
-		userRepository.deleteAll();
-		entityRepository.deleteAll();
-		workerRepository.deleteAll();
-		followerRepository.deleteAll();
-		invitationRepository.deleteAll();
-		seasonRepository.deleteAll();
-		episodeRepository.deleteAll();
-		evaluationRepository.deleteAll();
-		editionRepository.deleteAll();
-		entitySaveRepository.deleteAll();
-
-		User user = new User("Jonatas Caetano", "jonatas.calves@gmail.com", "Cae@2018", null, null, null, "Bauru");
-
-		userRepository.insert(user);	
-		invitationService.createdInvitation(user);
-		userRepository.save(user);
-		user.setChecked(true);
-		userRepository.save(user);
-		Follower follower = followerRepository.insert(new Follower(null, user));
-		user.setFollower(follower);
-		userRepository.save(user);
-
-	
-}}
+			
+	}
+}
