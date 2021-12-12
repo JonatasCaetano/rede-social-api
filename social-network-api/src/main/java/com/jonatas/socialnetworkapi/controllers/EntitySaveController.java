@@ -25,14 +25,14 @@ public class EntitySaveController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll(){
-		return entitySaveService.findAll();
+	@GetMapping(value = "get/entitysaves")
+	public ResponseEntity<Object> findAllMini(){
+		return entitySaveService.findAllMini();
 	}
 		
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return entitySaveService.findById(id);
+	@GetMapping(value = "get/entitysave/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return entitySaveService.findByIdMini(id);
 	}
 	
 	//post

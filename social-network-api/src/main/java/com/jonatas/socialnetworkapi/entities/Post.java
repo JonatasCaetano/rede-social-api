@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -41,6 +42,10 @@ public class Post implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<Comment> comments = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private List<User> likes = new ArrayList<>();
 
 	public Post() {
 		super();
@@ -129,6 +134,27 @@ public class Post implements Serializable{
 
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+	public List<User> getLikes() {
+		return likes;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+		return Objects.equals(id, other.id);
 	}
 	
 	

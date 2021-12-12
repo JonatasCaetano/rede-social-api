@@ -2,6 +2,7 @@ package com.jonatas.socialnetworkapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,39 +20,36 @@ public class FollowerController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll(){
-		return followerService.findAll();
+	@GetMapping(value = "get/followers")
+	public ResponseEntity<Object> findAllMini(){
+		return followerService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/user/{id}")
-	public ResponseEntity<Object> findByUser(@PathVariable String id) {
-		return followerService.findByUser(id);
+	@GetMapping(value = "get/follower/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return followerService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return followerService.findById(id);
+	@GetMapping(value = "get/followings/user/{userId}")
+	public ResponseEntity<Object> getAllFollowingMini(@PathVariable String userId){
+		return followerService.getAllFollowingMini(userId);
 	}
 	
-	@GetMapping(value = "get/followings/all/user/{userId}")
-	public ResponseEntity<Object> getAllFollowing(@PathVariable String userId){
-		return followerService.getAllFollowing(userId);
-	}
-	
-	@GetMapping(value = "get/followers/all/user/{userId}")
-	public ResponseEntity<Object> getAllFollower(@PathVariable String userId){
-		return followerService.getAllFollower(userId);
+	@GetMapping(value = "get/followers/user/{userId}")
+	public ResponseEntity<Object> getAllFollowerMini(@PathVariable String userId){
+		return followerService.getAllFollowerMini(userId);
 	}
 	
 	//post
 	
-	@PostMapping(value = "post/add/follower/{followerId}/following/{followingId}")
+	@PostMapping(value = "post/follower/{followerId}/following/{followingId}")
 	public ResponseEntity<Void> addFollowing(@PathVariable String followerId, @PathVariable String followingId){
 		return followerService.addFollowing(followerId, followingId);
 	}
 	
-	@PostMapping(value = "post/remove/follower/{followerId}/following/{followingId}")
+	//delete
+	
+	@DeleteMapping(value = "delete/follower/{followerId}/following/{followingId}")
 	public ResponseEntity<Void> removeFollowing(@PathVariable String followerId, @PathVariable String followingId){
 		return followerService.removeFollowing(followerId, followingId);
 	}

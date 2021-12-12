@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.PostDTO;
+import com.jonatas.socialnetworkapi.dto.mini.CommentMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.PostMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Episode;
@@ -45,23 +48,58 @@ public class PostService {
 	
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
+	//get
+	
+	public ResponseEntity<Object> findAllMini(){
 		try {
 			List<Post> posts = postRepository.findAll();
-			return ResponseEntity.ok().body(posts);
+			List<PostMiniDTO> postMiniDTOs = new ArrayList<>();
+			for(Post post : posts) {
+				PostMiniDTO postMiniDTO = new PostMiniDTO(post);
+				postMiniDTOs.add(postMiniDTO);
+			}
+			return ResponseEntity.ok().body(postMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			Post post = postRepository.findById(id).get();
-			return ResponseEntity.ok().body(post);
+			PostMiniDTO postMiniDTO = new PostMiniDTO(post);
+			return ResponseEntity.ok().body(postMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	public ResponseEntity<Object> getCommentsMini(String id){
+		try {
+			Post post = postRepository.findById(id).get();
+			List<Comment> comments = post.getComments();
+			List<CommentMiniDTO> commentMiniDTOs = new ArrayList<>();
+			for(Comment comment : comments) {
+				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+				commentMiniDTOs.add(commentMiniDTO);
+			}
+			return ResponseEntity.ok().body(commentMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getLikes(String id){
+		try {
+			Post post = postRepository.findById(id).get();
+			List<User> likes = post.getLikes();
+			return ResponseEntity.ok().body(likes);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	//post
 	
 	public ResponseEntity<Object> newPost(PostDTO postDTO){
 		try {
@@ -87,11 +125,32 @@ public class PostService {
 				episodeService.save(episode);
 				break;	
 			}
-			return ResponseEntity.created(null).body(post);
+			PostMiniDTO postMiniDTO = new PostMiniDTO(post);
+			return ResponseEntity.created(null).body(postMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	public ResponseEntity<Object> addLike(String idUser, String idPost){
+		try {
+			User user = (User) userService.findById(idUser).getBody();
+			Post post = postRepository.findById(idPost).get();
+			List<User> users = post.getLikes();
+			if(users.contains(user)) {
+				return removeLike(idUser, idPost);
+			}
+			post.getLikes().add(user);
+			postRepository.save(post);
+			user.getLikes().add(post);
+			userService.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+
+	//delete
 	
 	public ResponseEntity<Object> deletePost(PostDTO postDTO){
 		try {
@@ -104,7 +163,10 @@ public class PostService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			user.getPosts().remove(post);
+			List<Post> likesUser = user.getLikes();
+			likesUser.remove(post);
 			userService.save(user);
+			
 			switch (post.getCategory()) {
 			case 0:
 				entity.getPosts().remove(post);
@@ -125,6 +187,33 @@ public class PostService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+			
+	public ResponseEntity<Object> removeLike(String idUser, String idPost){
+		try {
+			User user = (User) userService.findById(idUser).getBody();
+			Post post = postRepository.findById(idPost).get();
+			post.getLikes().remove(user);
+			postRepository.save(post);
+			user.getLikes().remove(post);
+			userService.save(user);
+			return ResponseEntity.ok().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	
+	
+	//internal
+	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			Post post = postRepository.findById(id).get();
+			return ResponseEntity.ok().body(post);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
 	public ResponseEntity<Void> save(Post post){
 		try {
@@ -135,13 +224,5 @@ public class PostService {
 		}
 	}
 	
-	public ResponseEntity<Object> getComments(String id){
-		try {
-			Post post = postRepository.findById(id).get();
-			List<Comment> comments = post.getComments();
-			return ResponseEntity.ok().body(comments);
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
+	
 }

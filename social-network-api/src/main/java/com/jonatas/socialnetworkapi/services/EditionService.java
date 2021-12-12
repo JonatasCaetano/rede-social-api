@@ -21,15 +21,45 @@ public class EditionService {
 	
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
-		List<Edition> editions = editionRepository.findAll();
-		List<EditionMiniDTO> editionMiniDTOs = new ArrayList<>();
-		for(Edition edition : editions) {
-			EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
-			editionMiniDTOs.add(editionMiniDTO);
+	//get
+	
+	public ResponseEntity<Object> findAllMini(){
+		try {
+			List<Edition> editions = editionRepository.findAll();
+			List<EditionMiniDTO> editionMiniDTOs = new ArrayList<>();
+			for(Edition edition : editions) {
+				EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
+				editionMiniDTOs.add(editionMiniDTO);
+			}
+			return ResponseEntity.ok().body(editionMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok().body(editionMiniDTOs);
 	}
+	
+	public ResponseEntity<Object> findByIdMini(String id){
+		try {
+			Edition edition = editionRepository.findById(id).get();
+			EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
+			return ResponseEntity.ok().body(editionMiniDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	//post
+	
+	public ResponseEntity<Object> newEdition(Edition edition){
+		try {
+			edition = editionRepository.insert(edition);
+			EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
+			return ResponseEntity.ok().body(editionMiniDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	//internal
 	
 	public ResponseEntity<Object> findById(String id){
 		try {
@@ -40,12 +70,4 @@ public class EditionService {
 		}
 	}
 	
-	public ResponseEntity<Object> newEdition(Edition edition){
-		try {
-			edition = editionRepository.insert(edition);
-			return ResponseEntity.ok().body(edition);
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
 }

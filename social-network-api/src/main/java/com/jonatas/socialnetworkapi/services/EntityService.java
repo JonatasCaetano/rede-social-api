@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
-import com.jonatas.socialnetworkapi.dto.WorkerEntityDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
@@ -46,7 +46,9 @@ public class EntityService {
 		
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
+	//get
+	
+	public ResponseEntity<Object> findAllMini(){
 		List<Entity> list = entityRepository.findAll();
 		List<EntityMiniDTO> entityMiniDTOs = new ArrayList<>();
 		for(Entity entity : list) {
@@ -56,31 +58,32 @@ public class EntityService {
 		return ResponseEntity.ok().body(entityMiniDTOs);
 	}
 	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
-			return ResponseEntity.ok().body(entity);
+			EntityMiniDTO entityMiniDTO = new EntityMiniDTO(entity);
+			return ResponseEntity.ok().body(entityMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> getWorkers(String id){
+	public ResponseEntity<Object> getWorkersMini(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			List<Worker> workers = entity.getWorkers();
-			List<WorkerEntityDTO> workerEntityDTOs = new ArrayList<>();
+			List<WorkerMiniDTO> workerMiniDTOs = new ArrayList<>();
 			for(Worker worker : workers) {
-				WorkerEntityDTO workerEntityDTO = new WorkerEntityDTO(worker);
-				workerEntityDTOs.add(workerEntityDTO);
+				WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
+				workerMiniDTOs.add(workerMiniDTO);
 			}
-			return ResponseEntity.ok().body(workerEntityDTOs);
+			return ResponseEntity.ok().body(workerMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> findAllSeasons(@PathVariable String id){
+	public ResponseEntity<Object> getSeasonsMini(@PathVariable String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			List<Season> seasons = entity.getSeasons();
@@ -95,37 +98,7 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Object> createEntity(EntityMiniDTO entityMiniDTO, String id){
-		try {
-			User user = (User) userService.findById(id).getBody();
-			Entity entity = new Entity(entityMiniDTO);
-			if(user.isChecked()) {
-				try {
-					Entity obj = entityRepository.insert(entity);
-					return ResponseEntity.created(null).body(obj);
-				}catch(RuntimeException e) {
-					return ResponseEntity.badRequest().build();
-				}
-			}else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
-			
-		}catch (RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-		}
-		
-	}
-	
-	public ResponseEntity<Object> save(Entity entity){
-		try {
-			Entity obj = entityRepository.save(entity);
-			return ResponseEntity.ok().body(obj);
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	
-	public ResponseEntity<Object> getEvaluationsEntity(String id){
+	public ResponseEntity<Object> getEvaluationsMini(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			List<Evaluation> evaluations = new ArrayList<>();
@@ -135,18 +108,18 @@ public class EntityService {
 					evaluations.add(entitySave.getEvaluation());
 				}
 			}
-			List<EvaluationEntityDTO> evaluationEntityDTOs = new ArrayList<>();
+			List<EvaluationMiniDTO> evaluationMiniDTOs = new ArrayList<>();
 			for(Evaluation evaluation : evaluations) {
-				EvaluationEntityDTO evaluationEntityDTO = new EvaluationEntityDTO(evaluation);
-				evaluationEntityDTOs.add(evaluationEntityDTO);
+				EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+				evaluationMiniDTOs.add(evaluationMiniDTO);
 			}
-			return ResponseEntity.ok().body(evaluationEntityDTOs);
+			return ResponseEntity.ok().body(evaluationMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> getEditions(String id){
+	public ResponseEntity<Object> getEditionsMini(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
 			List<Edition> editions = entity.getEditions();
@@ -159,6 +132,30 @@ public class EntityService {
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
+	}
+	
+	//post
+	
+	public ResponseEntity<Object> createEntity(EntityMiniDTO entityMiniDTO, String id){
+		try {
+			User user = (User) userService.findById(id).getBody();
+			Entity entity = new Entity(entityMiniDTO);
+			if(user.isChecked()) {
+				try {
+					Entity obj = entityRepository.insert(entity);
+					entityMiniDTO = new EntityMiniDTO(obj);
+					return ResponseEntity.created(null).body(entityMiniDTO);
+				}catch(RuntimeException e) {
+					return ResponseEntity.badRequest().build();
+				}
+			}else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			
+		}catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		
 	}
 	
 	//put
@@ -268,7 +265,25 @@ public class EntityService {
 		}
 	}
 	
+	//internal
 	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			return ResponseEntity.ok().body(entity);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> save(Entity entity){
+		try {
+			Entity obj = entityRepository.save(entity);
+			return ResponseEntity.ok().body(obj);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 	
 	

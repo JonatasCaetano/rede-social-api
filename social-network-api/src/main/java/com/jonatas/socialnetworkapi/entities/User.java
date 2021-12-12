@@ -60,6 +60,10 @@ public class User implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Post> likes = new ArrayList<>();
 		
 	//builders
 	
@@ -221,6 +225,10 @@ public class User implements Serializable{
 	
 	public List<Comment> getComments() {
 		return comments;
+	}
+	
+	public List<Post> getLikes() {
+		return likes;
 	}
 
 	public List<EntitySave> getEntitySaves() {

@@ -9,16 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.EvaluationUserDTO;
 import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
-import com.jonatas.socialnetworkapi.dto.WorkerUserDTO;
+import com.jonatas.socialnetworkapi.dto.mini.CommentMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.InvitationMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.PostMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
+import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
@@ -44,26 +48,125 @@ public class UserService {
 		
 	//methods
 	
-	public ResponseEntity<Object> findAll() {
-		List<User> users = userRepository.findAll();
-		List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
-		for(User user : users) {
-			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-			userMiniDTOs.add(userMiniDTO);
+	//get
+	
+	public ResponseEntity<Object> findAllMini() {
+		try {
+			List<User> users = userRepository.findAll();
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+			for(User user : users) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+				userMiniDTOs.add(userMiniDTO);
+			}
+			return ResponseEntity.ok().body(userMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok().body(userMiniDTOs);
 	}
 	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
-			return ResponseEntity.ok().body(user);
+			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+			return ResponseEntity.ok().body(userMiniDTO);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> login(UserAuthDTO userAuthDTO){
+	public ResponseEntity<Object> getWorkersMini(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Worker> workers = user.getWorkers();
+			List<WorkerMiniDTO> workerMiniDTOs = new ArrayList<>();
+			for(Worker worker : workers) {
+				WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
+				workerMiniDTOs.add(workerMiniDTO);
+			}
+			return ResponseEntity.ok().body(workerMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getPostsMini(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Post> posts = user.getPosts();
+			List<PostMiniDTO> postMiniDTOs = new ArrayList<>();
+			for(Post post : posts) {
+				PostMiniDTO postMiniDTO = new PostMiniDTO(post);
+				postMiniDTOs.add(postMiniDTO);
+			}
+			return ResponseEntity.ok().body(postMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getCommentsMini(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Comment> comments = user.getComments();
+			List<CommentMiniDTO> commentMiniDTOs = new ArrayList<>();
+			for(Comment comment : comments) {
+				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+				commentMiniDTOs.add(commentMiniDTO);
+			}
+			return ResponseEntity.ok().body(commentMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getLikesMini(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Post> likes = user.getLikes();
+			List<PostMiniDTO> postMiniDTOs = new ArrayList<>();
+			for(Post post : likes) {
+				PostMiniDTO postMiniDTO = new PostMiniDTO(post);
+				postMiniDTOs.add(postMiniDTO);
+			}
+			return ResponseEntity.ok().body(postMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getInvitationMini(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			Invitation invitation = user.getInvitation();
+			InvitationMiniDTO invitationMiniDTO = new InvitationMiniDTO(invitation);
+			return ResponseEntity.ok().body(invitationMiniDTO);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getEvaluationsMini(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Evaluation> evaluations = new ArrayList<>();
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.isRated()) {
+					evaluations.add(entitySave.getEvaluation());
+				}
+			}
+			List<EvaluationMiniDTO> evaluationMiniDTOs = new ArrayList<>();
+			for(Evaluation evaluation : evaluations) {
+				EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+				evaluationMiniDTOs.add(evaluationMiniDTO);
+			}
+			return ResponseEntity.ok().body(evaluationMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> loginMini(UserAuthDTO userAuthDTO){
 		try {
 			User user = userRepository.findByEmail(userAuthDTO.getEmail());
             if(userAuthDTO.getPassword().hashCode() == user.getPassword().hashCode()) {
@@ -76,6 +179,8 @@ public class UserService {
 		}
 	}	
 	
+	//post
+	
 	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){
 		try {
 			try {
@@ -83,16 +188,16 @@ public class UserService {
 				String name1 = name[0];
 				String name2 = name[1];
 				if(name1.length() < 3 || name2.length() < 4) {
-					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					return ResponseEntity.badRequest().build();
 				}
 			}catch (RuntimeException e) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				return ResponseEntity.badRequest().build();
 			}
 			if(testEmail(userCreation.getEmail())) {
-				return ResponseEntity.badRequest().body(userCreation.getEmail());
+				return ResponseEntity.badRequest().build();
 			}else {
 				if(!invitationService.checkAvailability(userCreation.getInvitation()).getBody()) {
-					return ResponseEntity.badRequest().body(userCreation.getInvitation());
+					return ResponseEntity.badRequest().build();
 				}else {
 					User obj = userRepository.insert(new User(userCreation));
 					invitationService.addInvited(obj, userCreation.getInvitation());
@@ -104,53 +209,142 @@ public class UserService {
 						followerService.addFollowing(obj.getId(), user.getId());
 						followerService.addFollowing(user.getId(), obj.getId());
 						}
-					obj = (User) invitationService.createdInvitation(obj).getBody();
-					userRepository.save(obj);
-					return ResponseEntity.created(null).body(obj);
-					
+					try {
+						invitationService.createdInvitation(obj);
+					}catch (RuntimeException e) {
+						return ResponseEntity.badRequest().build();
+					}
+					obj = userRepository.findById(obj.getId()).get();
+					UserMiniDTO userMiniDTO = new UserMiniDTO(obj);
+					return ResponseEntity.created(null).body(userMiniDTO);		
 				}
 			}
 		}catch(RuntimeException e) {
-			System.out.println("erro no try");
 			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Object> getWorkers(String id){
+	//put
+	
+	public ResponseEntity<Void> updateName(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(id).get();
-			List<Worker> workers = user.getWorkers();
-			List<WorkerUserDTO> workerUserDTOs = new ArrayList<>();
-			for(Worker worker : workers) {
-				WorkerUserDTO workerUserDTO = new WorkerUserDTO(worker);
-				workerUserDTOs.add(workerUserDTO);
+			String[] name = userUpdateDTO.getName().split(" ");
+			String name1 = name[0];
+			String name2 = name[1];
+			if(name1.length() < 3 || name2.length() < 4) {
+				return ResponseEntity.badRequest().build();
 			}
-			return ResponseEntity.ok().body(workerUserDTOs);
-		}catch(RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setName(userUpdateDTO.getName());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Object> getPosts(String id){
+	public ResponseEntity<Void> updateEmail(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setEmail(userUpdateDTO.getEmail());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updatePassword(UserUpdateDTO userUpdateDTO){
+		try {
+			if(userUpdateDTO.getPassword().length() < 6) {
+				return ResponseEntity.badRequest().build();
+			}
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setPassword(userUpdateDTO.getPassword());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateImage(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setImage(userUpdateDTO.getImage());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateDescription(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setDescription(userUpdateDTO.getDescription());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setBirthDate(userUpdateDTO.getBirthDate());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateCity(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setCity(userUpdateDTO.getCity());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updatePrivacy(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setChecked(userUpdateDTO.isPrivacy());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> updateStatus(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			user.setStatus(userUpdateDTO.isStatus());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	//internal
+	
+	public ResponseEntity<Object> findById(String id){
 		try {
 			User user = userRepository.findById(id).get();
-			List<Post> posts = user.getPosts();
-			return ResponseEntity.ok().body(posts);
+			return ResponseEntity.ok().body(user);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	public ResponseEntity<Object> getComments(String id){
-		try {
-			User user = userRepository.findById(id).get();
-			List<Comment> comments = user.getComments();
-			return ResponseEntity.ok().body(comments);
-		}catch(RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
+		
 	public ResponseEntity<Object> save(User user){
 		try {
 			User obj = userRepository.save(user);
@@ -170,127 +364,6 @@ public class UserService {
 			return false;
 		}
 	}
-	
-	public ResponseEntity<Object> getEvaluationsUser(String id){
-		try {
-			User user = userRepository.findById(id).get();
-			List<Evaluation> evaluations = new ArrayList<>();
-			List<EntitySave> entitySaves = user.getEntitySaves();
-			for(EntitySave entitySave : entitySaves) {
-				if(entitySave.isRated()) {
-					evaluations.add(entitySave.getEvaluation());
-				}
-			}
-			List<EvaluationUserDTO> evaluationUserDTOs = new ArrayList<>();
-			for(Evaluation evaluation : evaluations) {
-				EvaluationUserDTO evaluationUserDTO = new EvaluationUserDTO(evaluation);
-				evaluationUserDTOs.add(evaluationUserDTO);
-			}
-			return ResponseEntity.ok().body(evaluationUserDTOs);
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	//put
-	
-	public ResponseEntity<Void> updateName(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setName(userUpdateDTO.getName());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updateEmail(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setEmail(userUpdateDTO.getEmail());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updatePassword(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setPassword(userUpdateDTO.getPassword());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updateImage(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setImage(userUpdateDTO.getImage());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updateDescription(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setDescription(userUpdateDTO.getDescription());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setBirthDate(userUpdateDTO.getBirthDate());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updateCity(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setCity(userUpdateDTO.getCity());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updatePrivacy(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setChecked(userUpdateDTO.isPrivacy());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updateStatus(UserUpdateDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
-			user.setStatus(userUpdateDTO.isStatus());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
+		
 	
 }

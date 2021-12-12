@@ -24,19 +24,19 @@ public class WorkerController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll(){
-		return workerService.findAll();
+	@GetMapping(value = "get/workers")
+	public ResponseEntity<Object> findAllMini(){
+		return workerService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return workerService.findById(id);
+	@GetMapping(value = "get/worker/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return workerService.findByIdMini(id);
 	}
 	
 	//post
 	
-	@PostMapping(value = "post")
+	@PostMapping(value = "post/worker")
 	public ResponseEntity<Object> newWorker(@RequestBody WorkerDTO workerDTO){
 		return workerService.newWorker(workerDTO);
 	}

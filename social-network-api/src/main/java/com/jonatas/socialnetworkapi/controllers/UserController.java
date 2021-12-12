@@ -26,49 +26,58 @@ public class UserController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll() {
-		return userService.findAll();
+	@GetMapping(value = "get/users")
+	public ResponseEntity<Object> findAllMini() {
+		return userService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return userService.findById(id);
+	@GetMapping(value = "get/user/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return userService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/login")
-	public ResponseEntity<Object> login(@RequestBody UserAuthDTO userAuthDTO){
-		return userService.login(userAuthDTO);
-		
+	@GetMapping(value = "get/user/login")
+	public ResponseEntity<Object> loginMini(@RequestBody UserAuthDTO userAuthDTO){
+		return userService.loginMini(userAuthDTO);
 	}
 	
-	@GetMapping(value = "get/workers/{id}")
-	public ResponseEntity<Object> getWorkers(@PathVariable String id){
-		return userService.getWorkers(id);
+	@GetMapping(value = "get/user/{id}/invitation")
+	public ResponseEntity<Object> getInvitationMini(@PathVariable String id){
+		return userService.getInvitationMini(id);
 	}
 	
-	@GetMapping(value = "get/posts/{id}")
-	public ResponseEntity<Object> getPosts(@PathVariable String id){
-		return userService.getPosts(id);
+	@GetMapping(value = "get/user/{id}/workers")
+	public ResponseEntity<Object> getWorkersMini(@PathVariable String id){
+		return userService.getWorkersMini(id);
 	}
 	
-	@GetMapping(value = "get/comments/{id}")
-	public ResponseEntity<Object> getComments(@PathVariable String id){
-		return userService.getComments(id);
+	@GetMapping(value = "get/user/{id}/posts")
+	public ResponseEntity<Object> getPostsMini(@PathVariable String id){
+		return userService.getPostsMini(id);
 	}
 	
-	@GetMapping(value = "get/evaluations/{id}")
-	public ResponseEntity<Object> getEvaluationUser(@PathVariable String id){
-		return userService.getEvaluationsUser(id);
+	@GetMapping(value = "get/user/{id}/comments")
+	public ResponseEntity<Object> getCommentsMini(@PathVariable String id){
+		return userService.getCommentsMini(id);
+	}
+	
+	@GetMapping(value = "get/user/{id}/evaluations")
+	public ResponseEntity<Object> getEvaluationMini(@PathVariable String id){
+		return userService.getEvaluationsMini(id);
+	}
+	
+	@GetMapping(value = "get/user/{id}/likes")
+	public ResponseEntity<Object> getLikesMini(@PathVariable String id){
+		return userService.getLikesMini(id);
 	}
 	
 	//post
 	
-	@PostMapping(value = "post")
+	@PostMapping(value = "post/user")
 	public ResponseEntity<Object> createUser(@RequestBody UserCreationDTO creationUser){
 		return userService.createUser(creationUser);
 	}
-	
+		
 	//put
 	
 	@PutMapping(value = "put/name")

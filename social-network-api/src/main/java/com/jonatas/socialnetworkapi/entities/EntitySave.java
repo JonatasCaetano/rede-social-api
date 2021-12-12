@@ -45,10 +45,7 @@ public class EntitySave implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private Evaluation evaluation;
-	
-	
-	
-	
+		
 	List<Date> historic = new ArrayList<>();
 
 	public EntitySave() {

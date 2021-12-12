@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.WorkerDTO;
+import com.jonatas.socialnetworkapi.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
@@ -34,19 +36,33 @@ public class WorkerService {
 	
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
-		List<Worker> list = workerRepository.findAll();
-		return ResponseEntity.ok(list);
+	//get
+	
+	public ResponseEntity<Object> findAllMini(){
+		try {
+			List<Worker> list = workerRepository.findAll();
+			List<WorkerMiniDTO> workerMiniDTOs = new ArrayList<>();
+			for(Worker worker : list) {
+				WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
+				workerMiniDTOs.add(workerMiniDTO);
+			}
+			return ResponseEntity.ok(workerMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
 	}
 	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			Worker worker = workerRepository.findById(id).get();
-			return ResponseEntity.ok().body(worker);
+			WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
+			return ResponseEntity.ok().body(workerMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//post
 	
 	public ResponseEntity<Object> newWorker(WorkerDTO workerDTO) {
 		try {
@@ -61,13 +77,16 @@ public class WorkerService {
 			userService.save(user);
 			entity.getWorkers().add(worker);
 			entityService.save(entity);
-			return ResponseEntity.created(null).body(worker);
+			WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
+			return ResponseEntity.created(null).body(workerMiniDTO);
 			
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 		
 	}
+	
+	//delete
 	
 	public ResponseEntity<Object> deleteWorker(String idWorker, String idUser){
 		try {

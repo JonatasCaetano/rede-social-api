@@ -25,34 +25,34 @@ public class SeasonController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll(){
-		return seasonService.findAll();
+	@GetMapping(value = "get/seasons")
+	public ResponseEntity<Object> findAllMini(){
+		return seasonService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return seasonService.findById(id);
+	@GetMapping(value = "get/season/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return seasonService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/evaluations/{id}")
-	public ResponseEntity<Object> getEvaluationsEntity(@PathVariable String id){
-		return seasonService.getEvaluationsSeason(id);
+	@GetMapping(value = "get/season/{id}/evaluations")
+	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String id){
+		return seasonService.getEvaluationsMini(id);
 	}
 	
-	@GetMapping(value = "get/episodes/{id}")
-	public ResponseEntity<Object> findAllEpisodes(@PathVariable String id){
-		return seasonService.findAllEpisodes(id);
+	@GetMapping(value = "get/season/{id}/episodes")
+	public ResponseEntity<Object> getEpisodesMini(@PathVariable String id){
+		return seasonService.getEpisodesMini(id);
 	}
 	
-	@GetMapping(value = "get/editions/{id}")
-	public ResponseEntity<Object> getEditions(@PathVariable String id){
-		return seasonService.getEditions(id);
+	@GetMapping(value = "get/season/{id}/editions")
+	public ResponseEntity<Object> getEditionsMini(@PathVariable String id){
+		return seasonService.getEditionsMini(id);
 	}
 	
 	//post
 	
-	@PostMapping(value = "post/user/{idUser}/entity/{idEntity}")
+	@PostMapping(value = "post/entity/{idEntity}/user/{idUser}")
 	public ResponseEntity<Object> newSeason(@RequestBody SeasonDTO seasonDTO, @PathVariable String idUser, @PathVariable String idEntity){
 		return seasonService.newSeason(seasonDTO, idUser, idEntity);
 	}

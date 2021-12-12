@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.CommentDTO;
+import com.jonatas.socialnetworkapi.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
@@ -33,23 +35,31 @@ public class CommentService {
 	
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
+	public ResponseEntity<Object> findAllMini(){
 		try {
 			List<Comment> comments = commentRepository.findAll();
-			return ResponseEntity.ok().body(comments);
+			List<CommentMiniDTO> commentMiniDTOs = new ArrayList<>();
+			for(Comment comment : comments) {
+				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+				commentMiniDTOs.add(commentMiniDTO);
+			}
+			return ResponseEntity.ok().body(commentMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			Comment comment = commentRepository.findById(id).get();
-			return ResponseEntity.ok().body(comment);
+			CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+			return ResponseEntity.ok().body(commentMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//post
 	
 	public ResponseEntity<Object> newComment(CommentDTO commentDTO){
 		try {
@@ -61,11 +71,14 @@ public class CommentService {
 			userService.save(user);
 			post.getComments().add(comment);
 			postService.save(post);
-			return ResponseEntity.created(null).body(comment);
+			CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+			return ResponseEntity.created(null).body(commentMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	//delete
 	
 	public ResponseEntity<Object> deleteComment(CommentDTO commentDTO){
 		try {
@@ -82,6 +95,18 @@ public class CommentService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	//internal
+	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			Comment comment = commentRepository.findById(id).get();
+			return ResponseEntity.ok().body(comment);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	
 	
 }

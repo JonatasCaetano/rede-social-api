@@ -25,14 +25,14 @@ public class EvaluationController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll() {
-		return evaluationService.findAll();
+	@GetMapping(value = "get/evalutions")
+	public ResponseEntity<Object> findAllMini() {
+		return evaluationService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return evaluationService.findById(id);
+	@GetMapping(value = "get/evaluation/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return evaluationService.findByIdMini(id);
 	}
 	
 	//post
@@ -52,6 +52,8 @@ public class EvaluationController {
 		return evaluationService.newEvaluationEpisode(evaluationDTO);
 	}
 	
+	//put
+	
 	@PutMapping(value = "put/entity")
 	private ResponseEntity<Void> updateEvaluationEntity(@RequestBody EvaluationDTO evaluationTO){
 		return evaluationService.updateEvaluationEntity(evaluationTO);
@@ -66,6 +68,8 @@ public class EvaluationController {
 	private ResponseEntity<Void> updateEvaluationEpisode(@RequestBody EvaluationDTO evaluationTO){
 		return evaluationService.updateEvaluationEpisode(evaluationTO);
 	}
+	
+	//delete
 	
 	@DeleteMapping(value = "delete/entity")
 	public ResponseEntity<Void> deleteEvaluationEntity(@RequestBody EvaluationDTO evaluationDTO){

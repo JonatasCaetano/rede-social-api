@@ -11,10 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Entity;
@@ -49,63 +49,33 @@ public class SeasonService {
 	
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
-		List<Season> list = seasonRepository.findAll();
-		List<SeasonMiniDTO> seasonMiniDTOs = new ArrayList<>();
-		for(Season season : list) {
-			SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
-			seasonMiniDTOs.add(seasonMiniDTO);
-		}
-		return ResponseEntity.ok().body(seasonMiniDTOs);
-	}
+	//get
 	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findAllMini(){
 		try {
-			Season season = seasonRepository.findById(id).get();
-			return ResponseEntity.ok().body(season);
+			List<Season> list = seasonRepository.findAll();
+			List<SeasonMiniDTO> seasonMiniDTOs = new ArrayList<>();
+			for(Season season : list) {
+				SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+				seasonMiniDTOs.add(seasonMiniDTO);
+			}
+			return ResponseEntity.ok().body(seasonMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> save(Season season){
+	public ResponseEntity<Object> findByIdMini(String id){
 		try {
-			Season obj = seasonRepository.save(season);
-			return ResponseEntity.accepted().body(obj);
+			Season season = seasonRepository.findById(id).get();
+			SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+			return ResponseEntity.ok().body(seasonMiniDTO);
 		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
+			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	public ResponseEntity<Object> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
-		try {
-			User user = (User) userService.findById(idUser).getBody();
-			Entity entity = (Entity) entityService.findById(idEntity).getBody();
-			Season season = new Season(seasonDTO);
-			List<Season> seasons = entity.getSeasons();
-			if(user.isChecked()) {
-				if(seasons.contains(season)) {
-					return ResponseEntity.badRequest().build();
-				}
-					try {
-						season.setEntity(entity);
-						Season obj = seasonRepository.insert(season);
-						entity.getSeasons().add(obj);
-						entity.setSeason(1);
-						entityService.save(entity);
-						return ResponseEntity.created(null).body(obj);
-					}catch(RuntimeException e) {
-						return ResponseEntity.badRequest().build();
-					}
-			}else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	
-	public ResponseEntity<Object> getEvaluationsSeason(String id){
+		
+	public ResponseEntity<Object> getEvaluationsMini(String id){
 		try {
 			Season season = seasonRepository.findById(id).get();
 			List<Evaluation> evaluations = new ArrayList<>();
@@ -115,18 +85,18 @@ public class SeasonService {
 					evaluations.add(entitySave.getEvaluation());
 				}
 			}
-			List<EvaluationEntityDTO> evaluationEntityDTOs = new ArrayList<>();
+			List<EvaluationMiniDTO> evaluationMiniDTOs = new ArrayList<>();
 			for(Evaluation evaluation : evaluations) {
-				EvaluationEntityDTO evaluationEntityDTO = new EvaluationEntityDTO(evaluation);
-				evaluationEntityDTOs.add(evaluationEntityDTO);
+				EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+				evaluationMiniDTOs.add(evaluationMiniDTO);
 			}
-			return ResponseEntity.ok().body(evaluationEntityDTOs);
+			return ResponseEntity.ok().body(evaluationMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> findAllEpisodes(String id){
+	public ResponseEntity<Object> getEpisodesMini(String id){
 		try {
 			Season season = seasonRepository.findById(id).get();
 			List<Episode> episodes = season.getEpisodes();
@@ -141,7 +111,7 @@ public class SeasonService {
 		}
 	}
 	
-	public ResponseEntity<Object> getEditions(String id){
+	public ResponseEntity<Object> getEditionsMini(String id){
 		try {
 			Season season = seasonRepository.findById(id).get();
 			List<Edition> editions = season.getEditions();
@@ -153,6 +123,38 @@ public class SeasonService {
 			return ResponseEntity.ok().body(editionMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	//post
+	
+	public ResponseEntity<Object> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
+		try {
+			User user = (User) userService.findById(idUser).getBody();
+			Entity entity = (Entity) entityService.findById(idEntity).getBody();
+			Season season = new Season(seasonDTO);
+			List<Season> seasons = entity.getSeasons();
+			if(user.isChecked()) {
+				//hashCode and equals
+				if(seasons.contains(season)) {
+					return ResponseEntity.badRequest().build();
+				}
+					try {
+						season.setEntity(entity);
+						season = seasonRepository.insert(season);
+						entity.getSeasons().add(season);
+						entity.setSeason(1);
+						entityService.save(entity);
+						SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+						return ResponseEntity.created(null).body(seasonMiniDTO);
+					}catch(RuntimeException e) {
+						return ResponseEntity.badRequest().build();
+					}
+			}else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -176,7 +178,7 @@ public class SeasonService {
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -197,7 +199,7 @@ public class SeasonService {
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -218,7 +220,7 @@ public class SeasonService {
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -239,7 +241,7 @@ public class SeasonService {
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -260,13 +262,30 @@ public class SeasonService {
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
 	
+	//internal
 	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			Season season = seasonRepository.findById(id).get();
+			return ResponseEntity.ok().body(season);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
+	public ResponseEntity<Object> save(Season season){
+		try {
+			Season obj = seasonRepository.save(season);
+			return ResponseEntity.accepted().body(obj);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 	
 	

@@ -18,9 +18,14 @@ public class InvitationController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll(){
-		return invitationService.findAll();
+	@GetMapping(value = "get/invitations")
+	public ResponseEntity<Object> findAllMini(){
+		return invitationService.findAllMini();
+	}
+	
+	@GetMapping(value = "get/invitation/{value}")
+	public ResponseEntity<Object> findByValueMini(@PathVariable String value){
+		return invitationService.findByValueMini(value);
 	}
 	
 	@GetMapping(value = "get/check/{invitationValue}")
@@ -28,10 +33,7 @@ public class InvitationController {
 		return invitationService.checkAvailability(invitationValue);
 	}
 	
-	@GetMapping(value = "get/invitation/{value}")
-	public ResponseEntity<Object> findByValue(@PathVariable String value){
-		return invitationService.findByValue(value);
-	}
+	
 	
 
 

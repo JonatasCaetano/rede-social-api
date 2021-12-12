@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.InvitationDTO;
+import com.jonatas.socialnetworkapi.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
@@ -26,28 +26,54 @@ public class InvitationService {
 	@Autowired
 	@Lazy
 	private FollowerService followerService;
+	
+	@Autowired
+	@Lazy
+	private UserService userService;
 		
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
-		List<Invitation> list = invitationRepository.findAll();
-		List<InvitationDTO> invitationDTOs = new ArrayList<>();
-		for(Invitation invitation : list) {
-			InvitationDTO invitationDTO = new InvitationDTO(invitation);
-			invitationDTOs.add(invitationDTO);
-		}
-		return ResponseEntity.ok().body(invitationDTOs);
-	}
+	//get
 	
-	public ResponseEntity<Object> findByValue(String value){
+	public ResponseEntity<Object> findAllMini(){
 		try {
-			Invitation invitation = invitationRepository.findByValue(value);
-			return ResponseEntity.ok().body(new InvitationDTO(invitation));
+			List<Invitation> list = invitationRepository.findAll();
+			List<InvitationMiniDTO> invitationMiniDTOs = new ArrayList<>();
+			for(Invitation invitation : list) {
+				InvitationMiniDTO invitationMiniDTO = new InvitationMiniDTO(invitation);
+				invitationMiniDTOs.add(invitationMiniDTO);
+			}
+			return ResponseEntity.ok().body(invitationMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
+	public ResponseEntity<Object> findByValueMini(String value){
+		try {
+			Invitation invitation = invitationRepository.findByValue(value);
+			InvitationMiniDTO invitationMiniDTO = new InvitationMiniDTO(invitation);
+			return ResponseEntity.ok().body(invitationMiniDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Boolean> checkAvailability(String invitationValue){
+		try {
+			Invitation invitation = invitationRepository.findByValue(invitationValue);
+			List<User> list = invitation.getInvited();
+			if(list.size() >= 5) {
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);			
+			}else {
+				return ResponseEntity.accepted().body(true);
+			}
+		}catch(RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);	
+		}
+	}
+	
+	//post
 	
 	public ResponseEntity<Object> createdInvitation(User user) {
 		String nameFinal;
@@ -81,7 +107,8 @@ public class InvitationService {
 				Invitation invitation = new Invitation(null, user, invitationTotal);
 				Invitation result = invitationRepository.insert(invitation);
 				user.setInvitation(result);
-				return ResponseEntity.created(null).body(user);
+				userService.save(user);
+				return ResponseEntity.created(null).build();
 
 		}catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
@@ -89,17 +116,6 @@ public class InvitationService {
 			
 		}
 	
-		public boolean testInvitation(String invitationTotal) {
-			try {
-				Invitation invitation = invitationRepository.findByValue(invitationTotal);	
-				invitation.getId();
-				invitation.getUser();
-				return true;
-			}catch(RuntimeException e) {
-				return false;
-			}
-		}
-		
 		
 		public ResponseEntity<Void> addInvited(User user, String invitationValue){
 			try {
@@ -112,22 +128,16 @@ public class InvitationService {
 			}
 			
 		}
+				
+		//internal
 		
-		public ResponseEntity<Boolean> checkAvailability(String invitationValue){
+		public ResponseEntity<Object> findByValue(String value){
 			try {
-				Invitation invitation = invitationRepository.findByValue(invitationValue);
-				List<User> list = invitation.getInvited();
-				if(list.size() >= 5) {
-					System.out.println("Lista invited contem: " + list.size());
-					return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);			
-				}else {
-					return ResponseEntity.accepted().body(true);
-				}
-			}catch(RuntimeException e) {
-				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);	
+				Invitation invitation = invitationRepository.findByValue(value);
+				return ResponseEntity.ok().body(invitation);
+			}catch (RuntimeException e) {
+				return ResponseEntity.notFound().build();
 			}
-	
-			
 		}
 		
 		public ResponseEntity<Object> returnUser(String value){
@@ -139,6 +149,19 @@ public class InvitationService {
 				throw new RuntimeException(e.getMessage());
 			}
 		}
+		
+		public boolean testInvitation(String invitationTotal) {
+			try {
+				Invitation invitation = invitationRepository.findByValue(invitationTotal);	
+				invitation.getId();
+				invitation.getUser();
+				return true;
+			}catch(RuntimeException e) {
+				return false;
+			}
+		}
+		
+		
 	
 	
 	}

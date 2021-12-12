@@ -21,19 +21,6 @@ public class UserMiniDTO {
 		super();
 	}
 	
-	public UserMiniDTO(String id, String name, String image, String description, String city, boolean checked,
-			int following, int followers) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.image = image;
-		this.description = description;
-		this.city = city;
-		this.checked = checked;
-		this.following = following;
-		this.followers = followers;
-	}
-
 	public UserMiniDTO(User user) {
 		super();
 		this.id = user.getId();

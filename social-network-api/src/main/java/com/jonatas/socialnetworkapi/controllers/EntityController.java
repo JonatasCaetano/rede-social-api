@@ -1,4 +1,4 @@
-package com.jonatas.socialnetworkapi.controllers;
+ package com.jonatas.socialnetworkapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,39 +23,39 @@ public class EntityController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll(){
-		return entityService.findAll();
+	@GetMapping(value = "get/entities")
+	public ResponseEntity<Object> findAllMini(){
+		return entityService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return entityService.findById(id);
+	@GetMapping(value = "get/entity/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return entityService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/workers/{id}")
-	public ResponseEntity<Object> getWorkers(@PathVariable String id){
-		return entityService.getWorkers(id);
+	@GetMapping(value = "get/entity/{id}/workers")
+	public ResponseEntity<Object> getWorkersMini(@PathVariable String id){
+		return entityService.getWorkersMini(id);
 	}
 	
-	@GetMapping(value = "get/seasons/{id}")
-	public ResponseEntity<Object> findAllSeasons(@PathVariable String id){
-		return entityService.findAllSeasons(id);
+	@GetMapping(value = "get/entity/{id}/seasons")
+	public ResponseEntity<Object> getSeasonsMini(@PathVariable String id){
+		return entityService.getSeasonsMini(id);
 	}
 	
-	@GetMapping(value = "get/evaluations/{id}")
-	public ResponseEntity<Object> getEvaluationsEntity(@PathVariable String id){
-		return entityService.getEvaluationsEntity(id);
+	@GetMapping(value = "get/entity/{id}/evaluations")
+	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String id){
+		return entityService.getEvaluationsMini(id);
 	}
 	
-	@GetMapping(value = "get/editions/{id}")
-	public ResponseEntity<Object> getEditions(@PathVariable String id){
-		return entityService.getEditions(id);
+	@GetMapping(value = "get/entity/{id}/editions")
+	public ResponseEntity<Object> getEditionsMini(@PathVariable String id){
+		return entityService.getEditionsMini(id);
 	}
 	
 	//post
 	
-	@PostMapping(value = "/post/user/{id}")
+	@PostMapping(value = "/post/entity/user/{id}")
 	public ResponseEntity<Object> createEntity(@RequestBody EntityMiniDTO entityMiniDTO, @PathVariable String id){
 		return entityService.createEntity(entityMiniDTO, id);
 	}

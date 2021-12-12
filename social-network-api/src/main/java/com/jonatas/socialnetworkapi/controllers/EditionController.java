@@ -19,17 +19,21 @@ public class EditionController {
 	@Autowired
 	private EditionService editionService;
 	
-	@GetMapping(value = "get/all")
-	public ResponseEntity<Object> findAll(){
-		return editionService.findAll();
+	//get
+	
+	@GetMapping(value = "get/editions")
+	public ResponseEntity<Object> findAllMini(){
+		return editionService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/id/{id}")
-	public ResponseEntity<Object> findById(@PathVariable String id){
-		return editionService.findById(id);
+	@GetMapping(value = "get/edition/{id}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
+		return editionService.findByIdMini(id);
 	}
 	
-	@PostMapping(value = "post")
+	//post
+	
+	@PostMapping(value = "post/edition")
 	public ResponseEntity<Object> newEdition(@RequestBody Edition edition){
 		return editionService.newEdition(edition);
 	}

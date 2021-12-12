@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EvaluationDTO;
-import com.jonatas.socialnetworkapi.dto.EvaluationUserDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
@@ -52,24 +52,31 @@ public class EvaluationService {
 	
 	//methods
 	
-	public ResponseEntity<Object> findAll() {
-		List<Evaluation> list = evaluationRepository.findAll();
-		List<EvaluationUserDTO> evaluationUserDTOs = new ArrayList<>();
-		for(Evaluation evaluation : list) {
-			EvaluationUserDTO evaluationUserDTO = new EvaluationUserDTO(evaluation);
-			evaluationUserDTOs.add(evaluationUserDTO);
-		}
-		return ResponseEntity.ok().body(evaluationUserDTOs);
-	}
-	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findAllMini() {
 		try {
-			Evaluation evaluation = evaluationRepository.findById(id).get();
-			return ResponseEntity.ok().body(evaluation);
+			List<Evaluation> list = evaluationRepository.findAll();
+			List<EvaluationMiniDTO> evaluationMiniDTOs = new ArrayList<>();
+			for(Evaluation evaluation : list) {
+				EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+				evaluationMiniDTOs.add(evaluationMiniDTO);
+			}
+			return ResponseEntity.ok().body(evaluationMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	public ResponseEntity<Object> findByIdMini(String id){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(id).get();
+			EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+			return ResponseEntity.ok().body(evaluationMiniDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	//post
 	
 	public ResponseEntity<Object> newEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
@@ -108,7 +115,8 @@ public class EvaluationService {
 			entity.setEvaluationSum(evaluation.getValue());
 			entity.setEvaluationAverage();
 			entityService.save(entity);
-			return ResponseEntity.created(null).body(evaluation);
+			EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+			return ResponseEntity.created(null).body(evaluationMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -150,7 +158,8 @@ public class EvaluationService {
 			season.setEvaluationSum(evaluation.getValue());
 			season.setEvaluationAverage();
 			seasonService.save(season);
-			return ResponseEntity.created(null).body(evaluation);
+			EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+			return ResponseEntity.created(null).body(evaluationMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -191,12 +200,15 @@ public class EvaluationService {
 			episode.setEvaluationQuantity(1);
 			episode.setEvaluationSum(evaluation.getValue());
 			episode.setEvaluationAverage();
-			episodeService.save(episode);	
-			return ResponseEntity.created(null).body(evaluation);
+			episodeService.save(episode);
+			EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+			return ResponseEntity.created(null).body(evaluationMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	//put
 	
 	public ResponseEntity<Void> updateEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
@@ -312,6 +324,8 @@ public class EvaluationService {
 		}
 	}
 	
+	//delete
+	
 	public ResponseEntity<Void> deleteEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
 			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
@@ -393,6 +407,17 @@ public class EvaluationService {
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	//service
+	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			Evaluation evaluation = evaluationRepository.findById(id).get();
+			return ResponseEntity.ok().body(evaluation);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
 	}
 	

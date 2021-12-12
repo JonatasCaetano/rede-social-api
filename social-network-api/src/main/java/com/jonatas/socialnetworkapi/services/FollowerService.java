@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.jonatas.socialnetworkapi.dto.mini.FollowerMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
@@ -29,33 +30,65 @@ public class FollowerService {
 	
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
+	public ResponseEntity<Object> findAllMini(){
 		try {		
 			List<Follower> followers = followerRepository.findAll();
-			return ResponseEntity.ok().body(followers);
+			List<FollowerMiniDTO> followerMiniDTOs = new ArrayList<>();
+			for(Follower follower : followers) {
+				FollowerMiniDTO followerMiniDTO = new FollowerMiniDTO(follower);
+				followerMiniDTOs.add(followerMiniDTO);
+			}
+			return ResponseEntity.ok().body(followerMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	public ResponseEntity<Object> findById(String id) {
+	public ResponseEntity<Object> findByIdMini(String id) {
 		try {		
 			Follower follower = followerRepository.findById(id).get();
-			return ResponseEntity.ok().body(follower);
+			FollowerMiniDTO followerMiniDTO = new FollowerMiniDTO(follower);
+			return ResponseEntity.ok().body(followerMiniDTO);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
+		}
+	}
+
+	public ResponseEntity<Object> getAllFollowingMini(String userId){
+		try {
+			User user = (User) userService.findById(userId).getBody();
+			Follower follower = followerRepository.findByUser(user);
+			List<User> users = follower.getFollowing();
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+			for(User userList : users) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(userList);
+				userMiniDTOs.add(userMiniDTO);
+			}
+			return ResponseEntity.ok().body(userMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Object> findByUser(String id) {
-		try {		
-			User user = (User) userService.findById(id).getBody();
-			Follower follower = followerRepository.findByUser(user);
-			return ResponseEntity.ok().body(follower);
+	public ResponseEntity<Object> getAllFollowerMini(String userId){
+		try {
+			User user = (User) userService.findById(userId).getBody();
+			List<Follower> followers = followerRepository.findAll();
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+			for(Follower follower : followers) {
+				if(follower.getFollowing().contains(user)) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(follower.getUser());
+					userMiniDTOs.add(userMiniDTO);
+				}
+			}
+			return ResponseEntity.ok().body(userMiniDTOs);
+			
 		}catch(RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
+			return ResponseEntity.badRequest().build();
+	   }
 	}
+	
+	//post
 	
 	public ResponseEntity<Void> addFollowing(String followerId, String followingId){
 		try {
@@ -76,8 +109,9 @@ public class FollowerService {
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
-		
 	}
+	
+	//delete
 	
 	public ResponseEntity<Void> removeFollowing(String followerId, String followingId){
 		try {
@@ -98,46 +132,9 @@ public class FollowerService {
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
-
 	}
-	
-	
-	public ResponseEntity<Object> getAllFollowing(String userId){
-		try {
-			User user = (User) userService.findById(userId).getBody();
-			Follower follower = followerRepository.findByUser(user);
-			List<User> users = follower.getFollowing();
-			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
-			for(User userList : users) {
-				UserMiniDTO userMiniDTO = new UserMiniDTO(userList);
-				userMiniDTOs.add(userMiniDTO);
-			}
-			return ResponseEntity.ok().body(userMiniDTOs);
-		}catch(RuntimeException e) {
-			return ResponseEntity.badRequest().build();
 		
-		}
-		
-		
-	}
-	
-	public ResponseEntity<Object> getAllFollower(String userId){
-		try {
-			User user = (User) userService.findById(userId).getBody();
-			List<Follower> followers = followerRepository.findAll();
-			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
-			for(Follower follower : followers) {
-				if(follower.getFollowing().contains(user)) {
-					UserMiniDTO userMiniDTO = new UserMiniDTO(follower.getUser());
-					userMiniDTOs.add(userMiniDTO);
-				}
-			}
-			return ResponseEntity.ok().body(userMiniDTOs);
-			
-		}catch(RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
+	//internal
 	
 	public ResponseEntity<Object> insert(Follower follower){
 		try {
@@ -148,7 +145,15 @@ public class FollowerService {
 		}
 	}
 	
-
+	public ResponseEntity<Object> findById(String id) {
+		try {		
+			Follower follower = followerRepository.findById(id).get();
+			return ResponseEntity.ok().body(follower);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	
 	
 	

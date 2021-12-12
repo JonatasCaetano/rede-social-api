@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EntitySaveDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
@@ -48,23 +50,33 @@ public class EntitySaveService {
 
 	//methods
 	
-	public ResponseEntity<Object> findAll(){
+	//get
+	
+	public ResponseEntity<Object> findAllMini(){
 		try {
 			List<EntitySave> list = entitySaveRepository.findAll();
-			return ResponseEntity.ok(list);
+			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
+			for(EntitySave entitySave : list) {
+				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+				entitySaveMiniDTOs.add(entitySaveMiniDTO);
+			}
+			return ResponseEntity.ok(entitySaveMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Object> findById(String id){
+	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(id).get();
-			return ResponseEntity.ok(entitySave);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.ok(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//post
 	
 	public ResponseEntity<Object> newEntitySaveEntity(EntitySaveDTO entitySaveDTO){
 		try {
@@ -96,7 +108,7 @@ public class EntitySaveService {
 			userService.save(user);
 			entity.getEntitySaves().add(entitySave);
 			entityService.save(entity);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.created(null).build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -132,7 +144,7 @@ public class EntitySaveService {
 			userService.save(user);
 			season.getEntitySaves().add(entitySave);
 			seasonService.save(season);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.created(null).build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -168,11 +180,13 @@ public class EntitySaveService {
 			userService.save(user);
 			episode.getEntitySaves().add(entitySave);
 			episodeService.save(episode);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.created(null).build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//put
 	
 	public ResponseEntity<Object> updateEntitySaveCategory(EntitySaveDTO entitySaveDTO){
 		try {
@@ -182,9 +196,9 @@ public class EntitySaveService {
 			}
 			entitySave.setCategory(entitySaveDTO.getCategory());
 			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -193,9 +207,9 @@ public class EntitySaveService {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
 			entitySave.setGoal(entitySaveDTO.isGoal());		
 			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -204,9 +218,9 @@ public class EntitySaveService {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
 			entitySave.setRated(entitySaveDTO.isRated());		
 			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -215,11 +229,13 @@ public class EntitySaveService {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
 			entitySave.setReview(entitySaveDTO.isReview());		
 			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	//delete
 	
 	public ResponseEntity<Object> deleteEntitySaveEntity(EntitySaveDTO entitySaveDTO){
 		try {
@@ -231,7 +247,7 @@ public class EntitySaveService {
 			entity.getEntitySaves().remove(entitySave);
 			entityService.save(entity);
 			entitySaveRepository.delete(entitySave);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -247,7 +263,7 @@ public class EntitySaveService {
 			season.getEntitySaves().remove(entitySave);
 			seasonService.save(season);
 			entitySaveRepository.delete(entitySave);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -263,11 +279,13 @@ public class EntitySaveService {
 			episode.getEntitySaves().remove(entitySave);
 			episodeService.save(episode);
 			entitySaveRepository.delete(entitySave);
-			return ResponseEntity.ok(entitySave);
+			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	//internal
 	
 	public ResponseEntity<Object> save(EntitySave entitySave){
 		try {

@@ -5,16 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
-import com.jonatas.socialnetworkapi.dto.EvaluationDTO;
-import com.jonatas.socialnetworkapi.dto.SeasonDTO;
-import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
-import com.jonatas.socialnetworkapi.dto.WorkerDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
-import com.jonatas.socialnetworkapi.entities.Entity;
-import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Follower;
-import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.repositories.EditionRepository;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
@@ -118,71 +109,16 @@ public class Instantiation implements CommandLineRunner{
 		editionRepository.deleteAll();
 		entitySaveRepository.deleteAll();
 
-		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal", null, "Bauru");//123456
+		User user = new User("Jonatas Caetano", "jonatas.calves@gmail.com", "Cae@2018", null, null, null, "Bauru");
 
-		userRepository.insert(user1);	
-		invitationService.createdInvitation(user1);
-		userRepository.save(user1);
-		user1.setChecked(true);
-		userRepository.save(user1);
-		Follower follower1 = followerRepository.insert(new Follower(null, user1));
-		user1.setFollower(follower1);
-		userRepository.save(user1);
-		
-		UserCreationDTO userCreation2 = new UserCreationDTO("Bela Caetano", "bela@gmail.com", user1.getInvitation().getValue(), "123456");
-		UserCreationDTO userCreation3 = new UserCreationDTO("Mel Alexandre", "mel@gmail.com", user1.getInvitation().getValue(), "123456");
-		
-		User user2 = (User) userService.createUser(userCreation2).getBody();
-		User user3 = (User) userService.createUser(userCreation3).getBody();
-				
-		Entity entity1 = new Entity("Vingadores", null, "Loki (Tom Hiddleston) retorna à Terra enviado pelos chitauri, uma raça alienígena que pretende dominar os humanos.", null, 0, null);
-		Entity entity2 = new Entity("O Senhor dos Anéis - A Sociedade do Anel", null, "Numa terra fantástica e única, chamada Terra-Média, um hobbit (seres de estatura entre 80 cm e 1,20 m, com pés peludos e bochechas um pouco avermelhadas) recebe de presente de seu tio o Um Anel, um anel mágico e maligno que precisa ser destruído antes que caia nas mãos do mal.", null, 0, null );
-		Entity entity3 = new Entity("American Horror Story", null, "A série gira em torno dos Harmon, uma família de três que se desloca de Boston para Los Angeles a fim de resolver alguns problemas do passado.", null, 1, null);
-		Entity entity4 = new Entity("The Walking Dead", null, "Baseado na história em quadrinhos escrita por Robert Kirkman, este drama potente e visceral retrata a vida nos Estados Unidos pós-apocalíptico.", null, 1, null);
-				
-		entity1 = (Entity) entityService.createEntity(new EntityMiniDTO(entity1), user1.getId()).getBody();
-		entity2 = (Entity) entityService.createEntity(new EntityMiniDTO(entity2), user1.getId()).getBody();
-		entity3 = (Entity) entityService.createEntity(new EntityMiniDTO(entity3), user1.getId()).getBody();
-		entity4 = (Entity) entityService.createEntity(new EntityMiniDTO(entity4), user1.getId()).getBody();
-		
-		WorkerDTO worker1 = new WorkerDTO(user1.getId(), entity2.getId(), "ator");
-		WorkerDTO worker2 = new WorkerDTO(user2.getId(), entity2.getId(), "atriz");
-		WorkerDTO worker3 = new WorkerDTO(user3.getId(), entity1.getId(), "Diretor");
-		
-		workerService.newWorker(worker1);
-		workerService.newWorker(worker2);
-		workerService.newWorker(worker3);
-		
-		SeasonDTO seasonDTO1 = new SeasonDTO("Murder House", "A primeira temporada, intitulada Murder House, tem como tema principal a infidelidade. Explorando temas como o amor, a família, e o perdão.", null, null, 1);
-		SeasonDTO seasonDTO2 = new SeasonDTO("Asylum", "A segunda temporada, intitulada Asylum, tem como tema a sanidade. A história se passa em 1964 e acompanha os pacientes, médicos e freiras que ocupam a Instituição Mental Briarcliff, fundada para tratar e abrigar os criminosos insanos.", null, null, 2);
-		SeasonDTO seasonDTO3 = new SeasonDTO("1ª temporada", "Rick Grimes é o xerife de uma pequena cidade do estado da Georgia, quando certo dia, é baleado por criminosos durante uma perseguição e entra em coma. Semanas depois, ele acorda em um hospital abandonado e totalmente danificado.", null, null, 1);
-		
-		Season season1 = (Season) seasonService.newSeason(seasonDTO1, user1.getId(), entity3.getId()).getBody();
-		Season season2 = (Season) seasonService.newSeason(seasonDTO2, user1.getId(), entity3.getId()).getBody();
-		Season season3 = (Season) seasonService.newSeason(seasonDTO3, user1.getId(), entity4.getId()).getBody();
-		
-		EpisodeDTO episodeDTO1 = new EpisodeDTO("Pilot", "Em 1978, dois gêmeos ultrapassam o portão da Casa dos Assassinatos. Adelaide os avisa que, se entrarem na casa, irão morrer. Eles desobedecem e entram mesmo assim.",  null, null, 1);
-		EpisodeDTO episodeDTO2 = new EpisodeDTO("Home Invasion", "Em 1968, Maria é enganada ao ajudar um rapaz que finge estar ferido e acaba sendo assassinada a facadas por ele. Em 2011, Tate provoca Ben durante sua consulta ao lembrar de sua infidelidade à Vivien.", null, null, 2);
-
-		Episode ep1 = (Episode) episodeService.newEpisode(episodeDTO1, user1.getId(), season1.getId()).getBody();
-		Episode ep2 = (Episode) episodeService.newEpisode(episodeDTO2, user1.getId(), season1.getId()).getBody();
-		
-		EvaluationDTO evaluation1 = new EvaluationDTO(user2.getId(), null, null, ep1.getId(), 3.0, null, 2);
-		EvaluationDTO evaluation2 = new EvaluationDTO(user2.getId(), null, null, ep2.getId(), 4.0, null, 2);
-		EvaluationDTO evaluation3 = new EvaluationDTO(user1.getId(), entity4.getId(), null, null, 2.5, null, 0);
-		EvaluationDTO evaluation4 = new EvaluationDTO(user1.getId(), null, season2.getId(), null, 3.5, null, 1);
-		EvaluationDTO evaluation5 = new EvaluationDTO(user1.getId(), null, season3.getId(), null, 1.0, null, 1);
-		EvaluationDTO evaluation6 = new EvaluationDTO(user1.getId(), null, null, ep1.getId(), 1.0, null, 2);
-		
-		evaluationService.newEvaluationEpisode(evaluation1);
-		evaluationService.newEvaluationEpisode(evaluation2);
-		evaluationService.newEvaluationEntity(evaluation3);
-		evaluationService.newEvaluationSeason(evaluation4);
-		evaluationService.newEvaluationSeason(evaluation5);
-		evaluationService.newEvaluationEpisode(evaluation6);
-	}
+		userRepository.insert(user);	
+		invitationService.createdInvitation(user);
+		userRepository.save(user);
+		user.setChecked(true);
+		userRepository.save(user);
+		Follower follower = followerRepository.insert(new Follower(null, user));
+		user.setFollower(follower);
+		userRepository.save(user);
 
 	
-	
-	
-}
+}}

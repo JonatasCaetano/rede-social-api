@@ -24,24 +24,24 @@ public class CommentController {
 	
 	//get
 	
-	@GetMapping(value = "get/all")
+	@GetMapping(value = "get/comments")
 	public ResponseEntity<Object> findAll(){
-		return commentService.findAll();
+		return commentService.findAllMini();
 	}
 	
-	@GetMapping(value = "get/id/{id}")
+	@GetMapping(value = "get/comment/{id}")
 	public ResponseEntity<Object> findById(@PathVariable String id){
-		return commentService.findById(id);
+		return commentService.findByIdMini(id);
 	}
 	
 	//post
-	@PostMapping(value = "post")
+	@PostMapping(value = "post/comment")
 	public ResponseEntity<Object> newComment(@RequestBody CommentDTO commentDTO){
 		return commentService.newComment(commentDTO);
 	}
 	
 	//delete
-	@DeleteMapping(value = "delete")
+	@DeleteMapping(value = "delete/comment")
 	public ResponseEntity<Object> deleteComment(@RequestBody CommentDTO commentDTO){
 		return commentService.deleteComment(commentDTO);
 	}

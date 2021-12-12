@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
-import com.jonatas.socialnetworkapi.dto.EvaluationEntityDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
+import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
@@ -46,25 +46,68 @@ public class EpisodeService {
 	private EditionService editionService;
 	
 	//methods
-	
-	public ResponseEntity<Object> findAll(){
-		List<Episode> list = episodeRepository.findAll();
-		List<EpisodeMiniDTO> episodeMiniDTOs = new ArrayList<>();
-		for(Episode episode : list) {
-			EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(episode);
-			episodeMiniDTOs.add(episodeMiniDTO);
-		}
-		return ResponseEntity.ok().body(episodeMiniDTOs);
-	}
-	
-	public ResponseEntity<Object> findById(String id){
+		
+	public ResponseEntity<Object> findAllMini(){
 		try {
-			Episode episode = episodeRepository.findById(id).get();
-			return ResponseEntity.ok().body(episode);
+			List<Episode> list = episodeRepository.findAll();
+			List<EpisodeMiniDTO> episodeMiniDTOs = new ArrayList<>();
+			for(Episode episode : list) {
+				EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(episode);
+				episodeMiniDTOs.add(episodeMiniDTO);
+			}
+			return ResponseEntity.ok().body(episodeMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	public ResponseEntity<Object> findByIdMini(String id){
+		try {
+			Episode episode = episodeRepository.findById(id).get();
+			EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(episode);
+			return ResponseEntity.ok().body(episodeMiniDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+		
+	public ResponseEntity<Object> getEvaluationsMini(String id){
+		try {
+			Episode episode = episodeRepository.findById(id).get();
+			List<Evaluation> evaluations = new ArrayList<>();
+			List<EntitySave> entitySaves = episode.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.isRated()) {
+					evaluations.add(entitySave.getEvaluation());
+				}
+			}
+			List<EvaluationMiniDTO> evaluationMiniDTOs = new ArrayList<>();
+			for(Evaluation evaluation : evaluations) {
+				EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
+				evaluationMiniDTOs.add(evaluationMiniDTO);
+			}
+			return ResponseEntity.ok().body(evaluationMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getEditionsMini(String id){
+		try {
+			Episode episode = episodeRepository.findById(id).get();
+			List<Edition> editions = episode.getEditions();
+			List<EditionMiniDTO> editionMiniDTOs = new ArrayList<>();
+			for(Edition edition : editions) {
+				EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
+				editionMiniDTOs.add(editionMiniDTO);
+			}
+			return ResponseEntity.ok().body(editionMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	//post
 	
 	public ResponseEntity<Object> newEpisode(EpisodeDTO episodeDTO, String idUser, String idSeason){
 		try {
@@ -82,7 +125,8 @@ public class EpisodeService {
 					season.getEpisodes().add(obj);
 					season.setEpisode(1);
 					seasonService.save(season);
-					return ResponseEntity.created(null).body(obj);
+					EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(obj);
+					return ResponseEntity.created(null).body(episodeMiniDTO);
 				}catch(RuntimeException e) {
 					return ResponseEntity.badRequest().build();
 				}
@@ -93,52 +137,6 @@ public class EpisodeService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-	public ResponseEntity<Void> save(Episode episode){
-		try {
-			episodeRepository.save(episode);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	
-	public ResponseEntity<Object> getEvaluationsEpisode(String id){
-		try {
-			Episode episode = episodeRepository.findById(id).get();
-			List<Evaluation> evaluations = new ArrayList<>();
-			List<EntitySave> entitySaves = episode.getEntitySaves();
-			for(EntitySave entitySave : entitySaves) {
-				if(entitySave.isRated()) {
-					evaluations.add(entitySave.getEvaluation());
-				}
-			}
-			List<EvaluationEntityDTO> evaluationEntityDTOs = new ArrayList<>();
-			for(Evaluation evaluation : evaluations) {
-				EvaluationEntityDTO evaluationEntityDTO = new EvaluationEntityDTO(evaluation);
-				evaluationEntityDTOs.add(evaluationEntityDTO);
-			}
-			return ResponseEntity.ok().body(evaluationEntityDTOs);
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Object> getEditions(String id){
-		try {
-			Episode episode = episodeRepository.findById(id).get();
-			List<Edition> editions = episode.getEditions();
-			List<EditionMiniDTO> editionMiniDTOs = new ArrayList<>();
-			for(Edition edition : editions) {
-				EditionMiniDTO editionMiniDTO = new EditionMiniDTO(edition);
-				editionMiniDTOs.add(editionMiniDTO);
-			}
-			return ResponseEntity.ok().body(editionMiniDTOs);
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
 	
 	//put
 	
@@ -246,7 +244,27 @@ public class EpisodeService {
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
-		
 	}
+	
+	//internal
+	
+	public ResponseEntity<Object> findById(String id){
+		try {
+			Episode episode = episodeRepository.findById(id).get();
+			return ResponseEntity.ok().body(episode);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Void> save(Episode episode){
+		try {
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	
 }
