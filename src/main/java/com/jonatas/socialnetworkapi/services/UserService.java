@@ -200,17 +200,19 @@ public class UserService {
 					return ResponseEntity.badRequest().build();
 				}else {
 					User obj = userRepository.insert(new User(userCreation));
-					invitationService.addInvited(obj, userCreation.getInvitation());
-					User user = (User) invitationService.returnUser(userCreation.getInvitation()).getBody();			
+					invitationService.addInvited(obj, userCreation.getInvitation());		
 					Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
 					obj.setFollower(follower);
-					userRepository.save(obj);
-					if(user.getId() != null) {
-						followerService.addFollowing(obj.getId(), user.getId());
-						followerService.addFollowing(user.getId(), obj.getId());
-						}
+					userRepository.save(obj);	
 					try {
 						invitationService.createdInvitation(obj);
+					}catch (RuntimeException e) {
+						return ResponseEntity.badRequest().build();
+					}
+					try {
+						User user = (User) invitationService.returnUser(userCreation.getInvitation()).getBody();
+						followerService.addFollowing(obj.getId(), user.getId());
+						followerService.addFollowing(user.getId(), obj.getId());
 					}catch (RuntimeException e) {
 						return ResponseEntity.badRequest().build();
 					}

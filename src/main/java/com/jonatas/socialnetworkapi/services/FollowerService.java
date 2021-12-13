@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -94,15 +95,18 @@ public class FollowerService {
 		try {
 			User userFollower = (User) userService.findById(followerId).getBody();
 			User userFollowing = (User) userService.findById(followingId).getBody();
-			Follower follower = followerRepository.findByUser(userFollower);
+			Follower follower = userFollower.getFollower();
+			if(userFollower.equals(userFollowing)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
 			if(follower.getFollowing().contains(userFollowing)) {
 				return ResponseEntity.ok().build();
 			}else {
 				follower.getFollowing().add(userFollowing);
 				followerRepository.save(follower);
-				userFollower.setFollowing(1);
+				userFollower.setFollowing(+ 1);
 				userService.save(userFollower);
-				userFollowing.setFollowers(1);
+				userFollowing.setFollowers(+ 1);
 				userService.save(userFollowing);
 				return ResponseEntity.accepted().build();
 			}
@@ -117,7 +121,7 @@ public class FollowerService {
 		try {
 			User userFollower = (User) userService.findById(followerId).getBody();
 			User userFollowing = (User) userService.findById(followingId).getBody();
-			Follower follower = followerRepository.findByUser(userFollower);
+			Follower follower = userFollower.getFollower();
 			if(!follower.getFollowing().contains(userFollowing)) {
 				return ResponseEntity.ok().build();
 			}else {
