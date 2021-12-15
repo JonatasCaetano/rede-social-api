@@ -155,7 +155,7 @@ public class User implements Serializable{
 		this.description = description;
 	}
 
-	public boolean getStatus() {
+	public boolean isStatus() {
 		return status;
 	}
 

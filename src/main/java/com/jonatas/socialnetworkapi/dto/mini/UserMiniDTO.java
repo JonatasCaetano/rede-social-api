@@ -12,6 +12,8 @@ public class UserMiniDTO {
 	private String description;
 	private String city;
 	private boolean checked;
+	private boolean privacy;
+	private boolean status;
 	private int following = 0;
 	private int followers = 0;
 		
@@ -31,6 +33,8 @@ public class UserMiniDTO {
 		this.checked = user.isChecked();
 		this.following = user.getFollowing();
 		this.followers = user.getFollowers();
+		this.privacy = user.isPrivacy();
+		this.status = user.isStatus();
 	}
 	
 	//getters and setters
@@ -97,6 +101,22 @@ public class UserMiniDTO {
 
 	public void setFollowers(int followers) {
 		this.followers = followers;
+	}
+
+	public boolean isPrivacy() {
+		return privacy;
+	}
+
+	public void setPrivacy(boolean privacy) {
+		this.privacy = privacy;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 
