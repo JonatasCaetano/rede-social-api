@@ -75,7 +75,6 @@ public class Entity implements Serializable{
 		this.name = entityMiniDTO.getName();
 		this.image = entityMiniDTO.getImage();
 		this.description = entityMiniDTO.getDescription();
-		this.release = entityMiniDTO.getRelease();
 		this.type = entityMiniDTO.getType();
 		this.genre = entityMiniDTO.getGenre();
 	}

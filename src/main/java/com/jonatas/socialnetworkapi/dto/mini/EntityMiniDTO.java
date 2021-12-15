@@ -12,7 +12,6 @@ public class EntityMiniDTO {
 	private String name;
 	private String image;
 	private String description;
-	private Date release;
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private int season = 0;
@@ -33,7 +32,6 @@ public class EntityMiniDTO {
 		this.description = entity.getDescription();
 		this.evaluationAverage = entity.getEvaluationAverage();
 		this.season = entity.getSeason();
-		this.release = entity.getRelease();
 		this.type = entity.getType();
 		this.evaluationQuantity = entity.getEvaluationQuantity();
 		this.setGenre(entity.getGenre());
@@ -95,14 +93,6 @@ public class EntityMiniDTO {
 
 	public void setSeason(int season) {
 		this.season = season;
-	}
-
-	public Date getRelease() {
-		return release;
-	}
-
-	public void setRelease(Date release) {
-		this.release = release;
 	}
 
 	public int getType() {
