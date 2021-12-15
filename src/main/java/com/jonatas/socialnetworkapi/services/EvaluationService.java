@@ -80,8 +80,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Object> newEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
-			Entity entity = (Entity) entityService.findById(evaluationDTO.getEntity()).getBody();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
+			Entity entity = (Entity) entityService.findById(evaluationDTO.getIdEntity()).getBody();
 			
 			if(user == null) {
 				return ResponseEntity.badRequest().build();
@@ -124,8 +124,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Object> newEvaluationSeason(EvaluationDTO evaluationDTO){
 		try {
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
-			Season season = (Season) seasonService.findById(evaluationDTO.getSeason()).getBody();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
+			Season season = (Season) seasonService.findById(evaluationDTO.getIdSeason()).getBody();
 			if(user == null) {
 				return ResponseEntity.badRequest().build();
 			}
@@ -167,8 +167,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Object> newEvaluationEpisode(EvaluationDTO evaluationDTO){
 		try {
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
-			Episode episode = (Episode) episodeService.findById(evaluationDTO.getEpisode()).getBody();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
+			Episode episode = (Episode) episodeService.findById(evaluationDTO.getIdEpisode()).getBody();
 			if(user == null) {
 				return ResponseEntity.badRequest().build();
 			}
@@ -212,8 +212,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Void> updateEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
-			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getIdEvaluation()).get();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
 			Entity entity = evaluation.getEntity();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -250,9 +250,9 @@ public class EvaluationService {
 	
 	public ResponseEntity<Void> updateEvaluationSeason(EvaluationDTO evaluationDTO){
 		try {
-			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getIdEvaluation()).get();
 			Season season = evaluation.getSeason();
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
@@ -288,8 +288,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Void> updateEvaluationEpisode(EvaluationDTO evaluationDTO){
 		try {
-			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getIdEvaluation()).get();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
 			Episode episode = evaluation.getEpisode();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -328,8 +328,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Void> deleteEvaluationEntity(EvaluationDTO evaluationDTO){
 		try {
-			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getIdEvaluation()).get();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
@@ -356,8 +356,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Void> deleteEvaluationSeason(EvaluationDTO evaluationDTO){
 		try {
-			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getIdEvaluation()).get();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
@@ -384,8 +384,8 @@ public class EvaluationService {
 	
 	public ResponseEntity<Void> deleteEvaluationEpisode(EvaluationDTO evaluationDTO){
 		try {
-			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getId()).get();
-			User user = (User) userService.findById(evaluationDTO.getUser()).getBody();
+			Evaluation evaluation = evaluationRepository.findById(evaluationDTO.getIdEvaluation()).get();
+			User user = (User) userService.findById(evaluationDTO.getIdUser()).getBody();
 			if(user.getId().hashCode() != evaluation.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}

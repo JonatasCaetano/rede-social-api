@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
+import com.jonatas.socialnetworkapi.dto.EpisodeCreateDTO;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
 
 @RestController
@@ -46,8 +46,8 @@ public class EpisodeController {
 	//post
 	
 	@PostMapping(value = "post/season/{idSeason}/user/{idUser}")
-	public ResponseEntity<Object> newEpisode(@RequestBody EpisodeDTO episodeDTO, @PathVariable String idUser, @PathVariable String idSeason){
-		return episodeService.newEpisode(episodeDTO, idUser, idSeason);
+	public ResponseEntity<Object> newEpisode(@RequestBody EpisodeCreateDTO episodeCreateDTO, @PathVariable String idUser, @PathVariable String idSeason){
+		return episodeService.newEpisode(episodeCreateDTO, idUser, idSeason);
 	}
 	
 	//put

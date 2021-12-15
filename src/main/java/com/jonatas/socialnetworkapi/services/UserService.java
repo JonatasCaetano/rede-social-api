@@ -196,11 +196,11 @@ public class UserService {
 			if(testEmail(userCreation.getEmail())) {
 				return ResponseEntity.badRequest().build();
 			}else {
-				if(!invitationService.checkAvailability(userCreation.getInvitation()).getBody()) {
+				if(!invitationService.checkAvailability(userCreation.getInvitationValue()).getBody()) {
 					return ResponseEntity.badRequest().build();
 				}else {
 					User obj = userRepository.insert(new User(userCreation));
-					invitationService.addInvited(obj, userCreation.getInvitation());		
+					invitationService.addInvited(obj, userCreation.getInvitationValue());		
 					Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
 					obj.setFollower(follower);
 					userRepository.save(obj);	
@@ -210,7 +210,7 @@ public class UserService {
 						return ResponseEntity.badRequest().build();
 					}
 					try {
-						User user = (User) invitationService.returnUser(userCreation.getInvitation()).getBody();
+						User user = (User) invitationService.returnUser(userCreation.getInvitationValue()).getBody();
 						followerService.addFollowing(obj.getId(), user.getId());
 						followerService.addFollowing(user.getId(), obj.getId());
 					}catch (RuntimeException e) {
@@ -236,7 +236,7 @@ public class UserService {
 			if(name1.length() < 3 || name2.length() < 4) {
 				return ResponseEntity.badRequest().build();
 			}
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setName(userUpdateDTO.getName());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -247,7 +247,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updateEmail(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setEmail(userUpdateDTO.getEmail());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -261,7 +261,7 @@ public class UserService {
 			if(userUpdateDTO.getPassword().length() < 6) {
 				return ResponseEntity.badRequest().build();
 			}
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setPassword(userUpdateDTO.getPassword());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -272,7 +272,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updateImage(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setImage(userUpdateDTO.getImage());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -283,7 +283,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updateDescription(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setDescription(userUpdateDTO.getDescription());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -294,7 +294,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setBirthDate(userUpdateDTO.getBirthDate());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -305,7 +305,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updateCity(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setCity(userUpdateDTO.getCity());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -316,7 +316,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updatePrivacy(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setChecked(userUpdateDTO.isPrivacy());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
@@ -327,7 +327,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updateStatus(UserUpdateDTO userUpdateDTO){
 		try {
-			User user = userRepository.findById(userUpdateDTO.getId()).get();
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setStatus(userUpdateDTO.isStatus());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();

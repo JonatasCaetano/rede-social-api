@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
+import com.jonatas.socialnetworkapi.dto.EpisodeCreateDTO;
 
 @Document
 public class Episode implements Serializable{
@@ -68,13 +68,13 @@ public class Episode implements Serializable{
 		this.genre = genre;
 	}
 	
-	public Episode(EpisodeDTO episodeDTO) {
+	public Episode(EpisodeCreateDTO episodeCreateDTO) {
 		super();
-		this.name = episodeDTO.getName();
-		this.description = episodeDTO.getDescription();
-		this.image = episodeDTO.getImage();
-		this.release = episodeDTO.getRelease();
-		this.number = episodeDTO.getNumber();
+		this.name = episodeCreateDTO.getName();
+		this.description = episodeCreateDTO.getDescription();
+		this.image = episodeCreateDTO.getImage();
+		this.release = episodeCreateDTO.getRelease();
+		this.number = episodeCreateDTO.getNumber();
 	}
 	
 	//getters and setters

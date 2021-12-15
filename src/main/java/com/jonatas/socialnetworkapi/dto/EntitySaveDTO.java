@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class EntitySaveDTO {
 
-	private String id;
-	private String user;
-	private String entity;
-	private String season;
-	private String episode;
+	private String idEntitySave;
+	private String idUser;
+	private String idEntity;
+	private String idSeason;
+	private String idEpisode;
 	private int category;
 	private Date release;
 	private boolean goal;
@@ -22,54 +22,54 @@ public class EntitySaveDTO {
 	
 	public EntitySaveDTO(String id, String user, String entity, String season, String episode, int category, Date release, int type) {
 	super();
-	this.id = id;
-	this.user = user;
-	this.entity = entity;
-	this.season = season;
-	this.episode = episode;
+	this.idEntitySave = id;
+	this.idUser = user;
+	this.idEntity = entity;
+	this.idSeason = season;
+	this.idEpisode = episode;
 	this.category = category;
 	this.release = release;
 	this.type = type;
 	}
 
-	public String getId() {
-		return id;
+	public String getIdEntitySave() {
+		return idEntitySave;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdEntitySave(String idEntitySave) {
+		this.idEntitySave = idEntitySave;
 	}
 
-	public String getUser() {
-		return user;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getEntity() {
-		return entity;
+	public String getIdEntity() {
+		return idEntity;
 	}
 
-	public void setEntity(String entity) {
-		this.entity = entity;
+	public void setIdEntity(String idEntity) {
+		this.idEntity = idEntity;
 	}
 
-	public String getSeason() {
-		return season;
+	public String getIdSeason() {
+		return idSeason;
 	}
 
-	public void setSeason(String season) {
-		this.season = season;
+	public void setIdSeason(String idSeason) {
+		this.idSeason = idSeason;
 	}
 
-	public String getEpisode() {
-		return episode;
+	public String getIdEpisode() {
+		return idEpisode;
 	}
 
-	public void setEpisode(String episode) {
-		this.episode = episode;
+	public void setIdEpisode(String idEpisode) {
+		this.idEpisode = idEpisode;
 	}
 
 	public int getCategory() {
@@ -86,14 +86,6 @@ public class EntitySaveDTO {
 
 	public void setRelease(Date release) {
 		this.release = release;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 
 	public boolean isGoal() {
@@ -117,10 +109,14 @@ public class EntitySaveDTO {
 	}
 
 	public void setReview(boolean review) {
-		this.review = review;	
+		this.review = review;
 	}
 
-	
-	
-	
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}	
 }

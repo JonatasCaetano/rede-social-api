@@ -1,16 +1,11 @@
 package com.jonatas.socialnetworkapi.dto;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Season;
 
-public class SeasonDTO implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class SeasonCreateDTO {
 	
-	//attributes
-	
-	private String id;
 	private String name;
 	private String image;
 	private String description;
@@ -18,13 +13,11 @@ public class SeasonDTO implements Serializable{
 	private int number;
 	private int episode = 0;
 	
-	//builders
-	
-	public SeasonDTO() {
+	public SeasonCreateDTO() {
 		super();
 	}
 	
-	public SeasonDTO(String name, String description, String image, Date release, int number) {
+	public SeasonCreateDTO(String name, String description, String image, Date release, int number) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -33,9 +26,8 @@ public class SeasonDTO implements Serializable{
 		this.number = number;
 	}
 	
-	public SeasonDTO(Season season) {
+	public SeasonCreateDTO(Season season) {
 		super();
-		this.id = season.getId();
 		this.name = season.getName();
 		this.description = season.getDescription();
 		this.image = season.getImage();
@@ -43,8 +35,6 @@ public class SeasonDTO implements Serializable{
 		this.number = season.getNumber();
 		this.episode = season.getEpisode();
 	}
-	
-	//getters and setters
 
 	public String getName() {
 		return name;
@@ -92,17 +82,5 @@ public class SeasonDTO implements Serializable{
 
 	public void setEpisode(int episode) {
 		this.episode = episode;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	
-	
-	
+	}	
 }

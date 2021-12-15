@@ -4,10 +4,10 @@ import java.util.Date;
 
 public class EditionDTO {
 
-	private String user;
-	private String entity;
-	private String season;
-	private String episode;
+	private String idUser;
+	private String idEntity;
+	private String idSeason;
+	private String idEpisode;
 	private Date release;
 	private Object previus;
 	private Object current;
@@ -20,48 +20,46 @@ public class EditionDTO {
 	public EditionDTO(String user, String entity, String season, String episode, Date release, Object previus,
 			Object current, String attribute) {
 		super();
-		this.user = user;
-		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
+		this.idUser = user;
+		this.idEntity = entity;
+		this.idSeason = season;
+		this.idEpisode = episode;
 		this.release = release;
 		this.previus = previus;
 		this.current = current;
 		this.attribute = attribute;
 	}
 
-
-
 	public String getUser() {
-		return user;
+		return idUser;
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		this.idUser = user;
 	}
 
 	public String getEntity() {
-		return entity;
+		return idEntity;
 	}
 
 	public void setEntity(String entity) {
-		this.entity = entity;
+		this.idEntity = entity;
 	}
 
 	public String getSeason() {
-		return season;
+		return idSeason;
 	}
 
 	public void setSeason(String season) {
-		this.season = season;
+		this.idSeason = season;
 	}
 
 	public String getEpisode() {
-		return episode;
+		return idEpisode;
 	}
 
 	public void setEpisode(String episode) {
-		this.episode = episode;
+		this.idEpisode = episode;
 	}
 
 	public Date getRelease() {
@@ -96,14 +94,4 @@ public class EditionDTO {
 		this.attribute = attribute;
 	}
 
-	@Override
-	public String toString() {
-		return "EditionDTO [user=" + user + ", entity=" + entity + ", season=" + season + ", episode=" + episode
-				+ ", release=" + release + ", previus=" + previus + ", current=" + current + ", attribute=" + attribute
-				+ "]";
-	}
-
-	
-	
-	
 }

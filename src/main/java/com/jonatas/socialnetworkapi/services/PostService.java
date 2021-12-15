@@ -103,10 +103,10 @@ public class PostService {
 	
 	public ResponseEntity<Object> newPost(PostDTO postDTO){
 		try {
-			User user = (User) userService.findById(postDTO.getUser()).getBody();
-			Entity entity = (Entity) entityService.findById(postDTO.getEntity()).getBody();
-			Season season = (Season) seasonService.findById(postDTO.getSeason()).getBody();
-			Episode episode = (Episode) episodeService.findById(postDTO.getEpisode()).getBody();
+			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
+			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
+			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
+			Episode episode = (Episode) episodeService.findById(postDTO.getIsEpisode()).getBody();
 			Post post = new Post(postDTO.getType(), postDTO.getRelease(), postDTO.getBody(), postDTO.getCategory(), user, entity, season, episode);
 			post = postRepository.insert(post);
 			user.getPosts().add(post);
@@ -154,11 +154,11 @@ public class PostService {
 	
 	public ResponseEntity<Object> deletePost(PostDTO postDTO){
 		try {
-			User user = (User) userService.findById(postDTO.getUser()).getBody();
-			Entity entity = (Entity) entityService.findById(postDTO.getEntity()).getBody();
-			Season season = (Season) seasonService.findById(postDTO.getSeason()).getBody();
-			Episode episode = (Episode) episodeService.findById(postDTO.getEpisode()).getBody();
-			Post post = postRepository.findById(postDTO.getId()).get();
+			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
+			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
+			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
+			Episode episode = (Episode) episodeService.findById(postDTO.getIsEpisode()).getBody();
+			Post post = postRepository.findById(postDTO.getIdPost()).get();
 			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}

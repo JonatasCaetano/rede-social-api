@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UserUpdateDTO {
 
-	private String id;
+	private String idUser;
 	private String name;
 	private String email;
 	private String password;
@@ -22,7 +22,7 @@ public class UserUpdateDTO {
 	public UserUpdateDTO(String id, String name, String email, String password, String image, String description,
 			Date birthDate, String city, boolean privacy, boolean status) {
 		super();
-		this.id = id;
+		this.idUser = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
@@ -34,12 +34,12 @@ public class UserUpdateDTO {
 		this.status = status;
 	}
 
-	public String getId() {
-		return id;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
 	public String getName() {
@@ -113,6 +113,4 @@ public class UserUpdateDTO {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-		
-	
 }

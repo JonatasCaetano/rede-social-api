@@ -4,17 +4,17 @@ import java.util.Date;
 
 public class PostDTO {
 
-	private String id;
+	private String idPost;
 	private int type;
 	private Date release;
 	private String body;
 	private int category;
 	
 
-	private String user;
-	private String entity;
-	private String season;
-	private String episode;
+	private String idUser;
+	private String idEntity;
+	private String idSeason;
+	private String isEpisode;
 	
 	public PostDTO() {
 		super();
@@ -27,18 +27,18 @@ public class PostDTO {
 		this.release = release;
 		this.body = body;
 		this.category = category;
-		this.user = user;
-		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
+		this.idUser = user;
+		this.idEntity = entity;
+		this.idSeason = season;
+		this.isEpisode = episode;
 	}
 
-	public String getId() {
-		return id;
+	public String getIdPost() {
+		return idPost;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdPost(String idPost) {
+		this.idPost = idPost;
 	}
 
 	public int getType() {
@@ -73,38 +73,35 @@ public class PostDTO {
 		this.category = category;
 	}
 
-	public String getUser() {
-		return user;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getEntity() {
-		return entity;
+	public String getIdEntity() {
+		return idEntity;
 	}
 
-	public void setEntity(String entity) {
-		this.entity = entity;
+	public void setIdEntity(String idEntity) {
+		this.idEntity = idEntity;
 	}
 
-	public String getSeason() {
-		return season;
+	public String getIdSeason() {
+		return idSeason;
 	}
 
-	public void setSeason(String season) {
-		this.season = season;
+	public void setIdSeason(String idSeason) {
+		this.idSeason = idSeason;
 	}
 
-	public String getEpisode() {
-		return episode;
+	public String getIsEpisode() {
+		return isEpisode;
 	}
 
-	public void setEpisode(String episode) {
-		this.episode = episode;
+	public void setIsEpisode(String isEpisode) {
+		this.isEpisode = isEpisode;
 	}
-	
-	
-	
 }

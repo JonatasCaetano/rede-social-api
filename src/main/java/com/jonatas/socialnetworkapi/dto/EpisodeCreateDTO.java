@@ -4,24 +4,20 @@ import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Episode;
 
-public class EpisodeDTO {
+public class EpisodeCreateDTO {
 
-	//attributes
-	
-	private String id;
+	private String idEpisode;
 	private String name;
 	private String description;
 	private String image;
 	private Date release;
 	private int number;
 	
-	//builders
-	
-	public EpisodeDTO() {
+	public EpisodeCreateDTO() {
 		super();
 	}
 
-	public EpisodeDTO(String name, String description, String image, Date release, int number) {
+	public EpisodeCreateDTO(String name, String description, String image, Date release, int number) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -30,9 +26,9 @@ public class EpisodeDTO {
 		this.number = number;
 	}
 	
-	public EpisodeDTO(Episode episode) {
+	public EpisodeCreateDTO(Episode episode) {
 		super();
-		this.id = episode.getId();
+		this.idEpisode = episode.getId();
 		this.name = episode.getName();
 		this.description = episode.getDescription();
 		this.image = episode.getImage();
@@ -40,8 +36,6 @@ public class EpisodeDTO {
 		this.number = episode.getNumber();
 	}
 	
-	//getters and setters
-
 	public String getName() {
 		return name;
 	}
@@ -82,13 +76,11 @@ public class EpisodeDTO {
 		this.description = description;
 	}
 
-	public String getId() {
-		return id;
+	public String getIdEpisode() {
+		return idEpisode;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setIdEpisode(String idEpisode) {
+		this.idEpisode = idEpisode;
 	}
-
-	
 }

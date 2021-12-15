@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.SeasonDTO;
+import com.jonatas.socialnetworkapi.dto.SeasonCreateDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
@@ -128,11 +128,11 @@ public class SeasonService {
 	
 	//post
 	
-	public ResponseEntity<Object> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
+	public ResponseEntity<Object> newSeason(SeasonCreateDTO seasonCreateDTO, String idUser, String idEntity){
 		try {
 			User user = (User) userService.findById(idUser).getBody();
 			Entity entity = (Entity) entityService.findById(idEntity).getBody();
-			Season season = new Season(seasonDTO);
+			Season season = new Season(seasonCreateDTO);
 			List<Season> seasons = entity.getSeasons();
 			if(user.isChecked()) {
 				//hashCode and equals

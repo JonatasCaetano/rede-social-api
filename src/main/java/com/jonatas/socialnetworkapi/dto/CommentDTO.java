@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class CommentDTO {
 
-	private String id;
+	private String idComment;
 	private Date release;
 	private String body;
-	private String user;
-	private String post;
+	private String idUser;
+	private String idPost;
 		
 	public CommentDTO() {
 		super();
@@ -18,8 +18,8 @@ public class CommentDTO {
 		super();
 		this.release = release;
 		this.body = body;
-		this.user = user;
-		this.post = post;
+		this.idUser = user;
+		this.idPost = post;
 	}
 
 	public Date getRelease() {
@@ -39,30 +39,26 @@ public class CommentDTO {
 	}
 
 	public String getUser() {
-		return user;
+		return idUser;
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		this.idUser = user;
 	}
 
 	public String getPost() {
-		return post;
+		return idPost;
 	}
 
 	public void setPost(String post) {
-		this.post = post;
+		this.idPost = post;
 	}
 
 	public String getId() {
-		return id;
+		return idComment;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.idComment = id;
 	}
-	
-	
-	
-	
 }

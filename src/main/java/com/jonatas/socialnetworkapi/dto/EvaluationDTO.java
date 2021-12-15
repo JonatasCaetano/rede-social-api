@@ -6,87 +6,80 @@ import com.jonatas.socialnetworkapi.entities.Evaluation;
 
 public class EvaluationDTO {
 	
-	//attributes
-
-
-	private String id;
-	private String user;
-	private String entity;
-	private String season;
-	private String episode;
+	private String idEvaluation;
+	private String idUser;
+	private String idEntity;
+	private String idSeason;
+	private String idEpisode;
 	private double value;
 	private Date release;
 	private int type;
-	
-	//builders
-	
+
 	public EvaluationDTO() {
 		super();
 	}
 
-	public EvaluationDTO(String user, String entity, String season, String episode, double value, Date release, int type) {
+	public EvaluationDTO(String idUser, String idEntity, String idSeason, String idEpisode,
+			double value, Date release, int type) {
 		super();
-		this.user = user;
-		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
+		this.idUser = idUser;
+		this.idEntity = idEntity;
+		this.idSeason = idSeason;
+		this.idEpisode = idEpisode;
 		this.value = value;
 		this.release = release;
-		this.setType(type);
+		this.type = type;
 	}
-	
+
 	public EvaluationDTO(Evaluation evaluation) {
 		super();
-		this.id = evaluation.getId();
-		this.user = evaluation.getUser().getId() != null ? evaluation.getUser().getId() : null;
-		this.user = evaluation.getEntity().getId() != null ? evaluation.getEntity().getId() : null;
-		this.user = evaluation.getSeason().getId() != null ? evaluation.getSeason().getId() : null;
-		this.user = evaluation.getEpisode().getId() != null ? evaluation.getEpisode().getId() : null;
+		this.idUser = evaluation.getUser().getId() != null ? evaluation.getUser().getId() : null;
+		this.idEntity = evaluation.getEntity().getId() != null ? evaluation.getEntity().getId() : null;
+		this.idSeason = evaluation.getSeason().getId() != null ? evaluation.getSeason().getId() : null;
+		this.idEpisode = evaluation.getEpisode().getId() != null ? evaluation.getEpisode().getId() : null;
 		this.value = evaluation.getValue();
 		this.release = evaluation.getRelease();
-		this.setType(evaluation.getType());
-	}
-	
-	//getters and setters
-
-	public String getId() {
-		return id;
+		this.type = evaluation.getType();
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getIdEvaluation() {
+		return idEvaluation;
 	}
 
-	public String getUser() {
-		return user;
+	public void setIdEvaluation(String idEvaluation) {
+		this.idEvaluation = idEvaluation;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	public String getEntity() {
-		return entity;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
-	public void setEntity(String entity) {
-		this.entity = entity;
+	public String getIdEntity() {
+		return idEntity;
 	}
 
-	public String getSeason() {
-		return season;
+	public void setIdEntity(String idEntity) {
+		this.idEntity = idEntity;
 	}
 
-	public void setSeason(String season) {
-		this.season = season;
+	public String getIdSeason() {
+		return idSeason;
 	}
 
-	public String getEpisode() {
-		return episode;
+	public void setIdSeason(String idSeason) {
+		this.idSeason = idSeason;
 	}
 
-	public void setEpisode(String episode) {
-		this.episode = episode;
+	public String getIdEpisode() {
+		return idEpisode;
+	}
+
+	public void setIdEpisode(String idEpisode) {
+		this.idEpisode = idEpisode;
 	}
 
 	public double getValue() {
@@ -112,6 +105,4 @@ public class EvaluationDTO {
 	public void setType(int type) {
 		this.type = type;
 	}
-	
-	
 }

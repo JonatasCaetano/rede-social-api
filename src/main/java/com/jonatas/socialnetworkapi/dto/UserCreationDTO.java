@@ -1,19 +1,12 @@
 package com.jonatas.socialnetworkapi.dto;
 
-import java.io.Serializable;
-
-public class UserCreationDTO  implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
-	//attributes
+public class UserCreationDTO {
 	
 	private String name;
 	private String email;
-	private String invitation;
+	private String invitationValue;
 	private String password;
 
-	//builders
-	
 	public UserCreationDTO() {
 		super();
 	}
@@ -22,11 +15,9 @@ public class UserCreationDTO  implements Serializable{
 		super();
 		this.name = name;
 		this.email = email;
-		this.invitation = invitation;
+		this.invitationValue = invitation;
 		this.password = password;
 	}
-	
-	//getters and setters
 
 	public String getName() {
 		return name;
@@ -43,13 +34,13 @@ public class UserCreationDTO  implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getInvitation() {
-		return invitation;
+
+	public String getInvitationValue() {
+		return invitationValue;
 	}
 
-	public void setInvitation(String invitation) {
-		this.invitation = invitation;
+	public void setInvitationValue(String invitationValue) {
+		this.invitationValue = invitationValue;
 	}
 
 	public String getPassword() {
@@ -59,8 +50,4 @@ public class UserCreationDTO  implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	
-
-	
 }

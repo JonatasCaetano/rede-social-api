@@ -66,8 +66,8 @@ public class WorkerService {
 	
 	public ResponseEntity<Object> newWorker(WorkerDTO workerDTO) {
 		try {
-			User user = (User) userService.findById(workerDTO.getUser()).getBody();
-			Entity entity = (Entity) entityService.findById(workerDTO.getEntity()).getBody();
+			User user = (User) userService.findById(workerDTO.getIdUser()).getBody();
+			Entity entity = (Entity) entityService.findById(workerDTO.getIdEntity()).getBody();
 			Worker worker = new Worker(null, workerDTO.getRole(), user, entity);
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

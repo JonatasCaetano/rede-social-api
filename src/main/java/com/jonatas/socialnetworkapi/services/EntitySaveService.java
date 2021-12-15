@@ -80,8 +80,8 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> newEntitySaveEntity(EntitySaveDTO entitySaveDTO){
 		try {
-			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Entity entity = (Entity) entityService.findById(entitySaveDTO.getEntity()).getBody();
+			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
+			Entity entity = (Entity) entityService.findById(entitySaveDTO.getIdEntity()).getBody();
 			EntitySave entitySave = new EntitySave(
 					user,
 					entity,
@@ -116,8 +116,8 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> newEntitySaveSeason(EntitySaveDTO entitySaveDTO){
 		try {
-			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Season season = (Season) seasonService.findById(entitySaveDTO.getSeason()).getBody();
+			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
+			Season season = (Season) seasonService.findById(entitySaveDTO.getIdSeason()).getBody();
 			EntitySave entitySave = new EntitySave(
 					user,
 					null,
@@ -152,8 +152,8 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> newEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
 		try {
-			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Episode episode = (Episode) episodeService.findById(entitySaveDTO.getEpisode()).getBody();
+			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
+			Episode episode = (Episode) episodeService.findById(entitySaveDTO.getIdEpisode()).getBody();
 			EntitySave entitySave = new EntitySave(
 					user,
 					null,
@@ -190,7 +190,7 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> updateEntitySaveCategory(EntitySaveDTO entitySaveDTO){
 		try {
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
@@ -204,7 +204,7 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> updateEntitySaveGoal(EntitySaveDTO entitySaveDTO){
 		try {
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			entitySave.setGoal(entitySaveDTO.isGoal());		
 			entitySave = entitySaveRepository.save(entitySave);
 			return ResponseEntity.accepted().build();
@@ -215,7 +215,7 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> updateEntitySaveRated(EntitySaveDTO entitySaveDTO){
 		try {
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			entitySave.setRated(entitySaveDTO.isRated());		
 			entitySave = entitySaveRepository.save(entitySave);
 			return ResponseEntity.accepted().build();
@@ -226,7 +226,7 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO){
 		try {
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			entitySave.setReview(entitySaveDTO.isReview());		
 			entitySave = entitySaveRepository.save(entitySave);
 			return ResponseEntity.accepted().build();
@@ -239,9 +239,9 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> deleteEntitySaveEntity(EntitySaveDTO entitySaveDTO){
 		try {
-			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Entity entity = (Entity) entityService.findById(entitySaveDTO.getEntity()).getBody();
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
+			Entity entity = (Entity) entityService.findById(entitySaveDTO.getIdEntity()).getBody();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			user.getEntitySaves().remove(entitySave);
 			userService.save(user);
 			entity.getEntitySaves().remove(entitySave);
@@ -255,9 +255,9 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
 		try {
-			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Season season = (Season) seasonService.findById(entitySaveDTO.getSeason()).getBody();
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
+			Season season = (Season) seasonService.findById(entitySaveDTO.getIdSeason()).getBody();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			user.getEntitySaves().remove(entitySave);
 			userService.save(user);
 			season.getEntitySaves().remove(entitySave);
@@ -271,9 +271,9 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> deleteEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
 		try {
-			User user = (User) userService.findById(entitySaveDTO.getUser()).getBody();
-			Episode episode = (Episode) entityService.findById(entitySaveDTO.getEpisode()).getBody();
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getId()).get();
+			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
+			Episode episode = (Episode) entityService.findById(entitySaveDTO.getIdEpisode()).getBody();
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			user.getEntitySaves().remove(entitySave);
 			userService.save(user);
 			episode.getEntitySaves().remove(entitySave);

@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.EpisodeDTO;
+import com.jonatas.socialnetworkapi.dto.EpisodeCreateDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
@@ -109,11 +109,11 @@ public class EpisodeService {
 	
 	//post
 	
-	public ResponseEntity<Object> newEpisode(EpisodeDTO episodeDTO, String idUser, String idSeason){
+	public ResponseEntity<Object> newEpisode(EpisodeCreateDTO episodeCreateDTO, String idUser, String idSeason){
 		try {
 			User user = (User) userService.findById(idUser).getBody();
 			Season season = (Season) seasonService.findById(idSeason).getBody();
-			Episode episode = new Episode(episodeDTO);
+			Episode episode = new Episode(episodeCreateDTO);
 			List<Episode> episodes = season.getEpisodes();
 			if(user.isChecked()) {
 				if(episodes.contains(episode)) {

@@ -1,45 +1,36 @@
 package com.jonatas.socialnetworkapi.dto;
 
-import java.io.Serializable;
-
-public class WorkerDTO implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class WorkerDTO {
 	
-	//attributes
-	
-	private String user;
-	private String entity;
+	private String idUser;
+	private String idEntity;
 	private String role;
-	
-	//builders
-	
+		
 	public WorkerDTO() {
 		super();
 	}
 
 	public WorkerDTO(String user, String entity, String role) {
 		super();
-		this.user = user;
-		this.entity = entity;
+		this.idUser = user;
+		this.idEntity = entity;
 		this.role = role;
 	}
-	
-	//getters and setters
 
-	public String getUser() {
-		return user;
+	public String getIdUser() {
+		return idUser;
 	}
 
-	public void setUser(String user) {
-		this.user = user;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getEntity() {
-		return entity;
+	public String getIdEntity() {
+		return idEntity;
 	}
 
-	public void setEntity(String entity) {
-		this.entity = entity;
+	public void setIdEntity(String idEntity) {
+		this.idEntity = idEntity;
 	}
 
 	public String getRole() {
@@ -49,8 +40,4 @@ public class WorkerDTO implements Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
-	
-	
 }
