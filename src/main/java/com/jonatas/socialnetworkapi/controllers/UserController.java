@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
 import com.jonatas.socialnetworkapi.services.UserService;
@@ -36,9 +35,9 @@ public class UserController {
 		return userService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/user/login")
-	public ResponseEntity<Object> loginMini(@RequestBody UserAuthDTO userAuthDTO){
-		return userService.loginMini(userAuthDTO);
+	@GetMapping(value = "get/login/email/{email}/password/{password}")
+	public ResponseEntity<Object> loginMini(@PathVariable String email, @PathVariable String password){
+		return userService.loginMini(email, password);
 	}
 	
 	@GetMapping(value = "get/user/{id}/invitation")

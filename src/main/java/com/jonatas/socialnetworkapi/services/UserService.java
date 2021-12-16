@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.UserAuthDTO;
 import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
 import com.jonatas.socialnetworkapi.dto.mini.CommentMiniDTO;
@@ -166,10 +165,10 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Object> loginMini(UserAuthDTO userAuthDTO){
+	public ResponseEntity<Object> loginMini(String email, String password){
 		try {
-			User user = userRepository.findByEmail(userAuthDTO.getEmail());
-            if(userAuthDTO.getPassword().hashCode() == user.getPassword().hashCode()) {
+			User user = userRepository.findByEmail(email);
+            if(password.hashCode() == user.getPassword().hashCode()) {
             	return ResponseEntity.ok().body(user.getId());
             }else {
             	return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
