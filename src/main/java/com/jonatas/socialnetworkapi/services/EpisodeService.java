@@ -148,10 +148,10 @@ public class EpisodeService {
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
 			editionDTO.setAttribute("name");
-			editionDTO.setPrevius(episode.getName());
+			editionDTO.setPrevious(episode.getName());
 			episode.setName((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
-			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
@@ -169,10 +169,10 @@ public class EpisodeService {
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevius(episode.getImage());
+			editionDTO.setPrevious(episode.getImage());
 			episode.setImage((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
-			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
@@ -190,10 +190,10 @@ public class EpisodeService {
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
 			editionDTO.setAttribute("description");
-			editionDTO.setPrevius(episode.getDescription());
+			editionDTO.setPrevious(episode.getDescription());
 			episode.setDescription((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
-			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
@@ -211,10 +211,10 @@ public class EpisodeService {
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
 			editionDTO.setAttribute("release");
-			editionDTO.setPrevius(episode.getRelease());
+			editionDTO.setPrevious(episode.getRelease());
 			episode.setRelease((Date) editionDTO.getCurrent());
 			episodeRepository.save(episode);
-			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
@@ -233,10 +233,10 @@ public class EpisodeService {
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
 			editionDTO.setAttribute("genre");
-			editionDTO.setPrevius(episode.getGenre());
+			editionDTO.setPrevious(episode.getGenre());
 			episode.setGenre((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
-			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, null, episode, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);

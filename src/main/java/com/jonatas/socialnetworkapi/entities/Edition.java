@@ -33,7 +33,7 @@ public class Edition implements Serializable{
 	private Episode episode;
 	
 	private Date release;
-	private Object previus;
+	private Object previous;
 	private Object current;
 	private String attribute;
 	
@@ -41,7 +41,7 @@ public class Edition implements Serializable{
 		super();
 	}
 
-	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previus,
+	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previous,
 			Object current, String attribute) {
 		super();
 		this.user = user;
@@ -49,7 +49,7 @@ public class Edition implements Serializable{
 		this.season = season;
 		this.episode = episode;
 		this.release = release;
-		this.previus = previus;
+		this.previous = previous;
 		this.current = current;
 		this.attribute = attribute;
 	}
@@ -94,12 +94,12 @@ public class Edition implements Serializable{
 		this.release = release;
 	}
 
-	public Object getPrevius() {
-		return previus;
+	public Object getPrevious() {
+		return previous;
 	}
 
-	public void setPrevius(Object previus) {
-		this.previus = previus;
+	public void setPrevious(Object previous) {
+		this.previous = previous;
 	}
 
 	public Object getCurrent() {
@@ -121,7 +121,4 @@ public class Edition implements Serializable{
 	public String getId() {
 		return id;
 	}
-	
-	
-	
 }

@@ -169,10 +169,10 @@ public class SeasonService {
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
 			editionDTO.setAttribute("name");
-			editionDTO.setPrevius(season.getName());
+			editionDTO.setPrevious(season.getName());
 			season.setName((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -190,10 +190,10 @@ public class SeasonService {
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevius(season.getImage());
+			editionDTO.setPrevious(season.getImage());
 			season.setImage((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -211,10 +211,10 @@ public class SeasonService {
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
 			editionDTO.setAttribute("description");
-			editionDTO.setPrevius(season.getDescription());
+			editionDTO.setPrevious(season.getDescription());
 			season.setDescription((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -232,10 +232,10 @@ public class SeasonService {
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
 			editionDTO.setAttribute("release");
-			editionDTO.setPrevius(season.getRelease());
+			editionDTO.setPrevious(season.getRelease());
 			season.setRelease((Date) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -253,10 +253,10 @@ public class SeasonService {
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
 			editionDTO.setAttribute("genre");
-			editionDTO.setPrevius(season.getGenre());
+			editionDTO.setPrevious(season.getGenre());
 			season.setGenre((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);

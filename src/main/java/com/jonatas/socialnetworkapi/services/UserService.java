@@ -176,50 +176,56 @@ public class UserService {
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
-	}	
+	}
 	
+	public ResponseEntity<Object> checkEmail(UserCreationDTO userCreationDTO){
+		try {
+			User user = userRepository.findByEmail(userCreationDTO.getEmail());
+			user.getId();
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+	}
+	
+	public ResponseEntity<Object> checkName(UserCreationDTO userCreationDTO){
+		try {
+			String[] name = userCreationDTO.getName().split(" ");
+			String name1 = name[0];
+			String name2 = name[1];
+			if(name1.length() < 3 || name2.length() < 4) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+		
 	//post
 	
 	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){
 		try {
+			User obj = userRepository.insert(new User(userCreation));
+			invitationService.addInvited(obj, userCreation.getInvitationValue());		
+			Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
+			obj.setFollower(follower);
+			userRepository.save(obj);	
 			try {
-				String[] name = userCreation.getName().split(" ");
-				String name1 = name[0];
-				String name2 = name[1];
-				if(name1.length() < 3 || name2.length() < 4) {
-					return ResponseEntity.badRequest().build();
-				}
+				invitationService.createdInvitation(obj);
 			}catch (RuntimeException e) {
 				return ResponseEntity.badRequest().build();
 			}
-			if(testEmail(userCreation.getEmail())) {
+			try {
+				User user = (User) invitationService.returnUser(userCreation.getInvitationValue()).getBody();
+				followerService.addFollowing(obj.getId(), user.getId());
+				followerService.addFollowing(user.getId(), obj.getId());
+			}catch (RuntimeException e) {
 				return ResponseEntity.badRequest().build();
-			}else {
-				if(!invitationService.checkAvailability(userCreation.getInvitationValue()).getBody()) {
-					return ResponseEntity.badRequest().build();
-				}else {
-					User obj = userRepository.insert(new User(userCreation));
-					invitationService.addInvited(obj, userCreation.getInvitationValue());		
-					Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
-					obj.setFollower(follower);
-					userRepository.save(obj);	
-					try {
-						invitationService.createdInvitation(obj);
-					}catch (RuntimeException e) {
-						return ResponseEntity.badRequest().build();
-					}
-					try {
-						User user = (User) invitationService.returnUser(userCreation.getInvitationValue()).getBody();
-						followerService.addFollowing(obj.getId(), user.getId());
-						followerService.addFollowing(user.getId(), obj.getId());
-					}catch (RuntimeException e) {
-						return ResponseEntity.badRequest().build();
-					}
-					obj = userRepository.findById(obj.getId()).get();
-					UserMiniDTO userMiniDTO = new UserMiniDTO(obj);
-					return ResponseEntity.created(null).body(userMiniDTO);		
-				}
 			}
+			obj = userRepository.findById(obj.getId()).get();
+			UserMiniDTO userMiniDTO = new UserMiniDTO(obj);
+			return ResponseEntity.created(null).body(userMiniDTO);
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -354,17 +360,5 @@ public class UserService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-	public boolean testEmail(String email) {
-		try {
-			User user = userRepository.findByEmail(email);
-			user.getId();
-			user.getName();
-			return true;
-		}catch (RuntimeException e) {
-			return false;
-		}
-	}
-		
 	
 }

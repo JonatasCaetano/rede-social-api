@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.dto.mini;
 
-import java.util.Date;
-
 import com.jonatas.socialnetworkapi.entities.Entity;
 
 public class EntityMiniDTO {

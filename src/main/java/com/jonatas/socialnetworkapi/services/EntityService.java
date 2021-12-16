@@ -168,10 +168,10 @@ public class EntityService {
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
 			editionDTO.setAttribute("name");
-			editionDTO.setPrevius(entity.getName());
+			editionDTO.setPrevious(entity.getName());
 			entity.setName((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -189,10 +189,10 @@ public class EntityService {
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevius(entity.getImage());
+			editionDTO.setPrevious(entity.getImage());
 			entity.setImage((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -210,10 +210,10 @@ public class EntityService {
 			}
 			Entity entity = entityRepository.findById(editionDTO.getUser()).get();
 			editionDTO.setAttribute("description");
-			editionDTO.setPrevius(entity.getDescription());
+			editionDTO.setPrevious(entity.getDescription());
 			entity.setDescription((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -231,10 +231,10 @@ public class EntityService {
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
 			editionDTO.setAttribute("release");
-			editionDTO.setPrevius(entity.getRelease());
+			editionDTO.setPrevious(entity.getRelease());
 			entity.setRelease((Date) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -252,10 +252,10 @@ public class EntityService {
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
 			editionDTO.setAttribute("genre");
-			editionDTO.setPrevius(entity.getGenre());
+			editionDTO.setPrevious(entity.getGenre());
 			entity.setGenre((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevius(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);

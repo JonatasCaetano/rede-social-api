@@ -12,7 +12,7 @@ public class EditionMiniDTO {
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
 	private String attribute;
-	private Object previus;
+	private Object previous;
 	private Object current;
 	private Date release;
 	
@@ -28,7 +28,7 @@ public class EditionMiniDTO {
 		this.season = edition.getSeason() != null ? new SeasonMiniDTO(edition.getSeason()) : null;
 		this.episode = edition.getEpisode() != null ? new EpisodeMiniDTO(edition.getEpisode()) : null;
 		this.release = edition.getRelease();
-		this.previus = edition.getPrevius();
+		this.previous = edition.getPrevious();
 		this.current = edition.getCurrent();
 		this.attribute = edition.getAttribute();
 	}
@@ -81,12 +81,12 @@ public class EditionMiniDTO {
 		this.release = release;
 	}
 
-	public Object getPrevius() {
-		return previus;
+	public Object getPrevious() {
+		return previous;
 	}
 
-	public void setPrevius(Object previus) {
-		this.previus = previus;
+	public void setPrevious(Object previous) {
+		this.previous = previous;
 	}
 
 	public Object getCurrent() {
@@ -104,7 +104,4 @@ public class EditionMiniDTO {
 	public void setAttribute(String attribute) {
 		this.attribute = attribute;
 	}
-	
-	
-	
 }
