@@ -181,8 +181,10 @@ public class UserService {
 	public ResponseEntity<Object> checkEmail(String email){
 		try {
 			User user = userRepository.findByEmail(email);
-			user.getId();
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
+			if(user.getEmail() != null) {
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
+			}
+			return ResponseEntity.badRequest().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.accepted().build();
 		}
@@ -224,8 +226,7 @@ public class UserService {
 				return ResponseEntity.badRequest().build();
 			}
 			obj = userRepository.findById(obj.getId()).get();
-			UserMiniDTO userMiniDTO = new UserMiniDTO(obj);
-			return ResponseEntity.created(null).body(userMiniDTO);
+			return ResponseEntity.created(null).body(obj.getId());
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
