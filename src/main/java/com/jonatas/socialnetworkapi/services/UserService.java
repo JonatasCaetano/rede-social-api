@@ -182,9 +182,9 @@ public class UserService {
 		try {
 			User user = userRepository.findByEmail(email);
 			user.getId();
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.accepted().build();
 		}
 	}
 	

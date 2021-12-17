@@ -28,9 +28,9 @@ public class InvitationController {
 		return invitationService.findByValueMini(value);
 	}
 	
-	@GetMapping(value = "get/check/{invitationValue}")
-	public ResponseEntity<Boolean> checkAvailability(@PathVariable String invitationValue){
-		return invitationService.checkAvailability(invitationValue);
+	@GetMapping(value = "get/check/invitation/{invitationValue}")
+	public ResponseEntity<Boolean> checkInvitation(@PathVariable String invitationValue){
+		return invitationService.checkInvitation(invitationValue);
 	}
 	
 	

@@ -70,12 +70,12 @@ public class UserController {
 		return userService.getLikesMini(id);
 	}
 	
-	@GetMapping(value = "post/check/{email}")
+	@GetMapping(value = "post/check/email/{email}")
 	public ResponseEntity<Object> checkEmail(@PathVariable String email){
 		return userService.checkEmail(email);
 	}
 	
-	@GetMapping(value = "post/check/{name}")
+	@GetMapping(value = "post/check/name/{name}")
 	public ResponseEntity<Object> checkName(@PathVariable String name){
 		return userService.checkName(name);
 	}

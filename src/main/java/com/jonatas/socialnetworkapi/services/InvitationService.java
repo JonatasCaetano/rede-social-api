@@ -59,7 +59,7 @@ public class InvitationService {
 		}
 	}
 	
-	public ResponseEntity<Boolean> checkAvailability(String invitationValue){
+	public ResponseEntity<Boolean> checkInvitation(String invitationValue){
 		try {
 			Invitation invitation = invitationRepository.findByValue(invitationValue);
 			List<User> list = invitation.getInvited();
