@@ -11,6 +11,8 @@ public class UserMiniDTO {
 	private String image;
 	private String description;
 	private String city;
+	private String email;
+	private String password;
 	private boolean checked;
 	private boolean privacy;
 	private boolean status;
@@ -30,6 +32,8 @@ public class UserMiniDTO {
 		this.image = user.getImage();
 		this.description = user.getDescription();
 		this.city = user.getCity();
+		this.email = user.getEmail();
+		this.password = user.getPassword();
 		this.checked = user.isChecked();
 		this.following = user.getFollowing();
 		this.followers = user.getFollowers();
@@ -118,8 +122,24 @@ public class UserMiniDTO {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
 
 	
 
