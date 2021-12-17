@@ -90,47 +90,47 @@ public class UserController {
 	//put
 	
 	@PutMapping(value = "put/name")
-	public ResponseEntity<Void> updateName(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updateName(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updateName(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/email")
-	public ResponseEntity<Void> updateEmail(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updateEmail(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updateEmail(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/password")
-	public ResponseEntity<Void> updatePassword(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updatePassword(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updatePassword(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/image")
-	public ResponseEntity<Void> updateImage(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updateImage(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updateImage(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/description")
-	public ResponseEntity<Void> updateDescription(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updateDescription(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updateDescription(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/birthDate")
-	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO){
 		return userService.updateBirthDate(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/city")
-	public ResponseEntity<Void> updateCity(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updateCity(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updateCity(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/privacy")
-	public ResponseEntity<Void> updatePrivacy(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updatePrivacy(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updatePrivacy(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/status")
-	public ResponseEntity<Void> updateStatus(@RequestBody UserUpdateDTO userUpdateDTO, @PathVariable String id){
+	public ResponseEntity<Void> updateStatus(@RequestBody UserUpdateDTO userUpdateDTO){
 		return userService.updateStatus(userUpdateDTO);
 	}
 	
