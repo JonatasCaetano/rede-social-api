@@ -69,6 +69,16 @@ public class UserController {
 	public ResponseEntity<Object> getLikesMini(@PathVariable String id){
 		return userService.getLikesMini(id);
 	}
+	
+	@GetMapping(value = "post/check/{email}")
+	public ResponseEntity<Object> checkEmail(@PathVariable String email){
+		return userService.checkEmail(email);
+	}
+	
+	@GetMapping(value = "post/check/{name}")
+	public ResponseEntity<Object> checkName(@PathVariable String name){
+		return userService.checkName(name);
+	}
 		
 	//post
 	
@@ -76,17 +86,7 @@ public class UserController {
 	public ResponseEntity<Object> createUser(@RequestBody UserCreationDTO creationUser){
 		return userService.createUser(creationUser);
 	}
-	
-	@PostMapping(value = "post/check/email")
-	public ResponseEntity<Object> checkEmail(UserCreationDTO userCreationDTO){
-		return userService.checkEmail(userCreationDTO);
-	}
-	
-	@PostMapping(value = "post/check/name")
-	public ResponseEntity<Object> checkName(UserCreationDTO userCreationDTO){
-		return userService.checkName(userCreationDTO);
-	}
-		
+			
 	//put
 	
 	@PutMapping(value = "put/name")

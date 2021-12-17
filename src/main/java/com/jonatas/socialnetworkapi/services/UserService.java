@@ -178,9 +178,9 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Object> checkEmail(UserCreationDTO userCreationDTO){
+	public ResponseEntity<Object> checkEmail(String email){
 		try {
-			User user = userRepository.findByEmail(userCreationDTO.getEmail());
+			User user = userRepository.findByEmail(email);
 			user.getId();
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -188,11 +188,11 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Object> checkName(UserCreationDTO userCreationDTO){
+	public ResponseEntity<Object> checkName(String name){
 		try {
-			String[] name = userCreationDTO.getName().split(" ");
-			String name1 = name[0];
-			String name2 = name[1];
+			String[] nameVector = name.split(" ");
+			String name1 = nameVector[0];
+			String name2 = nameVector[1];
 			if(name1.length() < 3 || name2.length() < 4) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
