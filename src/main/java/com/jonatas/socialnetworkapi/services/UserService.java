@@ -182,7 +182,7 @@ public class UserService {
 		try {
 			User user = userRepository.findByEmail(email);
 			user.getId();
-			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
 		}catch (RuntimeException e) {
 			return ResponseEntity.accepted().build();
 		}
@@ -194,7 +194,7 @@ public class UserService {
 			String name1 = nameVector[0];
 			String name2 = nameVector[1];
 			if(name1.length() < 3 || name2.length() < 4) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
 			}
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {

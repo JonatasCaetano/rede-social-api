@@ -64,12 +64,12 @@ public class InvitationService {
 			Invitation invitation = invitationRepository.findByValue(invitationValue);
 			List<User> list = invitation.getInvited();
 			if(list.size() >= 5) {
-				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);			
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();			
 			}else {
 				return ResponseEntity.accepted().body(true);
 			}
 		}catch(RuntimeException e) {
-			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(false);	
+			return ResponseEntity.badRequest().build();	
 		}
 	}
 	
