@@ -204,6 +204,15 @@ public class UserService {
 		}
 	}
 		
+	public ResponseEntity<Object> findByName(String name){
+		try {
+			List<User> users = userRepository.searchByName(name);
+			return ResponseEntity.ok().body(users);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	//post
 	
 	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){

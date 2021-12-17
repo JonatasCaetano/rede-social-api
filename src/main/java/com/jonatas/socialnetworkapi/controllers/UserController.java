@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
@@ -79,7 +80,12 @@ public class UserController {
 	public ResponseEntity<Object> checkName(@PathVariable String name){
 		return userService.checkName(name);
 	}
-		
+	
+	@GetMapping(value = "get/users/name")
+	public ResponseEntity<Object> findByName(@RequestParam(value = "name", defaultValue = "") String name){
+		return userService.findByName(name);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post/user")
