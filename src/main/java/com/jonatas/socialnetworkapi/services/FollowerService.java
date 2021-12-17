@@ -89,6 +89,21 @@ public class FollowerService {
 	   }
 	}
 	
+	public ResponseEntity<Object> CheckFollowing(String userId, String FollowingId){
+		try {
+			User user = (User) userService.findById(userId).getBody();
+			User following = (User) userService.findById(FollowingId).getBody();
+			List<User> followers = user.getFollower().getFollowing();
+			if(followers.contains(following)) {
+				return ResponseEntity.ok().build();
+			}
+			return ResponseEntity.notFound().build();
+			
+		}catch(RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+	   }
+	}
+	
 	//post
 	
 	public ResponseEntity<Void> addFollowing(String followerId, String followingId){
