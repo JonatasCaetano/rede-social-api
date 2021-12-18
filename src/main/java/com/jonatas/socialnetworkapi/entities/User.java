@@ -36,7 +36,7 @@ public class User implements Serializable{
 	private int following = 0;
 	private int followers = 0;
 	private Date release;
-	private int typeEntity = 0;
+	private int typeObject = 0;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -232,12 +232,8 @@ public class User implements Serializable{
 		return likes;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
-	}
-
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public int getTypeObject() {
+		return typeObject;
 	}
 
 	public List<EntitySave> getEntitySaves() {

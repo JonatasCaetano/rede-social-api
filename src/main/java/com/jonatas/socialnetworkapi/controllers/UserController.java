@@ -140,5 +140,10 @@ public class UserController {
 		return userService.updateStatus(userUpdateDTO);
 	}
 	
+	@PutMapping(value = "put/status")
+	public ResponseEntity<Void> updateChecket(@RequestBody UserUpdateDTO userUpdateDTO){
+		return userService.updateChecket(userUpdateDTO);
+	}
+	
 
 }

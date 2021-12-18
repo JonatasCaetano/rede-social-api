@@ -337,7 +337,7 @@ public class UserService {
 	public ResponseEntity<Void> updatePrivacy(UserUpdateDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
-			user.setChecked(userUpdateDTO.isPrivacy());
+			user.setPrivacy(userUpdateDTO.isPrivacy());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -355,6 +355,18 @@ public class UserService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	public ResponseEntity<Void> updateChecket(UserUpdateDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
+			user.setChecked(userUpdateDTO.isChecked());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	
 	//internal
 	

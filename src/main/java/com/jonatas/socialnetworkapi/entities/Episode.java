@@ -29,7 +29,7 @@ public class Episode implements Serializable{
 	private Date release;
 	private String genre;
 	
-	private int typeEntity = 3;
+	private int typeObject = 3;
 	private int number;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
@@ -172,12 +172,8 @@ public class Episode implements Serializable{
 		return posts;
 	}
 	
-	public int getTypeEntity() {
-		return typeEntity;
-	}
-
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public int getTypeObject() {
+		return typeObject;
 	}
 
 	public String getGenre() {

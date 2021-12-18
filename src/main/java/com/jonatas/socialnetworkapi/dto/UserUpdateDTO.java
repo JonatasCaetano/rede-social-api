@@ -14,13 +14,14 @@ public class UserUpdateDTO {
 	private String city;
 	private boolean privacy = false;
 	private boolean status = true;
+	private boolean checked = false;
 	
 	public UserUpdateDTO() {
 		super();
 	}
 
 	public UserUpdateDTO(String id, String name, String email, String password, String image, String description,
-			Date birthDate, String city, boolean privacy, boolean status) {
+			Date birthDate, String city, boolean privacy, boolean status, boolean checked) {
 		super();
 		this.idUser = id;
 		this.name = name;
@@ -32,6 +33,7 @@ public class UserUpdateDTO {
 		this.city = city;
 		this.privacy = privacy;
 		this.status = status;
+		this.checked = checked;
 	}
 
 	public String getIdUser() {
@@ -112,5 +114,13 @@ public class UserUpdateDTO {
 
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 }

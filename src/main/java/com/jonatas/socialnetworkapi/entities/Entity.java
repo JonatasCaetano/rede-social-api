@@ -28,7 +28,8 @@ public class Entity implements Serializable{
 	private Date release;
 	private String genre;
 	
-	private int typeEntity = 1;
+	private int typeObject = 1;
+	private int typeEntity;
 	private int season = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
@@ -60,13 +61,14 @@ public class Entity implements Serializable{
 		super();
 	}
 	
-	public Entity(String name, String image, String description, Date release, String genre) {
+	public Entity(String name, String image, String description, Date release, String genre, int typeEntity) {
 		super();
 		this.name = name;
 		this.image = image;
 		this.description = description;
 		this.release = release;
 		this.genre = genre;
+		this.typeEntity = typeEntity;
 	}
 	
 	public Entity(EntityMiniDTO entityMiniDTO) {
@@ -75,6 +77,7 @@ public class Entity implements Serializable{
 		this.image = entityMiniDTO.getImage();
 		this.description = entityMiniDTO.getDescription();
 		this.genre = entityMiniDTO.getGenre();
+		this.typeEntity = entityMiniDTO.getTypeEntity();
 	}
 
 	
@@ -172,6 +175,11 @@ public class Entity implements Serializable{
 	public List<Post> getPosts() {
 		return posts;
 	}
+
+	public int getTypeObject() {
+		return typeObject;
+	}
+
 
 	public int getTypeEntity() {
 		return typeEntity;
