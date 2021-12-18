@@ -9,7 +9,7 @@ import com.jonatas.socialnetworkapi.entities.EntitySave;
 public class EntitySaveMiniDTO {
 
 	private String id;
-	private int type;
+	private int typeEntity;
 	private int category;
 	private boolean goal = false;
 	private boolean rated = false;
@@ -28,7 +28,7 @@ public class EntitySaveMiniDTO {
 	public EntitySaveMiniDTO(EntitySave entitySave) {
 		super();
 		this.id = entitySave.getId();
-		this.type = entitySave.getType();
+		this.typeEntity = entitySave.getTypeEntity();
 		this.category = entitySave.getCategory();
 		this.goal = entitySave.isGoal();
 		this.rated = entitySave.isRated();
@@ -49,12 +49,12 @@ public class EntitySaveMiniDTO {
 		this.id = id;
 	}
 
-	public int getType() {
-		return type;
+	public int getTypeEntity() {
+		return typeEntity;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	public int getCategory() {

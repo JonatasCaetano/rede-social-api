@@ -18,6 +18,7 @@ public class UserMiniDTO {
 	private boolean status;
 	private int following = 0;
 	private int followers = 0;
+	private int typeEntity = 0;
 		
 	//builders
 	
@@ -137,6 +138,14 @@ public class UserMiniDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 	
 	

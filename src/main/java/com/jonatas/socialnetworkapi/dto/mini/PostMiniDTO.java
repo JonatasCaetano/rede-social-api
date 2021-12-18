@@ -7,7 +7,7 @@ import com.jonatas.socialnetworkapi.entities.Post;
 public class PostMiniDTO {
 
 	private String id;
-	private int type;
+	private int typeEntity;
 	private Date release;
 	private String body;
 	private int category;
@@ -25,7 +25,7 @@ public class PostMiniDTO {
 	public PostMiniDTO(Post post) {
 		super();
 		this.id = post.getId();
-		this.type = post.getType();
+		this.typeEntity = post.getTypeEntity();
 		this.release = post.getRelease();
 		this.body = post.getBody();
 		this.category = post.getCategory();
@@ -45,12 +45,12 @@ public class PostMiniDTO {
 		this.id = id;
 	}
 
-	public int getType() {
-		return type;
+	public int getTypeEntity() {
+		return typeEntity;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	public Date getRelease() {

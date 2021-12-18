@@ -86,7 +86,9 @@ public class EvaluationService {
 			if(user == null) {
 				return ResponseEntity.badRequest().build();
 			}
+			
 			List<EntitySave> entitySaves = user.getEntitySaves();
+			
 			if(entitySaves.size() == 0) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
@@ -102,7 +104,7 @@ public class EvaluationService {
 					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 				}
 			}
-			Evaluation evaluation = new Evaluation(user, entity, null, null, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
+			Evaluation evaluation = new Evaluation(user, entity, null, null, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getTypeEntity());
 			evaluation = evaluationRepository.insert(evaluation);
 			for(EntitySave entitySave : entitySaves) {
 				if(entitySave.getEntity().getId().hashCode() == entity.getId().hashCode()) {
@@ -145,7 +147,7 @@ public class EvaluationService {
 					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 				}
 			}
-			Evaluation evaluation = new Evaluation(user, null, season, null, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
+			Evaluation evaluation = new Evaluation(user, null, season, null, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getTypeEntity());
 			evaluation = evaluationRepository.insert(evaluation);
 			for(EntitySave entitySave : entitySaves) {
 				if(entitySave.getSeason().getId().hashCode() == season.getId().hashCode()) {
@@ -188,7 +190,7 @@ public class EvaluationService {
 					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 				}
 			}
-			Evaluation evaluation = new Evaluation(user, null, null, episode, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getType());
+			Evaluation evaluation = new Evaluation(user, null, null, episode, evaluationDTO.getValue(), evaluationDTO.getRelease(), evaluationDTO.getTypeEntity());
 			evaluation = evaluationRepository.insert(evaluation);
 			for(EntitySave entitySave : entitySaves) {
 				if(entitySave.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
@@ -219,7 +221,7 @@ public class EvaluationService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			double current = evaluationDTO.getValue();
-			if(current > 5.0) {
+			if(current > 5.0 || current < 1) {
 				return ResponseEntity.badRequest().build();
 			}
 			List<EntitySave> entitySaves = user.getEntitySaves();
@@ -257,7 +259,7 @@ public class EvaluationService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			double current = evaluationDTO.getValue();
-			if(current > 5.0) {
+			if(current > 5.0 || current < 1) {
 				return ResponseEntity.badRequest().build();
 			}
 			List<EntitySave> entitySaves = user.getEntitySaves();
@@ -295,7 +297,7 @@ public class EvaluationService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			double current = evaluationDTO.getValue();
-			if(current > 5.0) {
+			if(current > 5.0 || current < 1) {
 				return ResponseEntity.badRequest().build();
 			}
 			List<EntitySave> entitySaves = user.getEntitySaves();

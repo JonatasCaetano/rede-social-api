@@ -107,20 +107,20 @@ public class PostService {
 			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
 			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
 			Episode episode = (Episode) episodeService.findById(postDTO.getIsEpisode()).getBody();
-			Post post = new Post(postDTO.getType(), postDTO.getRelease(), postDTO.getBody(), postDTO.getCategory(), user, entity, season, episode);
+			Post post = new Post(postDTO.getTypeEntity(), postDTO.getRelease(), postDTO.getBody(), postDTO.getCategory(), user, entity, season, episode);
 			post = postRepository.insert(post);
 			user.getPosts().add(post);
 			userService.save(user);
-			switch (post.getCategory()) {
-			case 0:
+			switch (post.getTypeEntity()) {
+			case 1:
 				entity.getPosts().add(post);
 				entityService.save(entity);
 				break;
-			case 1:
+			case 2:
 				season.getPosts().add(post);
 				seasonService.save(season);
 				break;
-			case 2:
+			case 3:
 				episode.getPosts().add(post);
 				episodeService.save(episode);
 				break;	
@@ -167,16 +167,16 @@ public class PostService {
 			likesUser.remove(post);
 			userService.save(user);
 			
-			switch (post.getCategory()) {
-			case 0:
+			switch (post.getTypeEntity()) {
+			case 1:
 				entity.getPosts().remove(post);
 				entityService.save(entity);
 				break;
-			case 1:
+			case 2:
 				season.getPosts().remove(post);
 				seasonService.save(season);
 				break;
-			case 2:
+			case 3:
 				episode.getPosts().remove(post);
 				episodeService.save(episode);
 				break;	

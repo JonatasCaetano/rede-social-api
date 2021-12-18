@@ -12,13 +12,14 @@ public class EditionDTO {
 	private Object previous;
 	private Object current;
 	private String attribute;
+	private int typeEntity;
 	
 	public EditionDTO() {
 		super();
 	}
 
 	public EditionDTO(String user, String entity, String season, String episode, Date release, Object previous,
-			Object current, String attribute) {
+			Object current, String attribute, int typeEntity) {
 		super();
 		this.idUser = user;
 		this.idEntity = entity;
@@ -28,6 +29,7 @@ public class EditionDTO {
 		this.previous = previous;
 		this.current = current;
 		this.attribute = attribute;
+		this.typeEntity = typeEntity;
 	}
 
 	public String getUser() {
@@ -93,5 +95,15 @@ public class EditionDTO {
 	public void setAttribute(String attribute) {
 		this.attribute = attribute;
 	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
+	}
+	
+	
 
 }

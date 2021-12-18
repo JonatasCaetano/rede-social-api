@@ -13,6 +13,7 @@ public class EpisodeMiniDTO {
 	private int number;
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
+	private int typeEntity = 3;
 	
 	//builders
 	
@@ -87,6 +88,14 @@ public class EpisodeMiniDTO {
 
 	public void setEvaluationAverage(double evaluationAverage) {
 		this.evaluationAverage = evaluationAverage;
+	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 

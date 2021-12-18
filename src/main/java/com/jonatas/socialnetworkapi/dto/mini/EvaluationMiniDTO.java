@@ -7,7 +7,7 @@ import com.jonatas.socialnetworkapi.entities.Evaluation;
 public class EvaluationMiniDTO {
 
 	private String id;
-	private int type;
+	private int typeEntity;
 	private double value;
 	private Date release;
 	private UserMiniDTO user;
@@ -22,7 +22,7 @@ public class EvaluationMiniDTO {
 	public EvaluationMiniDTO(Evaluation evaluation) {
 		super();
 		this.id = evaluation.getId();
-		this.type = evaluation.getType();
+		this.typeEntity = evaluation.getTypeEntity();
 		this.value = evaluation.getValue();
 		this.release = evaluation.getRelease();
 		this.user = evaluation.getUser() != null ? new UserMiniDTO(evaluation.getUser()) : null;
@@ -39,12 +39,14 @@ public class EvaluationMiniDTO {
 		this.id = id;
 	}
 
-	public int getType() {
-		return type;
+	
+
+	public int getTypeEntity() {
+		return typeEntity;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	public double getValue() {

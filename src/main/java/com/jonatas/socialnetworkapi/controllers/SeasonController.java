@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
@@ -48,6 +49,11 @@ public class SeasonController {
 	@GetMapping(value = "get/season/{id}/editions")
 	public ResponseEntity<Object> getEditionsMini(@PathVariable String id){
 		return seasonService.getEditionsMini(id);
+	}
+	
+	@GetMapping(value = "get/seasons/name")
+	public ResponseEntity<Object> findByName(@RequestParam(value = "name", defaultValue = "") String name){
+		return seasonService.findByName(name);
 	}
 	
 	//post

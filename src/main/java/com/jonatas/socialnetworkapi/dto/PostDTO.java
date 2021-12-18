@@ -5,7 +5,7 @@ import java.util.Date;
 public class PostDTO {
 
 	private String idPost;
-	private int type;
+	private int typeEntity = 1;
 	private Date release;
 	private String body;
 	private int category;
@@ -20,10 +20,10 @@ public class PostDTO {
 		super();
 	}
 
-	public PostDTO(int type, Date release, String body, int category, String user, String entity, String season,
+	public PostDTO(int typeEntity, Date release, String body, int category, String user, String entity, String season,
 			String episode) {
 		super();
-		this.type = type;
+		this.typeEntity = typeEntity;
 		this.release = release;
 		this.body = body;
 		this.category = category;
@@ -41,12 +41,12 @@ public class PostDTO {
 		this.idPost = idPost;
 	}
 
-	public int getType() {
-		return type;
+	public int getTypeEntity() {
+		return typeEntity;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	public Date getRelease() {

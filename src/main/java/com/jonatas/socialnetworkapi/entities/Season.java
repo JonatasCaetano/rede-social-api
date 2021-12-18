@@ -29,6 +29,7 @@ public class Season implements Serializable{
 	private Date release;
 	private String genre;
 	
+	private int typeEntity = 2;
 	private int number;
 	private int episode = 0;
 	private double evaluationAverage = 0.0;
@@ -185,6 +186,14 @@ public class Season implements Serializable{
 	
 	public List<Post> getPosts() {
 		return posts;
+	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	public String getGenre() {

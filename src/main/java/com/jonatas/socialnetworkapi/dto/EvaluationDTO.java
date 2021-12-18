@@ -13,14 +13,14 @@ public class EvaluationDTO {
 	private String idEpisode;
 	private double value;
 	private Date release;
-	private int type;
+	private int typeEntity;
 
 	public EvaluationDTO() {
 		super();
 	}
 
 	public EvaluationDTO(String idUser, String idEntity, String idSeason, String idEpisode,
-			double value, Date release, int type) {
+			double value, Date release, int typeEntity) {
 		super();
 		this.idUser = idUser;
 		this.idEntity = idEntity;
@@ -28,7 +28,7 @@ public class EvaluationDTO {
 		this.idEpisode = idEpisode;
 		this.value = value;
 		this.release = release;
-		this.type = type;
+		this.typeEntity = typeEntity;
 	}
 
 	public EvaluationDTO(Evaluation evaluation) {
@@ -39,7 +39,7 @@ public class EvaluationDTO {
 		this.idEpisode = evaluation.getEpisode().getId() != null ? evaluation.getEpisode().getId() : null;
 		this.value = evaluation.getValue();
 		this.release = evaluation.getRelease();
-		this.type = evaluation.getType();
+		this.typeEntity = evaluation.getTypeEntity();
 	}
 
 	public String getIdEvaluation() {
@@ -98,11 +98,12 @@ public class EvaluationDTO {
 		this.release = release;
 	}
 
-	public int getType() {
-		return type;
+	public int getTypeEntity() {
+		return typeEntity;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
+
 }

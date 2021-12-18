@@ -23,6 +23,8 @@ public class Worker  implements Serializable{
 	
 	private String role;
 	
+	private int typeEntity;
+	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
@@ -37,12 +39,13 @@ public class Worker  implements Serializable{
 		super();
 	}
 	
-	public Worker(Date release, String role, User user, Entity entity) {
+	public Worker(Date release, String role, User user, Entity entity, int typeEntity) {
 		super();
 		this.release = release;
 		this.role = role;
 		this.user = user;
 		this.entity = entity;
+		this.typeEntity = typeEntity;
 	}
 
 	//getters and setters
@@ -77,6 +80,14 @@ public class Worker  implements Serializable{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	public Entity getEntity() {

@@ -18,7 +18,7 @@ public class Post implements Serializable{
 	
 	@Id
 	private String id;
-	private int type;
+	private int typeEntity;
 	private Date release;
 	private String body;
 	private int category;
@@ -51,10 +51,10 @@ public class Post implements Serializable{
 		super();
 	}
 
-	public Post(int type, Date release, String body, int category, User user, Entity entity, Season season,
+	public Post(int typeEntity, Date release, String body, int category, User user, Entity entity, Season season,
 			Episode episode) {
 		super();
-		this.type = type;
+		this.typeEntity = typeEntity;
 		this.release = release;
 		this.body = body;
 		this.category = category;
@@ -62,14 +62,6 @@ public class Post implements Serializable{
 		this.entity = entity;
 		this.season = season;
 		this.episode = episode;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 
 	public Date getRelease() {
@@ -134,6 +126,14 @@ public class Post implements Serializable{
 
 	public List<Comment> getComments() {
 		return comments;
+	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	public List<User> getLikes() {

@@ -207,7 +207,12 @@ public class UserService {
 	public ResponseEntity<Object> findByName(String name){
 		try {
 			List<User> users = userRepository.searchByName(name);
-			return ResponseEntity.ok().body(users);
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+			for(User user : users) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+				userMiniDTOs.add(userMiniDTO);
+			}
+			return ResponseEntity.ok().body(userMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}

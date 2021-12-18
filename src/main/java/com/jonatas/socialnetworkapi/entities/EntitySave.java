@@ -20,7 +20,7 @@ public class EntitySave implements Serializable{
 	@Id
 	private String id;
 	
-	private int type;
+	private int typeEntity;
 	private int category;
 	private boolean goal = false;
 	private boolean rated = false;
@@ -53,7 +53,7 @@ public class EntitySave implements Serializable{
 	}
 
 	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, boolean goal,
-			boolean rated, boolean review, int type) {
+			boolean rated, boolean review, int typeEntity) {
 		super();
 		this.user = user;
 		this.entity = entity;
@@ -63,7 +63,7 @@ public class EntitySave implements Serializable{
 		this.goal = goal;
 		this.rated = rated;
 		this.review = review;
-		this.type = type;
+		this.typeEntity = typeEntity;
 	}
 
 	public User getUser() {
@@ -129,15 +129,7 @@ public class EntitySave implements Serializable{
 	public void setReview(boolean review) {
 		this.review = review;
 	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
-	}
-
+	
 	public String getId() {
 		return id;
 	}
@@ -152,6 +144,14 @@ public class EntitySave implements Serializable{
 
 	public void setEvaluation(Evaluation evaluation) {
 		this.evaluation = evaluation;
+	}
+	
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 
 	@Override
@@ -169,12 +169,6 @@ public class EntitySave implements Serializable{
 			return false;
 		EntitySave other = (EntitySave) obj;
 		return Objects.equals(id, other.id);
-	}
-
-
-	
-
-	
-	
+	}	
 	
 }

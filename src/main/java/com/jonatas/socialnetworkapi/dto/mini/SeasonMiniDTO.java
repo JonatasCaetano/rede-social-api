@@ -14,6 +14,7 @@ public class SeasonMiniDTO {
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private int episode = 0;
+	private int typeEntity = 2;
 	
 	//builders
 		
@@ -97,6 +98,14 @@ public class SeasonMiniDTO {
 
 	public void setEpisode(int episode) {
 		this.episode = episode;
+	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 	
 	

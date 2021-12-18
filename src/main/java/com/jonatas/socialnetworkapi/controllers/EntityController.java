@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.dto.EditionDTO;
@@ -51,6 +52,11 @@ public class EntityController {
 	@GetMapping(value = "get/entity/{id}/editions")
 	public ResponseEntity<Object> getEditionsMini(@PathVariable String id){
 		return entityService.getEditionsMini(id);
+	}
+	
+	@GetMapping(value = "get/entities/name")
+	public ResponseEntity<Object> findByName(@RequestParam(value = "name", defaultValue = "") String name){
+		return entityService.findByName(name);
 	}
 	
 	//post

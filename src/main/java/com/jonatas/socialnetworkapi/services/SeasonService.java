@@ -65,6 +65,20 @@ public class SeasonService {
 		}
 	}
 	
+	public ResponseEntity<Object> findByName(String name){
+		try {
+			List<Season> list = seasonRepository.searchByName(name);
+			List<SeasonMiniDTO> seasonMiniDTOs = new ArrayList<>();
+			for(Season season : list) {
+				SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+				seasonMiniDTOs.add(seasonMiniDTO);
+			}
+			return ResponseEntity.ok().body(seasonMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			Season season = seasonRepository.findById(id).get();
@@ -172,7 +186,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getName());
 			season.setName((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -193,7 +207,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getImage());
 			season.setImage((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -214,7 +228,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getDescription());
 			season.setDescription((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -235,7 +249,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getRelease());
 			season.setRelease((Date) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -256,7 +270,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getGenre());
 			season.setGenre((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);

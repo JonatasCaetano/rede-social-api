@@ -31,7 +31,7 @@ public class Edition implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Episode episode;
-	
+	private int typeEntity;
 	private Date release;
 	private Object previous;
 	private Object current;
@@ -41,7 +41,7 @@ public class Edition implements Serializable{
 		super();
 	}
 
-	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previous,
+	public Edition(int typeEntity, User user, Entity entity, Season season, Episode episode, Date release, Object previous,
 			Object current, String attribute) {
 		super();
 		this.user = user;
@@ -52,6 +52,7 @@ public class Edition implements Serializable{
 		this.previous = previous;
 		this.current = current;
 		this.attribute = attribute;
+		this.typeEntity = typeEntity;
 	}
 
 	public User getUser() {
@@ -120,5 +121,13 @@ public class Edition implements Serializable{
 
 	public String getId() {
 		return id;
+	}
+
+	public int getTypeEntity() {
+		return typeEntity;
+	}
+
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
 }

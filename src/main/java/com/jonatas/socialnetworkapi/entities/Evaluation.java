@@ -18,7 +18,7 @@ public class Evaluation implements Serializable{
 	@Id
 	private String id;
 	
-	private int type;
+	private int typeEntity;
 	private double value;
 	private Date release;
 	
@@ -49,7 +49,7 @@ public class Evaluation implements Serializable{
 		super();
 	}
 
-	public Evaluation(User user, Entity entity, Season season, Episode episode, double value, Date release, int type) {
+	public Evaluation(User user, Entity entity, Season season, Episode episode, double value, Date release, int typeEntity) {
 		super();
 		this.user = user;
 		this.entity = entity;
@@ -57,7 +57,7 @@ public class Evaluation implements Serializable{
 		this.episode = episode;
 		this.value = value;
 		this.release = release;
-		this.setType(type);
+		this.typeEntity = typeEntity;
 	}
 	
 	//getters and setters
@@ -114,13 +114,15 @@ public class Evaluation implements Serializable{
 		return id;
 	}
 
-	public int getType() {
-		return type;
+	public int getTypeEntity() {
+		return typeEntity;
 	}
 
-	public void setType(int type) {
-		this.type = type;
+	public void setTypeEntity(int typeEntity) {
+		this.typeEntity = typeEntity;
 	}
+
+	
 
 	
 	
