@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.EpisodeCreateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
+import com.jonatas.socialnetworkapi.entities.dto.EpisodeCreateDTO;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
 
 @RestController

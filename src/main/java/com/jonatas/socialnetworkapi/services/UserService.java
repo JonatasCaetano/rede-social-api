@@ -9,14 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
-import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
-import com.jonatas.socialnetworkapi.dto.mini.CommentMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.InvitationMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.PostMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
@@ -25,6 +17,14 @@ import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
+import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserUpdateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
@@ -356,7 +356,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateChecket(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateChecked(UserUpdateDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setChecked(userUpdateDTO.isChecked());

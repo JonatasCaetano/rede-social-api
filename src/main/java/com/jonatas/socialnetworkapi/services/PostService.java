@@ -9,15 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.PostDTO;
-import com.jonatas.socialnetworkapi.dto.mini.CommentMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.PostMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.dto.PostDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.PostRepository;
 
 @Service

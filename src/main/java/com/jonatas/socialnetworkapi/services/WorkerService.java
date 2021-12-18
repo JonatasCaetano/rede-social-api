@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.WorkerDTO;
-import com.jonatas.socialnetworkapi.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
+import com.jonatas.socialnetworkapi.entities.dto.WorkerDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
 
 @Service

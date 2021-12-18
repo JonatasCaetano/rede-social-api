@@ -9,10 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.mini.FollowerMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.dto.mini.FollowerMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 
 @Service

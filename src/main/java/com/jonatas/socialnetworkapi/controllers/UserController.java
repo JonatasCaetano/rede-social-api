@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
-import com.jonatas.socialnetworkapi.dto.UserUpdateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserUpdateDTO;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @RestController
@@ -140,9 +140,9 @@ public class UserController {
 		return userService.updateStatus(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/status")
-	public ResponseEntity<Void> updateChecket(@RequestBody UserUpdateDTO userUpdateDTO){
-		return userService.updateChecket(userUpdateDTO);
+	@PutMapping(value = "put/checked")
+	public ResponseEntity<Void> updateChecked(@RequestBody UserUpdateDTO userUpdateDTO){
+		return userService.updateChecked(userUpdateDTO);
 	}
 	
 

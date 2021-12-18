@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.dto.SeasonCreateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.SeasonCreateDTO;
 
 @Document
 public class Season implements Serializable{

@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.CommentDTO;
-import com.jonatas.socialnetworkapi.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.dto.CommentDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.CommentRepository;
 
 @Service

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.dto.WorkerDTO;
+import com.jonatas.socialnetworkapi.entities.dto.WorkerDTO;
 import com.jonatas.socialnetworkapi.services.WorkerService;
 
 @RestController

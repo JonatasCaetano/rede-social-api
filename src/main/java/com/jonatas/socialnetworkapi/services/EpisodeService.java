@@ -10,17 +10,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.EpisodeCreateDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EpisodeMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
+import com.jonatas.socialnetworkapi.entities.dto.EpisodeCreateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EpisodeMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
 
 @Service

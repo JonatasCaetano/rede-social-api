@@ -11,12 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.jonatas.socialnetworkapi.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EditionMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EntityMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.EvaluationMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.SeasonMiniDTO;
-import com.jonatas.socialnetworkapi.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
@@ -24,6 +18,12 @@ import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
+import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 
 @Service

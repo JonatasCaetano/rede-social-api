@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.jonatas.socialnetworkapi.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 
 @Service

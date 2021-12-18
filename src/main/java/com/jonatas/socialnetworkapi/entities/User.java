@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.dto.UserCreationDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
 
 @Document
 public class User implements Serializable{
