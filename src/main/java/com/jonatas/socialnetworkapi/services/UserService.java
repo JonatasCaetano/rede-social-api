@@ -63,6 +63,20 @@ public class UserService {
 		}
 	}
 	
+	public ResponseEntity<Object> findByName(String name){
+		try {
+			List<User> users = userRepository.searchByName(name);
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+			for(User user : users) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+				userMiniDTOs.add(userMiniDTO);
+			}
+			return ResponseEntity.ok().body(userMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
@@ -203,21 +217,7 @@ public class UserService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-		
-	public ResponseEntity<Object> findByName(String name){
-		try {
-			List<User> users = userRepository.searchByName(name);
-			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
-			for(User user : users) {
-				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-				userMiniDTOs.add(userMiniDTO);
-			}
-			return ResponseEntity.ok().body(userMiniDTOs);
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	
+			
 	//post
 	
 	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){

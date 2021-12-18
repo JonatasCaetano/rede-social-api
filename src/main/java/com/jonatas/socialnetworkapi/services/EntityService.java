@@ -49,23 +49,31 @@ public class EntityService {
 	//get
 	
 	public ResponseEntity<Object> findAllMini(){
-		List<Entity> list = entityRepository.findAll();
-		List<EntityMiniDTO> entityMiniDTOs = new ArrayList<>();
-		for(Entity entity : list) {
-			EntityMiniDTO entityMiniDTO = new EntityMiniDTO(entity);
-			entityMiniDTOs.add(entityMiniDTO);
+		try {
+			List<Entity> list = entityRepository.findAll();
+			List<EntityMiniDTO> entityMiniDTOs = new ArrayList<>();
+			for(Entity entity : list) {
+				EntityMiniDTO entityMiniDTO = new EntityMiniDTO(entity);
+				entityMiniDTOs.add(entityMiniDTO);
+			}
+			return ResponseEntity.ok().body(entityMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok().body(entityMiniDTOs);
 	}
 	
 	public ResponseEntity<Object> findByName(String name){
-		List<Entity> list = entityRepository.searchByName(name);
-		List<EntityMiniDTO> entityMiniDTOs = new ArrayList<>();
-		for(Entity entity : list) {
-			EntityMiniDTO entityMiniDTO = new EntityMiniDTO(entity);
-			entityMiniDTOs.add(entityMiniDTO);
+		try {
+			List<Entity> list = entityRepository.searchByName(name);
+			List<EntityMiniDTO> entityMiniDTOs = new ArrayList<>();
+			for(Entity entity : list) {
+				EntityMiniDTO entityMiniDTO = new EntityMiniDTO(entity);
+				entityMiniDTOs.add(entityMiniDTO);
+			}
+			return ResponseEntity.ok().body(entityMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok().body(entityMiniDTOs);
 	}
 	
 	public ResponseEntity<Object> findByIdMini(String id){
