@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class EntitySave implements Serializable{
@@ -25,6 +26,7 @@ public class EntitySave implements Serializable{
 	private boolean goal = false;
 	private boolean rated = false;
 	private boolean review = false;
+	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -152,6 +154,10 @@ public class EntitySave implements Serializable{
 
 	public void setTypeEntity(int typeEntity) {
 		this.typeEntity = typeEntity;
+	}
+
+	public TypeObject getTypeObject() {
+		return typeObject;
 	}
 
 	@Override

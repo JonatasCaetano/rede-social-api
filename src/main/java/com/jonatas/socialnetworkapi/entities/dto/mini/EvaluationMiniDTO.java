@@ -3,6 +3,7 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Evaluation;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EvaluationMiniDTO {
 
@@ -14,6 +15,7 @@ public class EvaluationMiniDTO {
 	private EntityMiniDTO entity;
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
+	private TypeObject typeObject = TypeObject.EVALUATION;
 	
 	public EvaluationMiniDTO() {
 		super();
@@ -38,8 +40,6 @@ public class EvaluationMiniDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-
-	
 
 	public int getTypeEntity() {
 		return typeEntity;
@@ -96,7 +96,12 @@ public class EvaluationMiniDTO {
 	public void setEpisode(EpisodeMiniDTO episode) {
 		this.episode = episode;
 	}
-	
-	
-	
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
+	}
 }

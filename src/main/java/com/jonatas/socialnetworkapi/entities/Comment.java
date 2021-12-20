@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Comment implements Serializable{
@@ -17,6 +18,7 @@ public class Comment implements Serializable{
 	private String id;
 	private Date release;
 	private String body;
+	private TypeObject typeObject = TypeObject.COMMENT;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -73,6 +75,8 @@ public class Comment implements Serializable{
 	public String getId() {
 		return id;
 	}
-	
-	
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 }

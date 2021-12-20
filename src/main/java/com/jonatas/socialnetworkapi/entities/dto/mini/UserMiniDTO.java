@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class UserMiniDTO {
 	
@@ -18,7 +19,7 @@ public class UserMiniDTO {
 	private boolean status;
 	private int following = 0;
 	private int followers = 0;
-	private int typeEntity = 0;
+	private TypeObject typeObject = TypeObject.USER;
 		
 	//builders
 	
@@ -140,16 +141,11 @@ public class UserMiniDTO {
 		this.password = password;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
+	public TypeObject getTypeObject() {
+		return typeObject;
 	}
 
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
 	}
-	
-	
-
-	
-
 }

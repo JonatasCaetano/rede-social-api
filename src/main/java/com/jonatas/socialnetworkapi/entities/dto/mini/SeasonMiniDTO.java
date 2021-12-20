@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Season;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class SeasonMiniDTO {
 
@@ -14,7 +15,7 @@ public class SeasonMiniDTO {
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private int episode = 0;
-	private int typeEntity = 2;
+	private TypeObject typeObject = TypeObject.SEASON;
 	
 	//builders
 		
@@ -100,17 +101,11 @@ public class SeasonMiniDTO {
 		this.episode = episode;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
+	public TypeObject getTypeObject() {
+		return typeObject;
 	}
 
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
 	}
-	
-	
-	
-	
-	
-	
 }

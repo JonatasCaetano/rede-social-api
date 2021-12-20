@@ -9,22 +9,19 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
+import com.jonatas.socialnetworkapi.enuns.TypeWorker;
 
 @Document
 public class Worker  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	//attributes
-	
 	@Id
 	private String id;
-	
 	private Date release;
-	
 	private String role;
-	
-	private int typeEntity;
-	
+	private TypeObject typeObject = TypeObject.WORKER;
+	private TypeWorker typeWorker;
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
@@ -33,22 +30,18 @@ public class Worker  implements Serializable{
 	@JsonManagedReference
 	private Entity entity;
 		
-	//builders
-	
 	public Worker() {
 		super();
 	}
 	
-	public Worker(Date release, String role, User user, Entity entity, int typeEntity) {
+	public Worker(Date release, String role, TypeWorker typeWorker, User user, Entity entity) {
 		super();
 		this.release = release;
 		this.role = role;
+		this.setTypeWorker(typeWorker);
 		this.user = user;
 		this.entity = entity;
-		this.typeEntity = typeEntity;
 	}
-
-	//getters and setters
 
 	public String getId() {
 		return id;
@@ -82,14 +75,6 @@ public class Worker  implements Serializable{
 		this.user = user;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
-	}
-
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
-	}
-
 	public Entity getEntity() {
 		return entity;
 	}
@@ -98,7 +83,17 @@ public class Worker  implements Serializable{
 		this.entity = entity;
 	}
 	
-	//hashCode and equals
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+	
+	public TypeWorker getTypeWorker() {
+		return typeWorker;
+	}
+
+	public void setTypeWorker(TypeWorker typeWorker) {
+		this.typeWorker = typeWorker;
+	}
 
 	@Override
 	public int hashCode() {
@@ -117,9 +112,4 @@ public class Worker  implements Serializable{
 		return Objects.equals(entity, other.entity) && Objects.equals(role, other.role)
 				&& Objects.equals(user, other.user);
 	}
-
-
-
-	
-	
 }

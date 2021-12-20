@@ -3,11 +3,11 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Post;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class PostMiniDTO {
 
 	private String id;
-	private int typeEntity;
 	private Date release;
 	private String body;
 	private int category;
@@ -17,6 +17,7 @@ public class PostMiniDTO {
 	private EpisodeMiniDTO episode;
 	private int comments = 0;
 	private int likes = 0;
+	private TypeObject typeObject = TypeObject.POST;
 	
 	public PostMiniDTO() {
 		super();
@@ -25,7 +26,6 @@ public class PostMiniDTO {
 	public PostMiniDTO(Post post) {
 		super();
 		this.id = post.getId();
-		this.typeEntity = post.getTypeEntity();
 		this.release = post.getRelease();
 		this.body = post.getBody();
 		this.category = post.getCategory();
@@ -43,14 +43,6 @@ public class PostMiniDTO {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public int getTypeEntity() {
-		return typeEntity;
-	}
-
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
 	}
 
 	public Date getRelease() {
@@ -124,7 +116,12 @@ public class PostMiniDTO {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	
-	
-	
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
+	}
 }

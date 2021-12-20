@@ -19,6 +19,7 @@ import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
+import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
@@ -154,14 +155,14 @@ public class EntityService {
 	
 	//post
 	
-	public ResponseEntity<Object> createEntity(EntityMiniDTO entityMiniDTO, String id){
+	public ResponseEntity<Object> createEntity(EntityDTO entityDTO, String id){
 		try {
 			User user = (User) userService.findById(id).getBody();
-			Entity entity = new Entity(entityMiniDTO);
+			Entity entity = new Entity(entityDTO);
 			if(user.isChecked()) {
 				try {
 					Entity obj = entityRepository.insert(entity);
-					entityMiniDTO = new EntityMiniDTO(obj);
+					EntityMiniDTO entityMiniDTO = new EntityMiniDTO(obj);
 					return ResponseEntity.created(null).body(entityMiniDTO);
 				}catch(RuntimeException e) {
 					return ResponseEntity.badRequest().build();
@@ -173,7 +174,6 @@ public class EntityService {
 		}catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
-		
 	}
 	
 	//put
@@ -302,7 +302,4 @@ public class EntityService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-	
-	
 }

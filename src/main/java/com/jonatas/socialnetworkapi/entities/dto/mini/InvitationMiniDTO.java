@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class InvitationMiniDTO {
 
@@ -13,6 +14,7 @@ public class InvitationMiniDTO {
 	private Date release;	
 	private String value;
 	private UserMiniDTO user;
+	private TypeObject typeObject = TypeObject.INVITATION;
 	private List<UserMiniDTO>  invited = new ArrayList<>();
 	
 	public InvitationMiniDTO() {
@@ -70,6 +72,12 @@ public class InvitationMiniDTO {
 			this.invited.add(userMiniDTO);
 		}
 	}
-	
-	
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
+	}
 }

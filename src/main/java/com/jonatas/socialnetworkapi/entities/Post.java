@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Post implements Serializable{
@@ -22,6 +23,7 @@ public class Post implements Serializable{
 	private Date release;
 	private String body;
 	private int category;
+	private TypeObject typeObject = TypeObject.POST;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -140,6 +142,10 @@ public class Post implements Serializable{
 		return likes;
 	}
 
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -156,8 +162,4 @@ public class Post implements Serializable{
 		Post other = (Post) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-
 }

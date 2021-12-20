@@ -3,6 +3,7 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Comment;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class CommentMiniDTO {
 
@@ -11,6 +12,7 @@ public class CommentMiniDTO {
 	private String body;
 	private UserMiniDTO user;
 	private PostMiniDTO post;
+	private TypeObject typeObject = TypeObject.COMMENT;
 	
 	public CommentMiniDTO() {
 		super();
@@ -63,6 +65,14 @@ public class CommentMiniDTO {
 
 	public void setPost(PostMiniDTO post) {
 		this.post = post;
+	}
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
 	}
 	
 	

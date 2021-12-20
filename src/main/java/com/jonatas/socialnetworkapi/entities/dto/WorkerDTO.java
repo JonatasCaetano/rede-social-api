@@ -1,23 +1,35 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
+import com.jonatas.socialnetworkapi.enuns.TypeWorker;
+
 public class WorkerDTO {
 	
 	private String idUser;
 	private String idEntity;
 	private String role;
-	private int typeEntity = 1;
+	private TypeWorker typeWorker;
 		
 	public WorkerDTO() {
 		super();
 	}
-
-	public WorkerDTO(String user, String entity, String role, int typeEntity) {
+	
+	public WorkerDTO(String idUser, String idEntity, String role, TypeWorker typeWorker) {
 		super();
-		this.idUser = user;
-		this.idEntity = entity;
+		this.idUser = idUser;
+		this.idEntity = idEntity;
 		this.role = role;
-		this.typeEntity = typeEntity;
+		this.typeWorker = typeWorker;
 	}
+
+	public TypeWorker getTypeWorker() {
+		return typeWorker;
+	}
+
+
+	public void setTypeWorker(TypeWorker typeWorker) {
+		this.typeWorker = typeWorker;
+	}
+
 
 	public String getIdUser() {
 		return idUser;
@@ -41,13 +53,5 @@ public class WorkerDTO {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public int getTypeEntity() {
-		return typeEntity;
-	}
-
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
 	}
 }

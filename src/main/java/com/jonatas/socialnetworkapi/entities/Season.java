@@ -13,12 +13,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.entities.dto.SeasonCreateDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Season implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	//attributes
 	
 	@Id
 	private String id;
@@ -29,12 +28,12 @@ public class Season implements Serializable{
 	private Date release;
 	private String genre;
 	
-	private int typeObject = 2;
 	private int number;
 	private int episode = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
+	private TypeObject typeObject = TypeObject.SEASON;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -55,9 +54,7 @@ public class Season implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Post> posts = new ArrayList<>();
-	
-	//builders
-	
+
 	public Season() {
 		super();
 	}
@@ -81,9 +78,7 @@ public class Season implements Serializable{
 		this.release = seasonCreateDTO.getRelease();
 		this.number = seasonCreateDTO.getNumber();
 	}
-	
-	//getters and setters
-	
+
 	public String getId() {
 		return id;
 	}
@@ -188,10 +183,6 @@ public class Season implements Serializable{
 		return posts;
 	}
 
-	public int getTypeObject() {
-		return typeObject;
-	}
-
 	public String getGenre() {
 		return genre;
 	}
@@ -200,7 +191,9 @@ public class Season implements Serializable{
 		this.genre = genre;
 	}
 	
-	//hashCode and equals
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 
 	@Override
 	public int hashCode() {
@@ -218,8 +211,4 @@ public class Season implements Serializable{
 		Season other = (Season) obj;
 		return number == other.number;
 	}
-
-	
-	
-
 }

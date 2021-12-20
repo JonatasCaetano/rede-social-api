@@ -3,6 +3,7 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Worker;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class WorkerMiniDTO {
 
@@ -11,6 +12,7 @@ public class WorkerMiniDTO {
 	private String role;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
+	private TypeObject typeObject = TypeObject.WORKER;
 	
 	public WorkerMiniDTO() {
 		super();
@@ -63,6 +65,14 @@ public class WorkerMiniDTO {
 
 	public void setEntity(EntityMiniDTO entity) {
 		this.entity = entity;
+	}
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
 	}
 	
 	

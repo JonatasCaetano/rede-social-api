@@ -11,12 +11,11 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Invitation implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	//attributes
 	
 	@Id
 	private String id;
@@ -25,6 +24,8 @@ public class Invitation implements Serializable{
 	
 	private String value;
 	
+	private TypeObject typeObject = TypeObject.INVITATION;
+	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
@@ -32,8 +33,6 @@ public class Invitation implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<User>  invited = new ArrayList<>();
-	
-	//builders
 	
 	public Invitation() {
 		
@@ -45,8 +44,6 @@ public class Invitation implements Serializable{
 		this.value = value;
 	}
 	
-	//getters and setters
-
 	public User getUser() {
 		return user;
 	}
@@ -78,8 +75,10 @@ public class Invitation implements Serializable{
 	public void setRelease(Date release) {
 		this.release = release;
 	}
-	
-	//hashCode and equals
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 
 	@Override
 	public int hashCode() {
@@ -97,8 +96,4 @@ public class Invitation implements Serializable{
 		Invitation other = (Invitation) obj;
 		return Objects.equals(value, other.value);
 	}
-
-		
-	
-
 }

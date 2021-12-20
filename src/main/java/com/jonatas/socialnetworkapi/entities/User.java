@@ -12,13 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	//attributes
-		
 	@Id
 	private String id;
 	
@@ -36,7 +35,7 @@ public class User implements Serializable{
 	private int following = 0;
 	private int followers = 0;
 	private Date release;
-	private int typeObject = 0;
+	private TypeObject typeObject = TypeObject.USER;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -66,8 +65,6 @@ public class User implements Serializable{
 	@JsonBackReference
 	private List<Post> likes = new ArrayList<>();
 		
-	//builders
-	
 	public User() {
 		super();
 	}
@@ -83,8 +80,6 @@ public class User implements Serializable{
 		this.city = city;
 	}
 		
-	//getters and setters
-
 	public User(UserCreationDTO userCreation) {
 		super();
 		this.name = userCreation.getName();
@@ -232,7 +227,7 @@ public class User implements Serializable{
 		return likes;
 	}
 
-	public int getTypeObject() {
+	public TypeObject getTypeObject() {
 		return typeObject;
 	}
 
@@ -240,8 +235,6 @@ public class User implements Serializable{
 		return entitySaves;
 	}
 	
-	//hashCode and equals
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -258,15 +251,4 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", following="
-				+ following + ", followers=" + followers + ", invitation=" + invitation + "]";
-	}
-
-	
-	
-	
-
 }

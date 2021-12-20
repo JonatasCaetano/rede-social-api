@@ -11,17 +11,18 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Follower implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	//attributes
-	
+
 	@Id
 	private String id;
 	
 	private Date release;
+	
+	private TypeObject typeObject = TypeObject.FOLLOWER;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -30,8 +31,6 @@ public class Follower implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<User> following = new ArrayList<>();
-
-	//builders
 
 	public Follower() {
 		
@@ -43,8 +42,6 @@ public class Follower implements Serializable{
 		this.user = user;
 	}
 	
-	//getters and setters
-
 	public User getUser() {
 		return user;
 	}
@@ -73,7 +70,9 @@ public class Follower implements Serializable{
 		this.release = release;
 	}
 	
-	//hashCode and equals
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 
 	@Override
 	public int hashCode() {
@@ -91,7 +90,4 @@ public class Follower implements Serializable{
 		Follower other = (Follower) obj;
 		return Objects.equals(user, other.user);
 	}
-
-	
-	
 }

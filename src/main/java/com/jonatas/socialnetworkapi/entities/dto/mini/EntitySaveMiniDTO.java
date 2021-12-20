@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.jonatas.socialnetworkapi.entities.EntitySave;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EntitySaveMiniDTO {
 
@@ -19,6 +20,7 @@ public class EntitySaveMiniDTO {
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
 	private EvaluationMiniDTO evaluation;
+	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	List<Date> historic = new ArrayList<>();
 	
 	public EntitySaveMiniDTO() {
@@ -136,7 +138,12 @@ public class EntitySaveMiniDTO {
 	public void setHistoric(List<Date> historic) {
 		this.historic = historic;
 	}
-	
-	
-	
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
+	}	
 }

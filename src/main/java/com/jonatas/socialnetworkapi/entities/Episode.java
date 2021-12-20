@@ -13,12 +13,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.entities.dto.EpisodeCreateDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Episode implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	//attributes
 	
 	@Id
 	private String id;
@@ -28,8 +27,8 @@ public class Episode implements Serializable{
 	private String description;
 	private Date release;
 	private String genre;
+	private TypeObject typeObject = TypeObject.EPISODE;
 	
-	private int typeObject = 3;
 	private int number;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
@@ -51,8 +50,6 @@ public class Episode implements Serializable{
 	@JsonBackReference
 	private List<Post> posts = new ArrayList<>();
 
-	//builders
-	
 	public Episode() {
 		super();
 	}
@@ -78,8 +75,6 @@ public class Episode implements Serializable{
 		this.number = episodeCreateDTO.getNumber();
 	}
 	
-	//getters and setters
-
 	public String getName() {
 		return name;
 	}
@@ -172,7 +167,7 @@ public class Episode implements Serializable{
 		return posts;
 	}
 	
-	public int getTypeObject() {
+	public TypeObject getTypeObject() {
 		return typeObject;
 	}
 
@@ -184,8 +179,6 @@ public class Episode implements Serializable{
 		this.genre = genre;
 	}
 	
-	//hashCode and equals
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(number);
@@ -202,9 +195,4 @@ public class Episode implements Serializable{
 		Episode other = (Episode) obj;
 		return number == other.number;
 	}
-	
-	
-	
-	
-
 }

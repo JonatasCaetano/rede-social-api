@@ -11,13 +11,13 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeEntity;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Entity implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	//attributes
 	
 	@Id
 	private String id;
@@ -27,9 +27,9 @@ public class Entity implements Serializable{
 	private String description;
 	private Date release;
 	private String genre;
+	private TypeObject typeObject = TypeObject.ENTITY;
 	
-	private int typeObject = 1;
-	private int typeEntity;
+	private TypeEntity typeEntity;
 	private int season = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
@@ -55,13 +55,11 @@ public class Entity implements Serializable{
 	@JsonBackReference
 	private List<Post> posts = new ArrayList<>();
 	
-	//builders
-	
 	public Entity() {
 		super();
 	}
 	
-	public Entity(String name, String image, String description, Date release, String genre, int typeEntity) {
+	public Entity(String name, String image, String description, Date release, String genre, TypeEntity typeEntity) {
 		super();
 		this.name = name;
 		this.image = image;
@@ -71,17 +69,14 @@ public class Entity implements Serializable{
 		this.typeEntity = typeEntity;
 	}
 	
-	public Entity(EntityMiniDTO entityMiniDTO) {
+	public Entity(EntityDTO entityDTO) {
 		super();
-		this.name = entityMiniDTO.getName();
-		this.image = entityMiniDTO.getImage();
-		this.description = entityMiniDTO.getDescription();
-		this.genre = entityMiniDTO.getGenre();
-		this.typeEntity = entityMiniDTO.getTypeEntity();
+		this.name = entityDTO.getName();
+		this.image = entityDTO.getImage();
+		this.description = entityDTO.getDescription();
+		this.genre = entityDTO.getGenre();
+		this.typeEntity = entityDTO.getTypeEntity();
 	}
-
-	
-	//getters and setters
 
 	public String getId() {
 		return id;
@@ -102,7 +97,6 @@ public class Entity implements Serializable{
 	public void setImage(String image) {
 		this.image = image;
 	}
-
 
 	public String getDescription() {
 		return description;
@@ -176,16 +170,11 @@ public class Entity implements Serializable{
 		return posts;
 	}
 
-	public int getTypeObject() {
-		return typeObject;
-	}
-
-
-	public int getTypeEntity() {
+	public TypeEntity getTypeEntity() {
 		return typeEntity;
 	}
 
-	public void setTypeEntity(int typeEntity) {
+	public void setTypeEntity(TypeEntity typeEntity) {
 		this.typeEntity = typeEntity;
 	}
 
@@ -197,7 +186,9 @@ public class Entity implements Serializable{
 		this.genre = genre;
 	}
 	
-	//hashCode and equals
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 
 	@Override
 	public int hashCode() {
@@ -215,13 +206,4 @@ public class Entity implements Serializable{
 		Entity other = (Entity) obj;
 		return Objects.equals(id, other.id);
 	}
-
-	
-	
-
-	
-	
-	
-
-	
 }

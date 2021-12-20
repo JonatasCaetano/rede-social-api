@@ -3,6 +3,7 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Edition;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EditionMiniDTO {
 
@@ -15,6 +16,7 @@ public class EditionMiniDTO {
 	private Object previous;
 	private Object current;
 	private Date release;
+	private TypeObject typeObject = TypeObject.EDITION;
 	
 	public EditionMiniDTO() {
 		super();
@@ -103,5 +105,13 @@ public class EditionMiniDTO {
 
 	public void setAttribute(String attribute) {
 		this.attribute = attribute;
+	}
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
 	}
 }

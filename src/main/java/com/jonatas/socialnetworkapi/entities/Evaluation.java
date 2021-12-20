@@ -8,12 +8,11 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Evaluation implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	//attributes
 	
 	@Id
 	private String id;
@@ -21,6 +20,7 @@ public class Evaluation implements Serializable{
 	private int typeEntity;
 	private double value;
 	private Date release;
+	private TypeObject typeObject = TypeObject.EVALUATION;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -42,9 +42,6 @@ public class Evaluation implements Serializable{
 	@JsonManagedReference
 	private EntitySave entitySave;
 		
-	
-	//builders
-	
 	public Evaluation() {
 		super();
 	}
@@ -59,8 +56,6 @@ public class Evaluation implements Serializable{
 		this.release = release;
 		this.typeEntity = typeEntity;
 	}
-	
-	//getters and setters
 	
 	public User getUser() {
 		return user;
@@ -122,9 +117,7 @@ public class Evaluation implements Serializable{
 		this.typeEntity = typeEntity;
 	}
 
-	
-
-	
-	
-
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 }

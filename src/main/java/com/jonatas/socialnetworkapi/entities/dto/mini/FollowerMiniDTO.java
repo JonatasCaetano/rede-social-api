@@ -6,12 +6,14 @@ import java.util.List;
 
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class FollowerMiniDTO {
 
 	private String id;
 	private Date release;
 	private UserMiniDTO user;
+	private TypeObject typeObject = TypeObject.FOLLOWER;
 	private List<UserMiniDTO> following = new ArrayList<>();
 	
 	public FollowerMiniDTO() {
@@ -60,6 +62,12 @@ public class FollowerMiniDTO {
 			this.following.add(userMiniDTO);
 		}
 	}
-	
-	
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
+	}	
 }

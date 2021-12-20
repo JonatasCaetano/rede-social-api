@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Edition implements Serializable{
@@ -36,6 +37,7 @@ public class Edition implements Serializable{
 	private Object previous;
 	private Object current;
 	private String attribute;
+	private TypeObject typeObject = TypeObject.EDITION;
 	
 	public Edition() {
 		super();
@@ -129,5 +131,9 @@ public class Edition implements Serializable{
 
 	public void setTypeEntity(int typeEntity) {
 		this.typeEntity = typeEntity;
+	}
+	
+	public TypeObject getTypeObject() {
+		return typeObject;
 	}
 }

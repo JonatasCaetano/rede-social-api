@@ -1,10 +1,10 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Entity;
+import com.jonatas.socialnetworkapi.enuns.TypeEntity;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EntityMiniDTO {
-	
-	//attributes
 	
 	private String id;
 	private String name;
@@ -13,10 +13,9 @@ public class EntityMiniDTO {
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private int season = 0;
-	private int typeEntity = 1;
+	private TypeObject typeObject = TypeObject.ENTITY;
+	private TypeEntity typeEntity;
 	private String genre;
-	
-	//builders
 	
 	public EntityMiniDTO() {
 		super();
@@ -31,11 +30,10 @@ public class EntityMiniDTO {
 		this.evaluationAverage = entity.getEvaluationAverage();
 		this.season = entity.getSeason();
 		this.evaluationQuantity = entity.getEvaluationQuantity();
-		this.setGenre(entity.getGenre());
+		this.genre = entity.getGenre();
+		this.typeEntity = entity.getTypeEntity();
 	}
 	
-	//getters and setters
-
 	public String getId() {
 		return id;
 	}
@@ -100,14 +98,19 @@ public class EntityMiniDTO {
 		this.genre = genre;
 	}
 
-	public int getTypeEntity() {
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
+	}
+
+	public TypeEntity getTypeEntity() {
 		return typeEntity;
 	}
 
-	public void setTypeEntity(int typeEntity) {
+	public void setTypeEntity(TypeEntity typeEntity) {
 		this.typeEntity = typeEntity;
 	}
-	
-	
-	
 }
