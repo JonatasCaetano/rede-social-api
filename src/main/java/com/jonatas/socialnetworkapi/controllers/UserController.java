@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
-import com.jonatas.socialnetworkapi.entities.dto.UserUpdateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @RestController
@@ -96,52 +96,52 @@ public class UserController {
 	//put
 	
 	@PutMapping(value = "put/name")
-	public ResponseEntity<Void> updateName(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateName(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateName(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/email")
-	public ResponseEntity<Void> updateEmail(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateEmail(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateEmail(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/password")
-	public ResponseEntity<Void> updatePassword(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updatePassword(@RequestBody UserDTO userUpdateDTO){
 		return userService.updatePassword(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/image")
-	public ResponseEntity<Void> updateImage(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateImage(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateImage(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/description")
-	public ResponseEntity<Void> updateDescription(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateDescription(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateDescription(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/birthDate")
-	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateBirthDate(UserDTO userUpdateDTO){
 		return userService.updateBirthDate(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/city")
-	public ResponseEntity<Void> updateCity(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateCity(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateCity(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/privacy")
-	public ResponseEntity<Void> updatePrivacy(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updatePrivacy(@RequestBody UserDTO userUpdateDTO){
 		return userService.updatePrivacy(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/status")
-	public ResponseEntity<Void> updateStatus(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateStatus(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateStatus(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/checked")
-	public ResponseEntity<Void> updateChecked(@RequestBody UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateChecked(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateChecked(userUpdateDTO);
 	}
 	

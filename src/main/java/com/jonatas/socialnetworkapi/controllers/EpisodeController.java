@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.entities.dto.EpisodeCreateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.EpisodeDTO;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
 
 @RestController
@@ -52,7 +52,7 @@ public class EpisodeController {
 	//post
 	
 	@PostMapping(value = "post/season/{idSeason}/user/{idUser}")
-	public ResponseEntity<Object> newEpisode(@RequestBody EpisodeCreateDTO episodeCreateDTO, @PathVariable String idUser, @PathVariable String idSeason){
+	public ResponseEntity<Object> newEpisode(@RequestBody EpisodeDTO episodeCreateDTO, @PathVariable String idUser, @PathVariable String idSeason){
 		return episodeService.newEpisode(episodeCreateDTO, idUser, idSeason);
 	}
 	

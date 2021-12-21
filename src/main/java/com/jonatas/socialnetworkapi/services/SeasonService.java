@@ -18,7 +18,7 @@ import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.entities.dto.SeasonCreateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
@@ -142,7 +142,7 @@ public class SeasonService {
 	
 	//post
 	
-	public ResponseEntity<Object> newSeason(SeasonCreateDTO seasonCreateDTO, String idUser, String idEntity){
+	public ResponseEntity<Object> newSeason(SeasonDTO seasonCreateDTO, String idUser, String idEntity){
 		try {
 			User user = (User) userService.findById(idUser).getBody();
 			Entity entity = (Entity) entityService.findById(idEntity).getBody();

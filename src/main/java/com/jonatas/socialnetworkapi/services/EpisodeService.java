@@ -17,7 +17,7 @@ import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
-import com.jonatas.socialnetworkapi.entities.dto.EpisodeCreateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.EpisodeDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
@@ -123,7 +123,7 @@ public class EpisodeService {
 	
 	//post
 	
-	public ResponseEntity<Object> newEpisode(EpisodeCreateDTO episodeCreateDTO, String idUser, String idSeason){
+	public ResponseEntity<Object> newEpisode(EpisodeDTO episodeCreateDTO, String idUser, String idSeason){
 		try {
 			User user = (User) userService.findById(idUser).getBody();
 			Season season = (Season) seasonService.findById(idSeason).getBody();

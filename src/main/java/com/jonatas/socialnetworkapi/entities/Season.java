@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.entities.dto.SeasonCreateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -70,7 +70,7 @@ public class Season implements Serializable{
 		this.genre = genre;
 	}
 	
-	public Season(SeasonCreateDTO seasonCreateDTO) {
+	public Season(SeasonDTO seasonCreateDTO) {
 		super();
 		this.name = seasonCreateDTO.getName();
 		this.image = seasonCreateDTO.getImage();

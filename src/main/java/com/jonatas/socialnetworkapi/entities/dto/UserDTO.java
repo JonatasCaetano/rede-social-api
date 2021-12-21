@@ -2,7 +2,7 @@ package com.jonatas.socialnetworkapi.entities.dto;
 
 import java.util.Date;
 
-public class UserUpdateDTO {
+public class UserDTO {
 
 	private String idUser;
 	private String name;
@@ -16,11 +16,11 @@ public class UserUpdateDTO {
 	private boolean status = true;
 	private boolean checked = false;
 	
-	public UserUpdateDTO() {
+	public UserDTO() {
 		super();
 	}
 
-	public UserUpdateDTO(String id, String name, String email, String password, String image, String description,
+	public UserDTO(String id, String name, String email, String password, String image, String description,
 			Date birthDate, String city, boolean privacy, boolean status, boolean checked) {
 		super();
 		this.idUser = id;

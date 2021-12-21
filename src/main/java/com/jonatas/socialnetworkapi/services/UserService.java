@@ -18,7 +18,7 @@ import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
-import com.jonatas.socialnetworkapi.entities.dto.UserUpdateDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
@@ -248,7 +248,7 @@ public class UserService {
 	
 	//put
 	
-	public ResponseEntity<Void> updateName(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateName(UserDTO userUpdateDTO){
 		try {
 			String[] name = userUpdateDTO.getName().split(" ");
 			String name1 = name[0];
@@ -265,7 +265,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateEmail(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateEmail(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setEmail(userUpdateDTO.getEmail());
@@ -276,7 +276,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updatePassword(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updatePassword(UserDTO userUpdateDTO){
 		try {
 			if(userUpdateDTO.getPassword().length() < 6) {
 				return ResponseEntity.badRequest().build();
@@ -290,7 +290,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateImage(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateImage(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setImage(userUpdateDTO.getImage());
@@ -301,7 +301,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateDescription(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateDescription(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setDescription(userUpdateDTO.getDescription());
@@ -312,7 +312,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateBirthDate(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateBirthDate(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setBirthDate(userUpdateDTO.getBirthDate());
@@ -323,7 +323,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateCity(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateCity(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setCity(userUpdateDTO.getCity());
@@ -334,7 +334,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updatePrivacy(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updatePrivacy(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setPrivacy(userUpdateDTO.isPrivacy());
@@ -345,7 +345,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateStatus(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateStatus(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setStatus(userUpdateDTO.isStatus());
@@ -356,7 +356,7 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateChecked(UserUpdateDTO userUpdateDTO){
+	public ResponseEntity<Void> updateChecked(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setChecked(userUpdateDTO.isChecked());
