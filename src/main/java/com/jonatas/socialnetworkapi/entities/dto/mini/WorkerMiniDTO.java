@@ -4,15 +4,17 @@ import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
+import com.jonatas.socialnetworkapi.enuns.TypeWorker;
 
 public class WorkerMiniDTO {
 
 	private String id;
 	private Date release;
 	private String role;
+	private TypeWorker typeWorker;
+	private TypeObject typeObject = TypeObject.WORKER;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
-	private TypeObject typeObject = TypeObject.WORKER;
 	
 	public WorkerMiniDTO() {
 		super();
@@ -25,6 +27,7 @@ public class WorkerMiniDTO {
 		this.role = worker.getRole();
 		this.user = worker.getUser() != null ? new UserMiniDTO(worker.getUser()) : null;
 		this.entity = worker.getEntity() != null ? new EntityMiniDTO(worker.getEntity()) : null;
+		this.setTypeWorker(worker.getTypeWorker());
 	}
 
 	public String getId() {
@@ -73,6 +76,14 @@ public class WorkerMiniDTO {
 
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
+	}
+
+	public TypeWorker getTypeWorker() {
+		return typeWorker;
+	}
+
+	public void setTypeWorker(TypeWorker typeWorker) {
+		this.typeWorker = typeWorker;
 	}
 	
 	
