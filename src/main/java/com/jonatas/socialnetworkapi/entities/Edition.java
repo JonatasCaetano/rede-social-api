@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeEdition;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -32,19 +33,19 @@ public class Edition implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Episode episode;
-	private int typeEntity;
 	private Date release;
 	private Object previous;
 	private Object current;
 	private String attribute;
 	private TypeObject typeObject = TypeObject.EDITION;
+	private TypeEdition typeEdition;
 	
 	public Edition() {
 		super();
 	}
 
-	public Edition(int typeEntity, User user, Entity entity, Season season, Episode episode, Date release, Object previous,
-			Object current, String attribute) {
+	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previous,
+			Object current, String attribute, TypeEdition typeEdition) {
 		super();
 		this.user = user;
 		this.entity = entity;
@@ -54,7 +55,7 @@ public class Edition implements Serializable{
 		this.previous = previous;
 		this.current = current;
 		this.attribute = attribute;
-		this.typeEntity = typeEntity;
+		this.typeEdition = typeEdition;
 	}
 
 	public User getUser() {
@@ -124,16 +125,16 @@ public class Edition implements Serializable{
 	public String getId() {
 		return id;
 	}
-
-	public int getTypeEntity() {
-		return typeEntity;
-	}
-
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
-	}
 	
 	public TypeObject getTypeObject() {
 		return typeObject;
+	}
+
+	public TypeEdition getTypeEdition() {
+		return typeEdition;
+	}
+
+	public void setTypeEdition(TypeEdition typeEdition) {
+		this.typeEdition = typeEdition;
 	}
 }

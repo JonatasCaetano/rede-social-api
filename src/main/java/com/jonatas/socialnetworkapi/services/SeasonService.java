@@ -23,6 +23,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeEdition;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 
 @Service
@@ -182,11 +183,12 @@ public class SeasonService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			editionDTO.setTypeEdition(TypeEdition.SEASON);
 			editionDTO.setAttribute("name");
 			editionDTO.setPrevious(season.getName());
 			season.setName((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -207,7 +209,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getImage());
 			season.setImage((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -228,7 +230,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getDescription());
 			season.setDescription((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -249,7 +251,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getRelease());
 			season.setRelease((Date) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
@@ -270,7 +272,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getGenre());
 			season.setGenre((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(2, user, null, season, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);

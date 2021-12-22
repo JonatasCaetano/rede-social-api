@@ -25,6 +25,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeEdition;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 
 @Service
@@ -185,11 +186,12 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("name");
 			editionDTO.setPrevious(entity.getName());
 			entity.setName((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(1, user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -206,11 +208,12 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("image");
 			editionDTO.setPrevious(entity.getImage());
 			entity.setImage((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(1, user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -227,11 +230,12 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getUser()).get();
+			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("description");
 			editionDTO.setPrevious(entity.getDescription());
 			entity.setDescription((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(1, user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -248,11 +252,12 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("release");
 			editionDTO.setPrevious(entity.getRelease());
 			entity.setRelease((Date) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(1, user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
@@ -269,11 +274,12 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("genre");
 			editionDTO.setPrevious(entity.getGenre());
 			entity.setGenre((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(1, user, entity, null, null, editionDTO.getRelease(), editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			edition = (Edition) editionService.newEdition(edition).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);

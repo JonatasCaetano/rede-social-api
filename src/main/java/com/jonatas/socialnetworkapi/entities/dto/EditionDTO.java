@@ -2,6 +2,8 @@ package com.jonatas.socialnetworkapi.entities.dto;
 
 import java.util.Date;
 
+import com.jonatas.socialnetworkapi.enuns.TypeEdition;
+
 public class EditionDTO {
 
 	private String idUser;
@@ -12,14 +14,14 @@ public class EditionDTO {
 	private Object previous;
 	private Object current;
 	private String attribute;
-	private int typeEntity;
+	private TypeEdition typeEdition;
 	
 	public EditionDTO() {
 		super();
 	}
 
 	public EditionDTO(String user, String entity, String season, String episode, Date release, Object previous,
-			Object current, String attribute, int typeEntity) {
+			Object current, String attribute, TypeEdition typeEdition) {
 		super();
 		this.idUser = user;
 		this.idEntity = entity;
@@ -29,7 +31,7 @@ public class EditionDTO {
 		this.previous = previous;
 		this.current = current;
 		this.attribute = attribute;
-		this.typeEntity = typeEntity;
+		this.typeEdition = typeEdition;
 	}
 
 	public String getUser() {
@@ -96,14 +98,11 @@ public class EditionDTO {
 		this.attribute = attribute;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
+	public TypeEdition getTypeEdition() {
+		return typeEdition;
 	}
 
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public void setTypeEdition(TypeEdition typeEdition) {
+		this.typeEdition = typeEdition;
 	}
-	
-	
-
 }
