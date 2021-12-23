@@ -157,18 +157,19 @@ public class EpisodeService {
 	
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setTypeEdition(TypeEdition.EPISODE);
 			editionDTO.setAttribute("name");
 			editionDTO.setPrevious(episode.getName());
 			episode.setName((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
@@ -179,18 +180,19 @@ public class EpisodeService {
 	
 	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setTypeEdition(TypeEdition.EPISODE);
 			editionDTO.setAttribute("image");
 			editionDTO.setPrevious(episode.getImage());
 			episode.setImage((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
@@ -201,18 +203,19 @@ public class EpisodeService {
 	
 	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setTypeEdition(TypeEdition.EPISODE);
 			editionDTO.setAttribute("description");
 			editionDTO.setPrevious(episode.getDescription());
 			episode.setDescription((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
@@ -223,18 +226,19 @@ public class EpisodeService {
 	
 	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setTypeEdition(TypeEdition.EPISODE);
 			editionDTO.setAttribute("release");
 			editionDTO.setPrevious(episode.getRelease());
 			episode.setRelease((Date) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
@@ -246,18 +250,19 @@ public class EpisodeService {
 	
 	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Episode episode = episodeRepository.findById(editionDTO.getEpisode()).get();
+			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setTypeEdition(TypeEdition.EPISODE);
 			editionDTO.setAttribute("genre");
 			editionDTO.setPrevious(episode.getGenre());
 			episode.setGenre((String) editionDTO.getCurrent());
 			episodeRepository.save(episode);
 			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			episode.getEditions().add(edition);
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();

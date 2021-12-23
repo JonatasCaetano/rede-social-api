@@ -181,18 +181,19 @@ public class EntityService {
 	
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("name");
 			editionDTO.setPrevious(entity.getName());
 			entity.setName((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
@@ -203,18 +204,19 @@ public class EntityService {
 	
 	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("image");
 			editionDTO.setPrevious(entity.getImage());
 			entity.setImage((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
@@ -225,18 +227,19 @@ public class EntityService {
 	
 	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Entity entity = entityRepository.findById(editionDTO.getUser()).get();
+			Entity entity = entityRepository.findById(editionDTO.getIdUser()).get();
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("description");
 			editionDTO.setPrevious(entity.getDescription());
 			entity.setDescription((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
@@ -247,18 +250,19 @@ public class EntityService {
 	
 	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("release");
 			editionDTO.setPrevious(entity.getRelease());
 			entity.setRelease((Date) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();
@@ -269,18 +273,19 @@ public class EntityService {
 	
 	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Entity entity = entityRepository.findById(editionDTO.getEntity()).get();
+			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("genre");
 			editionDTO.setPrevious(entity.getGenre());
 			entity.setGenre((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
 			return ResponseEntity.accepted().build();

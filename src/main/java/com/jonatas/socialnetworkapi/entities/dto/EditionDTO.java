@@ -34,36 +34,36 @@ public class EditionDTO {
 		this.typeEdition = typeEdition;
 	}
 
-	public String getUser() {
+	public String getIdUser() {
 		return idUser;
 	}
 
-	public void setUser(String user) {
-		this.idUser = user;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getEntity() {
+	public String getIdEntity() {
 		return idEntity;
 	}
 
-	public void setEntity(String entity) {
-		this.idEntity = entity;
+	public void setIdEntity(String idEntity) {
+		this.idEntity = idEntity;
 	}
 
-	public String getSeason() {
+	public String getIdSeason() {
 		return idSeason;
 	}
 
-	public void setSeason(String season) {
-		this.idSeason = season;
+	public void setIdSeason(String idSeason) {
+		this.idSeason = idSeason;
 	}
 
-	public String getEpisode() {
+	public String getIdEpisode() {
 		return idEpisode;
 	}
 
-	public void setEpisode(String episode) {
-		this.idEpisode = episode;
+	public void setIdEpisode(String idEpisode) {
+		this.idEpisode = idEpisode;
 	}
 
 	public Date getRelease() {
@@ -105,4 +105,6 @@ public class EditionDTO {
 	public void setTypeEdition(TypeEdition typeEdition) {
 		this.typeEdition = typeEdition;
 	}
+
+	
 }

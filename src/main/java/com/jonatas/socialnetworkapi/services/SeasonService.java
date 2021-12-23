@@ -178,18 +178,19 @@ public class SeasonService {
 	
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setTypeEdition(TypeEdition.SEASON);
 			editionDTO.setAttribute("name");
 			editionDTO.setPrevious(season.getName());
 			season.setName((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
@@ -200,17 +201,18 @@ public class SeasonService {
 	
 	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setAttribute("image");
 			editionDTO.setPrevious(season.getImage());
 			season.setImage((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
@@ -221,17 +223,18 @@ public class SeasonService {
 	
 	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setAttribute("description");
 			editionDTO.setPrevious(season.getDescription());
 			season.setDescription((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
@@ -242,17 +245,18 @@ public class SeasonService {
 	
 	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setAttribute("release");
 			editionDTO.setPrevious(season.getRelease());
 			season.setRelease((Date) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
@@ -263,17 +267,18 @@ public class SeasonService {
 	
 	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
 		try {
-			User user = (User) userService.findById(editionDTO.getUser()).getBody();
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Season season = seasonRepository.findById(editionDTO.getSeason()).get();
+			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setAttribute("genre");
 			editionDTO.setPrevious(season.getGenre());
 			season.setGenre((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			edition = (Edition) editionService.newEdition(edition).getBody();
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
 			seasonRepository.save(season);
 			return ResponseEntity.accepted().build();
