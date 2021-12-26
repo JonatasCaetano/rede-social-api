@@ -89,10 +89,10 @@ public class FollowerService {
 	   }
 	}
 	
-	public ResponseEntity<Object> CheckFollowing(String userId, String FollowingId){
+	public ResponseEntity<Object> CheckFollowing(String userId, String followingId){
 		try {
 			User user = (User) userService.findById(userId).getBody();
-			User following = (User) userService.findById(FollowingId).getBody();
+			User following = (User) userService.findById(followingId).getBody();
 			List<User> followers = user.getFollower().getFollowing();
 			if(followers.contains(following)) {
 				return ResponseEntity.ok().build();
@@ -119,9 +119,9 @@ public class FollowerService {
 			}else {
 				follower.getFollowing().add(userFollowing);
 				followerRepository.save(follower);
-				userFollower.setFollowing(+ 1);
+				userFollower.setQuantityFollowing(+ 1);
 				userService.save(userFollower);
-				userFollowing.setFollowers(+ 1);
+				userFollowing.setQuantityFollowers(+ 1);
 				userService.save(userFollowing);
 				return ResponseEntity.accepted().build();
 			}
@@ -142,9 +142,9 @@ public class FollowerService {
 			}else {
 				follower.getFollowing().remove(userFollowing);
 				followerRepository.save(follower);
-				userFollower.setFollowing(- 1);
+				userFollower.setQuantityFollowing(- 1);
 				userService.save(userFollower);
-				userFollowing.setFollowers(- 1);
+				userFollowing.setQuantityFollowers(- 1);
 				userService.save(userFollowing);
 				return ResponseEntity.accepted().build();
 			}
@@ -152,7 +152,7 @@ public class FollowerService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-		
+			
 	//internal
 	
 	public ResponseEntity<Object> insert(Follower follower){

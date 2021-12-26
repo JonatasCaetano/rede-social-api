@@ -5,23 +5,21 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class UserMiniDTO {
 	
-	//attributes
-
 	private String id;
+	
 	private String name;
 	private String image;
 	private String description;
 	private String city;
-	private String email;
-	private String password;
+	
 	private boolean checked;
 	private boolean privacy;
 	private boolean status;
-	private int following = 0;
-	private int followers = 0;
+	
+	private int quantityFollowing = 0;
+	private int quantityFollowers = 0;
 	private TypeObject typeObject = TypeObject.USER;
 		
-	//builders
 	
 	public UserMiniDTO() {
 		super();
@@ -34,16 +32,12 @@ public class UserMiniDTO {
 		this.image = user.getImage();
 		this.description = user.getDescription();
 		this.city = user.getCity();
-		this.email = user.getEmail();
-		this.password = user.getPassword();
 		this.checked = user.isChecked();
-		this.following = user.getFollowing();
-		this.followers = user.getFollowers();
+		this.quantityFollowing = user.getQuantityFollowing();
+		this.quantityFollowers = user.getQuantityFollowers();
 		this.privacy = user.isPrivacy();
 		this.status = user.isStatus();
 	}
-	
-	//getters and setters
 
 	public String getId() {
 		return id;
@@ -76,7 +70,7 @@ public class UserMiniDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getCity() {
 		return city;
 	}
@@ -91,22 +85,6 @@ public class UserMiniDTO {
 
 	public void setChecked(boolean checked) {
 		this.checked = checked;
-	}
-
-	public int getFollowing() {
-		return following;
-	}
-
-	public void setFollowing(int following) {
-		this.following = following;
-	}
-
-	public int getFollowers() {
-		return followers;
-	}
-
-	public void setFollowers(int followers) {
-		this.followers = followers;
 	}
 
 	public boolean isPrivacy() {
@@ -125,20 +103,20 @@ public class UserMiniDTO {
 		this.status = status;
 	}
 
-	public String getEmail() {
-		return email;
+	public int getQuantityFollowing() {
+		return quantityFollowing;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setQuantityFollowing(int quantityFollowing) {
+		this.quantityFollowing = quantityFollowing;
 	}
 
-	public String getPassword() {
-		return password;
+	public int getQuantityFollowers() {
+		return quantityFollowers;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setQuantityFollowers(int quantityFollowers) {
+		this.quantityFollowers = quantityFollowers;
 	}
 
 	public TypeObject getTypeObject() {
@@ -148,4 +126,6 @@ public class UserMiniDTO {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
+	
+	
 }

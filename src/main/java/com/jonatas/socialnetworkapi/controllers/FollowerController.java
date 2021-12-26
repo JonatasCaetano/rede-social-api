@@ -40,9 +40,9 @@ public class FollowerController {
 		return followerService.getAllFollowerMini(userId);
 	}
 	
-	@GetMapping(value = "get/check/following/user/{userId}/following/{FollowingId}")
-	public ResponseEntity<Object> CheckFollowing(@PathVariable String userId, @PathVariable String FollowingId){
-		return followerService.CheckFollowing(userId, FollowingId);
+	@GetMapping(value = "get/check/following/user/{followerId}/following/{followingId}")
+	public ResponseEntity<Object> CheckFollowing(@PathVariable String followerId, @PathVariable String followingId){
+		return followerService.CheckFollowing(followerId, followingId);
 	}
 	
 	//post

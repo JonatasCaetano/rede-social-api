@@ -32,8 +32,8 @@ public class User implements Serializable{
 	private boolean status = true;
 	
 	private boolean checked = false;
-	private int following = 0;
-	private int followers = 0;
+	private int quantityFollowing = 0;
+	private int quantityFollowers = 0;
 	private Date release;
 	private TypeObject typeObject = TypeObject.USER;
 	
@@ -174,23 +174,23 @@ public class User implements Serializable{
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
-
-	public int getFollowing() {
-		return following;
+		
+	public int getQuantityFollowing() {
+		return quantityFollowing;
 	}
 
-	public void setFollowing(int following) {
-		this.following += following;
+	public void setQuantityFollowing(int quantityFollowing) {
+		this.quantityFollowing += quantityFollowing;
 	}
 
-	public int getFollowers() {
-		return followers;
+	public int getQuantityFollowers() {
+		return quantityFollowers;
 	}
 
-	public void setFollowers(int followers) {
-		this.followers += followers;
+	public void setQuantityFollowers(int quantityFollowers) {
+		this.quantityFollowers += quantityFollowers;
 	}
-	
+
 	public Date getRelease() {
 		return release;
 	}
