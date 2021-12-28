@@ -222,6 +222,7 @@ public class UserService {
 	
 	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){
 		try {
+			checkEmail(userCreation.getEmail());
 			User obj = userRepository.insert(new User(userCreation));
 			invitationService.addInvited(obj, userCreation.getInvitationValue());		
 			Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
