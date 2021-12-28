@@ -105,8 +105,8 @@ public class InvitationService {
 					invitationTotal = invitationFirst + invitationLast;
 				}
 				Invitation invitation = new Invitation(null, user, invitationTotal);
-				Invitation result = invitationRepository.insert(invitation);
-				user.setInvitation(result);
+				invitation = invitationRepository.insert(invitation);
+				user.setInvitation(invitation);
 				userService.save(user);
 				return ResponseEntity.created(null).build();
 

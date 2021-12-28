@@ -61,15 +61,17 @@ public class InvitationMiniDTO {
 	public void setUser(UserMiniDTO user) {
 		this.user = user;
 	}
-
+	
 	public List<UserMiniDTO> getInvited() {
 		return invited;
 	}
 
 	public void setInvited(List<User> invited) {
 		for(User user : invited) {
-			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-			this.invited.add(userMiniDTO);
+			if(user != null) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+				this.invited.add(userMiniDTO);
+			}
 		}
 	}
 

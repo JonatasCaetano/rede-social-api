@@ -58,8 +58,10 @@ public class FollowerMiniDTO {
 
 	public void setFollowing(List<User> following) {
 		for(User user : following) {
-			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-			this.following.add(userMiniDTO);
+			if(user != null) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+				this.following.add(userMiniDTO);
+			}
 		}
 	}
 
