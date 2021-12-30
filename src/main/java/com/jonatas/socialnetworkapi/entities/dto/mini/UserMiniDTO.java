@@ -10,7 +10,7 @@ public class UserMiniDTO {
 	private String name;
 	private String image;
 	private String description;
-	private String city;
+	private String place;
 	
 	private boolean checked;
 	private boolean privacy;
@@ -31,7 +31,7 @@ public class UserMiniDTO {
 		this.name = user.getName();
 		this.image = user.getImage();
 		this.description = user.getDescription();
-		this.city = user.getCity();
+		this.place = user.getPlace();
 		this.checked = user.isChecked();
 		this.quantityFollowing = user.getQuantityFollowing();
 		this.quantityFollowers = user.getQuantityFollowers();
@@ -71,12 +71,12 @@ public class UserMiniDTO {
 		this.description = description;
 	}
 
-	public String getCity() {
-		return city;
+	public String getPlace() {
+		return place;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setPlace(String place) {
+		this.place = place;
 	}
 
 	public boolean isChecked() {

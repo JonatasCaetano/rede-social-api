@@ -125,9 +125,9 @@ public class UserController {
 		return userService.updateBirthDate(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/city")
-	public ResponseEntity<Void> updateCity(@RequestBody UserDTO userUpdateDTO){
-		return userService.updateCity(userUpdateDTO);
+	@PutMapping(value = "put/place")
+	public ResponseEntity<Void> updatePlace(@RequestBody UserDTO userUpdateDTO){
+		return userService.updatePlace(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/privacy")

@@ -11,7 +11,7 @@ public class UserDTO {
 	private String image;
 	private String description;
 	private Date birthDate;
-	private String city;
+	private String place;
 	private boolean privacy = false;
 	private boolean status = true;
 	private boolean checked = false;
@@ -21,7 +21,7 @@ public class UserDTO {
 	}
 
 	public UserDTO(String id, String name, String email, String password, String image, String description,
-			Date birthDate, String city, boolean privacy, boolean status, boolean checked) {
+			Date birthDate, String place, boolean privacy, boolean status, boolean checked) {
 		super();
 		this.idUser = id;
 		this.name = name;
@@ -30,7 +30,7 @@ public class UserDTO {
 		this.image = image;
 		this.description = description;
 		this.birthDate = birthDate;
-		this.city = city;
+		this.place = place;
 		this.privacy = privacy;
 		this.status = status;
 		this.checked = checked;
@@ -92,12 +92,12 @@ public class UserDTO {
 		this.birthDate = birthDate;
 	}
 
-	public String getCity() {
-		return city;
+	public String getPlace() {
+		return place;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setPlace(String place) {
+		this.place = place;
 	}
 
 	public boolean isPrivacy() {

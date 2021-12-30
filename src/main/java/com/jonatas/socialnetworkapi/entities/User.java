@@ -27,7 +27,7 @@ public class User implements Serializable{
 	private String image;
 	private String description;
 	private Date birthDate;
-	private String city;
+	private String place;
 	private boolean privacy = false;
 	private boolean status = true;
 	
@@ -69,7 +69,7 @@ public class User implements Serializable{
 		super();
 	}
 	
-	public User(String name, String email, String password, String image, String description, Date release, String city) {
+	public User(String name, String email, String password, String image, String description, Date release, String place) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -77,7 +77,7 @@ public class User implements Serializable{
 		this.image = image;
 		this.description = description;
 		this.release = release;
-		this.city = city;
+		this.place = place;
 	}
 		
 	public User(UserCreationDTO userCreation) {
@@ -198,15 +198,15 @@ public class User implements Serializable{
 	public void setRelease(Date release) {
 		this.release = release;
 	}
-		
-	public String getCity() {
-		return city;
+				
+	public String getPlace() {
+		return place;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setPlace(String place) {
+		this.place = place;
 	}
-		
+
 	public Date getBirthDate() {
 		return birthDate;
 	}

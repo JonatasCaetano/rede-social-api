@@ -324,10 +324,10 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateCity(UserDTO userUpdateDTO){
+	public ResponseEntity<Void> updatePlace(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
-			user.setCity(userUpdateDTO.getCity());
+			user.setPlace(userUpdateDTO.getPlace());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
