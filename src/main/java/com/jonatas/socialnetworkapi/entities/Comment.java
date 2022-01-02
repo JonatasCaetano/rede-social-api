@@ -1,7 +1,9 @@
 package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -19,6 +21,11 @@ public class Comment implements Serializable{
 	private Date release;
 	private String body;
 	private TypeObject typeObject = TypeObject.COMMENT;
+	private int LikeQuantity = 0;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	List<User> likes = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference

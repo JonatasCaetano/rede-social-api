@@ -13,5 +13,6 @@ public enum TypeObject {
 	EVALUATION,
 	ENTITY_SAVE,
 	EDITION,
-	COMMENT,		
+	COMMENT,
+	TALK;
 }

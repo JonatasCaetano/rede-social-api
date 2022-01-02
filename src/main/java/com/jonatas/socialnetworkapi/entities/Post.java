@@ -24,6 +24,7 @@ public class Post implements Serializable{
 	private String body;
 	private int category;
 	private TypeObject typeObject = TypeObject.POST;
+	private int LikeQuantity = 0;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference

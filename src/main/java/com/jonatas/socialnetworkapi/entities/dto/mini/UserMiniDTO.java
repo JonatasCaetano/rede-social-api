@@ -12,6 +12,8 @@ public class UserMiniDTO {
 	private String description;
 	private String place;
 	
+	private String email;
+	
 	private boolean checked;
 	private boolean privacy;
 	private boolean status;
@@ -32,6 +34,7 @@ public class UserMiniDTO {
 		this.image = user.getImage();
 		this.description = user.getDescription();
 		this.place = user.getPlace();
+		this.email = user.getEmail();
 		this.checked = user.isChecked();
 		this.quantityFollowing = user.getQuantityFollowing();
 		this.quantityFollowers = user.getQuantityFollowers();
@@ -126,6 +129,15 @@ public class UserMiniDTO {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	
 	
 }
