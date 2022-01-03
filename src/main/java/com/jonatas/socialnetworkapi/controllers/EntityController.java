@@ -64,6 +64,7 @@ public class EntityController {
 	@PostMapping(value = "/post/entity/user/{id}")
 	public ResponseEntity<Object> createEntity(@RequestBody EntityDTO entityDTO, @PathVariable String id){
 		return entityService.createEntity(entityDTO, id);
+		
 	}
 	
 	//put
@@ -78,19 +79,24 @@ public class EntityController {
 		return entityService.updateDescription(editionDTO);
 	}
 	
-	@PutMapping(value = "put/release")
-	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
-		return entityService.updateRelease(editionDTO);
+	@PutMapping(value = "put/add/images")
+	public ResponseEntity<Void> addImages(@RequestBody EditionDTO editionDTO){
+		return entityService.addImages(editionDTO);
 	}
 	
-	@PutMapping(value = "put/images")
-	public ResponseEntity<Void> updateImages(@RequestBody EditionDTO editionDTO){
-		return entityService.updateImages(editionDTO);
+	@PutMapping(value = "put/remove/images")
+	public ResponseEntity<Void> removeImages(@RequestBody EditionDTO editionDTO){
+		return entityService.removeImages(editionDTO);
 	}
 	
-	@PutMapping(value = "put/information")
-	public ResponseEntity<Void> updateInformation(@RequestBody EditionDTO editionDTO){
-		return entityService.updateInformation(editionDTO);
+	@PutMapping(value = "put/add/information")
+	public ResponseEntity<Void> addInformation(@RequestBody EditionDTO editionDTO){
+		return entityService.addInformation(editionDTO);
+	}
+	
+	@PutMapping(value = "put/remove/information")
+	public ResponseEntity<Void> removeInformation(@RequestBody EditionDTO editionDTO){
+		return entityService.removeInformation(editionDTO);
 	}
 	
 

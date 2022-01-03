@@ -25,7 +25,6 @@ public class Entity implements Serializable{
 	
 	private String name;
 	private String description;
-	private Date release;
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private TypeEntity typeEntity;
 	private int seasonQuantity = 0;
@@ -63,7 +62,6 @@ public class Entity implements Serializable{
 		super();
 		this.name = name;
 		this.description = description;
-		this.release = release;
 		this.typeEntity = typeEntity;
 	}
 	
@@ -93,15 +91,7 @@ public class Entity implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public Date getRelease() {
-		return release;
-	}
-
-	public void setRelease(Date release) {
-		this.release = release;
-	}
-	
+		
 	public List<Worker> getWorkers() {
 		return workers;
 	}
