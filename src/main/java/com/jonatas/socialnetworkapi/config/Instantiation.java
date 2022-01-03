@@ -90,11 +90,11 @@ public class Instantiation implements CommandLineRunner{
 		followerRepository.deleteAll();
 		invitationRepository.deleteAll();
 		entityRepository.deleteAll();
-//		seasonRepository.deleteAll();
-//		episodeRepository.deleteAll();
-//		evaluationRepository.deleteAll();
-//		editionRepository.deleteAll();
-//		entitySaveRepository.deleteAll();
+		seasonRepository.deleteAll();
+		episodeRepository.deleteAll();
+		evaluationRepository.deleteAll();
+		editionRepository.deleteAll();
+		entitySaveRepository.deleteAll();
 		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal", null, "Bauru");//123456
 		userRepository.insert(user1);	
 		invitationService.createdInvitation(user1);

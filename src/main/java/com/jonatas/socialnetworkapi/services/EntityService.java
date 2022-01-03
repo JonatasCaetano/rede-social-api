@@ -214,7 +214,7 @@ public class EntityService {
 			editionDTO.setPrevious(entity.getImages());
 			entity.getImages().add(((String) editionDTO.getCurrent()));
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getImages(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
@@ -237,7 +237,7 @@ public class EntityService {
 			editionDTO.setPrevious(entity.getImages());
 			entity.getImages().remove((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getImages(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
@@ -284,7 +284,7 @@ public class EntityService {
 			editionDTO.setPrevious(entity.getInformation());
 			entity.getInformation().add((Map<String, String>)  editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getInformation(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
@@ -308,7 +308,7 @@ public class EntityService {
 			editionDTO.setPrevious(entity.getInformation());
 			entity.getInformation().remove((Map<String, String>)  editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getInformation(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
