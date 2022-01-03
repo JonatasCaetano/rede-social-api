@@ -2,10 +2,12 @@ package com.jonatas.socialnetworkapi.entities.dto;
 
 import java.util.Date;
 
+import com.jonatas.socialnetworkapi.enuns.TypePost;
+
 public class PostDTO {
 
 	private String idPost;
-	private int typeEntity = 1;
+	private TypePost typePost;
 	private Date release;
 	private String body;
 	private int category;
@@ -20,10 +22,10 @@ public class PostDTO {
 		super();
 	}
 
-	public PostDTO(int typeEntity, Date release, String body, int category, String user, String entity, String season,
+	public PostDTO(TypePost typePost, Date release, String body, int category, String user, String entity, String season,
 			String episode) {
 		super();
-		this.typeEntity = typeEntity;
+		this.typePost = typePost;
 		this.release = release;
 		this.body = body;
 		this.category = category;
@@ -41,12 +43,12 @@ public class PostDTO {
 		this.idPost = idPost;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
+	public TypePost getTypePost() {
+		return typePost;
 	}
 
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public void setTypePost(TypePost typePost) {
+		this.typePost = typePost;
 	}
 
 	public Date getRelease() {

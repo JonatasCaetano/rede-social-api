@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
+import com.jonatas.socialnetworkapi.enuns.TypePost;
 
 @Document
 public class Post implements Serializable{
@@ -19,12 +20,12 @@ public class Post implements Serializable{
 	
 	@Id
 	private String id;
-	private int typeEntity;
+	private TypePost typePost;
 	private Date release;
 	private String body;
 	private int category;
 	private TypeObject typeObject = TypeObject.POST;
-	private int LikeQuantity = 0;
+	private int likeQuantity = 0;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -54,10 +55,10 @@ public class Post implements Serializable{
 		super();
 	}
 
-	public Post(int typeEntity, Date release, String body, int category, User user, Entity entity, Season season,
+	public Post(TypePost typePost, Date release, String body, int category, User user, Entity entity, Season season,
 			Episode episode) {
 		super();
-		this.typeEntity = typeEntity;
+		this.typePost = typePost;
 		this.release = release;
 		this.body = body;
 		this.category = category;
@@ -131,20 +132,28 @@ public class Post implements Serializable{
 		return comments;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
-	}
-
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
-	}
-
 	public List<User> getLikes() {
 		return likes;
 	}
 
 	public TypeObject getTypeObject() {
 		return typeObject;
+	}
+
+	public int getLikeQuantity() {
+		return likeQuantity;
+	}
+
+	public void setLikeQuantity(int likeQuantity) {
+		this.likeQuantity += likeQuantity;
+	}
+
+	public TypePost getTypePost() {
+		return typePost;
+	}
+
+	public void setTypePost(TypePost typePost) {
+		this.typePost = typePost;
 	}
 
 	@Override

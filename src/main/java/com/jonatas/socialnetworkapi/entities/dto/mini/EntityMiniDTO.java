@@ -1,5 +1,9 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -8,32 +12,34 @@ public class EntityMiniDTO {
 	
 	private String id;
 	private String name;
-	private String image;
 	private String description;
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
-	private int season = 0;
+	private int seasonQuantity = 0;
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private TypeEntity typeEntity;
-	private String genre;
+	private List<String> images = new ArrayList<>();
+	private List<Map<String, String>> information = new ArrayList<>();
 	
 	public EntityMiniDTO() {
 		super();
 	}
-
+	
 	public EntityMiniDTO(Entity entity) {
 		super();
 		this.id = entity.getId();
 		this.name = entity.getName();
-		this.image = entity.getImage();
 		this.description = entity.getDescription();
-		this.evaluationAverage = entity.getEvaluationAverage();
-		this.season = entity.getSeason();
 		this.evaluationQuantity = entity.getEvaluationQuantity();
-		this.genre = entity.getGenre();
+		this.evaluationAverage = entity.getEvaluationAverage();
+		this.seasonQuantity = entity.getSeasonQuantity();
+		this.typeObject = entity.getTypeObject();
 		this.typeEntity = entity.getTypeEntity();
+		this.images = entity.getImages();
+		this.information = entity.getInformation();
 	}
-	
+
+
 	public String getId() {
 		return id;
 	}
@@ -48,14 +54,6 @@ public class EntityMiniDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public String getDescription() {
@@ -82,20 +80,12 @@ public class EntityMiniDTO {
 		this.evaluationAverage = evaluationAverage;
 	}
 
-	public int getSeason() {
-		return season;
+	public int getSeasonQuantity() {
+		return seasonQuantity;
 	}
 
-	public void setSeason(int season) {
-		this.season = season;
-	}
-
-	public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setSeasonQuantity(int seasonQuantity) {
+		this.seasonQuantity = seasonQuantity;
 	}
 
 	public TypeObject getTypeObject() {
@@ -113,4 +103,21 @@ public class EntityMiniDTO {
 	public void setTypeEntity(TypeEntity typeEntity) {
 		this.typeEntity = typeEntity;
 	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
+	}
+
+	public List<Map<String, String>> getInformation() {
+		return information;
+	}
+
+	public void setInformation(List<Map<String, String>> information) {
+		this.information = information;
+	}
+	
 }

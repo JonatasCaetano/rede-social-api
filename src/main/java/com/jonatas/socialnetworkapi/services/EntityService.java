@@ -3,6 +3,7 @@ package com.jonatas.socialnetworkapi.services;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -202,7 +203,7 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+	public ResponseEntity<Void> updateImages(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
@@ -211,8 +212,8 @@ public class EntityService {
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevious(entity.getImage());
-			entity.setImage((String) editionDTO.getCurrent());
+			editionDTO.setPrevious(entity.getImages());
+			entity.getImages().add(((String) editionDTO.getCurrent()));
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
@@ -271,7 +272,8 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
+	@SuppressWarnings("unchecked")
+	public ResponseEntity<Void> updateInformation(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
@@ -279,9 +281,9 @@ public class EntityService {
 			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
-			editionDTO.setAttribute("genre");
-			editionDTO.setPrevious(entity.getGenre());
-			entity.setGenre((String) editionDTO.getCurrent());
+			editionDTO.setAttribute("information");
+			editionDTO.setPrevious(entity.getInformation());
+			entity.getInformation().add((Map<String, String>)  editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
@@ -293,7 +295,7 @@ public class EntityService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
+		
 	//internal
 	
 	public ResponseEntity<Object> findById(String id){

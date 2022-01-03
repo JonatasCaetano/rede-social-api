@@ -158,7 +158,7 @@ public class SeasonService {
 						season.setEntity(entity);
 						season = seasonRepository.insert(season);
 						entity.getSeasons().add(season);
-						entity.setSeason(1);
+						entity.setSeasonQuantity(1);
 						entityService.save(entity);
 						SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
 						return ResponseEntity.created(null).body(seasonMiniDTO);

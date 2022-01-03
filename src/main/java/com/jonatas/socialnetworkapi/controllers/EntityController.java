@@ -72,12 +72,7 @@ public class EntityController {
 	public ResponseEntity<Void> updateName(@RequestBody EditionDTO editionDTO){
 		return entityService.updateName(editionDTO);
 	}
-	
-	@PutMapping(value = "put/image")
-	public ResponseEntity<Void> updateImage(@RequestBody EditionDTO editionDTO){
-		return entityService.updateImage(editionDTO);
-	}
-	
+		
 	@PutMapping(value = "put/description")
 	public ResponseEntity<Void> updateDescription(@RequestBody EditionDTO editionDTO){
 		return entityService.updateDescription(editionDTO);
@@ -88,9 +83,15 @@ public class EntityController {
 		return entityService.updateRelease(editionDTO);
 	}
 	
-	@PutMapping(value = "put/genre")
-	public ResponseEntity<Void> updateGenre(@RequestBody EditionDTO editionDTO){
-		return entityService.updateGenre(editionDTO);
+	@PutMapping(value = "put/images")
+	public ResponseEntity<Void> updateImages(@RequestBody EditionDTO editionDTO){
+		return entityService.updateImages(editionDTO);
 	}
+	
+	@PutMapping(value = "put/information")
+	public ResponseEntity<Void> updateInformation(@RequestBody EditionDTO editionDTO){
+		return entityService.updateInformation(editionDTO);
+	}
+	
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
@@ -23,17 +24,16 @@ public class Entity implements Serializable{
 	private String id;
 	
 	private String name;
-	private String image;
 	private String description;
 	private Date release;
-	private String genre;
 	private TypeObject typeObject = TypeObject.ENTITY;
-	
 	private TypeEntity typeEntity;
-	private int season = 0;
+	private int seasonQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
+	private List<String> images = new ArrayList<>();
+	private List<Map<String, String>> information = new ArrayList<>();
 		
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -59,22 +59,18 @@ public class Entity implements Serializable{
 		super();
 	}
 	
-	public Entity(String name, String image, String description, Date release, String genre, TypeEntity typeEntity) {
+	public Entity(String name, String description, Date release, TypeEntity typeEntity) {
 		super();
 		this.name = name;
-		this.image = image;
 		this.description = description;
 		this.release = release;
-		this.genre = genre;
 		this.typeEntity = typeEntity;
 	}
 	
 	public Entity(EntityDTO entityDTO) {
 		super();
 		this.name = entityDTO.getName();
-		this.image = entityDTO.getImage();
 		this.description = entityDTO.getDescription();
-		this.genre = entityDTO.getGenre();
 		this.typeEntity = entityDTO.getTypeEntity();
 	}
 
@@ -90,14 +86,6 @@ public class Entity implements Serializable{
 		this.name = name;
 	}
 	
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -121,15 +109,15 @@ public class Entity implements Serializable{
 	public List<Season> getSeasons() {
 		return seasons;
 	}
-
-	public int getSeason() {
-		return season;
+	
+	public int getSeasonQuantity() {
+		return seasonQuantity;
 	}
 
-	public void setSeason(int season) {
-		this.season += season;
+	public void setSeasonQuantity(int seasonQuantity) {
+		this.seasonQuantity += seasonQuantity;
 	}
-			
+
 	public double getEvaluationAverage() {
 		return evaluationAverage;
 	}
@@ -178,16 +166,16 @@ public class Entity implements Serializable{
 		this.typeEntity = typeEntity;
 	}
 
-	public String getGenre() {
-		return genre;
-	}
-	
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
-	
 	public TypeObject getTypeObject() {
 		return typeObject;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+	
+	public List<Map<String, String>> getInformation() {
+		return information;
 	}
 
 	@Override
@@ -206,4 +194,5 @@ public class Entity implements Serializable{
 		Entity other = (Entity) obj;
 		return Objects.equals(id, other.id);
 	}
+
 }

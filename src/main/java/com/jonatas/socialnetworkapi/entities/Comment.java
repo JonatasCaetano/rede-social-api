@@ -21,7 +21,7 @@ public class Comment implements Serializable{
 	private Date release;
 	private String body;
 	private TypeObject typeObject = TypeObject.COMMENT;
-	private int LikeQuantity = 0;
+	private int likeQuantity = 0;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -86,4 +86,14 @@ public class Comment implements Serializable{
 	public TypeObject getTypeObject() {
 		return typeObject;
 	}
+
+	public int getLikeQuantity() {
+		return likeQuantity;
+	}
+
+	public void setLikeQuantity(int likeQuantity) {
+		this.likeQuantity += likeQuantity;
+	}
+	
+	
 }
