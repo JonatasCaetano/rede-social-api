@@ -209,16 +209,28 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
+			List<String> list = new ArrayList<>();
+			for(String image : entity.getImages()) {	
+				list.add(image);
+			}
+			editionDTO.setPrevious(list);
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevious(entity.getImages());
-			entity.getImages().add(((String) editionDTO.getCurrent()));
+			entity.getImages().add((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getImages(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			editionDTO.setCurrent(entity.getImages());
+			
+			
+			System.out.println(editionDTO.getPrevious());
+			System.out.println(editionDTO.getCurrent());
+			
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
+			
 			entity.getEditions().add(edition);
 			entityRepository.save(entity);
+			
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
@@ -232,9 +244,13 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
+			List<String> list = new ArrayList<>();
+			for(String image : entity.getImages()) {	
+				list.add(image);
+			}
+			editionDTO.setPrevious(list);
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevious(entity.getImages());
 			entity.getImages().remove((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getImages(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
@@ -279,9 +295,13 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
+			List<Map<String, String>> list = new ArrayList<>();
+			for(Map<String, String> information : entity.getInformation()) {	
+				list.add(information);
+			}
+			editionDTO.setPrevious(list);
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("information");
-			editionDTO.setPrevious(entity.getInformation());
 			entity.getInformation().add((Map<String, String>)  editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getInformation(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
@@ -303,9 +323,13 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
+			List<Map<String, String>> list = new ArrayList<>();
+			for(Map<String, String> information : entity.getInformation()) {	
+				list.add(information);
+			}
+			editionDTO.setPrevious(list);
 			editionDTO.setTypeEdition(TypeEdition.ENTITY);
 			editionDTO.setAttribute("information");
-			editionDTO.setPrevious(entity.getInformation());
 			entity.getInformation().remove((Map<String, String>)  editionDTO.getCurrent());
 			entityRepository.save(entity);
 			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getInformation(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
