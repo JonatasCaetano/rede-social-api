@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.entities.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -23,13 +21,11 @@ public class Season implements Serializable{
 	private String id;
 	
 	private String name;
-	private String image;
-	private String description;
-	private Date release;
-	private String genre;
+	private List<String> images = new ArrayList<>();
+	private String description;	
+	private int numberSeason;
 	
-	private int number;
-	private int episode = 0;
+	private int episodeQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
@@ -59,28 +55,36 @@ public class Season implements Serializable{
 		super();
 	}
 
-	public Season(String name, String image, String description, Date release, int number, Entity entity, String genre) {
+	public Season(String name, String description, int numberSeason, Entity entity) {
 		super();
 		this.name = name;
-		this.image = image;
 		this.description = description;
-		this.release = release;
-		this.number = number;
+		this.numberSeason = numberSeason;
 		this.entity = entity;
-		this.genre = genre;
 	}
 	
-	public Season(SeasonDTO seasonCreateDTO) {
-		super();
-		this.name = seasonCreateDTO.getName();
-		this.image = seasonCreateDTO.getImage();
-		this.description = seasonCreateDTO.getDescription();
-		this.release = seasonCreateDTO.getRelease();
-		this.number = seasonCreateDTO.getNumber();
-	}
-
 	public String getId() {
 		return id;
+	}
+	
+	public int getNumberSeason() {
+		return numberSeason;
+	}
+
+	public void setNumberSeason(int numberSeason) {
+		this.numberSeason = numberSeason;
+	}
+
+	public int getEpisodeQuantity() {
+		return episodeQuantity;
+	}
+
+	public void setEpisodeQuantity(int episodeQuantity) {
+		this.episodeQuantity += episodeQuantity;
+	}
+
+	public List<String> getImages() {
+		return images;
 	}
 
 	public String getName() {
@@ -91,36 +95,12 @@ public class Season implements Serializable{
 		this.name = name;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Date getRelease() {
-		return release;
-	}
-
-	public void setRelease(Date release) {
-		this.release = release;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 	public Entity getEntity() {
@@ -131,14 +111,6 @@ public class Season implements Serializable{
 		this.entity = entity;
 	}
 
-	public int getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(int episode) {
-		this.episode += episode;
-	}
-	
 	public List<Episode> getEpisodes() {
 		return episodes;
 	}
@@ -182,14 +154,6 @@ public class Season implements Serializable{
 	public List<Post> getPosts() {
 		return posts;
 	}
-
-	public String getGenre() {
-		return genre;
-	}
-		
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}
 	
 	public TypeObject getTypeObject() {
 		return typeObject;
@@ -197,7 +161,7 @@ public class Season implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(number);
+		return Objects.hash(numberSeason);
 	}
 
 	@Override
@@ -209,6 +173,6 @@ public class Season implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Season other = (Season) obj;
-		return number == other.number;
+		return numberSeason == other.numberSeason;
 	}
 }

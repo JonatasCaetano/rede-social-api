@@ -79,14 +79,14 @@ public class EntityController {
 		return entityService.updateDescription(editionDTO);
 	}
 	
-	@PutMapping(value = "put/add/images")
-	public ResponseEntity<Void> addImages(@RequestBody EditionDTO editionDTO){
-		return entityService.addImages(editionDTO);
+	@PutMapping(value = "put/add/image")
+	public ResponseEntity<Void> addImage(@RequestBody EditionDTO editionDTO){
+		return entityService.addImage(editionDTO);
 	}
 	
-	@PutMapping(value = "put/remove/images")
-	public ResponseEntity<Void> removeImages(@RequestBody EditionDTO editionDTO){
-		return entityService.removeImages(editionDTO);
+	@PutMapping(value = "put/remove/image")
+	public ResponseEntity<Void> removeImage(@RequestBody EditionDTO editionDTO){
+		return entityService.removeImage(editionDTO);
 	}
 	
 	@PutMapping(value = "put/add/information")

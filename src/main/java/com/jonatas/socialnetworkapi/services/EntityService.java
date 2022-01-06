@@ -202,7 +202,7 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> addImages(EditionDTO editionDTO){
+	public ResponseEntity<Void> addImage(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
@@ -237,7 +237,7 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Void> removeImages(EditionDTO editionDTO){
+	public ResponseEntity<Void> removeImage(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {

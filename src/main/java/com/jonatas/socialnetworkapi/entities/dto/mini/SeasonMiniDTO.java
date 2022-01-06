@@ -1,23 +1,24 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class SeasonMiniDTO {
 
-	//attributes
-	
+
 	private String id;
 	private String name;
-	private String image;
+	private List<String> images = new ArrayList<>();
 	private String description;
-	private int number;
+	private int numberSeason;
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
-	private int episode = 0;
+	private int episodeQuantity = 0;
 	private TypeObject typeObject = TypeObject.SEASON;
 	
-	//builders
 		
 	public SeasonMiniDTO() {
 		super();
@@ -27,15 +28,13 @@ public class SeasonMiniDTO {
 		super();
 		this.id = season.getId();
 		this.name = season.getName();
-		this.image = season.getImage();
+		this.images = season.getImages();
 		this.description = season.getDescription();
-		this.number = season.getNumber();
+		this.numberSeason = season.getNumberSeason();
 		this.evaluationAverage = season.getEvaluationAverage();
-		this.episode = season.getEpisode();
+		this.episodeQuantity = season.getEpisodeQuantity();
 		this.evaluationQuantity = season.getEvaluationQuantity();
 	}
-	
-	//getters and setters
 
 	public String getId() {
 		return id;
@@ -53,12 +52,12 @@ public class SeasonMiniDTO {
 		this.name = name;
 	}
 
-	public String getImage() {
-		return image;
+	public List<String> getImages() {
+		return images;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 
 	public String getDescription() {
@@ -69,14 +68,14 @@ public class SeasonMiniDTO {
 		this.description = description;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getNumberSeason() {
+		return numberSeason;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setNumberSeason(int numberSeason) {
+		this.numberSeason = numberSeason;
 	}
-	
+
 	public int getEvaluationQuantity() {
 		return evaluationQuantity;
 	}
@@ -93,12 +92,12 @@ public class SeasonMiniDTO {
 		this.evaluationAverage = evaluationAverage;
 	}
 
-	public int getEpisode() {
-		return episode;
+	public int getEpisodeQuantity() {
+		return episodeQuantity;
 	}
 
-	public void setEpisode(int episode) {
-		this.episode = episode;
+	public void setEpisodeQuantity(int episodeQuantity) {
+		this.episodeQuantity = episodeQuantity;
 	}
 
 	public TypeObject getTypeObject() {
@@ -108,4 +107,6 @@ public class SeasonMiniDTO {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
+	
+	
 }

@@ -138,7 +138,7 @@ public class EpisodeService {
 					episode.setSeason(season);
 					Episode obj = episodeRepository.insert(episode);
 					season.getEpisodes().add(obj);
-					season.setEpisode(1);
+					season.setEpisodeQuantity(1);
 					seasonService.save(season);
 					EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(obj);
 					return ResponseEntity.created(null).body(episodeMiniDTO);

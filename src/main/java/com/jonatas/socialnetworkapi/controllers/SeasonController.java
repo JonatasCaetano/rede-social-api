@@ -70,24 +70,18 @@ public class SeasonController {
 		return seasonService.updateName(editionDTO);
 	}
 	
-	@PutMapping(value = "put/image")
+	@PutMapping(value = "put/add/image")
 	public ResponseEntity<Void> updateImage(@RequestBody EditionDTO editionDTO){
-		return seasonService.updateImage(editionDTO);
+		return seasonService.addImages(editionDTO);
+	}
+	
+	@PutMapping(value = "put/remove/image")
+	public ResponseEntity<Void> removeImages(@RequestBody EditionDTO editionDTO){
+		return seasonService.removeImages(editionDTO);
 	}
 	
 	@PutMapping(value = "put/description")
 	public ResponseEntity<Void> updateDescription(@RequestBody EditionDTO editionDTO){
 		return seasonService.updateDescription(editionDTO);
 	}
-	
-	@PutMapping(value = "put/release")
-	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
-		return seasonService.updateRelease(editionDTO);
-	}
-	
-	@PutMapping(value = "put/genre")
-	public ResponseEntity<Void> updateGenre(@RequestBody EditionDTO editionDTO){
-		return seasonService.updateGenre(editionDTO);
-	}
-
 }
