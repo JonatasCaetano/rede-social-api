@@ -18,6 +18,7 @@ public class SeasonMiniDTO {
 	private double evaluationAverage = 0.0;
 	private int episodeQuantity = 0;
 	private TypeObject typeObject = TypeObject.SEASON;
+	private EntityMiniDTO entity;
 	
 		
 	public SeasonMiniDTO() {
@@ -34,6 +35,7 @@ public class SeasonMiniDTO {
 		this.evaluationAverage = season.getEvaluationAverage();
 		this.episodeQuantity = season.getEpisodeQuantity();
 		this.evaluationQuantity = season.getEvaluationQuantity();
+		this.entity = season.getEntity() != null ? new EntityMiniDTO(season.getEntity()) : null;
 	}
 
 	public String getId() {
@@ -106,6 +108,14 @@ public class SeasonMiniDTO {
 
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
+	}
+
+	public EntityMiniDTO getEntity() {
+		return entity;
+	}
+
+	public void setEntity(EntityMiniDTO entity) {
+		this.entity = entity;
 	}
 	
 	
