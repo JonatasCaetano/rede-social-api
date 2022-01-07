@@ -36,9 +36,14 @@ public class SeasonController {
 		return seasonService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/season/{id}/evaluations")
+	@GetMapping(value = "get/season/{id}/entitysaves")
 	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String id){
-		return seasonService.getEvaluationsMini(id);
+		return seasonService.getAllEntitySaveMini(id);
+	}
+	
+	@GetMapping(value = "get/season/{idSeason}/entitysave/user/{idUser}")
+	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String idSeason, @PathVariable String idUser ){
+		return seasonService.getEntitySaveMini(idSeason, idUser);
 	}
 	
 	@GetMapping(value = "get/season/{id}/episodes")

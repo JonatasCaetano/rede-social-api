@@ -34,9 +34,14 @@ public class EpisodeController {
 		return episodeService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/episode/{id}/evalutions")
+	@GetMapping(value = "get/episode/{id}/entitysaves")
 	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String id){
-		return episodeService.getEvaluationsMini(id);
+		return episodeService.getAllEntitySaveMini(id);
+	}
+	
+	@GetMapping(value = "get/episode/{idEpisode}/entitysave/user/{idUser}")
+	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String idEpisode, @PathVariable String idUser ){
+		return episodeService.getEntitySaveMini(idEpisode, idUser);
 	}
 	
 	@GetMapping(value = "get/episode/{id}/editions")

@@ -1,6 +1,6 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
-import java.util.Date;
+import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
 
 public class EntitySaveDTO {
 
@@ -10,26 +10,33 @@ public class EntitySaveDTO {
 	private String idSeason;
 	private String idEpisode;
 	private int category;
-	private Date release;
-	private boolean goal;
-	private boolean rated;
-	private boolean review;
-	private int typeEntity;
+	private boolean isGoal;
+	private boolean isRated;
+	private boolean isReview;
+	private int evaluation;
+	private String review;
+	private TypeEntitySave typeEntitySave;
 	
 	public EntitySaveDTO() {
 		super();
 	}
 	
-	public EntitySaveDTO(String id, String user, String entity, String season, String episode, int category, Date release, int typeEntity) {
-	super();
-	this.idEntitySave = id;
-	this.idUser = user;
-	this.idEntity = entity;
-	this.idSeason = season;
-	this.idEpisode = episode;
-	this.category = category;
-	this.release = release;
-	this.typeEntity = typeEntity;
+	public EntitySaveDTO(String idEntitySave, String idUser, String idEntity, String idSeason, String idEpisode,
+			int category, boolean isGoal, boolean isRated, boolean isReview, int evaluation, String review,
+			TypeEntitySave typeEntitySave) {
+		super();
+		this.idEntitySave = idEntitySave;
+		this.idUser = idUser;
+		this.idEntity = idEntity;
+		this.idSeason = idSeason;
+		this.idEpisode = idEpisode;
+		this.category = category;
+		this.isGoal = isGoal;
+		this.isRated = isRated;
+		this.isReview = isReview;
+		this.evaluation = evaluation;
+		this.review = review;
+		this.typeEntitySave = typeEntitySave;
 	}
 
 	public String getIdEntitySave() {
@@ -80,45 +87,51 @@ public class EntitySaveDTO {
 		this.category = category;
 	}
 
-	public Date getRelease() {
-		return release;
-	}
-
-	public void setRelease(Date release) {
-		this.release = release;
-	}
-
 	public boolean isGoal() {
-		return goal;
+		return isGoal;
 	}
 
-	public void setGoal(boolean goal) {
-		this.goal = goal;
+	public void setGoal(boolean isGoal) {
+		this.isGoal = isGoal;
 	}
 
 	public boolean isRated() {
-		return rated;
+		return isRated;
 	}
 
-	public void setRated(boolean rated) {
-		this.rated = rated;
+	public void setRated(boolean isRated) {
+		this.isRated = isRated;
 	}
 
 	public boolean isReview() {
+		return isReview;
+	}
+
+	public void setReview(boolean isReview) {
+		this.isReview = isReview;
+	}
+
+	public int getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(int evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public String getReview() {
 		return review;
 	}
 
-	public void setReview(boolean review) {
+	public void setReview(String review) {
 		this.review = review;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
+	public TypeEntitySave getTypeEntitySave() {
+		return typeEntitySave;
 	}
 
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public void setTypeEntitySave(TypeEntitySave typeEntitySave) {
+		this.typeEntitySave = typeEntitySave;
 	}
-
-	
 }

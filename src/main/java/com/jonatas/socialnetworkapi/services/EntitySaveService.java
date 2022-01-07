@@ -16,6 +16,7 @@ import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EntitySaveDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
 
 @Service
@@ -44,10 +45,6 @@ public class EntitySaveService {
 	@Lazy
 	private EpisodeService episodeService;
 	
-	@Autowired
-	@Lazy
-	private EvaluationService evaluationService;
-
 	//methods
 	
 	//get
@@ -91,7 +88,7 @@ public class EntitySaveService {
 					false,
 					false,
 					false,
-					1
+					TypeEntitySave.ENTITY
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
@@ -127,7 +124,7 @@ public class EntitySaveService {
 					false,
 					false,
 					false,
-					2
+					TypeEntitySave.SEASON
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
@@ -163,7 +160,7 @@ public class EntitySaveService {
 					false,
 					false,
 					false,
-					3
+					TypeEntitySave.EPISODE
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {

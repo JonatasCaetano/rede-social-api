@@ -60,12 +60,7 @@ public class UserController {
 	public ResponseEntity<Object> getCommentsMini(@PathVariable String id){
 		return userService.getCommentsMini(id);
 	}
-	
-	@GetMapping(value = "get/user/{id}/evaluations")
-	public ResponseEntity<Object> getEvaluationMini(@PathVariable String id){
-		return userService.getEvaluationsMini(id);
-	}
-	
+		
 	@GetMapping(value = "get/user/{id}/likes")
 	public ResponseEntity<Object> getLikesMini(@PathVariable String id){
 		return userService.getLikesMini(id);

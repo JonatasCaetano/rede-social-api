@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
@@ -22,7 +21,7 @@ import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeEdition;
@@ -118,27 +117,37 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Object> getEvaluationsMini(String id){
+	public ResponseEntity<Object> getAllEntitySaveMini(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
-			List<Evaluation> evaluations = new ArrayList<>();
 			List<EntitySave> entitySaves = entity.getEntitySaves();
+			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
 			for(EntitySave entitySave : entitySaves) {
-				if(entitySave.isRated()) {
-					evaluations.add(entitySave.getEvaluation());
-				}
+				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+				entitySaveMiniDTOs.add(entitySaveMiniDTO);
 			}
-			List<EvaluationMiniDTO> evaluationMiniDTOs = new ArrayList<>();
-			for(Evaluation evaluation : evaluations) {
-				EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
-				evaluationMiniDTOs.add(evaluationMiniDTO);
-			}
-			return ResponseEntity.ok().body(evaluationMiniDTOs);
+			return ResponseEntity.ok().body(entitySaveMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
+	public ResponseEntity<Object> getEntitySaveMini(String idEntity, String idUser){
+		try {
+			Entity entity = entityRepository.findById(idEntity).get();
+			List<EntitySave> entitySaves = entity.getEntitySaves();
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.getUser().getId().hashCode() == idUser.hashCode()) {
+					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+					return ResponseEntity.ok().body(entitySaveMiniDTO);
+				}
+			}	
+			return ResponseEntity.notFound().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+		
 	public ResponseEntity<Object> getEditionsMini(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();

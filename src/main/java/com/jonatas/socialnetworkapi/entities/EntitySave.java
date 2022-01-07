@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,8 +9,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -21,11 +20,13 @@ public class EntitySave implements Serializable{
 	@Id
 	private String id;
 	
-	private int typeEntity;
+	private TypeEntitySave typeEntitySave;
 	private int category;
-	private boolean goal = false;
-	private boolean rated = false;
-	private boolean review = false;
+	private boolean isGoal = false;
+	private boolean isRated = false;
+	private boolean isReview = false;
+	private int evaluation;
+	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	
 	@DBRef(lazy = true)
@@ -43,29 +44,25 @@ public class EntitySave implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Episode episode;
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
-	private Evaluation evaluation;
-		
-	List<Date> historic = new ArrayList<>();
+			
+	List<String> historic = new ArrayList<>();
 
 	public EntitySave() {
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, boolean goal,
-			boolean rated, boolean review, int typeEntity) {
+	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, boolean isGoal,
+			boolean isRated, boolean isReview, TypeEntitySave typeEntitySave) {
 		super();
 		this.user = user;
 		this.entity = entity;
 		this.season = season;
 		this.episode = episode;
 		this.category = category;
-		this.goal = goal;
-		this.rated = rated;
-		this.review = review;
-		this.typeEntity = typeEntity;
+		this.isGoal = isGoal;
+		this.isRated = isRated;
+		this.isReview = isReview;
+		this.typeEntitySave = typeEntitySave;
 	}
 
 	public User getUser() {
@@ -107,57 +104,65 @@ public class EntitySave implements Serializable{
 	public void setCategory(int category) {
 		this.category = category;
 	}
-
+	
 	public boolean isGoal() {
-		return goal;
+		return isGoal;
 	}
 
-	public void setGoal(boolean goal) {
-		this.goal = goal;
+	public void setGoal(boolean isGoal) {
+		this.isGoal = isGoal;
 	}
 
 	public boolean isRated() {
-		return rated;
+		return isRated;
 	}
 
-	public void setRated(boolean rated) {
-		this.rated = rated;
+	public void setRated(boolean isRated) {
+		this.isRated = isRated;
 	}
 
 	public boolean isReview() {
-		return review;
+		return isReview;
 	}
 
-	public void setReview(boolean review) {
-		this.review = review;
+	public void setReview(boolean isReview) {
+		this.isReview = isReview;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
 
-	public List<Date> getHistoric() {
+	public List<String> getHistoric() {
 		return historic;
 	}
+	
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 
-	public Evaluation getEvaluation() {
+	public int getEvaluation() {
 		return evaluation;
 	}
 
-	public void setEvaluation(Evaluation evaluation) {
+	public void setEvaluation(int evaluation) {
 		this.evaluation = evaluation;
 	}
-	
-	public int getTypeEntity() {
-		return typeEntity;
+
+	public String getReview() {
+		return review;
 	}
 
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public void setReview(String review) {
+		this.review = review;
 	}
 
-	public TypeObject getTypeObject() {
-		return typeObject;
+	public TypeEntitySave getTypeEntitySave() {
+		return typeEntitySave;
+	}
+
+	public void setTypeEntitySave(TypeEntitySave typeEntitySave) {
+		this.typeEntitySave = typeEntitySave;
 	}
 
 	@Override

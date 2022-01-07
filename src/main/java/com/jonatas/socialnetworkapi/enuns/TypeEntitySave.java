@@ -1,8 +1,7 @@
 package com.jonatas.socialnetworkapi.enuns;
 
-public enum TypeTalk {
-	
+public enum TypeEntitySave {
 	ENTITY,
 	SEASON,
-	EPISODE,
+	EPISODE,	
 }

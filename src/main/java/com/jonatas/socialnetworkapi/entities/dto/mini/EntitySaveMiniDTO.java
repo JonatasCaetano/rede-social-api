@@ -1,27 +1,28 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import com.jonatas.socialnetworkapi.entities.EntitySave;
+import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EntitySaveMiniDTO {
 
 	private String id;
-	private int typeEntity;
+	private TypeEntitySave typeEntitySave;
 	private int category;
-	private boolean goal = false;
-	private boolean rated = false;
-	private boolean review = false;
+	private boolean isGoal;
+	private boolean isRated;
+	private boolean isReview;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
-	private EvaluationMiniDTO evaluation;
+	private int evaluation;
+	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
-	List<Date> historic = new ArrayList<>();
+	List<String> historic = new ArrayList<>();
 	
 	public EntitySaveMiniDTO() {
 		super();
@@ -30,16 +31,17 @@ public class EntitySaveMiniDTO {
 	public EntitySaveMiniDTO(EntitySave entitySave) {
 		super();
 		this.id = entitySave.getId();
-		this.typeEntity = entitySave.getTypeEntity();
+		this.typeEntitySave = entitySave.getTypeEntitySave();
 		this.category = entitySave.getCategory();
-		this.goal = entitySave.isGoal();
-		this.rated = entitySave.isRated();
-		this.review = entitySave.isReview();
+		this.isGoal = entitySave.isGoal();
+		this.isRated = entitySave.isRated();
+		this.isReview = entitySave.isReview();
 		this.user = entitySave.getUser()!= null ? new UserMiniDTO(entitySave.getUser()) : null;
 		this.entity = entitySave.getEntity() != null? new EntityMiniDTO(entitySave.getEntity()) : null;
 		this.season = entitySave.getSeason() != null? new SeasonMiniDTO(entitySave.getSeason()) : null;
 		this.episode = entitySave.getEpisode() != null ? new EpisodeMiniDTO(entitySave.getEpisode()) : null;
-		this.evaluation = entitySave.getEvaluation() != null ? new EvaluationMiniDTO(entitySave.getEvaluation()) : null;
+		this.evaluation = entitySave.getEvaluation();
+		this.review = entitySave.getReview();
 		this.historic = entitySave.getHistoric();
 	}
 
@@ -51,12 +53,12 @@ public class EntitySaveMiniDTO {
 		this.id = id;
 	}
 
-	public int getTypeEntity() {
-		return typeEntity;
+	public TypeEntitySave getTypeEntitySave() {
+		return typeEntitySave;
 	}
 
-	public void setTypeEntity(int typeEntity) {
-		this.typeEntity = typeEntity;
+	public void setTypeEntitySave(TypeEntitySave typeEntitySave) {
+		this.typeEntitySave = typeEntitySave;
 	}
 
 	public int getCategory() {
@@ -68,27 +70,27 @@ public class EntitySaveMiniDTO {
 	}
 
 	public boolean isGoal() {
-		return goal;
+		return isGoal;
 	}
 
-	public void setGoal(boolean goal) {
-		this.goal = goal;
+	public void setGoal(boolean isGoal) {
+		this.isGoal = isGoal;
 	}
 
 	public boolean isRated() {
-		return rated;
+		return isRated;
 	}
 
-	public void setRated(boolean rated) {
-		this.rated = rated;
+	public void setRated(boolean isRated) {
+		this.isRated = isRated;
 	}
 
 	public boolean isReview() {
-		return review;
+		return isReview;
 	}
 
-	public void setReview(boolean review) {
-		this.review = review;
+	public void setReview(boolean isReview) {
+		this.isReview = isReview;
 	}
 
 	public UserMiniDTO getUser() {
@@ -123,20 +125,20 @@ public class EntitySaveMiniDTO {
 		this.episode = episode;
 	}
 
-	public EvaluationMiniDTO getEvaluation() {
+	public int getEvaluation() {
 		return evaluation;
 	}
 
-	public void setEvaluation(EvaluationMiniDTO evaluation) {
+	public void setEvaluation(int evaluation) {
 		this.evaluation = evaluation;
 	}
 
-	public List<Date> getHistoric() {
-		return historic;
+	public String getReview() {
+		return review;
 	}
 
-	public void setHistoric(List<Date> historic) {
-		this.historic = historic;
+	public void setReview(String review) {
+		this.review = review;
 	}
 
 	public TypeObject getTypeObject() {
@@ -145,5 +147,13 @@ public class EntitySaveMiniDTO {
 
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
-	}	
+	}
+
+	public List<String> getHistoric() {
+		return historic;
+	}
+
+	public void setHistoric(List<String> historic) {
+		this.historic = historic;
+	}
 }

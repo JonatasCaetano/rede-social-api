@@ -13,7 +13,6 @@ import com.jonatas.socialnetworkapi.repositories.EditionRepository;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
-import com.jonatas.socialnetworkapi.repositories.EvaluationRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
@@ -23,7 +22,6 @@ import com.jonatas.socialnetworkapi.services.EditionService;
 import com.jonatas.socialnetworkapi.services.EntitySaveService;
 import com.jonatas.socialnetworkapi.services.EntityService;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
-import com.jonatas.socialnetworkapi.services.EvaluationService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 import com.jonatas.socialnetworkapi.services.SeasonService;
@@ -51,8 +49,6 @@ public class Instantiation implements CommandLineRunner{
 	@Autowired
 	private EpisodeRepository episodeRepository;
 	@Autowired
-	private EvaluationRepository evaluationRepository;
-	@Autowired
 	private EditionRepository editionRepository;
 	@Autowired
 	private EntitySaveRepository entitySaveRepository;
@@ -73,8 +69,6 @@ public class Instantiation implements CommandLineRunner{
 	private SeasonService seasonService;
 	@Autowired
 	private EpisodeService episodeService;
-	@Autowired
-	private EvaluationService evaluationService;
 	@Autowired
 	private EditionService editionService;
 	@Autowired

@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.entities.Comment;
-import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.entities.Evaluation;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.Post;
@@ -20,7 +18,6 @@ import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.EvaluationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
@@ -157,28 +154,7 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	public ResponseEntity<Object> getEvaluationsMini(String id){
-		try {
-			User user = userRepository.findById(id).get();
-			List<Evaluation> evaluations = new ArrayList<>();
-			List<EntitySave> entitySaves = user.getEntitySaves();
-			for(EntitySave entitySave : entitySaves) {
-				if(entitySave.isRated()) {
-					evaluations.add(entitySave.getEvaluation());
-				}
-			}
-			List<EvaluationMiniDTO> evaluationMiniDTOs = new ArrayList<>();
-			for(Evaluation evaluation : evaluations) {
-				EvaluationMiniDTO evaluationMiniDTO = new EvaluationMiniDTO(evaluation);
-				evaluationMiniDTOs.add(evaluationMiniDTO);
-			}
-			return ResponseEntity.ok().body(evaluationMiniDTOs);
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
+		
 	public ResponseEntity<Object> loginMini(String email, String password){
 		try {
 			User user = userRepository.findByEmail(email);
