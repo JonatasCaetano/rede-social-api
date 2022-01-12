@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -295,63 +294,7 @@ public class EntityService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-		
-	@SuppressWarnings("unchecked")
-	public ResponseEntity<Void> addInformation(EditionDTO editionDTO){
-		try {
-			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
-			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
-			List<Map<String, String>> list = new ArrayList<>();
-			for(Map<String, String> information : entity.getInformation()) {	
-				list.add(information);
-			}
-			editionDTO.setPrevious(list);
-			editionDTO.setTypeEdition(TypeEdition.ENTITY);
-			editionDTO.setAttribute("information");
-			entity.getInformation().add((Map<String, String>)  editionDTO.getCurrent());
-			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getInformation(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
-			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
-			entity.getEditions().add(edition);
-			entityRepository.save(entity);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	@SuppressWarnings("unchecked")
-	public ResponseEntity<Void> removeInformation(EditionDTO editionDTO){
-		try {
-			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
-			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
-			List<Map<String, String>> list = new ArrayList<>();
-			for(Map<String, String> information : entity.getInformation()) {	
-				list.add(information);
-			}
-			editionDTO.setPrevious(list);
-			editionDTO.setTypeEdition(TypeEdition.ENTITY);
-			editionDTO.setAttribute("information");
-			entity.getInformation().remove((Map<String, String>)  editionDTO.getCurrent());
-			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), entity.getInformation(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
-			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
-			entity.getEditions().add(edition);
-			entityRepository.save(entity);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-		
+				
 	//internal
 	
 	public ResponseEntity<Object> findById(String id){

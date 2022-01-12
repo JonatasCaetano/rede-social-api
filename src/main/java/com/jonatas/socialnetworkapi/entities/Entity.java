@@ -32,7 +32,6 @@ public class Entity implements Serializable{
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
 	private List<String> images = new ArrayList<>();
-	private List<Map<String, String>> information = new ArrayList<>();
 		
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -164,10 +163,6 @@ public class Entity implements Serializable{
 		return images;
 	}
 	
-	public List<Map<String, String>> getInformation() {
-		return information;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

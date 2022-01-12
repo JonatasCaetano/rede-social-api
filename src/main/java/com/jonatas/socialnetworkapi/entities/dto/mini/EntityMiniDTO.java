@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
@@ -19,7 +18,6 @@ public class EntityMiniDTO {
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private TypeEntity typeEntity;
 	private List<String> images = new ArrayList<>();
-	private List<Map<String, String>> information = new ArrayList<>();
 	
 	public EntityMiniDTO() {
 		super();
@@ -36,7 +34,6 @@ public class EntityMiniDTO {
 		this.typeObject = entity.getTypeObject();
 		this.typeEntity = entity.getTypeEntity();
 		this.images = entity.getImages();
-		this.information = entity.getInformation();
 	}
 
 
@@ -110,14 +107,5 @@ public class EntityMiniDTO {
 
 	public void setImages(List<String> images) {
 		this.images = images;
-	}
-
-	public List<Map<String, String>> getInformation() {
-		return information;
-	}
-
-	public void setInformation(List<Map<String, String>> information) {
-		this.information = information;
-	}
-	
+	}	
 }

@@ -93,16 +93,4 @@ public class EntityController {
 	public ResponseEntity<Void> removeImage(@RequestBody EditionDTO editionDTO){
 		return entityService.removeImage(editionDTO);
 	}
-	
-	@PutMapping(value = "put/add/information")
-	public ResponseEntity<Void> addInformation(@RequestBody EditionDTO editionDTO){
-		return entityService.addInformation(editionDTO);
-	}
-	
-	@PutMapping(value = "put/remove/information")
-	public ResponseEntity<Void> removeInformation(@RequestBody EditionDTO editionDTO){
-		return entityService.removeInformation(editionDTO);
-	}
-	
-
 }
