@@ -32,9 +32,9 @@ public class User implements Serializable{
 	private boolean status = true;
 	
 	private boolean checked = false;
+	private Date release;
 	private int quantityFollowing = 0;
 	private int quantityFollowers = 0;
-	private Date release;
 	private TypeObject typeObject = TypeObject.USER;
 	
 	@DBRef(lazy = true)

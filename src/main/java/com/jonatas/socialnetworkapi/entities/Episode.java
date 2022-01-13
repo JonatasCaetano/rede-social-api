@@ -25,8 +25,10 @@ public class Episode implements Serializable{
 	private String name;
 	private String image;
 	private String description;
+	
 	private Date release;
 	private String genre;
+	
 	private TypeObject typeObject = TypeObject.EPISODE;
 	
 	private int number;

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
@@ -25,13 +24,16 @@ public class Entity implements Serializable{
 	
 	private String name;
 	private String description;
-	private TypeObject typeObject = TypeObject.ENTITY;
+	private List<String> images = new ArrayList<>();
+	
 	private TypeEntity typeEntity;
+	
+	private TypeObject typeObject = TypeObject.ENTITY;
 	private int seasonQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
-	private List<String> images = new ArrayList<>();
+	
 		
 	@DBRef(lazy = true)
 	@JsonBackReference

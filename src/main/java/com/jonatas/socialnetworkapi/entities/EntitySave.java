@@ -51,17 +51,13 @@ public class EntitySave implements Serializable{
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, boolean isGoal,
-			boolean isRated, boolean isReview, TypeEntitySave typeEntitySave) {
+	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, TypeEntitySave typeEntitySave) {
 		super();
 		this.user = user;
 		this.entity = entity;
 		this.season = season;
 		this.episode = episode;
 		this.category = category;
-		this.isGoal = isGoal;
-		this.isRated = isRated;
-		this.isReview = isReview;
 		this.typeEntitySave = typeEntitySave;
 	}
 

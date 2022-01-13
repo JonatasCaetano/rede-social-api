@@ -156,4 +156,6 @@ public class EntitySaveMiniDTO {
 	public void setHistoric(List<String> historic) {
 		this.historic = historic;
 	}
+
+	
 }

@@ -21,8 +21,9 @@ public class Season implements Serializable{
 	private String id;
 	
 	private String name;
+	private String description;
 	private List<String> images = new ArrayList<>();
-	private String description;	
+		
 	private int numberSeason;
 	
 	private int episodeQuantity = 0;

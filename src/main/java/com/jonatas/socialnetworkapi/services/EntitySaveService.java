@@ -79,15 +79,15 @@ public class EntitySaveService {
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
 			Entity entity = (Entity) entityService.findById(entitySaveDTO.getIdEntity()).getBody();
+			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
+				return ResponseEntity.badRequest().build();
+			}
 			EntitySave entitySave = new EntitySave(
 					user,
 					entity,
 					null,
 					null,
 					entitySaveDTO.getCategory(),
-					false,
-					false,
-					false,
 					TypeEntitySave.ENTITY
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
@@ -105,7 +105,8 @@ public class EntitySaveService {
 			userService.save(user);
 			entity.getEntitySaves().add(entitySave);
 			entityService.save(entity);
-			return ResponseEntity.created(null).build();
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.created(null).body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -121,9 +122,6 @@ public class EntitySaveService {
 					season,
 					null,
 					entitySaveDTO.getCategory(),
-					false,
-					false,
-					false,
 					TypeEntitySave.SEASON
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
@@ -157,9 +155,6 @@ public class EntitySaveService {
 					null,
 					episode,
 					entitySaveDTO.getCategory(),
-					false,
-					false,
-					false,
 					TypeEntitySave.EPISODE
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
@@ -188,12 +183,13 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveCategory(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 5) {
+			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
 				return ResponseEntity.badRequest().build();
 			}
 			entitySave.setCategory(entitySaveDTO.getCategory());
 			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.accepted().build();
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
