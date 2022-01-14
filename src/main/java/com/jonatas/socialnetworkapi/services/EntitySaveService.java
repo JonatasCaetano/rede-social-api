@@ -264,29 +264,22 @@ public class EntitySaveService {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			entitySave.setGoal(entitySaveDTO.isGoal());		
 			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.accepted().build();
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-//	public ResponseEntity<Object> updateEntitySaveRated(EntitySaveDTO entitySaveDTO){
-//		try {
-//			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-//			entitySave.setRated(entitySaveDTO.isRated());		
-//			entitySave = entitySaveRepository.save(entitySave);
-//			return ResponseEntity.accepted().build();
-//		}catch (RuntimeException e) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//	}
+
 	
 	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			entitySave.setReviewed(entitySaveDTO.isReviewed());		
+			entitySave.setReviewed(entitySaveDTO.isReviewed());	
+			entitySave.setReview(entitySaveDTO.getReview());
 			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.accepted().build();
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
