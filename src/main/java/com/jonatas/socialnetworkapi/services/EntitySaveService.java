@@ -201,6 +201,16 @@ public class EntitySaveService {
 			if(entitySaveDTO.getEvaluation() < 1 || entitySaveDTO.getEvaluation() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
+			Entity entity = entitySave.getEntity();
+			if(entitySave.isRated()) {
+				entity.setEvaluationSum(- entitySave.getEvaluation());
+				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+				entity.setEvaluationAverage();
+			}else {
+				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+				entity.setEvaluationQuantity(+ 1);
+				entity.setEvaluationAverage();
+			}
 			entitySave.setEvaluation(entitySaveDTO.getEvaluation());
 			entitySave.setRated(true);
 			entitySave = entitySaveRepository.save(entitySave);
