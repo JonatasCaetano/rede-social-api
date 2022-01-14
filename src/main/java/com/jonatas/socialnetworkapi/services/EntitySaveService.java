@@ -195,6 +195,22 @@ public class EntitySaveService {
 		}
 	}
 	
+	public ResponseEntity<Object> updateEntitySaveEvaluation(EntitySaveDTO entitySaveDTO){
+		try {
+			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
+			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getEvaluation() > 5) {
+				return ResponseEntity.badRequest().build();
+			}
+			entitySave.setEvaluation(entitySaveDTO.getEvaluation());
+			entitySave.setRated(true);
+			entitySave = entitySaveRepository.save(entitySave);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.accepted().body(entitySaveMiniDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	public ResponseEntity<Object> updateEntitySaveGoal(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
@@ -206,16 +222,16 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> updateEntitySaveRated(EntitySaveDTO entitySaveDTO){
-		try {
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			entitySave.setRated(entitySaveDTO.isRated());		
-			entitySave = entitySaveRepository.save(entitySave);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
+//	public ResponseEntity<Object> updateEntitySaveRated(EntitySaveDTO entitySaveDTO){
+//		try {
+//			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
+//			entitySave.setRated(entitySaveDTO.isRated());		
+//			entitySave = entitySaveRepository.save(entitySave);
+//			return ResponseEntity.accepted().build();
+//		}catch (RuntimeException e) {
+//			return ResponseEntity.badRequest().build();
+//		}
+//	}
 	
 	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO){
 		try {

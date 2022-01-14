@@ -58,15 +58,20 @@ public class EntitySaveController {
 		return entitySaveService.updateEntitySaveCategory(entitySaveDTO);
 	}
 	
+	@PutMapping(value = "put/evaluation")
+	public ResponseEntity<Object> updateEntitySaveEvaluation(@RequestBody EntitySaveDTO entitySaveDTO){
+		return entitySaveService.updateEntitySaveEvaluation(entitySaveDTO);
+	}
+	
 	@PutMapping(value = "put/goal")
 	public ResponseEntity<Object> updateEntitySaveGoal(@RequestBody EntitySaveDTO entitySaveDTO){
 		return entitySaveService.updateEntitySaveGoal(entitySaveDTO);
 	}
 	
-	@PutMapping(value = "put/rated")
-	public ResponseEntity<Object> updateEntitySaveRated(@RequestBody EntitySaveDTO entitySaveDTO){
-		return entitySaveService.updateEntitySaveRated(entitySaveDTO);
-	}
+//	@PutMapping(value = "put/rated")
+//	public ResponseEntity<Object> updateEntitySaveRated(@RequestBody EntitySaveDTO entitySaveDTO){
+//		return entitySaveService.updateEntitySaveRated(entitySaveDTO);
+//	}
 	
 	@PutMapping(value = "put/review")
 	public ResponseEntity<Object> updateEntitySaveReview(@RequestBody EntitySaveDTO entitySaveDTO){
