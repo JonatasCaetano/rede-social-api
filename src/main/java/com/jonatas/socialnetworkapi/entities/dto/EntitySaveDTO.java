@@ -10,9 +10,9 @@ public class EntitySaveDTO {
 	private String idSeason;
 	private String idEpisode;
 	private int category;
-	private boolean isGoal;
-	private boolean isRated;
-	private boolean isReview;
+	private boolean goal;
+	private boolean rated;
+	private boolean reviewed;
 	private int evaluation;
 	private String review;
 	private TypeEntitySave typeEntitySave;
@@ -22,7 +22,7 @@ public class EntitySaveDTO {
 	}
 	
 	public EntitySaveDTO(String idEntitySave, String idUser, String idEntity, String idSeason, String idEpisode,
-			int category, boolean isGoal, boolean isRated, boolean isReview, int evaluation, String review,
+			int category, boolean goal, boolean rated, boolean reviewed, int evaluation, String review,
 			TypeEntitySave typeEntitySave) {
 		super();
 		this.idEntitySave = idEntitySave;
@@ -31,9 +31,9 @@ public class EntitySaveDTO {
 		this.idSeason = idSeason;
 		this.idEpisode = idEpisode;
 		this.category = category;
-		this.isGoal = isGoal;
-		this.isRated = isRated;
-		this.isReview = isReview;
+		this.goal = goal;
+		this.rated = rated;
+		this.reviewed = reviewed;
 		this.evaluation = evaluation;
 		this.review = review;
 		this.typeEntitySave = typeEntitySave;
@@ -88,27 +88,27 @@ public class EntitySaveDTO {
 	}
 
 	public boolean isGoal() {
-		return isGoal;
+		return goal;
 	}
 
-	public void setGoal(boolean isGoal) {
-		this.isGoal = isGoal;
+	public void setGoal(boolean goal) {
+		this.goal = goal;
 	}
 
 	public boolean isRated() {
-		return isRated;
+		return rated;
 	}
 
-	public void setRated(boolean isRated) {
-		this.isRated = isRated;
+	public void setRated(boolean rated) {
+		this.rated = rated;
 	}
 
-	public boolean isReview() {
-		return isReview;
+	public boolean isReviewed() {
+		return reviewed;
 	}
 
-	public void setReview(boolean isReview) {
-		this.isReview = isReview;
+	public void setReviewed(boolean reviewed) {
+		this.reviewed = reviewed;
 	}
 
 	public int getEvaluation() {

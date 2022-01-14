@@ -220,7 +220,7 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			entitySave.setReview(entitySaveDTO.isReview());		
+			entitySave.setReviewed(entitySaveDTO.isReviewed());		
 			entitySave = entitySaveRepository.save(entitySave);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {

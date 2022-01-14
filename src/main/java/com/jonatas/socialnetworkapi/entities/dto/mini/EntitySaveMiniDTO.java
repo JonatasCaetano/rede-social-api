@@ -12,9 +12,9 @@ public class EntitySaveMiniDTO {
 	private String id;
 	private TypeEntitySave typeEntitySave;
 	private int category;
-	private boolean isGoal;
-	private boolean isRated;
-	private boolean isReview;
+	private boolean goal;
+	private boolean rated;
+	private boolean reviewed;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
 	private SeasonMiniDTO season;
@@ -33,9 +33,9 @@ public class EntitySaveMiniDTO {
 		this.id = entitySave.getId();
 		this.typeEntitySave = entitySave.getTypeEntitySave();
 		this.category = entitySave.getCategory();
-		this.isGoal = entitySave.isGoal();
-		this.isRated = entitySave.isRated();
-		this.isReview = entitySave.isReview();
+		this.goal = entitySave.isGoal();
+		this.rated = entitySave.isRated();
+		this.reviewed = entitySave.isReviewed();
 		this.user = entitySave.getUser()!= null ? new UserMiniDTO(entitySave.getUser()) : null;
 		this.entity = entitySave.getEntity() != null? new EntityMiniDTO(entitySave.getEntity()) : null;
 		this.season = entitySave.getSeason() != null? new SeasonMiniDTO(entitySave.getSeason()) : null;
@@ -70,27 +70,27 @@ public class EntitySaveMiniDTO {
 	}
 
 	public boolean isGoal() {
-		return isGoal;
+		return goal;
 	}
 
-	public void setGoal(boolean isGoal) {
-		this.isGoal = isGoal;
+	public void setGoal(boolean goal) {
+		this.goal = goal;
 	}
 
 	public boolean isRated() {
-		return isRated;
+		return rated;
 	}
 
-	public void setRated(boolean isRated) {
-		this.isRated = isRated;
+	public void setRated(boolean rated) {
+		this.rated = rated;
 	}
 
-	public boolean isReview() {
-		return isReview;
+	public boolean isReviewed() {
+		return reviewed;
 	}
 
-	public void setReview(boolean isReview) {
-		this.isReview = isReview;
+	public void setReviewed(boolean reviewed) {
+		this.reviewed = reviewed;
 	}
 
 	public UserMiniDTO getUser() {

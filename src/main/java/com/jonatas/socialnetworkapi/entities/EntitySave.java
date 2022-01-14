@@ -22,9 +22,9 @@ public class EntitySave implements Serializable{
 	
 	private TypeEntitySave typeEntitySave;
 	private int category;
-	private boolean isGoal = false;
-	private boolean isRated = false;
-	private boolean isReview = false;
+	private boolean goal = false;
+	private boolean rated = false;
+	private boolean reviewed = false;
 	private int evaluation;
 	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
@@ -102,27 +102,27 @@ public class EntitySave implements Serializable{
 	}
 	
 	public boolean isGoal() {
-		return isGoal;
+		return goal;
 	}
 
-	public void setGoal(boolean isGoal) {
-		this.isGoal = isGoal;
+	public void setGoal(boolean goal) {
+		this.goal = goal;
 	}
 
 	public boolean isRated() {
-		return isRated;
+		return rated;
 	}
 
-	public void setRated(boolean isRated) {
-		this.isRated = isRated;
+	public void setRated(boolean rated) {
+		this.rated = rated;
 	}
 
-	public boolean isReview() {
-		return isReview;
+	public boolean isReviewed() {
+		return reviewed;
 	}
 
-	public void setReview(boolean isReview) {
-		this.isReview = isReview;
+	public void setReviewed(boolean reviewed) {
+		this.reviewed = reviewed;
 	}
 
 	public String getId() {
