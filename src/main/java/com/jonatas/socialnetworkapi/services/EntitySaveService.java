@@ -198,7 +198,7 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveEvaluation(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getEvaluation() > 5) {
+			if(entitySaveDTO.getEvaluation() < 1 || entitySaveDTO.getEvaluation() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
 			entitySave.setEvaluation(entitySaveDTO.getEvaluation());
