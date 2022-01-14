@@ -121,6 +121,5 @@ public class Instantiation implements CommandLineRunner{
 //		entityService.createEntity(entityDTO1, user1.getId());
 //		entityService.createEntity(entityDTO2, user1.getId());
 //		entityService.createEntity(entityDTO3, user1.getId());
-	}
-		
+	}	
 }

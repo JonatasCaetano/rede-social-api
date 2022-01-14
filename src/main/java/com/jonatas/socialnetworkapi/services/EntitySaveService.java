@@ -201,16 +201,54 @@ public class EntitySaveService {
 			if(entitySaveDTO.getEvaluation() < 1 || entitySaveDTO.getEvaluation() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
-			Entity entity = entitySave.getEntity();
-			if(entitySave.isRated()) {
-				entity.setEvaluationSum(- entitySave.getEvaluation());
-				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-				entity.setEvaluationAverage();
-			}else {
-				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-				entity.setEvaluationQuantity(+ 1);
-				entity.setEvaluationAverage();
+			switch (entitySave.getTypeEntitySave()) {
+			case ENTITY:
+				if(entitySave.isRated()) {
+					Entity entity = entitySave.getEntity();
+					entity.setEvaluationSum(- entitySave.getEvaluation());
+					entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					entity.setEvaluationAverage();
+					entityService.save(entity);
+				}else {
+					Entity entity = entitySave.getEntity();
+					entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					entity.setEvaluationQuantity(+ 1);
+					entity.setEvaluationAverage();
+					entityService.save(entity);
+				}
+				break;
+			case SEASON:
+				if(entitySave.isRated()) {
+					Season season = entitySave.getSeason();
+					season.setEvaluationSum(- entitySave.getEvaluation());
+					season.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					season.setEvaluationAverage();
+					seasonService.save(season);
+				}else {
+					Season season = entitySave.getSeason();
+					season.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					season.setEvaluationQuantity(+ 1);
+					season.setEvaluationAverage();
+					seasonService.save(season);
+				}
+				break;
+			case EPISODE:
+				if(entitySave.isRated()) {
+					Episode episode = entitySave.getEpisode();
+					episode.setEvaluationSum(- entitySave.getEvaluation());
+					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					episode.setEvaluationAverage();
+					episodeService.save(episode);
+				}else {
+					Episode episode = entitySave.getEpisode();
+					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					episode.setEvaluationQuantity(+ 1);
+					episode.setEvaluationAverage();
+					episodeService.save(episode);
+				}
+				break;
 			}
+			
 			entitySave.setEvaluation(entitySaveDTO.getEvaluation());
 			entitySave.setRated(true);
 			entitySave = entitySaveRepository.save(entitySave);
