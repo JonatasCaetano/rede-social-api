@@ -1,22 +1,21 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EpisodeMiniDTO {
-
-	//attributes
 	
 	private String id;
 	private String name;
-	private String image;
 	private String description;
-	private int number;
+	private int numberEpisode;
+	private List<String> images = new ArrayList<>();
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private TypeObject typeObject = TypeObject.EPISODE;
-	
-	//builders
 	
 	public EpisodeMiniDTO() {
 		super();
@@ -26,15 +25,13 @@ public class EpisodeMiniDTO {
 		super();
 		this.id = episode.getId();
 		this.name = episode.getName();
-		this.image = episode.getImage();
+		this.images = episode.getImages();
 		this.description = episode.getDescription();
-		this.number = episode.getNumber();
+		this.numberEpisode = episode.getNumberEpisode();
 		this.evaluationAverage = episode.getEvaluationAverage();
 		this.evaluationQuantity = episode.getEvaluationQuantity();
 	}
-	
-	//getters and setters
-	
+
 	public String getId() {
 		return id;
 	}
@@ -51,14 +48,6 @@ public class EpisodeMiniDTO {
 		this.name = name;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -67,12 +56,20 @@ public class EpisodeMiniDTO {
 		this.description = description;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getNumberEpisode() {
+		return numberEpisode;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setNumberEpisode(int numberEpisode) {
+		this.numberEpisode = numberEpisode;
+	}
+
+	public List<String> getImages() {
+		return images;
+	}
+
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 
 	public int getEvaluationQuantity() {
@@ -98,4 +95,7 @@ public class EpisodeMiniDTO {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
+	
+	
+	
 }

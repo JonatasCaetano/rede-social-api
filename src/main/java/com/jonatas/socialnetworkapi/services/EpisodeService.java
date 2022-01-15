@@ -1,7 +1,6 @@
 package com.jonatas.socialnetworkapi.services;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -187,18 +186,23 @@ public class EpisodeService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateImage(EditionDTO editionDTO){
+	public ResponseEntity<Void> addImages(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
+			List<String> list = new ArrayList<>();
+			for(String image : episode.getImages()) {	
+				list.add(image);
+			}
 			editionDTO.setTypeEdition(TypeEdition.EPISODE);
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevious(episode.getImage());
-			episode.setImage((String) editionDTO.getCurrent());
+			editionDTO.setPrevious(list);
+			episode.getImages().add(((String) editionDTO.getCurrent()));
 			episodeRepository.save(episode);
+			editionDTO.setCurrent(episode.getImages());
 			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
@@ -206,7 +210,35 @@ public class EpisodeService {
 			episodeRepository.save(episode);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> removeImages(EditionDTO editionDTO){
+		try {
+			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
+			if(!user.isChecked()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
+			List<String> list = new ArrayList<>();
+			for(String image : episode.getImages()) {	
+				list.add(image);
+			}
+			editionDTO.setTypeEdition(TypeEdition.EPISODE);
+			editionDTO.setAttribute("image");
+			editionDTO.setPrevious(list);
+			episode.getImages().remove(((String) editionDTO.getCurrent()));
+			episodeRepository.save(episode);
+			editionDTO.setCurrent(episode.getImages());
+			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
+			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
+			episode.getEditions().add(edition);
+			episodeRepository.save(episode);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
 		}
 	}
 	
@@ -233,53 +265,7 @@ public class EpisodeService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateRelease(EditionDTO editionDTO){
-		try {
-			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
-			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
-			editionDTO.setTypeEdition(TypeEdition.EPISODE);
-			editionDTO.setAttribute("release");
-			editionDTO.setPrevious(episode.getRelease());
-			episode.setRelease((Date) editionDTO.getCurrent());
-			episodeRepository.save(episode);
-			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
-			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
-			episode.getEditions().add(edition);
-			episodeRepository.save(episode);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
 		
-	}
-	
-	public ResponseEntity<Void> updateGenre(EditionDTO editionDTO){
-		try {
-			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
-			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
-			editionDTO.setTypeEdition(TypeEdition.EPISODE);
-			editionDTO.setAttribute("genre");
-			editionDTO.setPrevious(episode.getGenre());
-			episode.setGenre((String) editionDTO.getCurrent());
-			episodeRepository.save(episode);
-			Edition edition = new Edition(user, null, null, episode, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
-			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
-			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
-			episode.getEditions().add(edition);
-			episodeRepository.save(episode);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
 	//internal
 	
 	public ResponseEntity<Object> findById(String id){

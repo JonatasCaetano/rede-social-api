@@ -217,6 +217,7 @@ public class SeasonService {
 			for(String image : season.getImages()) {	
 				list.add(image);
 			}
+			editionDTO.setTypeEdition(TypeEdition.SEASON);
 			editionDTO.setAttribute("image");
 			editionDTO.setPrevious(list);
 			season.getImages().add(((String) editionDTO.getCurrent()));
@@ -244,6 +245,7 @@ public class SeasonService {
 			for(String image : season.getImages()) {	
 				list.add(image);
 			}
+			editionDTO.setTypeEdition(TypeEdition.SEASON);
 			editionDTO.setAttribute("image");
 			editionDTO.setPrevious(list);
 			season.getImages().remove(((String) editionDTO.getCurrent()));

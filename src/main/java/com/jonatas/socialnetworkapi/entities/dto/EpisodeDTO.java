@@ -2,70 +2,38 @@ package com.jonatas.socialnetworkapi.entities.dto;
 
 import java.util.Date;
 
-import com.jonatas.socialnetworkapi.entities.Episode;
-
 public class EpisodeDTO {
 
 	private String idEpisode;
 	private String name;
 	private String description;
-	private String image;
-	private Date release;
-	private int number;
+	private int numberEpisode;
 	
 	public EpisodeDTO() {
 		super();
 	}
 
-	public EpisodeDTO(String name, String description, String image, Date release, int number) {
+	public EpisodeDTO(String name, String description, String image, Date release, int numberEpisode) {
 		super();
 		this.name = name;
 		this.description = description;
-		this.image = image;
-		this.release = release;
-		this.number = number;
+		this.numberEpisode = numberEpisode;
 	}
-	
-	public EpisodeDTO(Episode episode) {
-		super();
-		this.idEpisode = episode.getId();
-		this.name = episode.getName();
-		this.description = episode.getDescription();
-		this.image = episode.getImage();
-		this.release = episode.getRelease();
-		this.number = episode.getNumber();
+
+	public String getIdEpisode() {
+		return idEpisode;
 	}
-	
+
+	public void setIdEpisode(String idEpisode) {
+		this.idEpisode = idEpisode;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
-	}
-
-	public Date getRelease() {
-		return release;
-	}
-
-	public void setRelease(Date release) {
-		this.release = release;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 	public String getDescription() {
@@ -76,11 +44,14 @@ public class EpisodeDTO {
 		this.description = description;
 	}
 
-	public String getIdEpisode() {
-		return idEpisode;
+	public int getNumberEpisode() {
+		return numberEpisode;
 	}
 
-	public void setIdEpisode(String idEpisode) {
-		this.idEpisode = idEpisode;
+	public void setNumberEpisode(int numberEpisode) {
+		this.numberEpisode = numberEpisode;
 	}
+		
+	
+	
 }

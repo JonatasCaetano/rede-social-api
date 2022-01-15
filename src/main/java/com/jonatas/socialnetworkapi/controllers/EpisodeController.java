@@ -35,12 +35,12 @@ public class EpisodeController {
 	}
 	
 	@GetMapping(value = "get/episode/{id}/entitysaves")
-	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String id){
+	public ResponseEntity<Object> getAllEntitySaveMini(@PathVariable String id){
 		return episodeService.getAllEntitySaveMini(id);
 	}
 	
 	@GetMapping(value = "get/episode/{idEpisode}/entitysave/user/{idUser}")
-	public ResponseEntity<Object> getEvaluationsMini(@PathVariable String idEpisode, @PathVariable String idUser ){
+	public ResponseEntity<Object> getEntitySaveMini(@PathVariable String idEpisode, @PathVariable String idUser ){
 		return episodeService.getEntitySaveMini(idEpisode, idUser);
 	}
 	
@@ -68,9 +68,14 @@ public class EpisodeController {
 		return episodeService.updateName(editionDTO);
 	}
 	
-	@PutMapping(value = "put/image")
+	@PutMapping(value = "put/add/image")
 	public ResponseEntity<Void> updateImage(@RequestBody EditionDTO editionDTO){
-		return episodeService.updateImage(editionDTO);
+		return episodeService.addImages(editionDTO);
+	}
+	
+	@PutMapping(value = "put/remove/image")
+	public ResponseEntity<Void> removeImages(@RequestBody EditionDTO editionDTO){
+		return episodeService.removeImages(editionDTO);
 	}
 	
 	@PutMapping(value = "put/description")
@@ -78,14 +83,4 @@ public class EpisodeController {
 		return episodeService.updateDescription(editionDTO);
 	}
 	
-	@PutMapping(value = "put/release")
-	public ResponseEntity<Void> updateRelease(@RequestBody EditionDTO editionDTO){
-		return episodeService.updateRelease(editionDTO);
-	}
-	
-	@PutMapping(value = "put/genre")
-	public ResponseEntity<Void> updateGenre(@RequestBody EditionDTO editionDTO){
-		return episodeService.updateGenre(editionDTO);
-	}
-
 }
