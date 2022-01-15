@@ -93,11 +93,13 @@ public class EntitySaveService {
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
 				boolean entitySaveExists = false;
+				if(obj.getTypeEntitySave() == TypeEntitySave.ENTITY) {
 				if(obj.getEntity().getId().hashCode() == entity.getId().hashCode()) {
 					entitySaveExists = true;
 				}
 				if(entitySaveExists) {
 					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
 				}
 			}
 			entitySave = entitySaveRepository.insert(entitySave);
@@ -116,6 +118,9 @@ public class EntitySaveService {
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
 			Season season = (Season) seasonService.findById(entitySaveDTO.getIdSeason()).getBody();
+			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
+				return ResponseEntity.badRequest().build();
+			}
 			EntitySave entitySave = new EntitySave(
 					user,
 					null,
@@ -127,11 +132,13 @@ public class EntitySaveService {
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
 				boolean entitySaveExists = false;
-				if(obj.getSeason().getId().hashCode() == season.getId().hashCode()) {
-					entitySaveExists = true;
-				}
-				if(entitySaveExists) {
-					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				if(obj.getTypeEntitySave() == TypeEntitySave.SEASON) {
+					if(obj.getSeason().getId().hashCode() == season.getId().hashCode()) {
+						entitySaveExists = true;
+					}
+					if(entitySaveExists) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
 				}
 			}
 			entitySave = entitySaveRepository.insert(entitySave);
@@ -139,7 +146,8 @@ public class EntitySaveService {
 			userService.save(user);
 			season.getEntitySaves().add(entitySave);
 			seasonService.save(season);
-			return ResponseEntity.created(null).build();
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.created(null).body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -160,11 +168,13 @@ public class EntitySaveService {
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
 				boolean entitySaveExists = false;
+				if(obj.getTypeEntitySave() == TypeEntitySave.EPISODE) {
 				if(obj.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
 					entitySaveExists = true;
 				}
 				if(entitySaveExists) {
 					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
 				}
 			}
 			entitySave = entitySaveRepository.insert(entitySave);
@@ -172,7 +182,8 @@ public class EntitySaveService {
 			userService.save(user);
 			episode.getEntitySaves().add(entitySave);
 			episodeService.save(episode);
-			return ResponseEntity.created(null).build();
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			return ResponseEntity.created(null).body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
