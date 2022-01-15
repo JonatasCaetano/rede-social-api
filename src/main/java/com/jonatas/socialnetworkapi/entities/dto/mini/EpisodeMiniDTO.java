@@ -10,12 +10,15 @@ public class EpisodeMiniDTO {
 	
 	private String id;
 	private String name;
+	private List<String> images = new ArrayList<>();
 	private String description;
 	private int numberEpisode;
-	private List<String> images = new ArrayList<>();
+	
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
+	
 	private TypeObject typeObject = TypeObject.EPISODE;
+	private SeasonMiniDTO season;
 	
 	public EpisodeMiniDTO() {
 		super();
@@ -30,6 +33,7 @@ public class EpisodeMiniDTO {
 		this.numberEpisode = episode.getNumberEpisode();
 		this.evaluationAverage = episode.getEvaluationAverage();
 		this.evaluationQuantity = episode.getEvaluationQuantity();
+		this.season= episode.getSeason() != null ? new SeasonMiniDTO(episode.getSeason()) : null;
 	}
 
 	public String getId() {
@@ -95,7 +99,13 @@ public class EpisodeMiniDTO {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
-	
-	
+
+	public SeasonMiniDTO getSeason() {
+		return season;
+	}
+
+	public void setSeason(SeasonMiniDTO season) {
+		this.season = season;
+	}	
 	
 }

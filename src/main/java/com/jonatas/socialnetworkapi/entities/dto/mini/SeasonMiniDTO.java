@@ -14,11 +14,15 @@ public class SeasonMiniDTO {
 	private List<String> images = new ArrayList<>();
 	private String description;
 	private int numberSeason;
+	
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
-	private int episodeQuantity = 0;
+	
+
 	private TypeObject typeObject = TypeObject.SEASON;
 	private EntityMiniDTO entity;
+	
+	private int episodeQuantity = 0;
 	
 		
 	public SeasonMiniDTO() {
