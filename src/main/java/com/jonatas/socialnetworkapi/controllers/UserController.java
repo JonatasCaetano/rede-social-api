@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.services.UserService;
 
@@ -84,8 +83,8 @@ public class UserController {
 	//post
 	
 	@PostMapping(value = "post/user")
-	public ResponseEntity<Object> createUser(@RequestBody UserCreationDTO creationUser){
-		return userService.createUser(creationUser);
+	public ResponseEntity<Object> createUser(@RequestBody UserDTO userDTO){
+		return userService.createUser(userDTO);
 	}
 			
 	//put
@@ -105,21 +104,21 @@ public class UserController {
 		return userService.updatePassword(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/image")
-	public ResponseEntity<Void> updateImage(@RequestBody UserDTO userUpdateDTO){
-		return userService.updateImage(userUpdateDTO);
+	@PutMapping(value = "put/add/image")
+	public ResponseEntity<Void> addImage(@RequestBody UserDTO userUpdateDTO){
+		return userService.addImage(userUpdateDTO);
+	}
+	
+	@PutMapping(value = "put/remove/image")
+	public ResponseEntity<Void> removeImage(@RequestBody UserDTO userUpdateDTO){
+		return userService.removeImage(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/description")
 	public ResponseEntity<Void> updateDescription(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateDescription(userUpdateDTO);
 	}
-	
-	@PutMapping(value = "put/birthDate")
-	public ResponseEntity<Void> updateBirthDate(UserDTO userUpdateDTO){
-		return userService.updateBirthDate(userUpdateDTO);
-	}
-	
+		
 	@PutMapping(value = "put/place")
 	public ResponseEntity<Void> updatePlace(@RequestBody UserDTO userUpdateDTO){
 		return userService.updatePlace(userUpdateDTO);

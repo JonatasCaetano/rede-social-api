@@ -88,7 +88,7 @@ public class Instantiation implements CommandLineRunner{
 //		episodeRepository.deleteAll();
 //		editionRepository.deleteAll();
 //		entitySaveRepository.deleteAll();
-//		User user1 = new User("marley alexandre", "marley@gmail.com","123456", null, "um cachorro legal", null, "Bauru");//123456
+//		User user1 = new User("marley alexandre", "marley@gmail.com","123456", "um cachorro legal", "Bauru");//123456
 //		userRepository.insert(user1);	
 //		invitationService.createdInvitation(user1);
 //		userRepository.save(user1);

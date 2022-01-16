@@ -15,7 +15,6 @@ import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
-import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
@@ -196,11 +195,11 @@ public class UserService {
 			
 	//post
 	
-	public ResponseEntity<Object> createUser(UserCreationDTO userCreation){
+	public ResponseEntity<Object> createUser(UserDTO userDTO){
 		try {
-			checkEmail(userCreation.getEmail());
-			User obj = userRepository.insert(new User(userCreation));
-			invitationService.addInvited(obj, userCreation.getInvitationValue());		
+			checkEmail(userDTO.getEmail());
+			User obj = userRepository.insert(new User(userDTO));
+			invitationService.addInvited(obj, userDTO.getInvitation());		
 			Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
 			obj.setFollower(follower);
 			userRepository.save(obj);	
@@ -210,7 +209,7 @@ public class UserService {
 				return ResponseEntity.badRequest().build();
 			}
 			try {
-				User user = (User) invitationService.returnUser(userCreation.getInvitationValue()).getBody();
+				User user = (User) invitationService.returnUser(userDTO.getInvitation()).getBody();
 				followerService.addFollowing(obj.getId(), user.getId());
 				followerService.addFollowing(user.getId(), obj.getId());
 			}catch (RuntimeException e) {
@@ -267,10 +266,21 @@ public class UserService {
 		}
 	}
 	
-	public ResponseEntity<Void> updateImage(UserDTO userUpdateDTO){
+	public ResponseEntity<Void> addImage(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
-			user.setImage(userUpdateDTO.getImage());
+			user.getImages().add(userUpdateDTO.getImage());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> removeImage(UserDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
+			user.getImages().remove(userUpdateDTO.getImage());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -282,17 +292,6 @@ public class UserService {
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
 			user.setDescription(userUpdateDTO.getDescription());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	
-	public ResponseEntity<Void> updateBirthDate(UserDTO userUpdateDTO){
-		try {
-			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
-			user.setBirthDate(userUpdateDTO.getBirthDate());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {

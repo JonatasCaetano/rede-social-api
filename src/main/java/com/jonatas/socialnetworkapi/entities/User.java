@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.jonatas.socialnetworkapi.entities.dto.UserCreationDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -24,15 +23,14 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
-	private String image;
+	private List<String> images = new ArrayList<>();
 	private String description;
-	private Date birthDate;
 	private String place;
+	
 	private boolean privacy = false;
 	private boolean status = true;
-	
 	private boolean checked = false;
-	private Date release;
+
 	private int quantityFollowing = 0;
 	private int quantityFollowers = 0;
 	private TypeObject typeObject = TypeObject.USER;
@@ -69,22 +67,20 @@ public class User implements Serializable{
 		super();
 	}
 	
-	public User(String name, String email, String password, String image, String description, Date release, String place) {
+	public User(String name, String email, String password, String description, String place) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.image = image;
 		this.description = description;
-		this.release = release;
 		this.place = place;
 	}
 		
-	public User(UserCreationDTO userCreation) {
+	public User(UserDTO userDTO) {
 		super();
-		this.name = userCreation.getName();
-		this.email = userCreation.getEmail();
-		this.password = userCreation.getPassword();
+		this.name = userDTO.getName();
+		this.email = userDTO.getEmail();
+		this.password = userDTO.getPassword();
 	}
 
 	public String getId() {
@@ -135,12 +131,8 @@ public class User implements Serializable{
 		this.invitation = invitation;
 	}
 
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
+	public List<String> getImages() {
+		return images;
 	}
 
 	public String getDescription() {
@@ -190,29 +182,13 @@ public class User implements Serializable{
 	public void setQuantityFollowers(int quantityFollowers) {
 		this.quantityFollowers += quantityFollowers;
 	}
-
-	public Date getRelease() {
-		return release;
-	}
-
-	public void setRelease(Date release) {
-		this.release = release;
-	}
-				
+		
 	public String getPlace() {
 		return place;
 	}
 
 	public void setPlace(String place) {
 		this.place = place;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
 	}
 		
 	public List<Post> getPosts() {

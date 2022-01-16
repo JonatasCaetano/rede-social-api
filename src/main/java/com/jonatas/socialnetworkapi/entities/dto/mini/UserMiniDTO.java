@@ -1,5 +1,8 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
@@ -8,7 +11,7 @@ public class UserMiniDTO {
 	private String id;
 	
 	private String name;
-	private String image;
+	private List<String> images = new ArrayList<>();
 	private String description;
 	private String place;
 	
@@ -31,7 +34,7 @@ public class UserMiniDTO {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
-		this.image = user.getImage();
+		this.images = user.getImages();
 		this.description = user.getDescription();
 		this.place = user.getPlace();
 		this.email = user.getEmail();
@@ -58,12 +61,12 @@ public class UserMiniDTO {
 		this.name = name;
 	}
 
-	public String getImage() {
-		return image;
+	public List<String> getImages() {
+		return images;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImages(List<String> images) {
+		this.images = images;
 	}
 
 	public String getDescription() {

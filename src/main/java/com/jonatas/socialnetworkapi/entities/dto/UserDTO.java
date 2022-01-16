@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
-import java.util.Date;
-
 public class UserDTO {
 
 	private String idUser;
@@ -10,18 +8,19 @@ public class UserDTO {
 	private String password;
 	private String image;
 	private String description;
-	private Date birthDate;
 	private String place;
 	private boolean privacy = false;
 	private boolean status = true;
 	private boolean checked = false;
+	
+	private String invitation;
 	
 	public UserDTO() {
 		super();
 	}
 
 	public UserDTO(String id, String name, String email, String password, String image, String description,
-			Date birthDate, String place, boolean privacy, boolean status, boolean checked) {
+			String place, boolean privacy, boolean status, boolean checked) {
 		super();
 		this.idUser = id;
 		this.name = name;
@@ -29,7 +28,6 @@ public class UserDTO {
 		this.password = password;
 		this.image = image;
 		this.description = description;
-		this.birthDate = birthDate;
 		this.place = place;
 		this.privacy = privacy;
 		this.status = status;
@@ -84,14 +82,6 @@ public class UserDTO {
 		this.description = description;
 	}
 
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
 	public String getPlace() {
 		return place;
 	}
@@ -123,4 +113,14 @@ public class UserDTO {
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
+
+	public String getInvitation() {
+		return invitation;
+	}
+
+	public void setInvitation(String invitation) {
+		this.invitation = invitation;
+	}
+	
+	
 }
