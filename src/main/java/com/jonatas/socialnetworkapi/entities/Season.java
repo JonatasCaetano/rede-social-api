@@ -22,7 +22,7 @@ public class Season implements Serializable{
 	
 	private String name;
 	private String description;
-	private List<String> images = new ArrayList<>();
+	private String image;
 		
 	private int numberSeason;
 	
@@ -84,8 +84,12 @@ public class Season implements Serializable{
 		this.episodeQuantity += episodeQuantity;
 	}
 
-	public List<String> getImages() {
-		return images;
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getName() {

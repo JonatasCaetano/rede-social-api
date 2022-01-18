@@ -1,8 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -17,7 +14,7 @@ public class EntityMiniDTO {
 	private int seasonQuantity = 0;
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private TypeEntity typeEntity;
-	private List<String> images = new ArrayList<>();
+	private String image;
 	
 	public EntityMiniDTO() {
 		super();
@@ -33,7 +30,7 @@ public class EntityMiniDTO {
 		this.seasonQuantity = entity.getSeasonQuantity();
 		this.typeObject = entity.getTypeObject();
 		this.typeEntity = entity.getTypeEntity();
-		this.images = entity.getImages();
+		this.image = entity.getImage();
 	}
 
 
@@ -101,11 +98,13 @@ public class EntityMiniDTO {
 		this.typeEntity = typeEntity;
 	}
 
-	public List<String> getImages() {
-		return images;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImages(List<String> images) {
-		this.images = images;
-	}	
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+		
 }

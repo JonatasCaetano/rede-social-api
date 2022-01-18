@@ -1,8 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
@@ -10,7 +7,7 @@ public class EpisodeMiniDTO {
 	
 	private String id;
 	private String name;
-	private List<String> images = new ArrayList<>();
+	private String image;
 	private String description;
 	private int numberEpisode;
 	
@@ -28,7 +25,7 @@ public class EpisodeMiniDTO {
 		super();
 		this.id = episode.getId();
 		this.name = episode.getName();
-		this.images = episode.getImages();
+		this.image = episode.getImage();
 		this.description = episode.getDescription();
 		this.numberEpisode = episode.getNumberEpisode();
 		this.evaluationAverage = episode.getEvaluationAverage();
@@ -68,12 +65,12 @@ public class EpisodeMiniDTO {
 		this.numberEpisode = numberEpisode;
 	}
 
-	public List<String> getImages() {
-		return images;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImages(List<String> images) {
-		this.images = images;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public int getEvaluationQuantity() {

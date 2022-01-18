@@ -269,7 +269,7 @@ public class UserService {
 	public ResponseEntity<Void> addImage(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
-			user.getImages().add(userUpdateDTO.getImage());
+			user.setImage(userUpdateDTO.getImage());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -280,7 +280,7 @@ public class UserService {
 	public ResponseEntity<Void> removeImage(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
-			user.getImages().remove(userUpdateDTO.getImage());
+			user.setImage(null);
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {

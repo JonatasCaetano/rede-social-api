@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +23,7 @@ public class Entity implements Serializable{
 	
 	private String name;
 	private String description;
-	private List<String> images = new ArrayList<>();
+	private String image;
 	
 	private TypeEntity typeEntity;
 	
@@ -59,7 +58,7 @@ public class Entity implements Serializable{
 		super();
 	}
 	
-	public Entity(String name, String description, Date release, TypeEntity typeEntity) {
+	public Entity(String name, String description, TypeEntity typeEntity) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -160,11 +159,15 @@ public class Entity implements Serializable{
 	public TypeObject getTypeObject() {
 		return typeObject;
 	}
-
-	public List<String> getImages() {
-		return images;
-	}
 	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

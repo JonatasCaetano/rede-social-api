@@ -212,17 +212,13 @@ public class SeasonService {
 			if(!user.isChecked()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
-			List<String> list = new ArrayList<>();
-			for(String image : season.getImages()) {	
-				list.add(image);
-			}
+			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();		
 			editionDTO.setTypeEdition(TypeEdition.SEASON);
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevious(list);
-			season.getImages().add(((String) editionDTO.getCurrent()));
+			editionDTO.setPrevious(season.getImage());
+			season.setImage((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			editionDTO.setCurrent(season.getImages());
+			editionDTO.setCurrent(season.getImage());
 			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
@@ -241,16 +237,12 @@ public class SeasonService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
-			List<String> list = new ArrayList<>();
-			for(String image : season.getImages()) {	
-				list.add(image);
-			}
 			editionDTO.setTypeEdition(TypeEdition.SEASON);
 			editionDTO.setAttribute("image");
-			editionDTO.setPrevious(list);
-			season.getImages().remove(((String) editionDTO.getCurrent()));
+			editionDTO.setPrevious(season.getImage());
+			season.setImage(null);
 			seasonRepository.save(season);
-			editionDTO.setCurrent(season.getImages());
+			editionDTO.setCurrent(season.getImage());
 			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();

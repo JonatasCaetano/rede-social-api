@@ -23,7 +23,7 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
-	private List<String> images = new ArrayList<>();
+	private String image;
 	private String description;
 	private String place;
 	
@@ -131,8 +131,12 @@ public class User implements Serializable{
 		this.invitation = invitation;
 	}
 
-	public List<String> getImages() {
-		return images;
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getDescription() {

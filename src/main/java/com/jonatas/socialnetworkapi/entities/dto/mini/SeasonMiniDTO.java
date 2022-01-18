@@ -1,8 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
@@ -11,7 +8,7 @@ public class SeasonMiniDTO {
 
 	private String id;
 	private String name;
-	private List<String> images = new ArrayList<>();
+	private String image;
 	private String description;
 	private int numberSeason;
 	
@@ -33,7 +30,7 @@ public class SeasonMiniDTO {
 		super();
 		this.id = season.getId();
 		this.name = season.getName();
-		this.images = season.getImages();
+		this.image = season.getImage();
 		this.description = season.getDescription();
 		this.numberSeason = season.getNumberSeason();
 		this.evaluationAverage = season.getEvaluationAverage();
@@ -58,12 +55,12 @@ public class SeasonMiniDTO {
 		this.name = name;
 	}
 
-	public List<String> getImages() {
-		return images;
+	public String getImage() {
+		return image;
 	}
 
-	public void setImages(List<String> images) {
-		this.images = images;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public String getDescription() {
