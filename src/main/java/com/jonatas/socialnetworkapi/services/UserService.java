@@ -163,12 +163,14 @@ public class UserService {
 			User user = userRepository.findById(id).get();
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
-			for(EntitySave entitySave : entitySaves) {
-				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
-				if(entitySaveMiniDTO.getTypeEntitySave() == TypeEntitySave.ENTITY) {
-					if(entitySaveMiniDTO.getEntity().getTypeEntity() == typeEntity) {
+			for(EntitySave entitySave : entitySaves) {		
+				if(entitySave.getTypeEntitySave() == TypeEntitySave.ENTITY) {
+					if(entitySave.getEntity().getTypeEntity() == typeEntity) {
+						System.out.println(entitySave.getEntity().getTypeEntity() + " == " + typeEntity);
+						EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 						entitySaveMiniDTOs.add(entitySaveMiniDTO);
 					}
+
 				}
 			}
 			return ResponseEntity.ok().body(entitySaveMiniDTOs);

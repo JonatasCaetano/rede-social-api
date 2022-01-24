@@ -62,7 +62,7 @@ public class UserController {
 	}
 	
 	@GetMapping(value = "get/user/{id}/entitySaves/{typeEntity}")
-	public ResponseEntity<Object> getEntitySaves(@PathVariable String id, TypeEntity typeEntity){
+	public ResponseEntity<Object> getEntitySaves(@PathVariable String id, @PathVariable TypeEntity typeEntity){
 		return userService.getEntitySaves(id, typeEntity);
 	}
 		
