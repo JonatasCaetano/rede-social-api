@@ -244,6 +244,7 @@ public class UserService {
 	public ResponseEntity<Void> updateEmail(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
+			checkEmail(userUpdateDTO.getEmail());
 			user.setEmail(userUpdateDTO.getEmail());
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
