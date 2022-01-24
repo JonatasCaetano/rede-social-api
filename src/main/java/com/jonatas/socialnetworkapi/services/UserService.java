@@ -170,7 +170,7 @@ public class UserService {
 	public ResponseEntity<Object> checkEmail(String email){
 		try {
 			User user = userRepository.findByEmail(email);
-			if(user.getEmail() != null) {
+			if(user.getEmail() != null || user.getId() != null) {
 				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
 			}
 			return ResponseEntity.badRequest().build();
