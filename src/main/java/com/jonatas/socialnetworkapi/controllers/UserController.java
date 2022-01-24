@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
+import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @RestController
@@ -59,6 +60,11 @@ public class UserController {
 	public ResponseEntity<Object> getCommentsMini(@PathVariable String id){
 		return userService.getCommentsMini(id);
 	}
+	
+	@GetMapping(value = "get/user/{id}/entitySaves/{typeEntity}")
+	public ResponseEntity<Object> getEntitySaves(@PathVariable String id, TypeEntity typeEntity){
+		return userService.getEntitySaves(id, typeEntity);
+	}
 		
 	@GetMapping(value = "get/user/{id}/likes")
 	public ResponseEntity<Object> getLikesMini(@PathVariable String id){
@@ -74,7 +80,7 @@ public class UserController {
 	public ResponseEntity<Object> checkName(@PathVariable String name){
 		return userService.checkName(name);
 	}
-	
+		
 	@GetMapping(value = "get/users/name")
 	public ResponseEntity<Object> findByName(@RequestParam(value = "name", defaultValue = "") String name){
 		return userService.findByName(name);
