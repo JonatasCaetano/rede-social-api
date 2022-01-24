@@ -24,6 +24,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.PostMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
+import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
@@ -164,8 +165,10 @@ public class UserService {
 			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
 			for(EntitySave entitySave : entitySaves) {
 				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
-				if(entitySaveMiniDTO.getEntity().getTypeEntity() == typeEntity) {
-					entitySaveMiniDTOs.add(entitySaveMiniDTO);
+				if(entitySaveMiniDTO.getTypeEntitySave() == TypeEntitySave.ENTITY) {
+					if(entitySaveMiniDTO.getEntity().getTypeEntity() == typeEntity) {
+						entitySaveMiniDTOs.add(entitySaveMiniDTO);
+					}
 				}
 			}
 			return ResponseEntity.ok().body(entitySaveMiniDTOs);
