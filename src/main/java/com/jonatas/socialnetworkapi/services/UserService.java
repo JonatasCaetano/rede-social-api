@@ -253,10 +253,11 @@ public class UserService {
 				user.setEmail(userUpdateDTO.getEmail());
 				userRepository.save(user);
 				return ResponseEntity.accepted().build();
-			}catch (RuntimeException e) {
+			}catch (RuntimeException exception) {
 				return ResponseEntity.badRequest().build();
 			}
 		}
+		return ResponseEntity.badRequest().build();
 		
 	}
 	
