@@ -242,15 +242,22 @@ public class UserService {
 	}
 	
 	public ResponseEntity<Void> updateEmail(UserDTO userUpdateDTO){
-		checkEmail(userUpdateDTO.getEmail());
 		try {
-			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
-			user.setEmail(userUpdateDTO.getEmail());
-			userRepository.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
+			User user = userRepository.findByEmail(userUpdateDTO.getEmail());
+			if(user.getEmail() != null) {
+				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
+			}
+		}catch (Exception e) {
+			try {
+				User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
+				user.setEmail(userUpdateDTO.getEmail());
+				userRepository.save(user);
+				return ResponseEntity.accepted().build();
+			}catch (RuntimeException e) {
+				return ResponseEntity.badRequest().build();
+			}
 		}
+		
 	}
 	
 	public ResponseEntity<Void> updatePassword(UserDTO userUpdateDTO){
