@@ -244,7 +244,7 @@ public class UserService {
 	public ResponseEntity<Void> updateEmail(UserDTO userUpdateDTO){
 		try {
 			User user = userRepository.findByEmail(userUpdateDTO.getEmail());
-			if(user.getEmail() != null) {
+			if(user.getEmail() != null || user.getId() != null) {
 				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
 			}
 		}catch (Exception e) {
