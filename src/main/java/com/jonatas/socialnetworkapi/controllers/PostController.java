@@ -45,9 +45,9 @@ public class PostController {
 	
 	//post
 	
-	@PostMapping(value = "post")
-	public ResponseEntity<Object> newPostUpdate(@RequestBody PostUpdateDTO postDTO){
-		return postService.newPostUpdate(postDTO);
+	@PostMapping(value = "post/update")
+	public ResponseEntity<Object> newPostUpdate(@RequestBody PostUpdateDTO postUpdateDTO){
+		return postService.newPostUpdate(postUpdateDTO);
 	}
 	
 	//put

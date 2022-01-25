@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import java.util.Date;
 
-import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;

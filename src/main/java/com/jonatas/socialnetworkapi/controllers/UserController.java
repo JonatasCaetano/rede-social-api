@@ -51,6 +51,8 @@ public class UserController {
 		return userService.getWorkersMini(id);
 	}
 	
+	/*
+	
 	@GetMapping(value = "get/user/{id}/posts")
 	public ResponseEntity<Object> getPostsMini(@PathVariable String id){
 		return userService.getPostsMini(id);
@@ -61,15 +63,18 @@ public class UserController {
 		return userService.getCommentsMini(id);
 	}
 	
-	@GetMapping(value = "get/user/{id}/entitySaves/{typeEntity}")
-	public ResponseEntity<Object> getEntitySaves(@PathVariable String id, @PathVariable TypeEntity typeEntity){
-		return userService.getEntitySaves(id, typeEntity);
-	}
-		
 	@GetMapping(value = "get/user/{id}/likes")
 	public ResponseEntity<Object> getLikesMini(@PathVariable String id){
 		return userService.getLikesMini(id);
 	}
+	
+	*/
+	
+	@GetMapping(value = "get/user/{id}/entitySaves/{typeEntity}")
+	public ResponseEntity<Object> getEntitySaves(@PathVariable String id, @PathVariable TypeEntity typeEntity){
+		return userService.getEntitySaves(id, typeEntity);
+	}
+	
 	
 	@GetMapping(value = "get/check/email/{email}")
 	public ResponseEntity<Object> checkEmail(@PathVariable String email){
