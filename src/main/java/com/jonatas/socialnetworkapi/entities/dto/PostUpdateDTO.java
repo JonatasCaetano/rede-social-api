@@ -9,18 +9,20 @@ import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 public class PostUpdateDTO {
 
 	private String idPost;
-	private TypePost typePost;
-	private Level level;
-	private TypePostVisibility typePostVisibility = TypePostVisibility.USER;
 	private Date release;
 	private String body;
 	private int category;
-	
-
 	private String idUser;
 	private String idEntity;
 	private String idSeason;
 	private String idEpisode;
+	private TypePost typePost;
+	private Level level;
+	private TypePostVisibility typePostVisibility = TypePostVisibility.USER;
+	
+	
+
+	
 	
 	public PostUpdateDTO() {
 		super();

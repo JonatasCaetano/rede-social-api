@@ -3,6 +3,8 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Post;
+import com.jonatas.socialnetworkapi.entities.post.Update;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class PostUpdateMiniDTO {
@@ -18,19 +20,26 @@ public class PostUpdateMiniDTO {
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
+	private Level level;
 	
 	public PostUpdateMiniDTO() {
 		super();
 	}
 	
-	public PostUpdateMiniDTO(Post post) {
+	public PostUpdateMiniDTO(Update post) {
 		super();
 		this.id = post.getId();
 		this.release = post.getRelease();
 		this.body = post.getBody();
+		this.category = post.getCategory();
 		this.user = post.getUser() != null ? new UserMiniDTO(post.getUser()) : null;
-		this.commentQuantity = post.getCommentQuantity();
+		this.entity = post.getEntity() != null ? new EntityMiniDTO(post.getEntity()) : null;
+		this.season = post.getSeason() != null ? new SeasonMiniDTO(post.getSeason()) : null;
+		this.episode = post.getEpisode() != null ? new EpisodeMiniDTO(post.getEpisode()) : null;
 		this.likeQuantity = post.getLikeQuantity();
+		this.commentQuantity = post.getCommentQuantity();
+		this.level = post.getLevel();
+		
 	}
 
 	public String getId() {
@@ -120,4 +129,14 @@ public class PostUpdateMiniDTO {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	
 }
