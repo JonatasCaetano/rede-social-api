@@ -107,7 +107,7 @@ public class PostService {
 			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
 			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
 			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
-			Episode episode = (Episode) episodeService.findById(postDTO.getIsEpisode()).getBody();
+			Episode episode = (Episode) episodeService.findById(postDTO.getIdEpisode()).getBody();
 			Update post = new Update(
 					postDTO.getRelease(),
 					postDTO.getBody(),

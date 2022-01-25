@@ -20,7 +20,7 @@ public class PostUpdateDTO {
 	private String idUser;
 	private String idEntity;
 	private String idSeason;
-	private String isEpisode;
+	private String idEpisode;
 	
 	public PostUpdateDTO() {
 		super();
@@ -28,7 +28,7 @@ public class PostUpdateDTO {
 
 	public PostUpdateDTO(String idPost, TypePost typePost, Level level,
 			TypePostVisibility typePostVisibility, Date release, String body, int category, String idUser,
-			String idEntity, String idSeason, String isEpisode) {
+			String idEntity, String idSeason, String idEpisode) {
 		super();
 		this.idPost = idPost;
 		this.typePost = typePost;
@@ -40,7 +40,7 @@ public class PostUpdateDTO {
 		this.idUser = idUser;
 		this.idEntity = idEntity;
 		this.idSeason = idSeason;
-		this.isEpisode = isEpisode;
+		this.idEpisode = idEpisode;
 	}
 
 	public String getIdPost() {
@@ -107,12 +107,12 @@ public class PostUpdateDTO {
 		this.idSeason = idSeason;
 	}
 
-	public String getIsEpisode() {
-		return isEpisode;
+	public String getIdEpisode() {
+		return idEpisode;
 	}
 
-	public void setIsEpisode(String isEpisode) {
-		this.isEpisode = isEpisode;
+	public void setIdEpisode(String idEpisode) {
+		this.idEpisode = idEpisode;
 	}
 
 	public Level getLevel() {
