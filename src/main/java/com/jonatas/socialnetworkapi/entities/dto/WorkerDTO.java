@@ -1,35 +1,33 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
-import com.jonatas.socialnetworkapi.enuns.TypeWorker;
+import com.jonatas.socialnetworkapi.enuns.Level;
 
 public class WorkerDTO {
 	
 	private String idUser;
 	private String idEntity;
 	private String role;
-	private TypeWorker typeWorker;
+	private Level level;
 		
 	public WorkerDTO() {
 		super();
 	}
 	
-	public WorkerDTO(String idUser, String idEntity, String role, TypeWorker typeWorker) {
+	public WorkerDTO(String idUser, String idEntity, String role, Level level) {
 		super();
 		this.idUser = idUser;
 		this.idEntity = idEntity;
 		this.role = role;
-		this.typeWorker = typeWorker;
+		this.level = level;
 	}
 
-	public TypeWorker getTypeWorker() {
-		return typeWorker;
+	public Level getLevel() {
+		return level;
 	}
 
-
-	public void setTypeWorker(TypeWorker typeWorker) {
-		this.typeWorker = typeWorker;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
-
 
 	public String getIdUser() {
 		return idUser;

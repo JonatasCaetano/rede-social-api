@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -20,7 +20,7 @@ public class EntitySave implements Serializable{
 	@Id
 	private String id;
 	
-	private TypeEntitySave typeEntitySave;
+	private Level level;
 	private int category;
 	private boolean goal = false;
 	private boolean rated = false;
@@ -51,14 +51,14 @@ public class EntitySave implements Serializable{
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, TypeEntitySave typeEntitySave) {
+	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, Level level) {
 		super();
 		this.user = user;
 		this.entity = entity;
 		this.season = season;
 		this.episode = episode;
 		this.category = category;
-		this.typeEntitySave = typeEntitySave;
+		this.level = level;
 	}
 
 	public User getUser() {
@@ -152,13 +152,13 @@ public class EntitySave implements Serializable{
 	public void setReview(String review) {
 		this.review = review;
 	}
-
-	public TypeEntitySave getTypeEntitySave() {
-		return typeEntitySave;
+	
+	public Level getLevel() {
+		return level;
 	}
 
-	public void setTypeEntitySave(TypeEntitySave typeEntitySave) {
-		this.typeEntitySave = typeEntitySave;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	@Override

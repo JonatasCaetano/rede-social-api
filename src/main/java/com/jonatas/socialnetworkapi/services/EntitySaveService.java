@@ -16,7 +16,7 @@ import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EntitySaveDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
-import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
 
 @Service
@@ -44,6 +44,10 @@ public class EntitySaveService {
 	@Autowired
 	@Lazy
 	private EpisodeService episodeService;
+	
+	@Autowired
+	@Lazy
+	private PostService postService;
 	
 	//methods
 	
@@ -88,12 +92,12 @@ public class EntitySaveService {
 					null,
 					null,
 					entitySaveDTO.getCategory(),
-					TypeEntitySave.ENTITY
+					Level.ENTITY
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
 				boolean entitySaveExists = false;
-				if(obj.getTypeEntitySave() == TypeEntitySave.ENTITY) {
+				if(obj.getLevel() == Level.ENTITY) {
 				if(obj.getEntity().getId().hashCode() == entity.getId().hashCode()) {
 					entitySaveExists = true;
 				}
@@ -127,12 +131,12 @@ public class EntitySaveService {
 					season,
 					null,
 					entitySaveDTO.getCategory(),
-					TypeEntitySave.SEASON
+					Level.SEASON
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
 				boolean entitySaveExists = false;
-				if(obj.getTypeEntitySave() == TypeEntitySave.SEASON) {
+				if(obj.getLevel() == Level.SEASON) {
 					if(obj.getSeason().getId().hashCode() == season.getId().hashCode()) {
 						entitySaveExists = true;
 					}
@@ -163,12 +167,12 @@ public class EntitySaveService {
 					null,
 					episode,
 					entitySaveDTO.getCategory(),
-					TypeEntitySave.EPISODE
+					Level.EPISODE
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
 				boolean entitySaveExists = false;
-				if(obj.getTypeEntitySave() == TypeEntitySave.EPISODE) {
+				if(obj.getLevel() == Level.EPISODE) {
 				if(obj.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
 					entitySaveExists = true;
 				}
@@ -201,6 +205,7 @@ public class EntitySaveService {
 			entitySave = entitySaveRepository.save(entitySave);
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
+			
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -212,7 +217,7 @@ public class EntitySaveService {
 			if(entitySaveDTO.getEvaluation() < 1 || entitySaveDTO.getEvaluation() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
-			switch (entitySave.getTypeEntitySave()) {
+			switch (entitySave.getLevel()) {
 			case ENTITY:
 				if(entitySave.isRated()) {
 					Entity entity = entitySave.getEntity();

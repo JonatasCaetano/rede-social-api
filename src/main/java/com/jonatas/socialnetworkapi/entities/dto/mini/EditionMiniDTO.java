@@ -3,7 +3,7 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import java.util.Date;
 
 import com.jonatas.socialnetworkapi.entities.Edition;
-import com.jonatas.socialnetworkapi.enuns.TypeEdition;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EditionMiniDTO {
@@ -18,7 +18,7 @@ public class EditionMiniDTO {
 	private Object current;
 	private Date release;
 	private TypeObject typeObject = TypeObject.EDITION;
-	private TypeEdition typeEdition;
+	private Level level;
 	
 	public EditionMiniDTO() {
 		super();
@@ -35,7 +35,7 @@ public class EditionMiniDTO {
 		this.previous = edition.getPrevious();
 		this.current = edition.getCurrent();
 		this.attribute = edition.getAttribute();
-		this.typeEdition = edition.getTypeEdition();
+		this.level = edition.getLevel();
 	}
 
 	public String getId() {
@@ -118,11 +118,11 @@ public class EditionMiniDTO {
 		this.typeObject = typeObject;
 	}
 
-	public TypeEdition getTypeEdition() {
-		return typeEdition;
+	public Level getLevel() {
+		return level;
 	}
 
-	public void setTypeEdition(TypeEdition typeEdition) {
-		this.typeEdition = typeEdition;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 }

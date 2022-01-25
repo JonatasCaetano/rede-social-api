@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
+import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 
 @Document
 public class Post implements Serializable{
@@ -20,29 +21,19 @@ public class Post implements Serializable{
 	
 	@Id
 	private String id;
-	private TypePost typePost;
 	private Date release;
 	private String body;
-	private int category;
-	private TypeObject typeObject = TypeObject.POST;
+	private TypePost typePost;
+	private TypePostVisibility typePostVisibility;
 	private int likeQuantity = 0;
+	private int commentQuantity = 0;
+	private TypeObject typeObject = TypeObject.POST;
+	
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Entity entity;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Season season;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Episode episode;
-	
+		
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<Comment> comments = new ArrayList<>();
@@ -55,17 +46,13 @@ public class Post implements Serializable{
 		super();
 	}
 
-	public Post(TypePost typePost, Date release, String body, int category, User user, Entity entity, Season season,
-			Episode episode) {
+	public Post(Date release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user) {
 		super();
-		this.typePost = typePost;
 		this.release = release;
 		this.body = body;
-		this.category = category;
+		this.typePost = typePost;
+		this.typePostVisibility = typePostVisibility;
 		this.user = user;
-		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
 	}
 
 	public Date getRelease() {
@@ -84,60 +71,20 @@ public class Post implements Serializable{
 		this.body = body;
 	}
 
-	public int getCategory() {
-		return category;
+	public TypePost getTypePost() {
+		return typePost;
 	}
 
-	public void setCategory(int category) {
-		this.category = category;
+	public void setTypePost(TypePost typePost) {
+		this.typePost = typePost;
 	}
 
-	public User getUser() {
-		return user;
+	public TypePostVisibility getTypePostVisibility() {
+		return typePostVisibility;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Entity getEntity() {
-		return entity;
-	}
-
-	public void setEntity(Entity entity) {
-		this.entity = entity;
-	}
-
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public Episode getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(Episode episode) {
-		this.episode = episode;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
-
-	public List<User> getLikes() {
-		return likes;
-	}
-
-	public TypeObject getTypeObject() {
-		return typeObject;
+	public void setTypePostVisibility(TypePostVisibility typePostVisibility) {
+		this.typePostVisibility = typePostVisibility;
 	}
 
 	public int getLikeQuantity() {
@@ -148,12 +95,36 @@ public class Post implements Serializable{
 		this.likeQuantity += likeQuantity;
 	}
 
-	public TypePost getTypePost() {
-		return typePost;
+	public int getCommentQuantity() {
+		return commentQuantity;
 	}
 
-	public void setTypePost(TypePost typePost) {
-		this.typePost = typePost;
+	public void setCommentQuantity(int commentQuantity) {
+		this.commentQuantity += commentQuantity;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public List<User> getLikes() {
+		return likes;
 	}
 
 	@Override

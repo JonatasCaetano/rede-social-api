@@ -49,11 +49,7 @@ public class Entity implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
-	private List<Post> posts = new ArrayList<>();
-	
+		
 	public Entity() {
 		super();
 	}
@@ -144,10 +140,6 @@ public class Entity implements Serializable{
 		return editions;
 	}
 	
-	public List<Post> getPosts() {
-		return posts;
-	}
-
 	public TypeEntity getTypeEntity() {
 		return typeEntity;
 	}

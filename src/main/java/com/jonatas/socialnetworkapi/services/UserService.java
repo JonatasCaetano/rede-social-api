@@ -20,11 +20,11 @@ import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.PostMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
-import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
@@ -106,9 +106,9 @@ public class UserService {
 		try {
 			User user = userRepository.findById(id).get();
 			List<Post> posts = user.getPosts();
-			List<PostMiniDTO> postMiniDTOs = new ArrayList<>();
+			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();
 			for(Post post : posts) {
-				PostMiniDTO postMiniDTO = new PostMiniDTO(post);
+				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO(post);
 				postMiniDTOs.add(postMiniDTO);
 			}
 			return ResponseEntity.ok().body(postMiniDTOs);
@@ -136,9 +136,9 @@ public class UserService {
 		try {
 			User user = userRepository.findById(id).get();
 			List<Post> likes = user.getLikes();
-			List<PostMiniDTO> postMiniDTOs = new ArrayList<>();
+			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();
 			for(Post post : likes) {
-				PostMiniDTO postMiniDTO = new PostMiniDTO(post);
+				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO(post);
 				postMiniDTOs.add(postMiniDTO);
 			}
 			return ResponseEntity.ok().body(postMiniDTOs);
@@ -164,7 +164,7 @@ public class UserService {
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
 			for(EntitySave entitySave : entitySaves) {		
-				if(entitySave.getTypeEntitySave() == TypeEntitySave.ENTITY) {
+				if(entitySave.getLevel() == Level.ENTITY) {
 					if(entitySave.getEntity().getTypeEntity() == typeEntity) {
 						System.out.println(entitySave.getEntity().getTypeEntity() + " == " + typeEntity);
 						EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);

@@ -15,9 +15,10 @@ import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
-import com.jonatas.socialnetworkapi.entities.dto.PostDTO;
+import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.PostMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
+import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.repositories.PostRepository;
 
 @Service
@@ -53,12 +54,12 @@ public class PostService {
 	public ResponseEntity<Object> findAllMini(){
 		try {
 			List<Post> posts = postRepository.findAll();
-			List<PostMiniDTO> postMiniDTOs = new ArrayList<>();
+			List<PostUpdateMiniDTO> postUpdateMiniDTOs = new ArrayList<>();
 			for(Post post : posts) {
-				PostMiniDTO postMiniDTO = new PostMiniDTO(post);
-				postMiniDTOs.add(postMiniDTO);
+				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
+				postUpdateMiniDTOs.add(postUpdateMiniDTO);
 			}
-			return ResponseEntity.ok().body(postMiniDTOs);
+			return ResponseEntity.ok().body(postUpdateMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -67,8 +68,8 @@ public class PostService {
 	public ResponseEntity<Object> findByIdMini(String id){
 		try {
 			Post post = postRepository.findById(id).get();
-			PostMiniDTO postMiniDTO = new PostMiniDTO(post);
-			return ResponseEntity.ok().body(postMiniDTO);
+			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
+			return ResponseEntity.ok().body(postUpdateMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -101,32 +102,29 @@ public class PostService {
 	
 	//post
 	
-	public ResponseEntity<Object> newPost(PostDTO postDTO){
+	public ResponseEntity<Object> newPostUpdate(PostUpdateDTO postDTO){
 		try {
 			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
 			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
 			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
 			Episode episode = (Episode) episodeService.findById(postDTO.getIsEpisode()).getBody();
-			Post post = new Post(postDTO.getTypePost(), postDTO.getRelease(), postDTO.getBody(), postDTO.getCategory(), user, entity, season, episode);
+			Update post = new Update(
+					postDTO.getRelease(),
+					postDTO.getBody(),
+					postDTO.getTypePost(),
+					postDTO.getTypePostVisibility(),
+					user,
+					postDTO.getCategory(),
+					postDTO.getLevel(),
+					entity,
+					season,
+					episode
+					);
 			post = postRepository.insert(post);
 			user.getPosts().add(post);
 			userService.save(user);
-			switch (post.getTypePost()) {
-			case ENTITY:
-				entity.getPosts().add(post);
-				entityService.save(entity);
-				break;
-			case SEASON:
-				season.getPosts().add(post);
-				seasonService.save(season);
-				break;
-			case EPISODE:
-				episode.getPosts().add(post);
-				episodeService.save(episode);
-				break;	
-			}
-			PostMiniDTO postMiniDTO = new PostMiniDTO(post);
-			return ResponseEntity.created(null).body(postMiniDTO);
+			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
+			return ResponseEntity.created(null).body(postUpdateMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -152,13 +150,10 @@ public class PostService {
 
 	//delete
 	
-	public ResponseEntity<Object> deletePost(PostDTO postDTO){
+	public ResponseEntity<Object> deleteUpdatePost(PostUpdateDTO postDTO){
 		try {
 			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
-			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
-			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
-			Episode episode = (Episode) episodeService.findById(postDTO.getIsEpisode()).getBody();
-			Post post = postRepository.findById(postDTO.getIdPost()).get();
+			Update post = (Update) postRepository.findById(postDTO.getIdPost()).get();
 			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
@@ -166,21 +161,6 @@ public class PostService {
 			List<Post> likesUser = user.getLikes();
 			likesUser.remove(post);
 			userService.save(user);
-			
-			switch (post.getTypePost()) {
-			case ENTITY:
-				entity.getPosts().remove(post);
-				entityService.save(entity);
-				break;
-			case SEASON:
-				season.getPosts().remove(post);
-				seasonService.save(season);
-				break;
-			case EPISODE:
-				episode.getPosts().remove(post);
-				episodeService.save(episode);
-				break;	
-			}
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {

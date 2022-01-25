@@ -1,6 +1,6 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
-import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
+import com.jonatas.socialnetworkapi.enuns.Level;
 
 public class EntitySaveDTO {
 
@@ -15,7 +15,7 @@ public class EntitySaveDTO {
 	private boolean reviewed;
 	private int evaluation;
 	private String review;
-	private TypeEntitySave typeEntitySave;
+	private Level level;
 	
 	public EntitySaveDTO() {
 		super();
@@ -23,7 +23,7 @@ public class EntitySaveDTO {
 	
 	public EntitySaveDTO(String idEntitySave, String idUser, String idEntity, String idSeason, String idEpisode,
 			int category, boolean goal, boolean rated, boolean reviewed, int evaluation, String review,
-			TypeEntitySave typeEntitySave) {
+			Level level) {
 		super();
 		this.idEntitySave = idEntitySave;
 		this.idUser = idUser;
@@ -36,7 +36,7 @@ public class EntitySaveDTO {
 		this.reviewed = reviewed;
 		this.evaluation = evaluation;
 		this.review = review;
-		this.typeEntitySave = typeEntitySave;
+		this.level = level;
 	}
 
 	public String getIdEntitySave() {
@@ -127,11 +127,13 @@ public class EntitySaveDTO {
 		this.review = review;
 	}
 
-	public TypeEntitySave getTypeEntitySave() {
-		return typeEntitySave;
+	public Level getLevel() {
+		return level;
 	}
 
-	public void setTypeEntitySave(TypeEntitySave typeEntitySave) {
-		this.typeEntitySave = typeEntitySave;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
+
+	
 }

@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.enuns.TypeEdition;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -38,14 +38,14 @@ public class Edition implements Serializable{
 	private Object current;
 	private String attribute;
 	private TypeObject typeObject = TypeObject.EDITION;
-	private TypeEdition typeEdition;
+	private Level level;
 	
 	public Edition() {
 		super();
 	}
 
 	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previous,
-			Object current, String attribute, TypeEdition typeEdition) {
+			Object current, String attribute, Level level) {
 		super();
 		this.user = user;
 		this.entity = entity;
@@ -55,7 +55,7 @@ public class Edition implements Serializable{
 		this.previous = previous;
 		this.current = current;
 		this.attribute = attribute;
-		this.typeEdition = typeEdition;
+		this.level = level;
 	}
 
 	public User getUser() {
@@ -130,11 +130,13 @@ public class Edition implements Serializable{
 		return typeObject;
 	}
 
-	public TypeEdition getTypeEdition() {
-		return typeEdition;
+	public Level getLevel() {
+		return level;
 	}
 
-	public void setTypeEdition(TypeEdition typeEdition) {
-		this.typeEdition = typeEdition;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
+
+	
 }

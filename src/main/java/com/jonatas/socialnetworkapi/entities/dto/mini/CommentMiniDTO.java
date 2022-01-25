@@ -11,7 +11,6 @@ public class CommentMiniDTO {
 	private Date release;
 	private String body;
 	private UserMiniDTO user;
-	private PostMiniDTO post;
 	private TypeObject typeObject = TypeObject.COMMENT;
 	
 	public CommentMiniDTO() {
@@ -24,7 +23,6 @@ public class CommentMiniDTO {
 		this.release = comment.getRelease();
 		this.body = comment.getBody();
 		this.user = comment.getUser() != null ? new UserMiniDTO(comment.getUser()) : null;
-		this.post = comment.getPost() != null ? new PostMiniDTO(comment.getPost()) : null;
 	}
 
 	public String getId() {
@@ -59,14 +57,6 @@ public class CommentMiniDTO {
 		this.user = user;
 	}
 
-	public PostMiniDTO getPost() {
-		return post;
-	}
-
-	public void setPost(PostMiniDTO post) {
-		this.post = post;
-	}
-
 	public TypeObject getTypeObject() {
 		return typeObject;
 	}
@@ -74,7 +64,5 @@ public class CommentMiniDTO {
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
 	}
-	
-	
-	
+
 }

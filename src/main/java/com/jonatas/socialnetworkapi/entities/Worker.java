@@ -9,8 +9,8 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
-import com.jonatas.socialnetworkapi.enuns.TypeWorker;
 
 @Document
 public class Worker  implements Serializable{
@@ -21,7 +21,7 @@ public class Worker  implements Serializable{
 	private Date release;
 	private String role;
 	private TypeObject typeObject = TypeObject.WORKER;
-	private TypeWorker typeWorker;
+	private Level level;
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
@@ -34,11 +34,11 @@ public class Worker  implements Serializable{
 		super();
 	}
 	
-	public Worker(Date release, String role, TypeWorker typeWorker, User user, Entity entity) {
+	public Worker(Date release, String role, Level level, User user, Entity entity) {
 		super();
 		this.release = release;
 		this.role = role;
-		this.setTypeWorker(typeWorker);
+		this.level = level;
 		this.user = user;
 		this.entity = entity;
 	}
@@ -87,12 +87,12 @@ public class Worker  implements Serializable{
 		return typeObject;
 	}
 	
-	public TypeWorker getTypeWorker() {
-		return typeWorker;
+	public Level getLevel() {
+		return level;
 	}
 
-	public void setTypeWorker(TypeWorker typeWorker) {
-		this.typeWorker = typeWorker;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	@Override

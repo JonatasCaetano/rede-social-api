@@ -23,7 +23,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
-import com.jonatas.socialnetworkapi.enuns.TypeEdition;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 
 @Service
@@ -194,12 +194,12 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
-			editionDTO.setTypeEdition(TypeEdition.ENTITY);
+			editionDTO.setLevel(Level.ENTITY);
 			editionDTO.setAttribute("name");
 			editionDTO.setPrevious(entity.getName());
 			entity.setName((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
@@ -219,12 +219,12 @@ public class EntityService {
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			
 			editionDTO.setPrevious(entity.getImage());
-			editionDTO.setTypeEdition(TypeEdition.ENTITY);
+			editionDTO.setLevel(Level.ENTITY);
 			editionDTO.setAttribute("image");
 			entity.setImage((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			editionDTO.setCurrent(entity.getImage());			
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			
@@ -246,12 +246,12 @@ public class EntityService {
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			
 			editionDTO.setPrevious(entity.getImage());
-			editionDTO.setTypeEdition(TypeEdition.ENTITY);
+			editionDTO.setLevel(Level.ENTITY);
 			editionDTO.setAttribute("image");
 			entity.setImage(null);
 			entityRepository.save(entity);
 			editionDTO.setCurrent(entity.getImage());
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
@@ -269,12 +269,12 @@ public class EntityService {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			Entity entity = entityRepository.findById(editionDTO.getIdUser()).get();
-			editionDTO.setTypeEdition(TypeEdition.ENTITY);
+			editionDTO.setLevel(Level.ENTITY);
 			editionDTO.setAttribute("description");
 			editionDTO.setPrevious(entity.getDescription());
 			entity.setDescription((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getTypeEdition());
+			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);

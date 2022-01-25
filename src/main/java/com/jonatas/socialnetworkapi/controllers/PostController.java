@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.entities.dto.PostDTO;
+import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.services.PostService;
 
 @RestController
@@ -46,8 +46,8 @@ public class PostController {
 	//post
 	
 	@PostMapping(value = "post")
-	public ResponseEntity<Object> newPost(@RequestBody PostDTO postDTO){
-		return postService.newPost(postDTO);
+	public ResponseEntity<Object> newPostUpdate(@RequestBody PostUpdateDTO postDTO){
+		return postService.newPostUpdate(postDTO);
 	}
 	
 	//put
@@ -60,7 +60,7 @@ public class PostController {
 	//delete
 	
 	@DeleteMapping(value = "delete")
-	public ResponseEntity<Object> deletePost(PostDTO postDTO){
-		return postService.deletePost(postDTO);
+	public ResponseEntity<Object> deleteUpdatePost(PostUpdateDTO postDTO){
+		return postService.deleteUpdatePost(postDTO);
 	}
 }

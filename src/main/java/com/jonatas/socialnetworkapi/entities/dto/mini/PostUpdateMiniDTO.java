@@ -5,7 +5,7 @@ import java.util.Date;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
-public class PostMiniDTO {
+public class PostUpdateMiniDTO {
 
 	private String id;
 	private Date release;
@@ -15,26 +15,22 @@ public class PostMiniDTO {
 	private EntityMiniDTO entity;
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
-	private int comments = 0;
-	private int likes = 0;
+	private int likeQuantity = 0;
+	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
 	
-	public PostMiniDTO() {
+	public PostUpdateMiniDTO() {
 		super();
 	}
 	
-	public PostMiniDTO(Post post) {
+	public PostUpdateMiniDTO(Post post) {
 		super();
 		this.id = post.getId();
 		this.release = post.getRelease();
 		this.body = post.getBody();
-		this.category = post.getCategory();
 		this.user = post.getUser() != null ? new UserMiniDTO(post.getUser()) : null;
-		this.entity = post.getEntity() != null ? new EntityMiniDTO(post.getEntity()) : null;
-		this.season = post.getSeason() != null ? new SeasonMiniDTO(post.getSeason()) : null;
-		this.episode = post.getEpisode() != null ? new EpisodeMiniDTO(post.getEpisode()) : null;
-		this.comments = post.getComments().size();
-		this.likes = post.getLikes().size();
+		this.commentQuantity = post.getCommentQuantity();
+		this.likeQuantity = post.getLikeQuantity();
 	}
 
 	public String getId() {
@@ -101,20 +97,20 @@ public class PostMiniDTO {
 		this.episode = episode;
 	}
 
-	public int getComments() {
-		return comments;
+	public int getLikeQuantity() {
+		return likeQuantity;
 	}
 
-	public void setComments(int comments) {
-		this.comments = comments;
+	public void setLikeQuantity(int likeQuantity) {
+		this.likeQuantity = likeQuantity;
 	}
 
-	public int getLikes() {
-		return likes;
+	public int getCommentQuantity() {
+		return commentQuantity;
 	}
 
-	public void setLikes(int likes) {
-		this.likes = likes;
+	public void setCommentQuantity(int commentQuantity) {
+		this.commentQuantity = commentQuantity;
 	}
 
 	public TypeObject getTypeObject() {

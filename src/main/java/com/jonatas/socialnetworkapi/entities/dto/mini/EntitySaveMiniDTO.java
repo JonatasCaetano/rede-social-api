@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.enuns.TypeEntitySave;
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class EntitySaveMiniDTO {
 
 	private String id;
-	private TypeEntitySave typeEntitySave;
+	private Level level;
 	private int category;
 	private boolean goal;
 	private boolean rated;
@@ -31,7 +31,7 @@ public class EntitySaveMiniDTO {
 	public EntitySaveMiniDTO(EntitySave entitySave) {
 		super();
 		this.id = entitySave.getId();
-		this.typeEntitySave = entitySave.getTypeEntitySave();
+		this.level = entitySave.getLevel();
 		this.category = entitySave.getCategory();
 		this.goal = entitySave.isGoal();
 		this.rated = entitySave.isRated();
@@ -53,12 +53,12 @@ public class EntitySaveMiniDTO {
 		this.id = id;
 	}
 
-	public TypeEntitySave getTypeEntitySave() {
-		return typeEntitySave;
+	public Level getLevel() {
+		return level;
 	}
 
-	public void setTypeEntitySave(TypeEntitySave typeEntitySave) {
-		this.typeEntitySave = typeEntitySave;
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 	public int getCategory() {

@@ -2,12 +2,16 @@ package com.jonatas.socialnetworkapi.entities.dto;
 
 import java.util.Date;
 
+import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
+import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 
-public class PostDTO {
+public class PostUpdateDTO {
 
 	private String idPost;
 	private TypePost typePost;
+	private Level level;
+	private TypePostVisibility typePostVisibility = TypePostVisibility.USER;
 	private Date release;
 	private String body;
 	private int category;
@@ -18,21 +22,25 @@ public class PostDTO {
 	private String idSeason;
 	private String isEpisode;
 	
-	public PostDTO() {
+	public PostUpdateDTO() {
 		super();
 	}
 
-	public PostDTO(TypePost typePost, Date release, String body, int category, String user, String entity, String season,
-			String episode) {
+	public PostUpdateDTO(String idPost, TypePost typePost, Level level,
+			TypePostVisibility typePostVisibility, Date release, String body, int category, String idUser,
+			String idEntity, String idSeason, String isEpisode) {
 		super();
+		this.idPost = idPost;
 		this.typePost = typePost;
+		this.level = level;
+		this.typePostVisibility = typePostVisibility;
 		this.release = release;
 		this.body = body;
 		this.category = category;
-		this.idUser = user;
-		this.idEntity = entity;
-		this.idSeason = season;
-		this.isEpisode = episode;
+		this.idUser = idUser;
+		this.idEntity = idEntity;
+		this.idSeason = idSeason;
+		this.isEpisode = isEpisode;
 	}
 
 	public String getIdPost() {
@@ -105,5 +113,17 @@ public class PostDTO {
 
 	public void setIsEpisode(String isEpisode) {
 		this.isEpisode = isEpisode;
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
+	public TypePostVisibility getTypePostVisibility() {
+		return typePostVisibility;
 	}
 }
