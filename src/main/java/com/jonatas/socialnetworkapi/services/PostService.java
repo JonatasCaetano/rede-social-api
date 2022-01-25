@@ -56,7 +56,7 @@ public class PostService {
 			List<Post> posts = postRepository.findAll();
 			List<PostUpdateMiniDTO> postUpdateMiniDTOs = new ArrayList<>();
 			for(Post post : posts) {
-				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
+				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
 				postUpdateMiniDTOs.add(postUpdateMiniDTO);
 			}
 			return ResponseEntity.ok().body(postUpdateMiniDTOs);
@@ -67,7 +67,7 @@ public class PostService {
 	
 	public ResponseEntity<Object> findByIdMini(String id){
 		try {
-			Post post = postRepository.findById(id).get();
+			Update post = (Update) postRepository.findById(id).get();
 			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
 			return ResponseEntity.ok().body(postUpdateMiniDTO);
 		}catch (RuntimeException e) {

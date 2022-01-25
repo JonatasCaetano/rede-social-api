@@ -23,6 +23,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
+import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
@@ -108,7 +109,7 @@ public class UserService {
 			List<Post> posts = user.getPosts();
 			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();
 			for(Post post : posts) {
-				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO(post);
+				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO((Update) post);
 				postMiniDTOs.add(postMiniDTO);
 			}
 			return ResponseEntity.ok().body(postMiniDTOs);
@@ -138,7 +139,7 @@ public class UserService {
 			List<Post> likes = user.getLikes();
 			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();
 			for(Post post : likes) {
-				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO(post);
+				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO((Update) post);
 				postMiniDTOs.add(postMiniDTO);
 			}
 			return ResponseEntity.ok().body(postMiniDTOs);
