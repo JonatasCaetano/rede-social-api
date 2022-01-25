@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Invitation;
+import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
@@ -40,6 +41,10 @@ public class UserService {
 	@Autowired
 	@Lazy
 	private InvitationService invitationService;
+	
+	@Autowired
+	@Lazy
+	private PostService postService;
 		
 	//methods
 	
@@ -98,22 +103,25 @@ public class UserService {
 		}
 	}
 	
-	/*
 	
 	public ResponseEntity<Object> getPostsMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
 			List<Post> posts = user.getPosts();
-			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();
+			List<Object> postMiniDTOs = new ArrayList<>();
 			for(Post post : posts) {
-				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO((Update) post);
-				postMiniDTOs.add(postMiniDTO);
+				Object obj = postService.findById(post.getId());
+				postMiniDTOs.add(obj);
 			}
 			return ResponseEntity.ok().body(postMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	
+	
+	/*
 	
 	public ResponseEntity<Object> getCommentsMini(String id){
 		try {

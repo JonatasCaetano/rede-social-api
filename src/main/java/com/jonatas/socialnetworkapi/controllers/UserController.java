@@ -50,13 +50,13 @@ public class UserController {
 	public ResponseEntity<Object> getWorkersMini(@PathVariable String id){
 		return userService.getWorkersMini(id);
 	}
-	
-	/*
-	
+		
 	@GetMapping(value = "get/user/{id}/posts")
 	public ResponseEntity<Object> getPostsMini(@PathVariable String id){
 		return userService.getPostsMini(id);
 	}
+	
+	/*
 	
 	@GetMapping(value = "get/user/{id}/comments")
 	public ResponseEntity<Object> getCommentsMini(@PathVariable String id){
