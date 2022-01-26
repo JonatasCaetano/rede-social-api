@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Invitation;
-import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
@@ -103,26 +102,44 @@ public class UserService {
 		}
 	}
 	
+	/*
 	
-	public ResponseEntity<Object> getPostsMini(String id){
+	public ResponseEntity<Object> getMyPostsMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
 			List<Post> posts = user.getPosts();
-			List<Object> postMiniDTOs = new ArrayList<>();
-			for(Post post : posts) {
-				Object obj = postService.findById(post.getId());
-				postMiniDTOs.add(obj);
+			for(Object post : posts) {
+				System.out.println(post);
 			}
-			return ResponseEntity.ok().body(postMiniDTOs);
+			System.out.println();
+			return ResponseEntity.ok().body(posts);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	
-	
-	/*
-	
+	public ResponseEntity<Object> getAllPostsMini(String id){
+		try {
+			System.out.println(1);
+			User user = userRepository.findById(id).get();
+			System.out.println(2);
+			List<Post> posts = user.getPosts();
+			System.out.println(3);
+			for(Object post : posts) {
+				System.out.println(post);
+			}
+			System.out.println();
+			List<Object> postMiniDTOs = new ArrayList<>();
+			for(Post post : posts) {
+				Object obj = postService.findById(post.getId());
+				postMiniDTOs.add(obj);
+			}
+			return ResponseEntity.ok().body(posts);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+		
 	public ResponseEntity<Object> getCommentsMini(String id){
 		try {
 			User user = userRepository.findById(id).get();

@@ -19,6 +19,7 @@ import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.post.Update;
+import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 import com.jonatas.socialnetworkapi.repositories.PostRepository;
 
 @Service
@@ -75,6 +76,32 @@ public class PostService {
 		}
 	}
 	
+	public ResponseEntity<Object> getPostAll(String id){
+		try {
+			User user = (User) userService.findById(id).getBody();
+			List<Post> objs = postRepository.findAll();
+			List<Post> posts = new ArrayList<>();
+			int value = 0;
+			for(Post post : objs) {
+				System.out.println(post);
+				if(post.getTypePostVisibility() == TypePostVisibility.USER) {
+					System.out.println("post user");
+					System.out.println(user.getFollower().getFollowing().contains(post.getUser()));
+					System.out.println(user.equals(post.getUser()));
+					if(!user.getFollower().getFollowing().contains(post.getUser()) || !user.equals(post.getUser())) {
+						posts.add(post);
+						value += value;
+					}
+				}
+			}
+			
+			return ResponseEntity.ok().body(posts);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+		
 	public ResponseEntity<Object> getCommentsMini(String id){
 		try {
 			Post post = postRepository.findById(id).get();
@@ -121,8 +148,8 @@ public class PostService {
 					episode
 					);
 			post = postRepository.insert(post);
-			user.getPosts().add(post);
-			userService.save(user);
+			//user.getPosts().add(post);
+			//userService.save(user);
 			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
 			return ResponseEntity.created(null).body(postUpdateMiniDTO);
 		}catch (RuntimeException e) {
@@ -157,10 +184,10 @@ public class PostService {
 			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			user.getPosts().remove(post);
+			//user.getPosts().remove(post);
 			List<Post> likesUser = user.getLikes();
 			likesUser.remove(post);
-			userService.save(user);
+			//userService.save(user);
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {

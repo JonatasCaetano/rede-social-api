@@ -33,6 +33,11 @@ public class PostController {
 		return postService.findByIdMini(id);
 	}
 	
+	@GetMapping(value = "/get/user/{id}/all")
+	public ResponseEntity<Object> getPostAll(@PathVariable String id){
+		return postService.getPostAll(id);
+	}
+		
 	@GetMapping(value = "/get/post/{id}/comments")
 	public ResponseEntity<Object> getCommentsMini(@PathVariable String id){
 		return postService.getCommentsMini(id);

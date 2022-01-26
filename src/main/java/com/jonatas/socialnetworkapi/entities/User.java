@@ -51,9 +51,9 @@ public class User implements Serializable{
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
 	
-	@DBRef(lazy = true)
-	@JsonBackReference
-	private List<Post> posts = new ArrayList<>();
+//	@DBRef(lazy = true)
+//	@JsonBackReference
+//	private List<Post> posts = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -195,9 +195,9 @@ public class User implements Serializable{
 		this.place = place;
 	}
 		
-	public List<Post> getPosts() {
-		return posts;
-	}
+//	public List<Post> getPosts() {
+//		return posts;
+//	}
 	
 	public List<Comment> getComments() {
 		return comments;
@@ -214,7 +214,7 @@ public class User implements Serializable{
 	public List<EntitySave> getEntitySaves() {
 		return entitySaves;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -231,4 +231,6 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
+	
+	
 }

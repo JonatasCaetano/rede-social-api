@@ -15,6 +15,7 @@ import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
+import com.jonatas.socialnetworkapi.repositories.PostRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
@@ -24,6 +25,7 @@ import com.jonatas.socialnetworkapi.services.EntityService;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
+import com.jonatas.socialnetworkapi.services.PostService;
 import com.jonatas.socialnetworkapi.services.SeasonService;
 import com.jonatas.socialnetworkapi.services.UserService;
 import com.jonatas.socialnetworkapi.services.WorkerService;
@@ -52,6 +54,8 @@ public class Instantiation implements CommandLineRunner{
 	private EditionRepository editionRepository;
 	@Autowired
 	private EntitySaveRepository entitySaveRepository;
+	@Autowired
+	private PostRepository postRepository;
 	
 	//Services
 	
@@ -73,6 +77,8 @@ public class Instantiation implements CommandLineRunner{
 	private EditionService editionService;
 	@Autowired
 	private EntitySaveService entitySaveService;
+	@Autowired
+	private PostService postService;
 	
 	//start of function 
 	
@@ -88,6 +94,8 @@ public class Instantiation implements CommandLineRunner{
 //		episodeRepository.deleteAll();
 //		editionRepository.deleteAll();
 //		entitySaveRepository.deleteAll();
+//		postRepository.deleteAll();
+//		
 //		User user1 = new User("marley alexandre", "marley@gmail.com","123456", "um cachorro legal", "Bauru");//123456
 //		userRepository.insert(user1);	
 //		invitationService.createdInvitation(user1);
