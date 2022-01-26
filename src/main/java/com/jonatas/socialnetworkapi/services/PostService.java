@@ -18,6 +18,7 @@ import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 import com.jonatas.socialnetworkapi.repositories.PostRepository;
@@ -121,7 +122,12 @@ public class PostService {
 		try {
 			Post post = postRepository.findById(id).get();
 			List<User> likes = post.getLikes();
-			return ResponseEntity.ok().body(likes);
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+			for(User user : likes) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+				userMiniDTOs.add(userMiniDTO);
+			}
+			return ResponseEntity.ok().body(userMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -145,7 +151,8 @@ public class PostService {
 					postDTO.getLevel(),
 					entity,
 					season,
-					episode
+					episode,
+					postDTO.getEvaluation()
 					);
 			post = postRepository.insert(post);
 			//user.getPosts().add(post);
@@ -166,6 +173,7 @@ public class PostService {
 				return removeLike(idUser, idPost);
 			}
 			post.getLikes().add(user);
+			post.setLikeQuantity(1);
 			postRepository.save(post);
 			user.getLikes().add(post);
 			userService.save(user);
@@ -174,7 +182,24 @@ public class PostService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-
+	
+	public ResponseEntity<Object> addBodyUpdatePost(PostUpdateDTO postUpdateDTO){
+		try {
+			User user = (User) userService.findById(postUpdateDTO.getIdUser()).getBody();
+			Post post = (Update) postRepository.findById(postUpdateDTO.getIdPost()).get();
+			
+			if(!(user.getId().hashCode() == post.getUser().getId().hashCode())) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			post.setBody(postUpdateDTO.getBody());
+			post.setSpoiler(postUpdateDTO.getSpoiler());
+			postRepository.save(post);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	//delete
 	
 	public ResponseEntity<Object> deleteUpdatePost(PostUpdateDTO postDTO){
@@ -187,7 +212,7 @@ public class PostService {
 			//user.getPosts().remove(post);
 			List<Post> likesUser = user.getLikes();
 			likesUser.remove(post);
-			//userService.save(user);
+			userService.save(user);
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
@@ -200,6 +225,7 @@ public class PostService {
 			User user = (User) userService.findById(idUser).getBody();
 			Post post = postRepository.findById(idPost).get();
 			post.getLikes().remove(user);
+			post.setLikeQuantity(-1);
 			postRepository.save(post);
 			user.getLikes().remove(post);
 			userService.save(user);

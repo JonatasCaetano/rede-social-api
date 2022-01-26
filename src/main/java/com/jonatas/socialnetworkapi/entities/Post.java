@@ -28,6 +28,7 @@ public class Post implements Serializable{
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
+	private Boolean spoiler = false;
 	
 	
 	@DBRef(lazy = true)
@@ -125,6 +126,14 @@ public class Post implements Serializable{
 
 	public List<User> getLikes() {
 		return likes;
+	}
+
+	public Boolean getSpoiler() {
+		return spoiler;
+	}
+
+	public void setSpoiler(Boolean spoiler) {
+		this.spoiler = spoiler;
 	}
 
 	@Override

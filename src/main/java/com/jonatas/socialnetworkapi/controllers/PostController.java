@@ -61,6 +61,11 @@ public class PostController {
 	public ResponseEntity<Object> addLike(@PathVariable String idUser, @PathVariable String idPost){
 		return postService.addLike(idUser, idPost);
 	}
+	
+	@PutMapping(value = "put/body")
+	public ResponseEntity<Object> addBodyUpdatePost(@RequestBody PostUpdateDTO postUpdateDTO){
+		return postService.addBodyUpdatePost(postUpdateDTO);
+	}
 		
 	//delete
 	

@@ -19,6 +19,7 @@ public class Update extends Post {
 	
 	private int category;
 	private Level level;
+	private int evaluation;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -37,13 +38,14 @@ public class Update extends Post {
 	}
 	
 	public Update(Date release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user,
-			int category, Level level, Entity entity, Season season, Episode episode) {
+			int category, Level level, Entity entity, Season season, Episode episode, int evaluation) {
 		super(release, body, typePost, typePostVisibility, user);
 		this.category = category;
 		this.level = level;
 		this.entity = entity;
 		this.season = season;
 		this.episode = episode;
+		this.evaluation = evaluation;
 	}
 
 	public int getCategory() {
@@ -84,6 +86,14 @@ public class Update extends Post {
 
 	public void setEpisode(Episode episode) {
 		this.episode = episode;
+	}
+
+	public int getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(int evaluation) {
+		this.evaluation = evaluation;
 	}
 	
 	
