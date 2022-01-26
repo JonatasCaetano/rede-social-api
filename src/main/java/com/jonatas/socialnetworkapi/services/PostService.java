@@ -82,16 +82,19 @@ public class PostService {
 			User user = (User) userService.findById(id).getBody();
 			List<Post> objs = postRepository.findAll();
 			List<Post> posts = new ArrayList<>();
+			List<String> ids = new ArrayList<>();
+			for(User following : user.getFollower().getFollowing()) {
+				ids.add(following.getId());
+			}
 			int value = 0;
 			for(Post post : objs) {
-				System.out.println(post);
 				if(post.getTypePostVisibility() == TypePostVisibility.USER) {
-					System.out.println("post user");
-					System.out.println(user.getFollower().getFollowing().contains(post.getUser()));
-					System.out.println(user.equals(post.getUser()));
-					if(!user.getFollower().getFollowing().contains(post.getUser()) || !user.equals(post.getUser())) {
+					if(ids.contains(post.getUser().getId()) || user.getId().hashCode() == post.getUser().getId().hashCode() ) {
 						posts.add(post);
 						value += value;
+						if(value >= 500) {
+							return ResponseEntity.ok().body(posts); 
+						}
 					}
 				}
 			}
