@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
@@ -36,7 +37,7 @@ public class Post implements Serializable{
 	private User user;
 		
 	@DBRef(lazy = true)
-	@JsonManagedReference
+	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
 	
 	@DBRef(lazy = true)

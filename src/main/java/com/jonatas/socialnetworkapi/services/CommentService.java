@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -63,17 +64,19 @@ public class CommentService {
 	
 	public ResponseEntity<Object> newComment(CommentDTO commentDTO){
 		try {
-			User user = (User) userService.findById(commentDTO.getUser()).getBody();
-			Post post = (Post) postService.findById(commentDTO.getPost()).getBody();
+			User user = (User) userService.findById(commentDTO.getIdUser()).getBody();
+			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
 			Comment comment = new Comment(commentDTO.getRelease(), commentDTO.getBody(), user, post);
 			comment = commentRepository.insert(comment);
 			user.getComments().add(comment);
 			userService.save(user);
 			post.getComments().add(comment);
+			post.setCommentQuantity(1);
 			postService.save(post);
 			CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
 			return ResponseEntity.created(null).body(commentMiniDTO);
 		}catch (RuntimeException e) {
+			System.out.println(e);
 			return ResponseEntity.badRequest().build();
 		}
 	}
@@ -82,16 +85,21 @@ public class CommentService {
 	
 	public ResponseEntity<Object> deleteComment(CommentDTO commentDTO){
 		try {
-			User user = (User) userService.findById(commentDTO.getUser()).getBody();
-			Post post = (Post) postService.findById(commentDTO.getPost()).getBody();
-			Comment comment = commentRepository.findById(commentDTO.getId()).get();
+			User user = (User) userService.findById(commentDTO.getIdUser()).getBody();
+			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
+			Comment comment = commentRepository.findById(commentDTO.getIdComment()).get();
+			if(user.getId().hashCode() != comment.getUser().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
 			user.getComments().remove(comment);
 			userService.save(user);
 			post.getComments().remove(comment);
+			post.setCommentQuantity(-1);
 			postService.save(post);
 			commentRepository.delete(comment);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
+			System.out.println(e);
 			return ResponseEntity.badRequest().build();
 		}
 	}

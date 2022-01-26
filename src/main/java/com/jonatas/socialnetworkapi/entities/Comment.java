@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
@@ -24,7 +25,7 @@ public class Comment implements Serializable{
 	private int likeQuantity = 0;
 	
 	@DBRef(lazy = true)
-	@JsonManagedReference
+	@JsonBackReference
 	List<User> likes = new ArrayList<>();
 	
 	@DBRef(lazy = true)

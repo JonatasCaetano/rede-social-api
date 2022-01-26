@@ -9,6 +9,7 @@ import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
+import com.jonatas.socialnetworkapi.repositories.CommentRepository;
 import com.jonatas.socialnetworkapi.repositories.EditionRepository;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
@@ -19,6 +20,7 @@ import com.jonatas.socialnetworkapi.repositories.PostRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
+import com.jonatas.socialnetworkapi.services.CommentService;
 import com.jonatas.socialnetworkapi.services.EditionService;
 import com.jonatas.socialnetworkapi.services.EntitySaveService;
 import com.jonatas.socialnetworkapi.services.EntityService;
@@ -56,6 +58,8 @@ public class Instantiation implements CommandLineRunner{
 	private EntitySaveRepository entitySaveRepository;
 	@Autowired
 	private PostRepository postRepository;
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	//Services
 	
@@ -79,6 +83,8 @@ public class Instantiation implements CommandLineRunner{
 	private EntitySaveService entitySaveService;
 	@Autowired
 	private PostService postService;
+	@Autowired
+	private CommentService commentService;
 	
 	//start of function 
 	
@@ -95,6 +101,7 @@ public class Instantiation implements CommandLineRunner{
 //		editionRepository.deleteAll();
 //		entitySaveRepository.deleteAll();
 //		postRepository.deleteAll();
+//		commentRepository.deleteAll();
 //		
 //		User user1 = new User("marley alexandre", "marley@gmail.com","123456", "um cachorro legal", "Bauru");//123456
 //		userRepository.insert(user1);	
@@ -129,5 +136,6 @@ public class Instantiation implements CommandLineRunner{
 //		entityService.createEntity(entityDTO1, user1.getId());
 //		entityService.createEntity(entityDTO2, user1.getId());
 //		entityService.createEntity(entityDTO3, user1.getId());
+	
 	}	
 }

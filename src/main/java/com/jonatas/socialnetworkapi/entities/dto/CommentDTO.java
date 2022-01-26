@@ -22,6 +22,14 @@ public class CommentDTO {
 		this.idPost = post;
 	}
 
+	public String getIdComment() {
+		return idComment;
+	}
+
+	public void setIdComment(String idComment) {
+		this.idComment = idComment;
+	}
+
 	public Date getRelease() {
 		return release;
 	}
@@ -38,27 +46,21 @@ public class CommentDTO {
 		this.body = body;
 	}
 
-	public String getUser() {
+	public String getIdUser() {
 		return idUser;
 	}
 
-	public void setUser(String user) {
-		this.idUser = user;
+	public void setIdUser(String idUser) {
+		this.idUser = idUser;
 	}
 
-	public String getPost() {
+	public String getIdPost() {
 		return idPost;
 	}
 
-	public void setPost(String post) {
-		this.idPost = post;
+	public void setIdPost(String idPost) {
+		this.idPost = idPost;
 	}
 
-	public String getId() {
-		return idComment;
-	}
-
-	public void setId(String id) {
-		this.idComment = id;
-	}
+	
 }
