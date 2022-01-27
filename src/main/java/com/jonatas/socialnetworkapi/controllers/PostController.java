@@ -69,8 +69,8 @@ public class PostController {
 		
 	//delete
 	
-	@DeleteMapping(value = "delete")
-	public ResponseEntity<Object> deleteUpdatePost(PostUpdateDTO postDTO){
-		return postService.deleteUpdatePost(postDTO);
+	@DeleteMapping(value = "delete/post/{idPost}/user/{idUser}")
+	public ResponseEntity<Object> deletePost(@PathVariable String idUser, @PathVariable String idPost){
+		return postService.deletePost(idPost, idUser);
 	}
 }

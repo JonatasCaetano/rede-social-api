@@ -187,20 +187,17 @@ public class PostService {
 	
 	//delete
 	
-	public ResponseEntity<Object> deleteUpdatePost(PostUpdateDTO postDTO){
+	public ResponseEntity<Object> deletePost(String idPost, String idUser){
 		try {
-			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
-			Update post = (Update) postRepository.findById(postDTO.getIdPost()).get();
+			User user = (User) userService.findById(idUser).getBody();
+			Update post = (Update) postRepository.findById(idPost).get();
 			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			//user.getPosts().remove(post);
-			List<Post> likesUser = user.getLikes();
-			likesUser.remove(post);
-			userService.save(user);
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
+			System.out.println(e);
 			return ResponseEntity.badRequest().build();
 		}
 	}
