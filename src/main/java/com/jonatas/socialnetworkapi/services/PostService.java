@@ -167,25 +167,7 @@ public class PostService {
 		}
 	}
 	
-	public ResponseEntity<Object> addLike(String idUser, String idPost){
-		try {
-			User user = (User) userService.findById(idUser).getBody();
-			Post post = postRepository.findById(idPost).get();
-			List<User> users = post.getLikes();
-			if(users.contains(user)) {
-				return removeLike(idUser, idPost);
-			}
-			post.getLikes().add(user);
-			post.setLikeQuantity(1);
-			postRepository.save(post);
-			user.getLikes().add(post);
-			userService.save(user);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
-	
+		
 	public ResponseEntity<Object> addBodyUpdatePost(PostUpdateDTO postUpdateDTO){
 		try {
 			User user = (User) userService.findById(postUpdateDTO.getIdUser()).getBody();
@@ -222,7 +204,28 @@ public class PostService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-			
+	
+	//put
+	
+	public ResponseEntity<Object> addLike(String idUser, String idPost){
+		try {
+			User user = (User) userService.findById(idUser).getBody();
+			Post post = postRepository.findById(idPost).get();
+			List<User> users = post.getLikes();
+			if(users.contains(user)) {
+				return removeLike(idUser, idPost);
+			}
+			post.getLikes().add(user);
+			post.setLikeQuantity(1);
+			postRepository.save(post);
+			user.getLikes().add(post);
+			userService.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	public ResponseEntity<Object> removeLike(String idUser, String idPost){
 		try {
 			User user = (User) userService.findById(idUser).getBody();
@@ -232,13 +235,11 @@ public class PostService {
 			postRepository.save(post);
 			user.getLikes().remove(post);
 			userService.save(user);
-			return ResponseEntity.ok().build();
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-	
 	
 	//internal
 	
