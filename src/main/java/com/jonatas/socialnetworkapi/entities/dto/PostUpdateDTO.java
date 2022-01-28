@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
-import java.util.Date;
-
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
 import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
@@ -9,7 +7,7 @@ import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 public class PostUpdateDTO {
 
 	private String idPost;
-	private Date release;
+	private String release;
 	private String body;
 	private int category;
 	private String idUser;
@@ -27,7 +25,7 @@ public class PostUpdateDTO {
 	}
 
 	public PostUpdateDTO(String idPost, TypePost typePost, Level level,
-			TypePostVisibility typePostVisibility, Date release, String body, int category, String idUser,
+			TypePostVisibility typePostVisibility, String release, String body, int category, String idUser,
 			String idEntity, String idSeason, String idEpisode, int evaluation, Boolean spoiler) {
 		super();
 		this.idPost = idPost;
@@ -61,11 +59,11 @@ public class PostUpdateDTO {
 		this.typePost = typePost;
 	}
 
-	public Date getRelease() {
+	public String getRelease() {
 		return release;
 	}
 
-	public void setRelease(Date release) {
+	public void setRelease(String release) {
 		this.release = release;
 	}
 

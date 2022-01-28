@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,7 +21,7 @@ public class Post implements Serializable{
 	
 	@Id
 	private String id;
-	private Date release;
+	private String release;
 	private String body;
 	private TypePost typePost;
 	private TypePostVisibility typePostVisibility;
@@ -48,7 +47,7 @@ public class Post implements Serializable{
 		super();
 	}
 
-	public Post(Date release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user, Boolean spoiler) {
+	public Post(String release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user, Boolean spoiler) {
 		super();
 		this.release = release;
 		this.body = body;
@@ -58,11 +57,11 @@ public class Post implements Serializable{
 		this.spoiler = spoiler;
 	}
 
-	public Date getRelease() {
+	public String getRelease() {
 		return release;
 	}
 
-	public void setRelease(Date release) {
+	public void setRelease(String release) {
 		this.release = release;
 	}
 

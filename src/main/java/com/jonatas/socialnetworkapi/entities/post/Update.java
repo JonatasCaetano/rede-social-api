@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.post;
 
-import java.util.Date;
-
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -37,7 +35,7 @@ public class Update extends Post {
 		super();
 	}
 		
-	public Update(Date release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user,
+	public Update(String release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user,
 			Boolean spoiler, int category, Level level, int evaluation, Entity entity, Season season, Episode episode) {
 		super(release, body, typePost, typePostVisibility, user, spoiler);
 		this.category = category;

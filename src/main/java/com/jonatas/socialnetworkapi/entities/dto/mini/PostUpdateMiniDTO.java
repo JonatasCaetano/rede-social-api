@@ -1,7 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import java.util.Date;
-
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -9,7 +7,7 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class PostUpdateMiniDTO {
 
 	private String id;
-	private Date release;
+	private String release;
 	private String body;
 	private int category;
 	private UserMiniDTO user;
@@ -51,11 +49,11 @@ public class PostUpdateMiniDTO {
 		this.id = id;
 	}
 
-	public Date getRelease() {
+	public String getRelease() {
 		return release;
 	}
 
-	public void setRelease(Date release) {
+	public void setRelease(String release) {
 		this.release = release;
 	}
 
