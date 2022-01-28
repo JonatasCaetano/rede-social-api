@@ -16,6 +16,7 @@ public class EntitySaveDTO {
 	private int evaluation;
 	private String review;
 	private Level level;
+	private boolean spoiler = false;
 	
 	public EntitySaveDTO() {
 		super();
@@ -23,7 +24,7 @@ public class EntitySaveDTO {
 	
 	public EntitySaveDTO(String idEntitySave, String idUser, String idEntity, String idSeason, String idEpisode,
 			int category, boolean goal, boolean rated, boolean reviewed, int evaluation, String review,
-			Level level) {
+			Level level, boolean spoiler) {
 		super();
 		this.idEntitySave = idEntitySave;
 		this.idUser = idUser;
@@ -37,6 +38,7 @@ public class EntitySaveDTO {
 		this.evaluation = evaluation;
 		this.review = review;
 		this.level = level;
+		this.setSpoiler(spoiler);
 	}
 
 	public String getIdEntitySave() {
@@ -133,6 +135,14 @@ public class EntitySaveDTO {
 
 	public void setLevel(Level level) {
 		this.level = level;
+	}
+
+	public boolean isSpoiler() {
+		return spoiler;
+	}
+
+	public void setSpoiler(boolean spoiler) {
+		this.spoiler = spoiler;
 	}
 
 	

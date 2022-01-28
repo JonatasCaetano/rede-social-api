@@ -28,6 +28,7 @@ public class EntitySave implements Serializable{
 	private int evaluation;
 	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
+	private boolean spoiler;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -51,7 +52,7 @@ public class EntitySave implements Serializable{
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, Level level) {
+	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, Level level, Boolean spoiler) {
 		super();
 		this.user = user;
 		this.entity = entity;
@@ -59,6 +60,7 @@ public class EntitySave implements Serializable{
 		this.episode = episode;
 		this.category = category;
 		this.level = level;
+		this.setSpoiler(spoiler);
 	}
 
 	public User getUser() {
@@ -159,6 +161,14 @@ public class EntitySave implements Serializable{
 
 	public void setLevel(Level level) {
 		this.level = level;
+	}
+
+	public Boolean getSpoiler() {
+		return spoiler;
+	}
+
+	public void setSpoiler(Boolean spoiler) {
+		this.spoiler = spoiler;
 	}
 
 	@Override

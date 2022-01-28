@@ -92,7 +92,8 @@ public class EntitySaveService {
 					null,
 					null,
 					entitySaveDTO.getCategory(),
-					Level.ENTITY
+					Level.ENTITY, 
+					entitySaveDTO.isSpoiler()
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
@@ -131,7 +132,8 @@ public class EntitySaveService {
 					season,
 					null,
 					entitySaveDTO.getCategory(),
-					Level.SEASON
+					Level.SEASON,
+					entitySaveDTO.isSpoiler()
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
@@ -167,7 +169,8 @@ public class EntitySaveService {
 					null,
 					episode,
 					entitySaveDTO.getCategory(),
-					Level.EPISODE
+					Level.EPISODE,
+					entitySaveDTO.isSpoiler()
 					);
 			List<EntitySave> entitySaves = user.getEntitySaves();
 			for(EntitySave obj : entitySaves) {
