@@ -20,6 +20,7 @@ public class PostUpdateMiniDTO {
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
 	private Level level;
+	private boolean spoiler;
 	
 	public PostUpdateMiniDTO() {
 		super();
@@ -38,6 +39,7 @@ public class PostUpdateMiniDTO {
 		this.likeQuantity = post.getLikeQuantity();
 		this.commentQuantity = post.getCommentQuantity();
 		this.level = post.getLevel();
+		this.spoiler = post.getSpoiler();
 		
 	}
 
@@ -135,6 +137,14 @@ public class PostUpdateMiniDTO {
 
 	public void setLevel(Level level) {
 		this.level = level;
+	}
+
+	public boolean isSpoiler() {
+		return spoiler;
+	}
+
+	public void setSpoiler(boolean spoiler) {
+		this.spoiler = spoiler;
 	}
 
 	
