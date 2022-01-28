@@ -36,16 +36,16 @@ public class Update extends Post {
 	public Update() {
 		super();
 	}
-	
+		
 	public Update(Date release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user,
-			int category, Level level, Entity entity, Season season, Episode episode, int evaluation) {
-		super(release, body, typePost, typePostVisibility, user);
+			Boolean spoiler, int category, Level level, int evaluation, Entity entity, Season season, Episode episode) {
+		super(release, body, typePost, typePostVisibility, user, spoiler);
 		this.category = category;
 		this.level = level;
+		this.evaluation = evaluation;
 		this.entity = entity;
 		this.season = season;
 		this.episode = episode;
-		this.evaluation = evaluation;
 	}
 
 	public int getCategory() {

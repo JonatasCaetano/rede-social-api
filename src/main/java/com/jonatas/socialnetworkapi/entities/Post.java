@@ -29,7 +29,7 @@ public class Post implements Serializable{
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
-	private Boolean spoiler = false;
+	private Boolean spoiler;
 	
 	
 	@DBRef(lazy = true)
@@ -48,13 +48,14 @@ public class Post implements Serializable{
 		super();
 	}
 
-	public Post(Date release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user) {
+	public Post(Date release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user, Boolean spoiler) {
 		super();
 		this.release = release;
 		this.body = body;
 		this.typePost = typePost;
 		this.typePostVisibility = typePostVisibility;
 		this.user = user;
+		this.spoiler = spoiler;
 	}
 
 	public Date getRelease() {

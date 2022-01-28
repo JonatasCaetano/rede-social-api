@@ -150,12 +150,13 @@ public class PostService {
 					postDTO.getTypePost(),
 					postDTO.getTypePostVisibility(),
 					user,
+					postDTO.getSpoiler(),
 					postDTO.getCategory(),
 					postDTO.getLevel(),
+					postDTO.getEvaluation(),
 					entity,
 					season,
-					episode,
-					postDTO.getEvaluation()
+					episode
 					);
 			post = postRepository.insert(post);
 			//user.getPosts().add(post);
