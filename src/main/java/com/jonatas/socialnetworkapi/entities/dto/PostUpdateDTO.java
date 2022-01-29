@@ -4,7 +4,7 @@ import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
 import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 
-public class PostUpdateDTO extends PostDTO{
+public class PostUpdateDTO{
 
 	private String idPost;
 	private String release;
