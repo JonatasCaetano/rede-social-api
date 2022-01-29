@@ -140,6 +140,9 @@ public class PostService {
 	
 	public ResponseEntity<Object> newPostUpdate(PostUpdateDTO postDTO){
 		try {
+			if(postDTO.getRelease() == null) {
+				return ResponseEntity.badRequest().build();
+			}
 			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
 			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
 			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
