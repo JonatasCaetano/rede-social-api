@@ -104,7 +104,7 @@ public class Instantiation implements CommandLineRunner{
 //		postRepository.deleteAll();
 //		commentRepository.deleteAll();
 //		
-//		User user1 = new User("Marley Alexandre da Silva Caetano Alves", "marley@gmail.com","123456", "um cachorro legal", "Bauru");//123456
+//		User user1 = new User("Marley Alexandre", "marley@gmail.com","123456", "um cachorro legal", "Bauru");//123456
 //		userRepository.insert(user1);	
 //		invitationService.createdInvitation(user1);
 //		userRepository.save(user1);
@@ -129,7 +129,7 @@ public class Instantiation implements CommandLineRunner{
 //				);
 //		
 //		EntityDTO entityDTO3 = new EntityDTO(
-//				"Homem-Aranha", 
+//				"Spider man", 
 //				"Peter Parker (Tobey Maguire) em uma excursão visita um laboratório de genética a exposição de aranhas de 15 espécies junto com seu amigo Harry Osborn (James Franco) e seu interesse amoroso, Mary Jane Watson (Kirsten Dunst). Lá, Peter é picado por uma aranha geneticamente modificada.",
 //				TypeEntity.MOVIES
 //				);

@@ -67,13 +67,12 @@ public class UserController {
 	public ResponseEntity<Object> getCommentsMini(@PathVariable String id){
 		return userService.getCommentsMini(id);
 	}
+	*/
 	
 	@GetMapping(value = "get/user/{id}/likes")
 	public ResponseEntity<Object> getLikesMini(@PathVariable String id){
 		return userService.getLikesMini(id);
 	}
-	
-	*/
 	
 	@GetMapping(value = "get/user/{id}/entitySaves/{typeEntity}")
 	public ResponseEntity<Object> getEntitySaves(@PathVariable String id, @PathVariable TypeEntity typeEntity){

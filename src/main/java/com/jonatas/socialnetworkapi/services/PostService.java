@@ -161,7 +161,8 @@ public class PostService {
 					season,
 					episode
 					);
-			post = postRepository.insert(post);
+			Post obj = post;
+			obj = postRepository.insert(obj);
 			//user.getPosts().add(post);
 			//userService.save(user);
 			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);

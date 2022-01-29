@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Invitation;
+import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
@@ -154,23 +155,27 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	*/
 	
 	public ResponseEntity<Object> getLikesMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
 			List<Post> likes = user.getLikes();
+			return ResponseEntity.ok().body(likes);
+			/*
 			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();
 			for(Post post : likes) {
 				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO((Update) post);
 				postMiniDTOs.add(postMiniDTO);
-			}
+			}	
 			return ResponseEntity.ok().body(postMiniDTOs);
+			*/
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
 	
-	*/
+	
 	
 	public ResponseEntity<Object> getInvitationMini(String id){
 		try {
