@@ -206,6 +206,8 @@ public class UserService {
 		
 	public ResponseEntity<Object> loginMini(String email, String password){
 		try {
+			email = email.replace(" ", "");
+			password = password.replace(" ", "");
 			User user = userRepository.findByEmail(email);
             if(password.hashCode() == user.getPassword().hashCode()) {
             	return ResponseEntity.ok().body(user.getId());
@@ -219,6 +221,8 @@ public class UserService {
 	
 	public ResponseEntity<Object> checkEmail(String email){
 		try {
+			email = email.replace(" ", "");
+
 			User user = userRepository.findByEmail(email);
 			if(user.getEmail() != null || user.getId() != null) {
 				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
@@ -248,6 +252,8 @@ public class UserService {
 	public ResponseEntity<Object> createUser(UserDTO userDTO){
 		try {
 			checkEmail(userDTO.getEmail());
+			userDTO.setEmail(userDTO.getEmail().replace(" ", ""));
+			userDTO.setPassword(userDTO.getPassword().replace(" ", ""));
 			User obj = userRepository.insert(new User(userDTO));
 			invitationService.addInvited(obj, userDTO.getInvitation());		
 			Follower follower = (Follower) followerService.insert(new Follower(null, obj)).getBody();
@@ -293,6 +299,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updateEmail(UserDTO userUpdateDTO){
 		try {
+			userUpdateDTO.setEmail(userUpdateDTO.getEmail().replace(" ", ""));
 			User user = userRepository.findByEmail(userUpdateDTO.getEmail());
 			if(user.getEmail() != null || user.getId() != null) {
 				return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();	
@@ -313,6 +320,7 @@ public class UserService {
 	
 	public ResponseEntity<Void> updatePassword(UserDTO userUpdateDTO){
 		try {
+			userUpdateDTO.setPassword(userUpdateDTO.getPassword().replace(" ", ""));
 			if(userUpdateDTO.getPassword().length() < 6) {
 				return ResponseEntity.badRequest().build();
 			}
