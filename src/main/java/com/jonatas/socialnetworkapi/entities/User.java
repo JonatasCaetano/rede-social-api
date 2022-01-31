@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
+import com.jonatas.socialnetworkapi.entities.helper.Like;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -53,7 +54,7 @@ public class User implements Serializable{
 	
 //	@DBRef(lazy = true)
 //	@JsonBackReference
-//	private List<Post> posts = new ArrayList<>();
+//	private List<Like> posts = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -61,7 +62,7 @@ public class User implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
-	private List<Post> likes = new ArrayList<>();
+	private List<Like> likes = new ArrayList<>();
 		
 	public User() {
 		super();
@@ -203,7 +204,7 @@ public class User implements Serializable{
 		return comments;
 	}
 	
-	public List<Post> getLikes() {
+	public List<Like> getLikes() {
 		return likes;
 	}
 

@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Invitation;
-import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
@@ -20,6 +19,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
+import com.jonatas.socialnetworkapi.entities.helper.Like;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
@@ -160,7 +160,7 @@ public class UserService {
 	public ResponseEntity<Object> getLikesMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
-			List<Post> likes = user.getLikes();
+			List<Like> likes = user.getLikes();
 			return ResponseEntity.ok().body(likes);
 			/*
 			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();

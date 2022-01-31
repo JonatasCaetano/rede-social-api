@@ -19,7 +19,9 @@ import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.helper.Like;
 import com.jonatas.socialnetworkapi.entities.post.Update;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 import com.jonatas.socialnetworkapi.repositories.PostRepository;
 
@@ -220,7 +222,8 @@ public class PostService {
 			post.getLikes().add(user);
 			post.setLikeQuantity(1);
 			postRepository.save(post);
-			user.getLikes().add(post);
+			Like like = new Like(post.getId(), TypeObject.POST);
+			user.getLikes().add(like);
 			userService.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -235,7 +238,8 @@ public class PostService {
 			post.getLikes().remove(user);
 			post.setLikeQuantity(-1);
 			postRepository.save(post);
-			user.getLikes().remove(post);
+			Like like = new Like(post.getId(), TypeObject.POST);
+			user.getLikes().remove(like);
 			userService.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
