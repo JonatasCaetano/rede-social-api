@@ -60,8 +60,6 @@ public class User implements Serializable{
 	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
 	
-	@DBRef(lazy = true)
-	@JsonBackReference
 	private List<Like> likes = new ArrayList<>();
 		
 	public User() {
