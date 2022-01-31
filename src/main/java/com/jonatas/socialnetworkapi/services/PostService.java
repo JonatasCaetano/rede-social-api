@@ -19,7 +19,8 @@ import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
-import com.jonatas.socialnetworkapi.entities.helper.Like;
+import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
+import com.jonatas.socialnetworkapi.entities.helper.PostUser;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
@@ -186,6 +187,8 @@ public class PostService {
 			post.setBody(postUpdateDTO.getBody());
 			post.setSpoiler(postUpdateDTO.getSpoiler());
 			postRepository.save(post);
+			PostUser postUser = new PostUser(post);
+			user.getPosts().add(postUser);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
@@ -201,6 +204,8 @@ public class PostService {
 			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
+			PostUser postUser = new PostUser(post);
+			user.getPosts().remove(postUser);
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
@@ -222,7 +227,7 @@ public class PostService {
 			post.getLikes().add(user);
 			post.setLikeQuantity(1);
 			postRepository.save(post);
-			Like like = new Like(post.getId(), TypeObject.POST);
+			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().add(like);
 			userService.save(user);
 			return ResponseEntity.accepted().build();
@@ -238,7 +243,7 @@ public class PostService {
 			post.getLikes().remove(user);
 			post.setLikeQuantity(-1);
 			postRepository.save(post);
-			Like like = new Like(post.getId(), TypeObject.POST);
+			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().remove(like);
 			userService.save(user);
 			return ResponseEntity.accepted().build();
