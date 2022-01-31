@@ -166,8 +166,9 @@ public class PostService {
 					);
 			Post obj = post;
 			obj = postRepository.insert(obj);
-			//user.getPosts().add(post);
-			//userService.save(user);
+			PostUser postUser = new PostUser(obj.getId(), obj.getTypePost());
+			user.getPosts().add(postUser);
+			userService.save(user);
 			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
 			return ResponseEntity.created(null).body(postUpdateMiniDTO);
 		}catch (RuntimeException e) {
@@ -187,9 +188,6 @@ public class PostService {
 			post.setBody(postUpdateDTO.getBody());
 			post.setSpoiler(postUpdateDTO.getSpoiler());
 			postRepository.save(post);
-			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
-			user.getPosts().add(postUser);
-			userService.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();

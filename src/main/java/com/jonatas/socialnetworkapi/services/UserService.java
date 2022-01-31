@@ -106,14 +106,17 @@ public class UserService {
 		
 	public ResponseEntity<Object> getMyPostsMini(String id){
 		try {
+			System.out.println(1);
 			User user = userRepository.findById(id).get();
+			System.out.println(2);
 			List<PostUser> posts = user.getPosts();
+			System.out.println(3);
 //			List<PostUpdateMiniDTO> objs = new ArrayList<>();
 //			for(PostUser postUser : posts) {
 //				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) postUser.getPost());
 //				objs.add(postUpdateMiniDTO);
 //			}
-//			System.out.println();
+			System.out.println(4);
 			return ResponseEntity.ok().body(posts);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
