@@ -12,14 +12,18 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Invitation;
+import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
+import com.jonatas.socialnetworkapi.entities.helper.PostUser;
+import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
@@ -102,22 +106,24 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	/*
-	
+		
 	public ResponseEntity<Object> getMyPostsMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
-			List<Post> posts = user.getPosts();
-			for(Object post : posts) {
-				System.out.println(post);
+			List<PostUser> posts = user.getPosts();
+			List<PostUpdateMiniDTO> objs = new ArrayList<>();
+			for(PostUser postUser : posts) {
+				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) postUser.getPost());
+				objs.add(postUpdateMiniDTO);
 			}
 			System.out.println();
-			return ResponseEntity.ok().body(posts);
+			return ResponseEntity.ok().body(objs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	/*
 	
 	public ResponseEntity<Object> getAllPostsMini(String id){
 		try {
