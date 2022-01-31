@@ -3,6 +3,7 @@ package com.jonatas.socialnetworkapi.entities.dto.mini;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
+import com.jonatas.socialnetworkapi.enuns.TypePost;
 
 public class PostUpdateMiniDTO {
 
@@ -18,6 +19,7 @@ public class PostUpdateMiniDTO {
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
 	private Level level;
+	private TypePost typePost;
 	private boolean spoiler;
 	
 	public PostUpdateMiniDTO() {
@@ -38,6 +40,7 @@ public class PostUpdateMiniDTO {
 		this.commentQuantity = post.getCommentQuantity();
 		this.level = post.getLevel();
 		this.spoiler = post.getSpoiler();
+		this.typePost = post.getTypePost();
 		
 	}
 
@@ -143,6 +146,14 @@ public class PostUpdateMiniDTO {
 
 	public void setSpoiler(boolean spoiler) {
 		this.spoiler = spoiler;
+	}
+
+	public TypePost getTypePost() {
+		return typePost;
+	}
+
+	public void setTypePost(TypePost typePost) {
+		this.typePost = typePost;
 	}
 
 	
