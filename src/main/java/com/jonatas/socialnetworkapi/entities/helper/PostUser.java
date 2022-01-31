@@ -2,35 +2,42 @@ package com.jonatas.socialnetworkapi.entities.helper;
 
 import java.util.Objects;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
-
-import com.jonatas.socialnetworkapi.entities.Post;
+import com.jonatas.socialnetworkapi.enuns.TypePost;
 
 public class PostUser {
 
-	@DBRef(lazy = true)
-	private Post post;
+	private String id;
+	private TypePost typePost;
 
 	public PostUser() {
 		super();
 	}
 
-	public PostUser(Post post) {
+	public PostUser(String id, TypePost typePost) {
 		super();
-		this.post = post;
+		this.id = id;
+		this.typePost = typePost;
 	}
 
-	public Post getPost() {
-		return post;
+	public String getId() {
+		return id;
 	}
 
-	public void setPost(Post post) {
-		this.post = post;
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public TypePost getTypePost() {
+		return typePost;
+	}
+
+	public void setTypePost(TypePost typePost) {
+		this.typePost = typePost;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(post);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -42,8 +49,8 @@ public class PostUser {
 		if (getClass() != obj.getClass())
 			return false;
 		PostUser other = (PostUser) obj;
-		return Objects.equals(post, other.post);
+		return Objects.equals(id, other.id);
 	}
-	
+
 	
 }

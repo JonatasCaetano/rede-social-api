@@ -187,7 +187,7 @@ public class PostService {
 			post.setBody(postUpdateDTO.getBody());
 			post.setSpoiler(postUpdateDTO.getSpoiler());
 			postRepository.save(post);
-			PostUser postUser = new PostUser(post);
+			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().add(postUser);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
@@ -204,7 +204,7 @@ public class PostService {
 			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
-			PostUser postUser = new PostUser(post);
+			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().remove(postUser);
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
