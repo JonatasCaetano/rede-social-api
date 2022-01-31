@@ -189,6 +189,7 @@ public class PostService {
 			postRepository.save(post);
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().add(postUser);
+			userService.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
@@ -206,6 +207,7 @@ public class PostService {
 			}
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().remove(postUser);
+			userService.save(user);
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
