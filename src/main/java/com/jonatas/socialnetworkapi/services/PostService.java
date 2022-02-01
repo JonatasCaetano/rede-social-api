@@ -230,7 +230,7 @@ public class PostService {
 			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().add(like);
 			userService.save(user);
-			return ResponseEntity.accepted().build();
+			return ResponseEntity.accepted().body(post);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -246,7 +246,7 @@ public class PostService {
 			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().remove(like);
 			userService.save(user);
-			return ResponseEntity.accepted().build();
+			return ResponseEntity.accepted().body(post);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
