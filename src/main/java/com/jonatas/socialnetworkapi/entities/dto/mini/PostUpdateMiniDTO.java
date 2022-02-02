@@ -21,6 +21,7 @@ public class PostUpdateMiniDTO {
 	private Level level;
 	private TypePost typePost;
 	private boolean spoiler;
+	private int evaluation;
 	
 	public PostUpdateMiniDTO() {
 		super();
@@ -41,6 +42,7 @@ public class PostUpdateMiniDTO {
 		this.level = post.getLevel();
 		this.spoiler = post.getSpoiler();
 		this.typePost = post.getTypePost();
+		this.evaluation = post.getEvaluation();
 		
 	}
 
@@ -154,6 +156,14 @@ public class PostUpdateMiniDTO {
 
 	public void setTypePost(TypePost typePost) {
 		this.typePost = typePost;
+	}
+
+	public int getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(int evaluation) {
+		this.evaluation = evaluation;
 	}
 
 	

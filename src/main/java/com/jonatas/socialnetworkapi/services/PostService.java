@@ -84,7 +84,7 @@ public class PostService {
 		try {
 			User user = (User) userService.findById(id).getBody();
 			List<Post> objs = postRepository.findAll();
-			List<Post> posts = new ArrayList<>();
+			List<Object> posts = new ArrayList<>();
 			List<String> ids = new ArrayList<>();
 			for(User following : user.getFollower().getFollowing()) {
 				ids.add(following.getId());
@@ -93,7 +93,8 @@ public class PostService {
 			for(Post post : objs) {
 				if(post.getTypePostVisibility() == TypePostVisibility.USER) {
 					if(ids.contains(post.getUser().getId()) || user.getId().hashCode() == post.getUser().getId().hashCode() ) {
-						posts.add(post);
+						PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
+						posts.add(postUpdateMiniDTO);
 						value += value;
 						if(value >= 500) {
 							return ResponseEntity.ok().body(posts); 
