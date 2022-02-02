@@ -94,6 +94,10 @@ public class Comment implements Serializable{
 	public void setLikeQuantity(int likeQuantity) {
 		this.likeQuantity += likeQuantity;
 	}
+
+	public List<User> getLikes() {
+		return likes;
+	}
 	
 	
 }

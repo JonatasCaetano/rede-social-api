@@ -14,6 +14,8 @@ import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.CommentDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
+import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.repositories.CommentRepository;
 
 @Service
@@ -103,6 +105,46 @@ public class CommentService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	//put
+	
+		public ResponseEntity<Object> addLike(String idUser, String idComment){
+			try {
+				User user = (User) userService.findById(idUser).getBody();
+				Comment comment = commentRepository.findById(idComment).get();
+				List<User> users = comment.getLikes();
+				if(users.contains(user)) {
+					return removeLike(idUser, idComment);
+				}
+				comment.getLikes().add(user);
+				comment.setLikeQuantity(1);
+				commentRepository.save(comment);
+				LikeUser like = new LikeUser(comment.getId(), TypeObject.COMMENT);
+				user.getLikes().add(like);
+				userService.save(user);
+				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+				return ResponseEntity.accepted().body(commentMiniDTO);
+			}catch (RuntimeException e) {
+				return ResponseEntity.badRequest().build();
+			}
+		}
+		
+		public ResponseEntity<Object> removeLike(String idUser, String idComment){
+			try {
+				User user = (User) userService.findById(idUser).getBody();
+				Comment comment = commentRepository.findById(idComment).get();
+				comment.getLikes().remove(user);
+				comment.setLikeQuantity(-1);
+				commentRepository.save(comment);
+				LikeUser like = new LikeUser(comment.getId(), TypeObject.COMMENT);
+				user.getLikes().remove(like);
+				userService.save(user);
+				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+				return ResponseEntity.accepted().body(commentMiniDTO);
+			}catch (RuntimeException e) {
+				return ResponseEntity.badRequest().build();
+			}
+		}
 	
 	//internal
 	
