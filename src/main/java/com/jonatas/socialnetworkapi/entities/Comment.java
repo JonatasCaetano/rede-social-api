@@ -2,7 +2,6 @@ package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -19,7 +18,7 @@ public class Comment implements Serializable{
 	
 	@Id
 	private String id;
-	private Date release;
+	private String release;
 	private String body;
 	private TypeObject typeObject = TypeObject.COMMENT;
 	private int likeQuantity = 0;
@@ -40,7 +39,7 @@ public class Comment implements Serializable{
 		super();
 	}
 
-	public Comment(Date release, String body, User user, Post post) {
+	public Comment(String release, String body, User user, Post post) {
 		super();
 		this.release = release;
 		this.body = body;
@@ -48,11 +47,11 @@ public class Comment implements Serializable{
 		this.post = post;
 	}
 
-	public Date getRelease() {
+	public String getRelease() {
 		return release;
 	}
 
-	public void setRelease(Date release) {
+	public void setRelease(String release) {
 		this.release = release;
 	}
 

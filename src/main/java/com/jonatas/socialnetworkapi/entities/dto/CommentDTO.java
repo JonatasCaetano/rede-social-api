@@ -1,11 +1,9 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
-import java.util.Date;
-
 public class CommentDTO {
 
 	private String idComment;
-	private Date release;
+	private String release;
 	private String body;
 	private String idUser;
 	private String idPost;
@@ -14,7 +12,7 @@ public class CommentDTO {
 		super();
 	}
 
-	public CommentDTO(Date release, String body, String user, String post) {
+	public CommentDTO(String release, String body, String user, String post) {
 		super();
 		this.release = release;
 		this.body = body;
@@ -30,11 +28,11 @@ public class CommentDTO {
 		this.idComment = idComment;
 	}
 
-	public Date getRelease() {
+	public String getRelease() {
 		return release;
 	}
 
-	public void setRelease(Date release) {
+	public void setRelease(String release) {
 		this.release = release;
 	}
 

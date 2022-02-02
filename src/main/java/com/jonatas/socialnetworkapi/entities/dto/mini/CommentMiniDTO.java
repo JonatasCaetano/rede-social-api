@@ -1,17 +1,16 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import java.util.Date;
-
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class CommentMiniDTO {
 
 	private String id;
-	private Date release;
+	private String release;
 	private String body;
 	private UserMiniDTO user;
 	private TypeObject typeObject = TypeObject.COMMENT;
+	private int likeQuantity = 0;
 	
 	public CommentMiniDTO() {
 		super();
@@ -23,6 +22,7 @@ public class CommentMiniDTO {
 		this.release = comment.getRelease();
 		this.body = comment.getBody();
 		this.user = comment.getUser() != null ? new UserMiniDTO(comment.getUser()) : null;
+		this.likeQuantity = comment.getLikeQuantity();
 	}
 
 	public String getId() {
@@ -33,11 +33,11 @@ public class CommentMiniDTO {
 		this.id = id;
 	}
 
-	public Date getRelease() {
+	public String getRelease() {
 		return release;
 	}
 
-	public void setRelease(Date release) {
+	public void setRelease(String release) {
 		this.release = release;
 	}
 
@@ -63,6 +63,14 @@ public class CommentMiniDTO {
 
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
+	}
+
+	public int getLikeQuantity() {
+		return likeQuantity;
+	}
+
+	public void setLikeQuantity(int likeQuantity) {
+		this.likeQuantity = likeQuantity;
 	}
 
 }
