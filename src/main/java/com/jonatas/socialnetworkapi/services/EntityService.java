@@ -166,19 +166,26 @@ public class EntityService {
 	
 	public ResponseEntity<Object> createEntity(EntityDTO entityDTO, String id){
 		try {
-			User user = (User) userService.findById(id).getBody();
+//			User user = (User) userService.findById(id).getBody();
 			Entity entity = new Entity(entityDTO);
-			if(user.isChecked()) {
-				try {
-					Entity obj = entityRepository.insert(entity);
-					EntityMiniDTO entityMiniDTO = new EntityMiniDTO(obj);
-					return ResponseEntity.created(null).body(entityMiniDTO);
-				}catch(RuntimeException e) {
-					return ResponseEntity.badRequest().build();
-				}
-			}else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			try {
+				Entity obj = entityRepository.insert(entity);
+				EntityMiniDTO entityMiniDTO = new EntityMiniDTO(obj);
+				return ResponseEntity.created(null).body(entityMiniDTO);
+			}catch(RuntimeException e) {
+				return ResponseEntity.badRequest().build();
 			}
+//			if(user.isChecked()) {
+//				try {
+//					Entity obj = entityRepository.insert(entity);
+//					EntityMiniDTO entityMiniDTO = new EntityMiniDTO(obj);
+//					return ResponseEntity.created(null).body(entityMiniDTO);
+//				}catch(RuntimeException e) {
+//					return ResponseEntity.badRequest().build();
+//				}
+//			}else {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			
 		}catch (RuntimeException e) {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
@@ -190,9 +197,9 @@ public class EntityService {
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setLevel(Level.ENTITY);
 			editionDTO.setAttribute("name");
@@ -213,9 +220,9 @@ public class EntityService {
 	public ResponseEntity<Void> addImage(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			
 			editionDTO.setPrevious(entity.getImage());
@@ -240,9 +247,9 @@ public class EntityService {
 	public ResponseEntity<Void> removeImage(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			
 			editionDTO.setPrevious(entity.getImage());
@@ -265,9 +272,9 @@ public class EntityService {
 	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Entity entity = entityRepository.findById(editionDTO.getIdUser()).get();
 			editionDTO.setLevel(Level.ENTITY);
 			editionDTO.setAttribute("description");

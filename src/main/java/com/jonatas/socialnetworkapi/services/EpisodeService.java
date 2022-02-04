@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -134,28 +133,42 @@ public class EpisodeService {
 	
 	public ResponseEntity<Object> newEpisode(EpisodeDTO episodeCreateDTO, String idUser, String idSeason){
 		try {
-			User user = (User) userService.findById(idUser).getBody();
+			//User user = (User) userService.findById(idUser).getBody();
 			Season season = (Season) seasonService.findById(idSeason).getBody();
 			Episode episode = new Episode(episodeCreateDTO);
 			List<Episode> episodes = season.getEpisodes();
-			if(user.isChecked()) {
-				if(episodes.contains(episode)) {
-					return ResponseEntity.badRequest().build();
-				}
-				try {
-					episode.setSeason(season);
-					Episode obj = episodeRepository.insert(episode);
-					season.getEpisodes().add(obj);
-					season.setEpisodeQuantity(1);
-					seasonService.save(season);
-					EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(obj);
-					return ResponseEntity.created(null).body(episodeMiniDTO);
-				}catch(RuntimeException e) {
-					return ResponseEntity.badRequest().build();
-				}
-			}else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			if(episodes.contains(episode)) {
+				return ResponseEntity.badRequest().build();
 			}
+			try {
+				episode.setSeason(season);
+				Episode obj = episodeRepository.insert(episode);
+				season.getEpisodes().add(obj);
+				season.setEpisodeQuantity(1);
+				seasonService.save(season);
+				EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(obj);
+				return ResponseEntity.created(null).body(episodeMiniDTO);
+			}catch(RuntimeException e) {
+				return ResponseEntity.badRequest().build();
+			}
+//			if(user.isChecked()) {
+//				if(episodes.contains(episode)) {
+//					return ResponseEntity.badRequest().build();
+//				}
+//				try {
+//					episode.setSeason(season);
+//					Episode obj = episodeRepository.insert(episode);
+//					season.getEpisodes().add(obj);
+//					season.setEpisodeQuantity(1);
+//					seasonService.save(season);
+//					EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(obj);
+//					return ResponseEntity.created(null).body(episodeMiniDTO);
+//				}catch(RuntimeException e) {
+//					return ResponseEntity.badRequest().build();
+//				}
+//			}else {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -166,9 +179,9 @@ public class EpisodeService {
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setLevel(Level.EPISODE);
 			editionDTO.setAttribute("name");
@@ -189,9 +202,9 @@ public class EpisodeService {
 	public ResponseEntity<Void> addImages(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setLevel(Level.EPISODE);
 			editionDTO.setAttribute("image");
@@ -213,9 +226,9 @@ public class EpisodeService {
 	public ResponseEntity<Void> removeImages(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setLevel(Level.EPISODE);
 			editionDTO.setAttribute("image");
@@ -237,9 +250,9 @@ public class EpisodeService {
 	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Episode episode = episodeRepository.findById(editionDTO.getIdEpisode()).get();
 			editionDTO.setLevel(Level.EPISODE);
 			editionDTO.setAttribute("description");

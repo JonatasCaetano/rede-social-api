@@ -87,12 +87,17 @@ public class CommentService {
 	
 	public ResponseEntity<Object> deleteComment(CommentDTO commentDTO){
 		try {
+			System.out.println(commentDTO.getIdComment());
+			System.out.println(commentDTO.getIdPost());
+			System.out.println(commentDTO.getIdUser());
 			User user = (User) userService.findById(commentDTO.getIdUser()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
 			Comment comment = commentRepository.findById(commentDTO.getIdComment()).get();
+			
 			if(user.getId().hashCode() != comment.getUser().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
+			
 			user.getComments().remove(comment);
 			userService.save(user);
 			post.getComments().remove(comment);

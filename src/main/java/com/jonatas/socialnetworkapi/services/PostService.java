@@ -121,6 +121,7 @@ public class PostService {
 			}
 			return ResponseEntity.ok().body(commentMiniDTOs);
 		}catch (RuntimeException e) {
+			e.printStackTrace();
 			return ResponseEntity.badRequest().build();
 		}
 	}

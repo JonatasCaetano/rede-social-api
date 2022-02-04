@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -152,29 +151,43 @@ public class SeasonService {
 	
 	public ResponseEntity<Object> newSeason(SeasonDTO seasonDTO, String idUser, String idEntity){
 		try {
-			User user = (User) userService.findById(idUser).getBody();
+			//User user = (User) userService.findById(idUser).getBody();
 			Entity entity = (Entity) entityService.findById(idEntity).getBody();
 			Season season = new Season(seasonDTO.getName(), seasonDTO.getDescription(), seasonDTO.getNumberSeason(), entity);
 			List<Season> seasons = entity.getSeasons();
-			if(user.isChecked()) {
-				//hashCode and equals
-				if(seasons.contains(season)) {
+			if(seasons.contains(season)) {
+				return ResponseEntity.badRequest().build();
+			}
+				try {
+					season.setEntity(entity);
+					season = seasonRepository.insert(season);
+					entity.getSeasons().add(season);
+					entity.setSeasonQuantity(1);
+					entityService.save(entity);
+					SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+					return ResponseEntity.created(null).body(seasonMiniDTO);
+				}catch(RuntimeException e) {
 					return ResponseEntity.badRequest().build();
 				}
-					try {
-						season.setEntity(entity);
-						season = seasonRepository.insert(season);
-						entity.getSeasons().add(season);
-						entity.setSeasonQuantity(1);
-						entityService.save(entity);
-						SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
-						return ResponseEntity.created(null).body(seasonMiniDTO);
-					}catch(RuntimeException e) {
-						return ResponseEntity.badRequest().build();
-					}
-			}else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(user.isChecked()) {
+//				//hashCode and equals
+//				if(seasons.contains(season)) {
+//					return ResponseEntity.badRequest().build();
+//				}
+//					try {
+//						season.setEntity(entity);
+//						season = seasonRepository.insert(season);
+//						entity.getSeasons().add(season);
+//						entity.setSeasonQuantity(1);
+//						entityService.save(entity);
+//						SeasonMiniDTO seasonMiniDTO = new SeasonMiniDTO(season);
+//						return ResponseEntity.created(null).body(seasonMiniDTO);
+//					}catch(RuntimeException e) {
+//						return ResponseEntity.badRequest().build();
+//					}
+//			}else {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -186,9 +199,9 @@ public class SeasonService {
 	public ResponseEntity<Void> updateName(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setLevel(Level.SEASON);
 			editionDTO.setAttribute("name");
@@ -209,9 +222,9 @@ public class SeasonService {
 	public ResponseEntity<Void> addImages(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();		
 			editionDTO.setLevel(Level.SEASON);
 			editionDTO.setAttribute("image");
@@ -233,9 +246,9 @@ public class SeasonService {
 	public ResponseEntity<Void> removeImages(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setLevel(Level.SEASON);
 			editionDTO.setAttribute("image");
@@ -259,9 +272,9 @@ public class SeasonService {
 	public ResponseEntity<Void> updateDescription(EditionDTO editionDTO){
 		try {
 			User user = (User) userService.findById(editionDTO.getIdUser()).getBody();
-			if(!user.isChecked()) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-			}
+//			if(!user.isChecked()) {
+//				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//			}
 			Season season = seasonRepository.findById(editionDTO.getIdSeason()).get();
 			editionDTO.setAttribute("description");
 			editionDTO.setPrevious(season.getDescription());
