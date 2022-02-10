@@ -60,6 +60,10 @@ public class User implements Serializable{
 	private List<LikeUser> likes = new ArrayList<>();
 	
 	private List<PostUser> posts = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<User> blocked =  new ArrayList<>();
 		
 	public User() {
 		super();
@@ -212,6 +216,10 @@ public class User implements Serializable{
 	public List<PostUser> getPosts() {
 		return posts;
 	}
+	
+	public List<User> getBlocked() {
+		return blocked;
+	}
 
 	@Override
 	public int hashCode() {
@@ -229,6 +237,4 @@ public class User implements Serializable{
 		User other = (User) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 }

@@ -120,6 +120,20 @@ public class UserService {
 		}
 	}
 	
+	public ResponseEntity<Boolean> isBlocked(String idUser, String idBlocked){
+		try {
+			User user = userRepository.findById(idUser).get();
+			User blocked = userRepository.findById(idBlocked).get();
+			if(user.getBlocked().contains(blocked)) {
+				return ResponseEntity.ok().body(true);
+			}else {
+				return ResponseEntity.ok().body(false);
+			}
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	/*
 	
 	public ResponseEntity<Object> getAllPostsMini(String id){
@@ -414,6 +428,30 @@ public class UserService {
 			userRepository.save(user);
 			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> addBlocked(String idUser, String idBlocked){
+		try {
+			User user = userRepository.findById(idUser).get();
+			User blocked = userRepository.findById(idBlocked).get();
+			user.getBlocked().add(blocked);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Void> removeBlocked(String idUser, String idBlocked){
+		try {
+			User user = userRepository.findById(idUser).get();
+			User blocked = userRepository.findById(idBlocked).get();
+			user.getBlocked().remove(blocked);
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}

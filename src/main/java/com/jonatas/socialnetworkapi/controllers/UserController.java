@@ -56,6 +56,11 @@ public class UserController {
 		return userService.getMyPostsMini(id);
 	}
 	
+	@GetMapping(value = "check/blocked/user/{idUser}/blocked/{idBlocked}")
+	public ResponseEntity<Boolean> isBlocked(@PathVariable String idUser, @PathVariable String idBlocked){
+		return userService.isBlocked(idUser, idBlocked);
+	}
+	
 	/*
 	
 	@GetMapping(value = "get/user/{id}/posts/all")
@@ -152,6 +157,16 @@ public class UserController {
 	@PutMapping(value = "put/checked")
 	public ResponseEntity<Void> updateChecked(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateChecked(userUpdateDTO);
+	}
+	
+	@PutMapping(value = "put/add/blocked/user/{idUser}/blocked/{idBlocked}")
+	public ResponseEntity<Void> addBlocked(@PathVariable String idUser, @PathVariable String idBlocked){
+		return userService.addBlocked(idUser, idBlocked);
+	}
+	
+	@PutMapping(value = "put/remove/blocked/user/{idUser}/blocked/{idBlocked}")
+	public ResponseEntity<Void> removeBlocked(@PathVariable String idUser, @PathVariable String idBlocked){
+		return userService.removeBlocked(idUser, idBlocked);
 	}
 	
 
