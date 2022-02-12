@@ -438,6 +438,8 @@ public class UserService {
 			User blocked = userRepository.findById(idBlocked).get();
 			user.getBlocked().add(blocked);
 			userRepository.save(user);
+			followerService.removeFollowing(idUser, idBlocked);
+			followerService.removeFollowing(idBlocked, idUser);
 			return ResponseEntity.accepted().build();
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().build();
