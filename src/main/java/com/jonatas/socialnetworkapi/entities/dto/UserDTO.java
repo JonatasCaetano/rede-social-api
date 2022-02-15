@@ -6,7 +6,8 @@ public class UserDTO {
 	private String name;
 	private String email;
 	private String password;
-	private String image;
+	private String imageProfile;
+	private String release;
 	private String description;
 	private String place;
 	private boolean privacy = false;
@@ -19,14 +20,15 @@ public class UserDTO {
 		super();
 	}
 
-	public UserDTO(String id, String name, String email, String password, String image, String description,
-			String place, boolean privacy, boolean status, boolean checked) {
+	public UserDTO(String id, String name, String email, String password, String imageProfile, String description,
+			String place, boolean privacy, boolean status, boolean checked, String release) {
 		super();
 		this.idUser = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.image = image;
+		this.imageProfile = imageProfile;
+		this.release = release;
 		this.description = description;
 		this.place = place;
 		this.privacy = privacy;
@@ -66,12 +68,20 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public String getImage() {
-		return image;
+	public String getImageProfile() {
+		return imageProfile;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImageProfile(String imageProfile) {
+		this.imageProfile = imageProfile;
+	}
+
+	public String getRelease() {
+		return release;
+	}
+
+	public void setRelease(String release) {
+		this.release = release;
 	}
 
 	public String getDescription() {

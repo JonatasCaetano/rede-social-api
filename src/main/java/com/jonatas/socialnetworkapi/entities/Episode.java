@@ -11,7 +11,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.jonatas.socialnetworkapi.entities.dto.EpisodeDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -62,12 +61,6 @@ public class Episode implements Serializable{
 		this.season = season;
 	}
 	
-	public Episode(EpisodeDTO episodeDTO) {
-		super();
-		this.name = episodeDTO.getName();
-		this.description = episodeDTO.getDescription();
-		this.numberEpisode = episodeDTO.getNumberEpisode();
-	}
 	
 	public String getName() {
 		return name;

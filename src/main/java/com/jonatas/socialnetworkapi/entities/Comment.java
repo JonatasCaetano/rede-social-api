@@ -30,7 +30,7 @@ public class Comment implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
-	private User user;
+	private User author;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -40,11 +40,11 @@ public class Comment implements Serializable{
 		super();
 	}
 
-	public Comment(String release, String body, User user, Post post) {
+	public Comment(String release, String body, User author, Post post) {
 		super();
 		this.release = release;
 		this.body = body;
-		this.user = user;
+		this.author = author;
 		this.post = post;
 	}
 
@@ -64,12 +64,12 @@ public class Comment implements Serializable{
 		this.body = body;
 	}
 
-	public User getUser() {
-		return user;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	public Post getPost() {

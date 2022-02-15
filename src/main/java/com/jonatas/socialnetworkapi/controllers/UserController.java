@@ -124,14 +124,14 @@ public class UserController {
 		return userService.updatePassword(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/add/image")
-	public ResponseEntity<Void> addImage(@RequestBody UserDTO userUpdateDTO){
-		return userService.addImage(userUpdateDTO);
+	@PutMapping(value = "put/add/image/profile")
+	public ResponseEntity<Void> addImageProfile(@RequestBody UserDTO userUpdateDTO){
+		return userService.addImageProfile(userUpdateDTO);
 	}
 	
-	@PutMapping(value = "put/remove/image")
-	public ResponseEntity<Void> removeImage(@RequestBody UserDTO userUpdateDTO){
-		return userService.removeImage(userUpdateDTO);
+	@PutMapping(value = "put/remove/image/profile")
+	public ResponseEntity<Void> removeImageProfile(@RequestBody UserDTO userUpdateDTO){
+		return userService.removeImageProfile(userUpdateDTO);
 	}
 	
 	@PutMapping(value = "put/description")

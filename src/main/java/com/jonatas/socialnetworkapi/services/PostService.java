@@ -92,7 +92,7 @@ public class PostService {
 			int value = 0;
 			for(Post post : objs) {
 				if(post.getTypePostVisibility() == TypePostVisibility.USER) {
-					if(ids.contains(post.getUser().getId()) || user.getId().hashCode() == post.getUser().getId().hashCode() ) {
+					if(ids.contains(post.getAuthor().getId()) || user.getId().hashCode() == post.getAuthor().getId().hashCode() ) {
 						PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
 						posts.add(postUpdateMiniDTO);
 						value += value;
@@ -148,7 +148,7 @@ public class PostService {
 			if(postDTO.getRelease() == null) {
 				return ResponseEntity.badRequest().build();
 			}
-			User user = (User) userService.findById(postDTO.getIdUser()).getBody();
+			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
 			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
 			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
 			Episode episode = (Episode) episodeService.findById(postDTO.getIdEpisode()).getBody();
@@ -181,10 +181,10 @@ public class PostService {
 		
 	public ResponseEntity<Object> addBodyUpdatePost(PostUpdateDTO postUpdateDTO){
 		try {
-			User user = (User) userService.findById(postUpdateDTO.getIdUser()).getBody();
+			User user = (User) userService.findById(postUpdateDTO.getIdAuthor()).getBody();
 			Post post = (Update) postRepository.findById(postUpdateDTO.getIdPost()).get();
 			
-			if(!(user.getId().hashCode() == post.getUser().getId().hashCode())) {
+			if(!(user.getId().hashCode() == post.getAuthor().getId().hashCode())) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			post.setBody(postUpdateDTO.getBody());
@@ -202,7 +202,7 @@ public class PostService {
 		try {
 			User user = (User) userService.findById(idUser).getBody();
 			Update post = (Update) postRepository.findById(idPost).get();
-			if(user.getId().hashCode() != post.getUser().getId().hashCode()) {
+			if(user.getId().hashCode() != post.getAuthor().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());

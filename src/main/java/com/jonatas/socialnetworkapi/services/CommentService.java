@@ -66,7 +66,7 @@ public class CommentService {
 	
 	public ResponseEntity<Object> newComment(CommentDTO commentDTO){
 		try {
-			User user = (User) userService.findById(commentDTO.getIdUser()).getBody();
+			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
 			Comment comment = new Comment(commentDTO.getRelease(), commentDTO.getBody(), user, post);
 			comment = commentRepository.insert(comment);
@@ -89,12 +89,12 @@ public class CommentService {
 		try {
 			System.out.println(commentDTO.getIdComment());
 			System.out.println(commentDTO.getIdPost());
-			System.out.println(commentDTO.getIdUser());
-			User user = (User) userService.findById(commentDTO.getIdUser()).getBody();
+			System.out.println(commentDTO.getIdAuthor());
+			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
 			Comment comment = commentRepository.findById(commentDTO.getIdComment()).get();
 			
-			if(user.getId().hashCode() != comment.getUser().getId().hashCode()) {
+			if(user.getId().hashCode() != comment.getAuthor().getId().hashCode()) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
 			

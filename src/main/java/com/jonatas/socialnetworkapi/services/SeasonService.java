@@ -153,7 +153,7 @@ public class SeasonService {
 		try {
 			//User user = (User) userService.findById(idUser).getBody();
 			Entity entity = (Entity) entityService.findById(idEntity).getBody();
-			Season season = new Season(seasonDTO.getName(), seasonDTO.getDescription(), seasonDTO.getNumberSeason(), entity);
+			Season season = new Season(seasonDTO.getName(), seasonDTO.getDescription(), entity.getSeasonQuantity() + 1, entity);
 			List<Season> seasons = entity.getSeasons();
 			if(seasons.contains(season)) {
 				return ResponseEntity.badRequest().build();

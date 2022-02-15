@@ -10,7 +10,7 @@ public class PostUpdateDTO{
 	private String release;
 	private String body;
 	private int category;
-	private String idUser;
+	private String idAuthor;
 	private String idEntity;
 	private String idSeason;
 	private String idEpisode;
@@ -25,7 +25,7 @@ public class PostUpdateDTO{
 	}
 
 	public PostUpdateDTO(String idPost, TypePost typePost, Level level,
-			TypePostVisibility typePostVisibility, String release, String body, int category, String idUser,
+			TypePostVisibility typePostVisibility, String release, String body, int category, String idAuthor,
 			String idEntity, String idSeason, String idEpisode, int evaluation, Boolean spoiler) {
 		super();
 		this.idPost = idPost;
@@ -35,7 +35,7 @@ public class PostUpdateDTO{
 		this.release = release;
 		this.body = body;
 		this.category = category;
-		this.idUser = idUser;
+		this.idAuthor = idAuthor;
 		this.idEntity = idEntity;
 		this.idSeason = idSeason;
 		this.idEpisode = idEpisode;
@@ -83,12 +83,12 @@ public class PostUpdateDTO{
 		this.category = category;
 	}
 
-	public String getIdUser() {
-		return idUser;
+	public String getIdAuthor() {
+		return idAuthor;
 	}
 
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
+	public void setIdAuthor(String idAuthor) {
+		this.idAuthor = idAuthor;
 	}
 
 	public String getIdEntity() {

@@ -11,7 +11,7 @@ public class PostUpdateMiniDTO {
 	private String release;
 	private String body;
 	private int category;
-	private UserMiniDTO user;
+	private UserMiniDTO author;
 	private EntityMiniDTO entity;
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
@@ -33,7 +33,7 @@ public class PostUpdateMiniDTO {
 		this.release = post.getRelease();
 		this.body = post.getBody();
 		this.category = post.getCategory();
-		this.user = post.getUser() != null ? new UserMiniDTO(post.getUser()) : null;
+		this.author = post.getAuthor() != null ? new UserMiniDTO(post.getAuthor()) : null;
 		this.entity = post.getEntity() != null ? new EntityMiniDTO(post.getEntity()) : null;
 		this.season = post.getSeason() != null ? new SeasonMiniDTO(post.getSeason()) : null;
 		this.episode = post.getEpisode() != null ? new EpisodeMiniDTO(post.getEpisode()) : null;
@@ -78,12 +78,12 @@ public class PostUpdateMiniDTO {
 		this.category = category;
 	}
 
-	public UserMiniDTO getUser() {
-		return user;
+	public UserMiniDTO getAuthor() {
+		return author;
 	}
 
-	public void setUser(UserMiniDTO user) {
-		this.user = user;
+	public void setAuthor(UserMiniDTO author) {
+		this.author = author;
 	}
 
 	public EntityMiniDTO getEntity() {

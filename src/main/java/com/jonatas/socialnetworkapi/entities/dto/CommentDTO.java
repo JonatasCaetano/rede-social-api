@@ -5,18 +5,18 @@ public class CommentDTO {
 	private String idComment;
 	private String release;
 	private String body;
-	private String idUser;
+	private String idAuthor;
 	private String idPost;
 		
 	public CommentDTO() {
 		super();
 	}
 
-	public CommentDTO(String release, String body, String user, String post) {
+	public CommentDTO(String release, String body, String idAuthor, String post) {
 		super();
 		this.release = release;
 		this.body = body;
-		this.idUser = user;
+		this.idAuthor = idAuthor;
 		this.idPost = post;
 	}
 
@@ -44,12 +44,12 @@ public class CommentDTO {
 		this.body = body;
 	}
 
-	public String getIdUser() {
-		return idUser;
+	public String getIdAuthor() {
+		return idAuthor;
 	}
 
-	public void setIdUser(String idUser) {
-		this.idUser = idUser;
+	public void setIdAuthor(String idAuthor) {
+		this.idAuthor = idAuthor;
 	}
 
 	public String getIdPost() {

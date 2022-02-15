@@ -8,7 +8,8 @@ public class UserMiniDTO {
 	private String id;
 	
 	private String name;
-	private String image;
+	private String imageProfile;
+	private String release;
 	private String description;
 	private String place;
 	
@@ -31,7 +32,8 @@ public class UserMiniDTO {
 		super();
 		this.id = user.getId();
 		this.name = user.getName();
-		this.image = user.getImage();
+		this.imageProfile = user.getImageProfile();
+		this.release = user.getRelease();
 		this.description = user.getDescription();
 		this.place = user.getPlace();
 		this.email = user.getEmail();
@@ -57,13 +59,21 @@ public class UserMiniDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getImage() {
-		return image;
+	
+	public String getImageProfile() {
+		return imageProfile;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImageProfile(String imageProfile) {
+		this.imageProfile = imageProfile;
+	}
+
+	public String getRelease() {
+		return release;
+	}
+
+	public void setRelease(String release) {
+		this.release = release;
 	}
 
 	public String getDescription() {

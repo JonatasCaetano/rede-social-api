@@ -33,7 +33,7 @@ public class Post implements Serializable{
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
-	private User user;
+	private User author;
 		
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -47,13 +47,13 @@ public class Post implements Serializable{
 		super();
 	}
 
-	public Post(String release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user, Boolean spoiler) {
+	public Post(String release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User author, Boolean spoiler) {
 		super();
 		this.release = release;
 		this.body = body;
 		this.typePost = typePost;
 		this.typePostVisibility = typePostVisibility;
-		this.user = user;
+		this.author = author;
 		this.spoiler = spoiler;
 	}
 
@@ -105,12 +105,12 @@ public class Post implements Serializable{
 		this.commentQuantity += commentQuantity;
 	}
 
-	public User getUser() {
-		return user;
+	public User getAuthor() {
+		return author;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setAuthor(User author) {
+		this.author = author;
 	}
 
 	public String getId() {
@@ -154,10 +154,4 @@ public class Post implements Serializable{
 		return Objects.equals(id, other.id);
 	}
 
-	@Override
-	public String toString() {
-		return "Post [id=" + id + ", user=" + user + "]";
-	}
-	
-	
 }

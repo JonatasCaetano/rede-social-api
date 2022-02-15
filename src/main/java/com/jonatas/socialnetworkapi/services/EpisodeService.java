@@ -131,11 +131,11 @@ public class EpisodeService {
 	
 	//post
 	
-	public ResponseEntity<Object> newEpisode(EpisodeDTO episodeCreateDTO, String idUser, String idSeason){
+	public ResponseEntity<Object> newEpisode(EpisodeDTO episodeDTO, String idUser, String idSeason){
 		try {
 			//User user = (User) userService.findById(idUser).getBody();
 			Season season = (Season) seasonService.findById(idSeason).getBody();
-			Episode episode = new Episode(episodeCreateDTO);
+			Episode episode = new Episode(null, episodeDTO.getName(), episodeDTO.getDescription(), season.getEpisodeQuantity() + 1, season);
 			List<Episode> episodes = season.getEpisodes();
 			if(episodes.contains(episode)) {
 				return ResponseEntity.badRequest().build();

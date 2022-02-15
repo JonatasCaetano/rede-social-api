@@ -25,7 +25,8 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
-	private String image;
+	private String imageProfile;
+	private String release;
 	private String description;
 	private String place;
 	
@@ -83,6 +84,7 @@ public class User implements Serializable{
 		this.name = userDTO.getName();
 		this.email = userDTO.getEmail();
 		this.password = userDTO.getPassword();
+		this.release = userDTO.getRelease();
 	}
 
 	public String getId() {
@@ -133,12 +135,20 @@ public class User implements Serializable{
 		this.invitation = invitation;
 	}
 
-	public String getImage() {
-		return image;
+	public String getImageProfile() {
+		return imageProfile;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setImageProfile(String imageProfile) {
+		this.imageProfile = imageProfile;
+	}
+
+	public String getRelease() {
+		return release;
+	}
+
+	public void setRelease(String release) {
+		this.release = release;
 	}
 
 	public String getDescription() {
