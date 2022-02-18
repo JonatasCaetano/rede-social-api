@@ -17,6 +17,7 @@ import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
@@ -24,6 +25,7 @@ import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
+import com.jonatas.socialnetworkapi.enuns.TypePost;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 
 @Service
@@ -109,10 +111,15 @@ public class UserService {
 		try {
 			User user = userRepository.findById(id).get();
 			List<PostUser> posts = user.getPosts();
-			List<PostUpdateMiniDTO> objs = new ArrayList<>();
+			List<Object> objs = new ArrayList<>();
 			for(PostUser postUser : posts) {
-				PostUpdateMiniDTO postUpdateMiniDTO = (PostUpdateMiniDTO) postService.findByIdMini(postUser.getId()).getBody();
-				objs.add(postUpdateMiniDTO);
+				if(postUser.getTypePost() == TypePost.UPDATE) {
+					PostUpdateMiniDTO postUpdateMiniDTO = (PostUpdateMiniDTO) postService.findByIdMini(postUser.getId()).getBody();
+					objs.add(postUpdateMiniDTO);
+				}else if(postUser.getTypePost() == TypePost.TALK) {
+					PostTalkMiniDTO postTalkMiniDTO = (PostTalkMiniDTO) postService.findByIdMini(postUser.getId()).getBody();
+					objs.add(postTalkMiniDTO);
+				}
 			}
 			return ResponseEntity.ok().body(objs);
 		}catch(RuntimeException e) {
@@ -301,6 +308,17 @@ public class UserService {
 	}
 	
 	//put
+	
+	public ResponseEntity<Void> updateLastLogin(UserDTO userUpdateDTO){
+		try {
+			User user = userRepository.findById(userUpdateDTO.getIdUser()).get();
+			user.setLastLogin(userUpdateDTO.getRelease());
+			userRepository.save(user);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 	public ResponseEntity<Void> updateName(UserDTO userUpdateDTO){
 		try {

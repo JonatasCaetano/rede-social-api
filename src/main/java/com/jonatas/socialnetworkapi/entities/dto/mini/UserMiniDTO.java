@@ -10,9 +10,10 @@ public class UserMiniDTO {
 	private String name;
 	private String imageProfile;
 	private String release;
+	private String lastLogin;
 	private String description;
 	private String place;
-	
+
 	private String email;
 	
 	private boolean checked;
@@ -34,6 +35,7 @@ public class UserMiniDTO {
 		this.name = user.getName();
 		this.imageProfile = user.getImageProfile();
 		this.release = user.getRelease();
+		this.lastLogin = user.getLastLogin();
 		this.description = user.getDescription();
 		this.place = user.getPlace();
 		this.email = user.getEmail();
@@ -74,6 +76,14 @@ public class UserMiniDTO {
 
 	public void setRelease(String release) {
 		this.release = release;
+	}
+	
+	public String getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
 	public String getDescription() {

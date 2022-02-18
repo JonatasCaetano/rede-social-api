@@ -27,6 +27,7 @@ public class User implements Serializable{
 	private String password;
 	private String imageProfile;
 	private String release;
+	private String lastLogin;
 	private String description;
 	private String place;
 	
@@ -229,6 +230,14 @@ public class User implements Serializable{
 	
 	public List<User> getBlocked() {
 		return blocked;
+	}
+	
+	public String getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
 	@Override

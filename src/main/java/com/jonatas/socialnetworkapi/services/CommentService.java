@@ -66,6 +66,7 @@ public class CommentService {
 	
 	public ResponseEntity<Object> newComment(CommentDTO commentDTO){
 		try {
+
 			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
 			Comment comment = new Comment(commentDTO.getRelease(), commentDTO.getBody(), user, post);

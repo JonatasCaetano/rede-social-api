@@ -109,6 +109,11 @@ public class UserController {
 			
 	//put
 	
+	@PutMapping(value = "put/login")
+	public ResponseEntity<Void> updateLastLogin(@RequestBody UserDTO userUpdateDTO){
+		return userService.updateLastLogin(userUpdateDTO);
+	}
+	
 	@PutMapping(value = "put/name")
 	public ResponseEntity<Void> updateName(@RequestBody UserDTO userUpdateDTO){
 		return userService.updateName(userUpdateDTO);
