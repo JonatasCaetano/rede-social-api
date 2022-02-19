@@ -17,6 +17,7 @@ public class PostTalkMiniDTO {
 	private TypeObject typeObject = TypeObject.POST;
 	private Boolean spoiler;
 	private UserMiniDTO author;
+	private Boolean Liked;
 	
 	public PostTalkMiniDTO() {
 		super();
@@ -134,7 +135,13 @@ public class PostTalkMiniDTO {
 		this.author = author;
 	}
 	
-	
+	public Boolean getLiked() {
+		return Liked;
+	}
+
+	public void setLiked(Boolean liked) {
+		Liked = liked;
+	}
 	
 	
 }

@@ -22,6 +22,7 @@ public class PostUpdateMiniDTO {
 	private TypePost typePost;
 	private boolean spoiler;
 	private int evaluation;
+	private Boolean Liked;
 	
 	public PostUpdateMiniDTO() {
 		super();
@@ -166,5 +167,14 @@ public class PostUpdateMiniDTO {
 		this.evaluation = evaluation;
 	}
 
+	public Boolean getLiked() {
+		return Liked;
+	}
+
+	public void setLiked(Boolean liked) {
+		Liked = liked;
+	}
+
+	
 	
 }

@@ -105,11 +105,21 @@ public class PostService {
 					if(ids.contains(post.getAuthor().getId()) || user.getId().hashCode() == post.getAuthor().getId().hashCode() ) {
 						if(post.getTypePost() == TypePost.UPDATE) {
 							PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
+							if(post.getLikes().contains(user)) {
+								postUpdateMiniDTO.setLiked(true);
+							}else {
+								postUpdateMiniDTO.setLiked(false);
+							}
 							posts.add(postUpdateMiniDTO);
 							value += value;
 						}else if(post.getTypePost() == TypePost.TALK) {
 							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
 							posts.add(postTalkMiniDTO);
+							if(post.getLikes().contains(user)) {
+								postTalkMiniDTO.setLiked(true);
+							}else {
+								postTalkMiniDTO.setLiked(false);
+							}
 							value += value;
 						}
 						
@@ -231,6 +241,7 @@ public class PostService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
 	
 	//delete
 	
