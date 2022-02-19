@@ -11,6 +11,7 @@ public class CommentMiniDTO {
 	private UserMiniDTO author;
 	private TypeObject typeObject = TypeObject.COMMENT;
 	private int likeQuantity = 0;
+	private Boolean liked;
 	
 	public CommentMiniDTO() {
 		super();
@@ -72,5 +73,15 @@ public class CommentMiniDTO {
 	public void setLikeQuantity(int likeQuantity) {
 		this.likeQuantity = likeQuantity;
 	}
+
+	public Boolean getLiked() {
+		return liked;
+	}
+
+	public void setLiked(Boolean liked) {
+		this.liked = liked;
+	}
+	
+	
 
 }

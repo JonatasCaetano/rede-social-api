@@ -107,17 +107,17 @@ public class UserService {
 		}
 	}
 		
-	public ResponseEntity<Object> getMyPostsMini(String id){
+	public ResponseEntity<Object> getMyPostsMini(String idUserPost, String idUser){
 		try {
-			User user = userRepository.findById(id).get();
+			User user = userRepository.findById(idUserPost).get();
 			List<PostUser> posts = user.getPosts();
 			List<Object> objs = new ArrayList<>();
 			for(PostUser postUser : posts) {
 				if(postUser.getTypePost() == TypePost.UPDATE) {
-					PostUpdateMiniDTO postUpdateMiniDTO = (PostUpdateMiniDTO) postService.findByIdMini(postUser.getId()).getBody();
+					PostUpdateMiniDTO postUpdateMiniDTO = (PostUpdateMiniDTO) postService.findByIdMini(postUser.getId(),  idUser).getBody();
 					objs.add(postUpdateMiniDTO);
 				}else if(postUser.getTypePost() == TypePost.TALK) {
-					PostTalkMiniDTO postTalkMiniDTO = (PostTalkMiniDTO) postService.findByIdMini(postUser.getId()).getBody();
+					PostTalkMiniDTO postTalkMiniDTO = (PostTalkMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
 					objs.add(postTalkMiniDTO);
 				}
 			}

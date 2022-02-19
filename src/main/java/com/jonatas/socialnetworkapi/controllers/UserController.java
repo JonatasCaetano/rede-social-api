@@ -51,9 +51,9 @@ public class UserController {
 		return userService.getWorkersMini(id);
 	}
 		
-	@GetMapping(value = "get/user/{id}/posts/my")
-	public ResponseEntity<Object> getMyPostsMini(@PathVariable String id){
-		return userService.getMyPostsMini(id);
+	@GetMapping(value = "get/user/{idUserPost}/posts/my/{idUser}")
+	public ResponseEntity<Object> getMyPostsMini(@PathVariable String idUserPost, @PathVariable String idUser){
+		return userService.getMyPostsMini(idUserPost, idUser);
 	}
 	
 	@GetMapping(value = "check/blocked/user/{idUser}/blocked/{idBlocked}")

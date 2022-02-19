@@ -29,9 +29,9 @@ public class PostController {
 		return postService.findAllMini();
 	}
 	
-	@GetMapping(value = "/get/post/{id}")
-	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
-		return postService.findByIdMini(id);
+	@GetMapping(value = "/get/post/{idPost}/user/{idUser}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String idPost, @PathVariable String idUser){
+		return postService.findByIdMini(idPost, idUser);
 	}
 	
 	@GetMapping(value = "/get/user/{id}/all")
@@ -39,9 +39,9 @@ public class PostController {
 		return postService.getPostAll(id);
 	}
 		
-	@GetMapping(value = "/get/post/{id}/comments")
-	public ResponseEntity<Object> getCommentsMini(@PathVariable String id){
-		return postService.getCommentsMini(id);
+	@GetMapping(value = "/get/post/{idPost}/comments/user/{idUser}")
+	public ResponseEntity<Object> getCommentsMini(@PathVariable String idPost, @PathVariable String idUser){
+		return postService.getCommentsMini(idPost, idUser);
 	}
 	
 	@GetMapping(value = "get/post/{id}/likes")

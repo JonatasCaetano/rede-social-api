@@ -73,14 +73,25 @@ public class PostService {
 		}
 	}
 	
-	public ResponseEntity<Object> findByIdMini(String id){
+	public ResponseEntity<Object> findByIdMini(String idPost, String idUser){
 		try {
-			Post post = postRepository.findById(id).get();
+			User user = (User) userService.findById(idUser).getBody();
+			Post post = postRepository.findById(idPost).get();
 			if(post.getTypePost() == TypePost.UPDATE) {
 				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
+				if(post.getLikes().contains(user)) {
+					postUpdateMiniDTO.setLiked(true);
+				}else {
+					postUpdateMiniDTO.setLiked(false);
+				}
 				return ResponseEntity.ok().body(postUpdateMiniDTO);
 			}else if(post.getTypePost() == TypePost.TALK) {
 				PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+				if(post.getLikes().contains(user)) {
+					postTalkMiniDTO.setLiked(true);
+				}else {
+					postTalkMiniDTO.setLiked(false);
+				}
 				return ResponseEntity.ok().body(postTalkMiniDTO); 
 			}
 		}catch (RuntimeException e) {
@@ -138,13 +149,19 @@ public class PostService {
 	}
 	
 		
-	public ResponseEntity<Object> getCommentsMini(String id){
+	public ResponseEntity<Object> getCommentsMini(String idPost, String idUser){
 		try {
-			Post post = postRepository.findById(id).get();
+			User user = (User) userService.findById(idUser).getBody();
+			Post post = postRepository.findById(idPost).get();
 			List<Comment> comments = post.getComments();
 			List<CommentMiniDTO> commentMiniDTOs = new ArrayList<>();
 			for(Comment comment : comments) {
 				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+				if(comment.getLikes().contains(user)) {
+					commentMiniDTO.setLiked(true);
+				}else {
+					commentMiniDTO.setLiked(false);
+				}
 				commentMiniDTOs.add(commentMiniDTO);
 			}
 			return ResponseEntity.ok().body(commentMiniDTOs);
