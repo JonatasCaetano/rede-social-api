@@ -1,29 +1,36 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 
-public class PostTalkDTO {
-	
+public class PostQuestDTO {
+
 	private String idPost;
 	private String release;
-	private String body;
 	private TypePostVisibility typePostVisibility;
 	private Boolean spoiler;
 	private String idAuthor;
+	private String body;
+	private List<String> options = new ArrayList<>();
+	private List<Integer> votes = new ArrayList<>();
 		
-	public PostTalkDTO() {
+	public PostQuestDTO() {
 		super();
 	}
-
-	public PostTalkDTO(String idPost, String release, String body, TypePostVisibility typePostVisibility,
-			Boolean spoiler, String idAuthor) {
+	
+	public PostQuestDTO(String idPost, String release, TypePostVisibility typePostVisibility,
+			Boolean spoiler, String idAuthor, String body, List<String> options, List<Integer> votes) {
 		super();
 		this.idPost = idPost;
 		this.release = release;
-		this.body = body;
 		this.typePostVisibility = typePostVisibility;
 		this.spoiler = spoiler;
 		this.idAuthor = idAuthor;
+		this.body = body;
+		this.options = options;
+		this.votes = votes;
 	}
 
 	public String getIdPost() {
@@ -40,14 +47,6 @@ public class PostTalkDTO {
 
 	public void setRelease(String release) {
 		this.release = release;
-	}
-
-	public String getBody() {
-		return body;
-	}
-
-	public void setBody(String body) {
-		this.body = body;
 	}
 
 	public TypePostVisibility getTypePostVisibility() {
@@ -74,7 +73,31 @@ public class PostTalkDTO {
 		this.idAuthor = idAuthor;
 	}
 
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public List<String> getOptions() {
+		return options;
+	}
+
+	public void setOptions(List<String> options) {
+		this.options = options;
+	}
+
+	public List<Integer> getVotes() {
+		return votes;
+	}
+
+	public void setVotes(List<Integer> votes) {
+		this.votes = votes;
+	}
 	
 	
-	
+
+
 }

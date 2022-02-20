@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jonatas.socialnetworkapi.entities.dto.PostQuestDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.services.PostService;
@@ -57,8 +58,13 @@ public class PostController {
 	}
 	
 	@PostMapping(value = "post/talk")
-	public ResponseEntity<Object> newPostTalk(@RequestBody PostTalkDTO PostTalkDTO){
-		return postService.newPostTalk(PostTalkDTO);
+	public ResponseEntity<Object> newPostTalk(@RequestBody PostTalkDTO postTalkDTO){
+		return postService.newPostTalk(postTalkDTO);
+	}
+	
+	@PostMapping(value = "post/quest")
+	public ResponseEntity<Object> newPostQuest(@RequestBody PostQuestDTO postQuestDTO){
+		return postService.newPostQuest(postQuestDTO);
 	}
 	
 	//put
@@ -71,6 +77,11 @@ public class PostController {
 	@PutMapping(value = "put/body")
 	public ResponseEntity<Object> addBodyUpdatePost(@RequestBody PostUpdateDTO postUpdateDTO){
 		return postService.addBodyUpdatePost(postUpdateDTO);
+	}
+	
+	@PutMapping(value = "put/vote/{value}/user/{idUser}/post/{idPost}")
+	public ResponseEntity<Object> updateVotePostQuest(@PathVariable int value, @PathVariable String idUser, @PathVariable String idPost){
+		return postService.updateVotePostQuest(value, idUser, idPost);
 	}
 		
 	//delete

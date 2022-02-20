@@ -4,5 +4,5 @@ public enum TypePost {
 	
 	UPDATE,
 	TALK,
-	
+	QUEST
 }

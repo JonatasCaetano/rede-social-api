@@ -15,14 +15,18 @@ import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.dto.PostQuestDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostQuestMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
+import com.jonatas.socialnetworkapi.entities.helper.VoteQuest;
+import com.jonatas.socialnetworkapi.entities.post.Quest;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
@@ -62,12 +66,22 @@ public class PostService {
 	public ResponseEntity<Object> findAllMini(){
 		try {
 			List<Post> posts = postRepository.findAll();
-			List<PostUpdateMiniDTO> postUpdateMiniDTOs = new ArrayList<>();
+			List<Object> objs = new ArrayList<>();
 			for(Post post : posts) {
-				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
-				postUpdateMiniDTOs.add(postUpdateMiniDTO);
+				if(post.getTypePost() == TypePost.UPDATE) {
+					PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
+					objs.add(postUpdateMiniDTO);
+				}else if(post.getTypePost() == TypePost.TALK) {
+					PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+					objs.add(postTalkMiniDTO);
+					
+				}else if(post.getTypePost() == TypePost.QUEST) {
+					PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
+					objs.add(postQuestMiniDTO);
+				}
+			
 			}
-			return ResponseEntity.ok().body(postUpdateMiniDTOs);
+			return ResponseEntity.ok().body(objs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
@@ -93,6 +107,14 @@ public class PostService {
 					postTalkMiniDTO.setLiked(false);
 				}
 				return ResponseEntity.ok().body(postTalkMiniDTO); 
+			}else if(post.getTypePost() == TypePost.QUEST) {
+				PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
+				if(post.getLikes().contains(user)) {
+					postQuestMiniDTO.setLiked(true);
+				}else {
+					postQuestMiniDTO.setLiked(false);
+				}
+				return ResponseEntity.ok().body(postQuestMiniDTO); 
 			}
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
@@ -122,21 +144,37 @@ public class PostService {
 								postUpdateMiniDTO.setLiked(false);
 							}
 							posts.add(postUpdateMiniDTO);
-							value += value;
 						}else if(post.getTypePost() == TypePost.TALK) {
 							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
-							posts.add(postTalkMiniDTO);
+							
 							if(post.getLikes().contains(user)) {
 								postTalkMiniDTO.setLiked(true);
 							}else {
 								postTalkMiniDTO.setLiked(false);
 							}
-							value += value;
+							posts.add(postTalkMiniDTO);
+						}else if(post.getTypePost() == TypePost.QUEST) {
+							Quest quest = (Quest) post;
+							PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
+							
+							if(post.getLikes().contains(user)) {
+								postQuestMiniDTO.setLiked(true);
+							}else {
+								postQuestMiniDTO.setLiked(false);
+							}
+							for(VoteQuest voteQuest : quest.getUsersVotes()) {
+								if(voteQuest.getUser().equals(user)) {
+									postQuestMiniDTO.setVoted(true);
+									postQuestMiniDTO.setValueVoted(voteQuest.getVote());
+								}
+							}
+							posts.add(postQuestMiniDTO);
 						}
 						
 					}
 					
 				}
+				value += value;
 				if(value >= 500) {
 					return ResponseEntity.ok().body(posts); 
 				}
@@ -224,30 +262,32 @@ public class PostService {
 	}
 	
 		
-	public ResponseEntity<Object> addBodyUpdatePost(PostUpdateDTO postUpdateDTO){
+		
+	public ResponseEntity<Object> newPostTalk(PostTalkDTO postDTO){
 		try {
-			User user = (User) userService.findById(postUpdateDTO.getIdAuthor()).getBody();
-			Post post = (Update) postRepository.findById(postUpdateDTO.getIdPost()).get();
-			
-			if(!(user.getId().hashCode() == post.getAuthor().getId().hashCode())) {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			if(postDTO.getRelease() == null) {
+				return ResponseEntity.badRequest().build();
 			}
-			post.setBody(postUpdateDTO.getBody());
-			post.setSpoiler(postUpdateDTO.getSpoiler());
-			postRepository.save(post);
-			return ResponseEntity.accepted().build();
+			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
+			Post post = new Post(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK, postDTO.getTypePostVisibility(), user, postDTO.getSpoiler());
+			post = postRepository.insert(post);
+			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
+			user.getPosts().add(postUser);
+			userService.save(user);
+			PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+			return ResponseEntity.created(null).body(postTalkMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Object> newPostTalk(PostTalkDTO postDTO){
+	public ResponseEntity<Object> newPostQuest(PostQuestDTO postDTO){
 		try {
-//			if(postDTO.getRelease() == null) {
-//				return ResponseEntity.badRequest().build();
-//			}
+			if(postDTO.getRelease() == null) {
+				return ResponseEntity.badRequest().build();
+			}
 			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
-			Post post = new Post(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK, postDTO.getTypePostVisibility(), user, postDTO.getSpoiler());
+			Post post = new Quest(postDTO.getRelease(), postDTO.getBody(), TypePost.QUEST, postDTO.getTypePostVisibility(), user, postDTO.getSpoiler(), postDTO.getOptions(), 0, postDTO.getVotes());
 			post = postRepository.insert(post);
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().add(postUser);
@@ -281,6 +321,57 @@ public class PostService {
 	}
 	
 	//put
+	
+	public ResponseEntity<Object> addBodyUpdatePost(PostUpdateDTO postUpdateDTO){
+		try {
+			User user = (User) userService.findById(postUpdateDTO.getIdAuthor()).getBody();
+			Post post = (Update) postRepository.findById(postUpdateDTO.getIdPost()).get();
+			
+			if(!(user.getId().hashCode() == post.getAuthor().getId().hashCode())) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			post.setBody(postUpdateDTO.getBody());
+			post.setSpoiler(postUpdateDTO.getSpoiler());
+			postRepository.save(post);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> updateVotePostQuest(int value, String idUser, String idPost){
+		try {
+			User user = (User) userService.findById(idUser).getBody();
+			Quest post = (Quest) postRepository.findById(idPost).get();
+			for(VoteQuest voteQuest :  post.getUsersVotes()) {
+				if(voteQuest.getUser().equals(user)) {
+					if(value >= 0) {
+						//post.setVotesQuantity(+1);
+						post.getVotes().add(voteQuest.getVote(), post.getVotes().get(value) - 1);
+						post.getVotes().add(value, post.getVotes().get(value) + 1);
+						voteQuest = new VoteQuest(post, user, value);
+						post.getUsersVotes().add(voteQuest);
+						postRepository.save(post);
+						return ResponseEntity.accepted().build();
+					}else {
+						post.setVotesQuantity(-1);
+						post.getVotes().add(value, post.getVotes().get(value) - 1);
+						post.getUsersVotes().remove(voteQuest);
+						postRepository.save(post);
+						return ResponseEntity.accepted().build();
+					}
+				}
+			}
+			post.setVotesQuantity(+1);
+			post.getVotes().add(value, post.getVotes().get(value) + 1);
+			VoteQuest voteQuest = new VoteQuest(post, user, value);
+			post.getUsersVotes().add(voteQuest);
+			postRepository.save(post);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
 	
 	public ResponseEntity<Object> addLike(String idUser, String idPost){
 		try {
