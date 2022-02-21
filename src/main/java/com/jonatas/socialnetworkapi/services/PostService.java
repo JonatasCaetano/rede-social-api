@@ -345,7 +345,7 @@ public class PostService {
 			Quest post = (Quest) postRepository.findById(idPost).get();
 			for(VoteQuest voteQuest :  post.getUsersVotes()) {
 				if(voteQuest.getUser().equals(user)) {
-					if(value >= 0) {
+					if(value != voteQuest.getVote()) {
 						//post.setVotesQuantity(+1);
 						post.getVotes().add(voteQuest.getVote(), post.getVotes().get(value) - 1);
 						post.getVotes().add(value, post.getVotes().get(value) + 1);
