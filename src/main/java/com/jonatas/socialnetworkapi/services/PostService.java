@@ -98,6 +98,17 @@ public class PostService {
 				}else {
 					postUpdateMiniDTO.setLiked(false);
 				}
+				if(!post.getLikes().isEmpty()) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+					if(postUpdateMiniDTO.getAuthor().getId().hashCode() != idUser.hashCode()) {
+						postUpdateMiniDTO.setLike(userMiniDTO);
+					}else {
+						if(post.getLikes().size() > 1) {
+							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+							postUpdateMiniDTO.setLike(userMiniDTO);
+						}
+					}
+				}
 				return ResponseEntity.ok().body(postUpdateMiniDTO);
 			}else if(post.getTypePost() == TypePost.TALK) {
 				PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
@@ -106,6 +117,17 @@ public class PostService {
 				}else {
 					postTalkMiniDTO.setLiked(false);
 				}
+				if(!post.getLikes().isEmpty()) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+					if(postTalkMiniDTO.getAuthor().getId().hashCode() != idUser.hashCode()) {
+						postTalkMiniDTO.setLike(userMiniDTO);
+					}else {
+						if(post.getLikes().size() > 1) {
+							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+							postTalkMiniDTO.setLike(userMiniDTO);
+						}
+					}
+				}
 				return ResponseEntity.ok().body(postTalkMiniDTO); 
 			}else if(post.getTypePost() == TypePost.QUEST) {
 				PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
@@ -113,6 +135,17 @@ public class PostService {
 					postQuestMiniDTO.setLiked(true);
 				}else {
 					postQuestMiniDTO.setLiked(false);
+				}
+				if(!post.getLikes().isEmpty()) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+					if(postQuestMiniDTO.getAuthor().getId().hashCode() != idUser.hashCode()) {
+						postQuestMiniDTO.setLike(userMiniDTO);
+					}else {
+						if(post.getLikes().size() > 1) {
+							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+							postQuestMiniDTO.setLike(userMiniDTO);
+						}
+					}
 				}
 				return ResponseEntity.ok().body(postQuestMiniDTO); 
 			}
@@ -163,6 +196,17 @@ public class PostService {
 							}else {
 								postTalkMiniDTO.setLiked(false);
 							}
+							if(!post.getLikes().isEmpty()) {
+								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+								if(postTalkMiniDTO.getAuthor().getId().hashCode() != id.hashCode()) {
+									postTalkMiniDTO.setLike(userMiniDTO);
+								}else {
+									if(post.getLikes().size() > 1) {
+										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+										postTalkMiniDTO.setLike(userMiniDTO);
+									}
+								}
+							}
 							posts.add(postTalkMiniDTO);
 						}else if(post.getTypePost() == TypePost.QUEST) {
 							Quest quest = (Quest) post;
@@ -177,6 +221,17 @@ public class PostService {
 								if(voteQuest.getUser().equals(user)) {
 									postQuestMiniDTO.setVoted(true);
 									postQuestMiniDTO.setValueVoted(voteQuest.getVote());
+								}
+							}
+							if(!post.getLikes().isEmpty()) {
+								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+								if(postQuestMiniDTO.getAuthor().getId().hashCode() != id.hashCode()) {
+									postQuestMiniDTO.setLike(userMiniDTO);
+								}else {
+									if(post.getLikes().size() > 1) {
+										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+										postQuestMiniDTO.setLike(userMiniDTO);
+									}
 								}
 							}
 							posts.add(postQuestMiniDTO);

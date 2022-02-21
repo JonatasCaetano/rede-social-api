@@ -22,6 +22,7 @@ public class PostQuestMiniDTO {
 	private Boolean Liked;
 	private Boolean voted;
 	private int valueVoted;
+	private UserMiniDTO like;
 	
 	private String body;
 	private List<String> options = new ArrayList<>();
@@ -196,6 +197,16 @@ public class PostQuestMiniDTO {
 	public void setValueVoted(int valueVoted) {
 		this.valueVoted = valueVoted;
 	}
+
+	public UserMiniDTO getLike() {
+		return like;
+	}
+
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
+	}
+	
+	
 	
 		
 }

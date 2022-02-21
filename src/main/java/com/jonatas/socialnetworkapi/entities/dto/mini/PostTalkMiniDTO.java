@@ -18,6 +18,7 @@ public class PostTalkMiniDTO {
 	private Boolean spoiler;
 	private UserMiniDTO author;
 	private Boolean Liked;
+	private UserMiniDTO like;
 	
 	public PostTalkMiniDTO() {
 		super();
@@ -142,6 +143,16 @@ public class PostTalkMiniDTO {
 	public void setLiked(Boolean liked) {
 		Liked = liked;
 	}
+
+	public UserMiniDTO getLike() {
+		return like;
+	}
+
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
+	}
+	
+	
 	
 	
 }
