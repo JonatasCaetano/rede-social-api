@@ -100,7 +100,7 @@ public class PostService {
 				}
 				if(!post.getLikes().isEmpty()) {
 					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-					if(postUpdateMiniDTO.getAuthor().getId().hashCode() != idUser.hashCode()) {
+					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
 						postUpdateMiniDTO.setLike(userMiniDTO);
 					}else {
 						if(post.getLikes().size() > 1) {
@@ -119,7 +119,7 @@ public class PostService {
 				}
 				if(!post.getLikes().isEmpty()) {
 					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-					if(postTalkMiniDTO.getAuthor().getId().hashCode() != idUser.hashCode()) {
+					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
 						postTalkMiniDTO.setLike(userMiniDTO);
 					}else {
 						if(post.getLikes().size() > 1) {
@@ -138,7 +138,7 @@ public class PostService {
 				}
 				if(!post.getLikes().isEmpty()) {
 					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-					if(postQuestMiniDTO.getAuthor().getId().hashCode() != idUser.hashCode()) {
+					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
 						postQuestMiniDTO.setLike(userMiniDTO);
 					}else {
 						if(post.getLikes().size() > 1) {
@@ -177,7 +177,7 @@ public class PostService {
 							}
 							if(!post.getLikes().isEmpty()) {
 								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-								if(postUpdateMiniDTO.getAuthor().getId().hashCode() != id.hashCode()) {
+								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
 									postUpdateMiniDTO.setLike(userMiniDTO);
 								}else {
 									if(post.getLikes().size() > 1) {
@@ -198,7 +198,7 @@ public class PostService {
 							}
 							if(!post.getLikes().isEmpty()) {
 								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-								if(postTalkMiniDTO.getAuthor().getId().hashCode() != id.hashCode()) {
+								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
 									postTalkMiniDTO.setLike(userMiniDTO);
 								}else {
 									if(post.getLikes().size() > 1) {
@@ -225,7 +225,7 @@ public class PostService {
 							}
 							if(!post.getLikes().isEmpty()) {
 								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-								if(postQuestMiniDTO.getAuthor().getId().hashCode() != id.hashCode()) {
+								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
 									postQuestMiniDTO.setLike(userMiniDTO);
 								}else {
 									if(post.getLikes().size() > 1) {
