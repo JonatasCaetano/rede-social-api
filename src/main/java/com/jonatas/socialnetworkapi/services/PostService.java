@@ -134,7 +134,6 @@ public class PostService {
 			int value = 0;
 			for(Post post : objs) {
 				if(post.getTypePostVisibility() == TypePostVisibility.USER) {
-					
 					if(ids.contains(post.getAuthor().getId()) || user.getId().hashCode() == post.getAuthor().getId().hashCode() ) {
 						if(post.getTypePost() == TypePost.UPDATE) {
 							PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
@@ -143,6 +142,18 @@ public class PostService {
 							}else {
 								postUpdateMiniDTO.setLiked(false);
 							}
+							if(!post.getLikes().isEmpty()) {
+								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+								if(postUpdateMiniDTO.getAuthor().getId().hashCode() != id.hashCode()) {
+									postUpdateMiniDTO.setLike(userMiniDTO);
+								}else {
+									if(post.getLikes().size() > 1) {
+										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+										postUpdateMiniDTO.setLike(userMiniDTO);
+									}
+								}
+							}
+							
 							posts.add(postUpdateMiniDTO);
 						}else if(post.getTypePost() == TypePost.TALK) {
 							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);

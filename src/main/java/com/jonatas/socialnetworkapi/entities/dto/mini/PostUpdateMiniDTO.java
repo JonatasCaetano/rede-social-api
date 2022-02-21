@@ -23,6 +23,7 @@ public class PostUpdateMiniDTO {
 	private boolean spoiler;
 	private int evaluation;
 	private Boolean Liked;
+	private UserMiniDTO like;
 	
 	public PostUpdateMiniDTO() {
 		super();
@@ -175,6 +176,15 @@ public class PostUpdateMiniDTO {
 		Liked = liked;
 	}
 
+	public UserMiniDTO getLike() {
+		return like;
+	}
+
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
+	}
+
+	
 	
 	
 }
