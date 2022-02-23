@@ -423,18 +423,19 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateQuantityCategoryEntity(EntitySave entitySave, int current, int newValue){
 		try {
 			Entity entity = entitySave.getEntity();
+
 			switch (current) {
 			case 1:
 				entity.setCategory1(-1);
 				break;
 			case 2:
-				entity.setCategory1(-1);
+				entity.setCategory2(-1);
 				break;
 			case 3:
-				entity.setCategory1(-1);
+				entity.setCategory3(-1);
 				break;
 			case 4:
-				entity.setCategory1(-1);
+				entity.setCategory4(-1);
 				break;
 			}
 			
@@ -443,13 +444,13 @@ public class EntitySaveService {
 				entity.setCategory1(1);
 				break;
 			case 2:
-				entity.setCategory1(1);
+				entity.setCategory2(1);
 				break;
 			case 3:
-				entity.setCategory1(1);
+				entity.setCategory3(1);
 				break;
 			case 4:
-				entity.setCategory1(1);
+				entity.setCategory4(1);
 				break;
 			}
 			entityService.save(entity);
@@ -467,13 +468,13 @@ public class EntitySaveService {
 				season.setCategory1(-1);
 				break;
 			case 2:
-				season.setCategory1(-1);
+				season.setCategory2(-1);
 				break;
 			case 3:
-				season.setCategory1(-1);
+				season.setCategory3(-1);
 				break;
 			case 4:
-				season.setCategory1(-1);
+				season.setCategory4(-1);
 				break;
 			}
 			
@@ -482,13 +483,13 @@ public class EntitySaveService {
 				season.setCategory1(1);
 				break;
 			case 2:
-				season.setCategory1(1);
+				season.setCategory2(1);
 				break;
 			case 3:
-				season.setCategory1(1);
+				season.setCategory3(1);
 				break;
 			case 4:
-				season.setCategory1(1);
+				season.setCategory4(1);
 				break;
 			}
 			seasonService.save(season);
@@ -506,13 +507,13 @@ public class EntitySaveService {
 				episode.setCategory1(-1);
 				break;
 			case 2:
-				episode.setCategory1(-1);
+				episode.setCategory2(-1);
 				break;
 			case 3:
-				episode.setCategory1(-1);
+				episode.setCategory3(-1);
 				break;
 			case 4:
-				episode.setCategory1(-1);
+				episode.setCategory4(-1);
 				break;
 			}
 			
@@ -521,13 +522,13 @@ public class EntitySaveService {
 				episode.setCategory1(1);
 				break;
 			case 2:
-				episode.setCategory1(1);
+				episode.setCategory2(1);
 				break;
 			case 3:
-				episode.setCategory1(1);
+				episode.setCategory3(1);
 				break;
 			case 4:
-				episode.setCategory1(1);
+				episode.setCategory4(1);
 				break;
 			}
 			episodeService.save(episode);
