@@ -99,18 +99,32 @@ public class EntitySaveService {
 			for(EntitySave obj : entitySaves) {
 				boolean entitySaveExists = false;
 				if(obj.getLevel() == Level.ENTITY) {
-				if(obj.getEntity().getId().hashCode() == entity.getId().hashCode()) {
-					entitySaveExists = true;
-				}
-				if(entitySaveExists) {
-					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-				}
+					if(obj.getEntity().getId().hashCode() == entity.getId().hashCode()) {
+						entitySaveExists = true;
+					}
+					if(entitySaveExists) {
+						return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+					}
 				}
 			}
 			entitySave = entitySaveRepository.insert(entitySave);
 			user.getEntitySaves().add(entitySave);
 			userService.save(user);
 			entity.getEntitySaves().add(entitySave);
+			switch (entitySaveDTO.getCategory()) {
+			case 1:
+				entity.setCategory1(1);
+				break;
+			case 2:
+				entity.setCategory1(1);
+				break;
+			case 3:
+				entity.setCategory1(1);
+				break;
+			case 4:
+				entity.setCategory1(1);
+				break;
+			}
 			entityService.save(entity);
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.created(null).body(entitySaveMiniDTO);
@@ -151,6 +165,20 @@ public class EntitySaveService {
 			user.getEntitySaves().add(entitySave);
 			userService.save(user);
 			season.getEntitySaves().add(entitySave);
+			switch (entitySaveDTO.getCategory()) {
+			case 1:
+				season.setCategory1(1);
+				break;
+			case 2:
+				season.setCategory1(1);
+				break;
+			case 3:
+				season.setCategory1(1);
+				break;
+			case 4:
+				season.setCategory1(1);
+				break;
+			}
 			seasonService.save(season);
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.created(null).body(entitySaveMiniDTO);
@@ -188,6 +216,20 @@ public class EntitySaveService {
 			user.getEntitySaves().add(entitySave);
 			userService.save(user);
 			episode.getEntitySaves().add(entitySave);
+			switch (entitySaveDTO.getCategory()) {
+			case 1:
+				episode.setCategory1(1);
+				break;
+			case 2:
+				episode.setCategory1(1);
+				break;
+			case 3:
+				episode.setCategory1(1);
+				break;
+			case 4:
+				episode.setCategory1(1);
+				break;
+			}
 			episodeService.save(episode);
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.created(null).body(entitySaveMiniDTO);
@@ -203,6 +245,18 @@ public class EntitySaveService {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
 				return ResponseEntity.badRequest().build();
+			}
+			switch (entitySave.getLevel()) {
+			case ENTITY:
+				updateQuantityCategoryEntity(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
+				break;
+			case SEASON:
+				updateQuantityCategorySeason(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
+				break;
+			case EPISODE:
+				updateQuantityCategoryEpisode(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
+				break;	
+			
 			}
 			entitySave.setCategory(entitySaveDTO.getCategory());
 			entitySave = entitySaveRepository.save(entitySave);
@@ -360,6 +414,123 @@ public class EntitySaveService {
 	public ResponseEntity<Object> save(EntitySave entitySave){
 		try {
 			entitySave = entitySaveRepository.save(entitySave);
+			return ResponseEntity.accepted().body(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> updateQuantityCategoryEntity(EntitySave entitySave, int current, int newValue){
+		try {
+			Entity entity = entitySave.getEntity();
+			switch (current) {
+			case 1:
+				entity.setCategory1(-1);
+				break;
+			case 2:
+				entity.setCategory1(-1);
+				break;
+			case 3:
+				entity.setCategory1(-1);
+				break;
+			case 4:
+				entity.setCategory1(-1);
+				break;
+			}
+			
+			switch (newValue) {
+			case 1:
+				entity.setCategory1(1);
+				break;
+			case 2:
+				entity.setCategory1(1);
+				break;
+			case 3:
+				entity.setCategory1(1);
+				break;
+			case 4:
+				entity.setCategory1(1);
+				break;
+			}
+			entityService.save(entity);
+			return ResponseEntity.accepted().body(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> updateQuantityCategorySeason(EntitySave entitySave, int current, int newValue){
+		try {
+			Season season = entitySave.getSeason();
+			switch (current) {
+			case 1:
+				season.setCategory1(-1);
+				break;
+			case 2:
+				season.setCategory1(-1);
+				break;
+			case 3:
+				season.setCategory1(-1);
+				break;
+			case 4:
+				season.setCategory1(-1);
+				break;
+			}
+			
+			switch (newValue) {
+			case 1:
+				season.setCategory1(1);
+				break;
+			case 2:
+				season.setCategory1(1);
+				break;
+			case 3:
+				season.setCategory1(1);
+				break;
+			case 4:
+				season.setCategory1(1);
+				break;
+			}
+			seasonService.save(season);
+			return ResponseEntity.accepted().body(entitySave);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> updateQuantityCategoryEpisode(EntitySave entitySave, int current, int newValue){
+		try {
+			Episode episode = entitySave.getEpisode();
+			switch (current) {
+			case 1:
+				episode.setCategory1(-1);
+				break;
+			case 2:
+				episode.setCategory1(-1);
+				break;
+			case 3:
+				episode.setCategory1(-1);
+				break;
+			case 4:
+				episode.setCategory1(-1);
+				break;
+			}
+			
+			switch (newValue) {
+			case 1:
+				episode.setCategory1(1);
+				break;
+			case 2:
+				episode.setCategory1(1);
+				break;
+			case 3:
+				episode.setCategory1(1);
+				break;
+			case 4:
+				episode.setCategory1(1);
+				break;
+			}
+			episodeService.save(episode);
 			return ResponseEntity.accepted().body(entitySave);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();

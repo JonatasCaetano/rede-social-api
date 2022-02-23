@@ -17,6 +17,12 @@ public class EpisodeMiniDTO {
 	private TypeObject typeObject = TypeObject.EPISODE;
 	private SeasonMiniDTO season;
 	
+	private int category1 = 0;
+	private int category2 = 0;
+	private int category3 = 0;
+	private int category4 = 0;
+	
+	
 	public EpisodeMiniDTO() {
 		super();
 	}
@@ -31,6 +37,10 @@ public class EpisodeMiniDTO {
 		this.evaluationAverage = episode.getEvaluationAverage();
 		this.evaluationQuantity = episode.getEvaluationQuantity();
 		this.season= episode.getSeason() != null ? new SeasonMiniDTO(episode.getSeason()) : null;
+		this.category1 = episode.getCategory1();
+		this.category2 = episode.getCategory2();
+		this.category3 = episode.getCategory3();
+		this.category4 = episode.getCategory4();
 	}
 
 	public String getId() {
@@ -103,6 +113,40 @@ public class EpisodeMiniDTO {
 
 	public void setSeason(SeasonMiniDTO season) {
 		this.season = season;
+	}
+
+	public int getCategory1() {
+		return category1;
+	}
+
+	public void setCategory1(int category1) {
+		this.category1 = category1;
+	}
+
+	public int getCategory2() {
+		return category2;
+	}
+
+	public void setCategory2(int category2) {
+		this.category2 = category2;
+	}
+
+	public int getCategory3() {
+		return category3;
+	}
+
+	public void setCategory3(int category3) {
+		this.category3 = category3;
+	}
+
+	public int getCategory4() {
+		return category4;
+	}
+
+	public void setCategory4(int category4) {
+		this.category4 = category4;
 	}	
+	
+	
 	
 }

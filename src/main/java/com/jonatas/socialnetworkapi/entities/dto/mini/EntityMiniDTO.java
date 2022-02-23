@@ -15,6 +15,10 @@ public class EntityMiniDTO {
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private TypeEntity typeEntity;
 	private String image;
+	private int category1 = 0;
+	private int category2 = 0;
+	private int category3 = 0;
+	private int category4 = 0;
 	
 	public EntityMiniDTO() {
 		super();
@@ -31,6 +35,10 @@ public class EntityMiniDTO {
 		this.typeObject = entity.getTypeObject();
 		this.typeEntity = entity.getTypeEntity();
 		this.image = entity.getImage();
+		this.category1 = entity.getCategory1();
+		this.category2 = entity.getCategory2();
+		this.category3 = entity.getCategory3();
+		this.category4 = entity.getCategory4();
 	}
 
 
@@ -106,5 +114,38 @@ public class EntityMiniDTO {
 		this.image = image;
 	}
 
+	public int getCategory1() {
+		return category1;
+	}
+
+	public void setCategory1(int category1) {
+		this.category1 = category1;
+	}
+
+	public int getCategory2() {
+		return category2;
+	}
+
+	public void setCategory2(int category2) {
+		this.category2 = category2;
+	}
+
+	public int getCategory3() {
+		return category3;
+	}
+
+	public void setCategory3(int category3) {
+		this.category3 = category3;
+	}
+
+	public int getCategory4() {
+		return category4;
+	}
+
+	public void setCategory4(int category4) {
+		this.category4 = category4;
+	}
+
+	
 		
 }

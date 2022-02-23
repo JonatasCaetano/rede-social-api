@@ -33,6 +33,10 @@ public class Entity implements Serializable{
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
 	
+	private int category1 = 0;
+	private int category2 = 0;
+	private int category3 = 0;
+	private int category4 = 0;
 		
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -158,6 +162,38 @@ public class Entity implements Serializable{
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	public int getCategory1() {
+		return category1;
+	}
+
+	public void setCategory1(int category1) {
+		this.category1 += category1;
+	}
+
+	public int getCategory2() {
+		return category2;
+	}
+
+	public void setCategory2(int category2) {
+		this.category2 += category2;
+	}
+
+	public int getCategory3() {
+		return category3;
+	}
+
+	public void setCategory3(int category3) {
+		this.category3 += category3;
+	}
+
+	public int getCategory4() {
+		return category4;
+	}
+
+	public void setCategory4(int category4) {
+		this.category4 += category4;
 	}
 
 	@Override
