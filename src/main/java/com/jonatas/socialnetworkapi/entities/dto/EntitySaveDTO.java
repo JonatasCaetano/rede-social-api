@@ -17,6 +17,7 @@ public class EntitySaveDTO {
 	private String review;
 	private Level level;
 	private boolean spoiler = false;
+	private String release;
 	
 	public EntitySaveDTO() {
 		super();
@@ -38,7 +39,7 @@ public class EntitySaveDTO {
 		this.evaluation = evaluation;
 		this.review = review;
 		this.level = level;
-		this.setSpoiler(spoiler);
+		this.spoiler = spoiler;
 	}
 
 	public String getIdEntitySave() {
@@ -145,5 +146,14 @@ public class EntitySaveDTO {
 		this.spoiler = spoiler;
 	}
 
+	public String getRelease() {
+		return release;
+	}
+
+	public void setRelease(String release) {
+		this.release = release;
+	}
+
+	
 	
 }

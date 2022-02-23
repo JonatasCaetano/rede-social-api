@@ -29,6 +29,7 @@ public class EntitySave implements Serializable{
 	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	private boolean spoiler;
+	private String release;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -169,6 +170,14 @@ public class EntitySave implements Serializable{
 
 	public void setSpoiler(Boolean spoiler) {
 		this.spoiler = spoiler;
+	}
+	
+	public String getRelease() {
+		return release;
+	}
+
+	public void setRelease(String release) {
+		this.release = release;
 	}
 
 	@Override

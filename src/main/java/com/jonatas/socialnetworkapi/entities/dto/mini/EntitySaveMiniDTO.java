@@ -24,6 +24,7 @@ public class EntitySaveMiniDTO {
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	List<String> historic = new ArrayList<>();
 	private boolean spoiler = false;
+	private String release;
 	
 	public EntitySaveMiniDTO() {
 		super();
@@ -44,7 +45,7 @@ public class EntitySaveMiniDTO {
 		this.evaluation = entitySave.getEvaluation();
 		this.review = entitySave.getReview();
 		this.historic = entitySave.getHistoric();
-		this.setSpoiler(entitySave.getSpoiler());
+		this.spoiler = entitySave.getSpoiler();
 	}
 
 	public String getId() {
@@ -166,6 +167,16 @@ public class EntitySaveMiniDTO {
 	public void setSpoiler(boolean spoiler) {
 		this.spoiler = spoiler;
 	}
+
+	public String getRelease() {
+		return release;
+	}
+
+	public void setRelease(String release) {
+		this.release = release;
+	}
+	
+	
 
 	
 }

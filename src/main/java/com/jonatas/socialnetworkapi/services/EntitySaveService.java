@@ -351,6 +351,7 @@ public class EntitySaveService {
 			entitySave.setReviewed(entitySaveDTO.isReviewed());	
 			entitySave.setReview(entitySaveDTO.getReview());
 			entitySave.setSpoiler(entitySaveDTO.isSpoiler());
+			entitySave.setRelease(entitySaveDTO.getRelease());
 			entitySave = entitySaveRepository.save(entitySave);
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
