@@ -162,6 +162,24 @@ public class EntityService {
 		}
 	}
 	
+	public ResponseEntity<Object> getReviewMini(String id){
+		try {
+			Entity entity = entityRepository.findById(id).get();
+			
+			List<EntitySave> entitySaves = entity.getEntitySaves();
+			List<EntitySaveMiniDTO> reviews = new ArrayList<>();
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.isReviewed()) {
+					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+					reviews.add(entitySaveMiniDTO);
+				}
+			}
+			return ResponseEntity.ok().body(reviews);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
 	//post
 	
 	public ResponseEntity<Object> createEntity(EntityDTO entityDTO, String id){

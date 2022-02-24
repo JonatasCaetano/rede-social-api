@@ -64,6 +64,11 @@ public class EntityController {
 		return entityService.findByName(name);
 	}
 	
+	@GetMapping(value = "get/reviews/{id}")
+	public ResponseEntity<Object> getReviewMini(@PathVariable String id){
+		return entityService.getReviewMini(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "/post/entity/user/{id}")
