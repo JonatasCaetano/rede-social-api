@@ -46,6 +46,7 @@ public class EntitySaveMiniDTO {
 		this.review = entitySave.getReview();
 		this.historic = entitySave.getHistoric();
 		this.spoiler = entitySave.getSpoiler();
+		this.release = entitySave.getRelease();
 	}
 
 	public String getId() {
