@@ -41,6 +41,11 @@ public class CommentController {
 		return commentService.newComment(commentDTO);
 	}
 	
+	@PostMapping(value = "post/comment/entitysave")
+	public ResponseEntity<Object> newCommentEntitySave(@RequestBody CommentDTO commentDTO){
+		return commentService.newCommentEntitySave(commentDTO);
+	}
+	
 	//put
 	@PutMapping(value = "put/like/comment/{idComment}/user/{idUser}")
 	public ResponseEntity<Object> addLike(@PathVariable String idUser, @PathVariable String idComment){
@@ -51,6 +56,11 @@ public class CommentController {
 	@DeleteMapping(value = "delete/comment")
 	public ResponseEntity<Object> deleteComment(@RequestBody CommentDTO commentDTO){
 		return commentService.deleteComment(commentDTO);
+	}
+	
+	@DeleteMapping(value = "delete/comment/entitysave")
+	public ResponseEntity<Object> deleteCommentEntitySave(@RequestBody CommentDTO commentDTO){
+		return commentService.deleteCommentEntitySave(commentDTO);
 	}
 	
 }

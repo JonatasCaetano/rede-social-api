@@ -9,6 +9,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -30,6 +31,8 @@ public class EntitySave implements Serializable{
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	private boolean spoiler;
 	private String release;
+	private int likeQuantity = 0;
+	private int commentQuantity = 0;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -46,6 +49,15 @@ public class EntitySave implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Episode episode;
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Comment> comments = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<User> likes = new ArrayList<>();
+	
 			
 	List<String> historic = new ArrayList<>();
 
@@ -61,7 +73,7 @@ public class EntitySave implements Serializable{
 		this.episode = episode;
 		this.category = category;
 		this.level = level;
-		this.setSpoiler(spoiler);
+		this.spoiler = spoiler;
 	}
 
 	public User getUser() {
@@ -178,6 +190,30 @@ public class EntitySave implements Serializable{
 
 	public void setRelease(String release) {
 		this.release = release;
+	}
+	
+	public int getLikeQuantity() {
+		return likeQuantity;
+	}
+
+	public void setLikeQuantity(int likeQuantity) {
+		this.likeQuantity += likeQuantity;
+	}
+
+	public int getCommentQuantity() {
+		return commentQuantity;
+	}
+
+	public void setCommentQuantity(int commentQuantity) {
+		this.commentQuantity += commentQuantity;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public List<User> getLikes() {
+		return likes;
 	}
 
 	@Override

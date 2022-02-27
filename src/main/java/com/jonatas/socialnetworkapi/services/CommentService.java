@@ -10,11 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.entities.Comment;
+import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.CommentDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
+import com.jonatas.socialnetworkapi.enuns.TypeComment;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.repositories.CommentRepository;
 
@@ -35,6 +37,10 @@ public class CommentService {
 	@Autowired
 	@Lazy
 	private PostService postService;
+	
+	@Autowired
+	@Lazy
+	private EntitySaveService entitySaveService;
 	
 	//methods
 	
@@ -69,7 +75,7 @@ public class CommentService {
 
 			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
-			Comment comment = new Comment(commentDTO.getRelease(), commentDTO.getBody(), user, post);
+			Comment comment = new Comment(commentDTO.getRelease(), commentDTO.getBody(), user, post, null, TypeComment.POST);
 			comment = commentRepository.insert(comment);
 			user.getComments().add(comment);
 			userService.save(user);
@@ -84,13 +90,33 @@ public class CommentService {
 		}
 	}
 	
+	public ResponseEntity<Object> newCommentEntitySave(CommentDTO commentDTO){
+		try {
+
+			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
+			EntitySave entitySave = (EntitySave) entitySaveService.findById(commentDTO.getIdEntitySave()).getBody();
+			Comment comment = new Comment(commentDTO.getRelease(), commentDTO.getBody(), user, null, entitySave, TypeComment.ENTITY_SAVE);
+			comment = commentRepository.insert(comment);
+			user.getComments().add(comment);
+			userService.save(user);
+			entitySave.getComments().add(comment);
+			entitySave.setCommentQuantity(1);
+			entitySaveService.save(entitySave);
+			CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+			return ResponseEntity.created(null).body(commentMiniDTO);
+		}catch (RuntimeException e) {
+			System.out.println(e);
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	//delete
 	
 	public ResponseEntity<Object> deleteComment(CommentDTO commentDTO){
 		try {
-			System.out.println(commentDTO.getIdComment());
-			System.out.println(commentDTO.getIdPost());
-			System.out.println(commentDTO.getIdAuthor());
+//			System.out.println(commentDTO.getIdComment());
+//			System.out.println(commentDTO.getIdPost());
+//			System.out.println(commentDTO.getIdAuthor());
 			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
 			Comment comment = commentRepository.findById(commentDTO.getIdComment()).get();
@@ -104,6 +130,29 @@ public class CommentService {
 			post.getComments().remove(comment);
 			post.setCommentQuantity(-1);
 			postService.save(post);
+			commentRepository.delete(comment);
+			return ResponseEntity.ok().build();
+		}catch (RuntimeException e) {
+			System.out.println(e);
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> deleteCommentEntitySave(CommentDTO commentDTO){
+		try {
+			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
+			EntitySave entitySave = (EntitySave) entitySaveService.findById(commentDTO.getIdEntitySave()).getBody();
+			Comment comment = commentRepository.findById(commentDTO.getIdComment()).get();
+			
+			if(user.getId().hashCode() != comment.getAuthor().getId().hashCode()) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			
+			user.getComments().remove(comment);
+			userService.save(user);
+			entitySave.getComments().remove(comment);
+			entitySave.setCommentQuantity(-1);
+			entitySaveService.save(entitySave);
 			commentRepository.delete(comment);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {

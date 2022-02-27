@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.jonatas.socialnetworkapi.enuns.TypeComment;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
@@ -23,6 +24,7 @@ public class Comment implements Serializable{
 	private String body;
 	private TypeObject typeObject = TypeObject.COMMENT;
 	private int likeQuantity = 0;
+	private TypeComment typeComment;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -35,17 +37,23 @@ public class Comment implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Post post;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private EntitySave entitySave;
 
 	public Comment() {
 		super();
 	}
 
-	public Comment(String release, String body, User author, Post post) {
+	public Comment(String release, String body, User author, Post post, EntitySave entitySave, TypeComment typeComment) {
 		super();
 		this.release = release;
 		this.body = body;
 		this.author = author;
 		this.post = post;
+		this.entitySave = entitySave;
+		this.typeComment = typeComment;
 	}
 
 	public String getRelease() {
@@ -98,6 +106,14 @@ public class Comment implements Serializable{
 
 	public List<User> getLikes() {
 		return likes;
+	}
+	
+	public TypeComment getTypeComment() {
+		return typeComment;
+	}
+
+	public void setTypeComment(TypeComment typeComment) {
+		this.typeComment = typeComment;
 	}
 
 	@Override

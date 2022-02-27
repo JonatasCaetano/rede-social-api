@@ -1,5 +1,7 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
+import com.jonatas.socialnetworkapi.enuns.TypeComment;
+
 public class CommentDTO {
 
 	private String idComment;
@@ -7,6 +9,8 @@ public class CommentDTO {
 	private String body;
 	private String idAuthor;
 	private String idPost;
+	private String idEntitySave;
+	private TypeComment typeComment;
 		
 	public CommentDTO() {
 		super();
@@ -59,6 +63,24 @@ public class CommentDTO {
 	public void setIdPost(String idPost) {
 		this.idPost = idPost;
 	}
+
+	public String getIdEntitySave() {
+		return idEntitySave;
+	}
+
+	public void setIdEntitySave(String idEntitySave) {
+		this.idEntitySave = idEntitySave;
+	}
+
+	public TypeComment getTypeComment() {
+		return typeComment;
+	}
+
+	public void setTypeComment(TypeComment typeComment) {
+		this.typeComment = typeComment;
+	}
+	
+	
 
 	
 }

@@ -25,6 +25,8 @@ public class EntitySaveMiniDTO {
 	List<String> historic = new ArrayList<>();
 	private boolean spoiler = false;
 	private String release;
+	private int likeQuantity = 0;
+	private int commentQuantity = 0;
 	
 	public EntitySaveMiniDTO() {
 		super();
@@ -47,6 +49,8 @@ public class EntitySaveMiniDTO {
 		this.historic = entitySave.getHistoric();
 		this.spoiler = entitySave.getSpoiler();
 		this.release = entitySave.getRelease();
+		this.likeQuantity = entitySave.getLikeQuantity();
+		this.commentQuantity = entitySave.getCommentQuantity();
 	}
 
 	public String getId() {
@@ -175,6 +179,22 @@ public class EntitySaveMiniDTO {
 
 	public void setRelease(String release) {
 		this.release = release;
+	}
+
+	public int getLikeQuantity() {
+		return likeQuantity;
+	}
+
+	public void setLikeQuantity(int likeQuantity) {
+		this.likeQuantity = likeQuantity;
+	}
+
+	public int getCommentQuantity() {
+		return commentQuantity;
+	}
+
+	public void setCommentQuantity(int commentQuantity) {
+		this.commentQuantity = commentQuantity;
 	}
 	
 	

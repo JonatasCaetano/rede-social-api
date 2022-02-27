@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Comment;
+import com.jonatas.socialnetworkapi.enuns.TypeComment;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class CommentMiniDTO {
@@ -12,6 +13,7 @@ public class CommentMiniDTO {
 	private TypeObject typeObject = TypeObject.COMMENT;
 	private int likeQuantity = 0;
 	private Boolean liked;
+	private TypeComment typeComment;
 	
 	public CommentMiniDTO() {
 		super();
@@ -24,6 +26,7 @@ public class CommentMiniDTO {
 		this.body = comment.getBody();
 		this.author = comment.getAuthor() != null ? new UserMiniDTO(comment.getAuthor()) : null;
 		this.likeQuantity = comment.getLikeQuantity();
+		this.typeComment = comment.getTypeComment();
 	}
 
 	public String getId() {
@@ -80,6 +83,14 @@ public class CommentMiniDTO {
 
 	public void setLiked(Boolean liked) {
 		this.liked = liked;
+	}
+
+	public TypeComment getTypeComment() {
+		return typeComment;
+	}
+
+	public void setTypeComment(TypeComment typeComment) {
+		this.typeComment = typeComment;
 	}
 	
 	

@@ -35,6 +35,16 @@ public class EntitySaveController {
 		return entitySaveService.findByIdMini(id);
 	}
 	
+	@GetMapping(value = "get/likes/{id}")
+	public ResponseEntity<Object> getLikes(@PathVariable String id){
+		return entitySaveService.getLikes(id);
+	}
+	
+	@GetMapping(value = "get/comments/{id}")
+	public ResponseEntity<Object> getComments(@PathVariable String id){
+		return entitySaveService.getComments(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post/entity")
@@ -71,6 +81,11 @@ public class EntitySaveController {
 	@PutMapping(value = "put/review")
 	public ResponseEntity<Object> updateEntitySaveReview(@RequestBody EntitySaveDTO entitySaveDTO){
 		return entitySaveService.updateEntitySaveReview(entitySaveDTO);
+	}
+	
+	@PutMapping(value = "put/like/entitysave/{idEntitySave}/user/{idUser}")
+	public ResponseEntity<Object> updateLike(@PathVariable String idUser, @PathVariable String idEntitySave){
+		return entitySaveService.updateLike(idUser, idEntitySave);
 	}
 	
 	
