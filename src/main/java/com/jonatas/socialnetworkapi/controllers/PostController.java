@@ -29,7 +29,7 @@ public class PostController {
 	public ResponseEntity<Object> findAllMini(){
 		return postService.findAllMini();
 	}
-	
+		
 	@GetMapping(value = "/get/post/{idPost}/user/{idUser}")
 	public ResponseEntity<Object> findByIdMini(@PathVariable String idPost, @PathVariable String idUser){
 		return postService.findByIdMini(idPost, idUser);

@@ -62,7 +62,7 @@ public class PostService {
 	//methods
 	
 	//get
-	
+		
 	public ResponseEntity<Object> findAllMini(){
 		try {
 			List<Post> posts = postRepository.findAll();

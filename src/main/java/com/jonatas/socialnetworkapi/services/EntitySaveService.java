@@ -59,12 +59,30 @@ public class EntitySaveService {
 	
 	//get
 	
-	public ResponseEntity<Object> findAllMini(){
+	public ResponseEntity<Object> findAllMini(String idUser){
 		try {
 			List<EntitySave> list = entitySaveRepository.findAll();
+			User user  = (User) userService.findById(idUser).getBody();
 			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
 			for(EntitySave entitySave : list) {
 				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+
+				if(entitySave.getLikes().contains(user)) {
+					entitySaveMiniDTO.setLiked(true);
+				}else {
+					entitySaveMiniDTO.setLiked(false);
+				}
+				if(!entitySave.getLikes().isEmpty()) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
+					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+						entitySaveMiniDTO.setLike(userMiniDTO);
+					}else {
+						if(entitySave.getLikes().size() > 1) {
+							userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
+							entitySaveMiniDTO.setLike(userMiniDTO);
+						}
+					}
+				}
 				entitySaveMiniDTOs.add(entitySaveMiniDTO);
 			}
 			return ResponseEntity.ok(entitySaveMiniDTOs);
@@ -73,10 +91,29 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> findByIdMini(String id){
+	public ResponseEntity<Object> findByIdMini(String idEntitySave, String idUser){
 		try {
-			EntitySave entitySave = entitySaveRepository.findById(id).get();
+			EntitySave entitySave = entitySaveRepository.findById(idEntitySave).get();
+			User user  = (User) userService.findById(idUser).getBody();
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+			
+			if(entitySave.getLikes().contains(user)) {
+				entitySaveMiniDTO.setLiked(true);
+			}else {
+				entitySaveMiniDTO.setLiked(false);
+			}
+			if(!entitySave.getLikes().isEmpty()) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
+				if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+					entitySaveMiniDTO.setLike(userMiniDTO);
+				}else {
+					if(entitySave.getLikes().size() > 1) {
+						userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
+						entitySaveMiniDTO.setLike(userMiniDTO);
+					}
+				}
+			}
+			
 			return ResponseEntity.ok(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
@@ -85,18 +122,13 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> getLikes(String id){
 		try {
-			System.out.println(1);
 			EntitySave entitySave = entitySaveRepository.findById(id).get();
-			System.out.println(2);
 			List<User> users = entitySave.getLikes();
-			System.out.println(3);
 			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
-			System.out.println(4);
 			for(User user : users) {
 				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
 				userMiniDTOs.add(userMiniDTO);
 			}
-			System.out.println(5);
 			return ResponseEntity.ok(userMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
@@ -105,18 +137,13 @@ public class EntitySaveService {
 	
 	public ResponseEntity<Object> getComments(String id){
 		try {
-			System.out.println(1);
 			EntitySave entitySave = entitySaveRepository.findById(id).get();
-			System.out.println(2);
 			List<Comment> comments = entitySave.getComments();
-			System.out.println(3);
 			List<CommentMiniDTO> commentMiniDTOs = new ArrayList<>();
-			System.out.println(4);
 			for(Comment comment : comments) {
 				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
 				commentMiniDTOs.add(commentMiniDTO);
 			}
-			System.out.println(5);
 			return ResponseEntity.ok(commentMiniDTOs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();

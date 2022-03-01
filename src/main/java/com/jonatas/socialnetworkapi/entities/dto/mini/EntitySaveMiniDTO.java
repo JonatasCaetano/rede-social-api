@@ -27,6 +27,8 @@ public class EntitySaveMiniDTO {
 	private String release;
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
+	private Boolean Liked;
+	private UserMiniDTO like;
 	
 	public EntitySaveMiniDTO() {
 		super();
@@ -196,8 +198,21 @@ public class EntitySaveMiniDTO {
 	public void setCommentQuantity(int commentQuantity) {
 		this.commentQuantity = commentQuantity;
 	}
-	
-	
 
-	
+	public Boolean getLiked() {
+		return Liked;
+	}
+
+	public void setLiked(Boolean liked) {
+		Liked = liked;
+	}
+
+	public UserMiniDTO getLike() {
+		return like;
+	}
+
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
+	}
+		
 }
