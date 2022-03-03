@@ -135,13 +135,19 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> getComments(String id){
+	public ResponseEntity<Object> getCommentsMini(String idEntitySave, String idUser){
 		try {
-			EntitySave entitySave = entitySaveRepository.findById(id).get();
+			User user = (User) userService.findById(idUser).getBody();
+			EntitySave entitySave = entitySaveRepository.findById(idEntitySave).get();
 			List<Comment> comments = entitySave.getComments();
 			List<CommentMiniDTO> commentMiniDTOs = new ArrayList<>();
 			for(Comment comment : comments) {
 				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
+				if(comment.getLikes().contains(user)) {
+					commentMiniDTO.setLiked(true);
+				}else {
+					commentMiniDTO.setLiked(false);
+				}
 				commentMiniDTOs.add(commentMiniDTO);
 			}
 			return ResponseEntity.ok(commentMiniDTOs);

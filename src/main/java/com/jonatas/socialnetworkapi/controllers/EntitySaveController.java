@@ -40,9 +40,9 @@ public class EntitySaveController {
 		return entitySaveService.getLikes(id);
 	}
 	
-	@GetMapping(value = "get/comments/{id}")
-	public ResponseEntity<Object> getComments(@PathVariable String id){
-		return entitySaveService.getComments(id);
+	@GetMapping(value = "get/comments/{idEntitySave}/user/{idUser}")
+	public ResponseEntity<Object> getComments(@PathVariable String idEntitySave, @PathVariable String idUser){
+		return entitySaveService.getCommentsMini(idEntitySave, idUser);
 	}
 	
 	//post
