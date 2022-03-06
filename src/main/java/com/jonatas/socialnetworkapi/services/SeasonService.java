@@ -20,6 +20,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 
@@ -142,6 +143,41 @@ public class SeasonService {
 				editionMiniDTOs.add(editionMiniDTO);
 			}
 			return ResponseEntity.ok().body(editionMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getReviewMini(String idSeason, String idUser){
+		try {
+			Season season = seasonRepository.findById(idSeason).get();
+			User user = (User) userService.findById(idUser).getBody();
+			List<EntitySave> entitySaves = season.getEntitySaves();
+			List<EntitySaveMiniDTO> reviews = new ArrayList<>();
+			for(EntitySave entitySave : entitySaves) {
+				if(entitySave.isReviewed()) {
+					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+					
+					if(entitySave.getLikes().contains(user)) {
+						entitySaveMiniDTO.setLiked(true);
+					}else {
+						entitySaveMiniDTO.setLiked(false);
+					}
+					if(!entitySave.getLikes().isEmpty()) {
+						UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
+						if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+							entitySaveMiniDTO.setLike(userMiniDTO);
+						}else {
+							if(entitySave.getLikes().size() > 1) {
+								userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
+								entitySaveMiniDTO.setLike(userMiniDTO);
+							}
+						}
+					}
+					reviews.add(entitySaveMiniDTO);
+				}
+			}
+			return ResponseEntity.ok().body(reviews);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

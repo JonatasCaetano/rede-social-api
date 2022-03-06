@@ -54,6 +54,11 @@ public class EpisodeController {
 		return episodeService.findByName(name);
 	}
 	
+	@GetMapping(value = "get/reviews/{idEpisode}/user/{idUser}")
+	public ResponseEntity<Object> getReviewMini(@PathVariable String idEpisode, @PathVariable String idUser){
+		return episodeService.getReviewMini(idEpisode, idUser);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post/season/{idSeason}/user/{idUser}")
