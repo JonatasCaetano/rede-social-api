@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,8 @@ public class PostService {
 		
 	public ResponseEntity<Object> findAllMini(){
 		try {
-			List<Post> posts = postRepository.findAll();
+			Sort sort = Sort.by("release").descending();
+			List<Post> posts = postRepository.findAll(sort);
 			List<Object> objs = new ArrayList<>();
 			for(Post post : posts) {
 				if(post.getTypePost() == TypePost.UPDATE) {
@@ -158,7 +160,8 @@ public class PostService {
 	public ResponseEntity<Object> getPostAll(String id){
 		try {
 			User user = (User) userService.findById(id).getBody();
-			List<Post> objs = postRepository.findAll();
+			Sort sort = Sort.by("release").descending();
+			List<Post> objs = postRepository.findAll(sort);
 			List<Object> posts = new ArrayList<>();
 			List<String> ids = new ArrayList<>();
 			for(User following : user.getFollower().getFollowing()) {

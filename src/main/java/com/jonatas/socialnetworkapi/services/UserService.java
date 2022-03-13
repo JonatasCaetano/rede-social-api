@@ -116,13 +116,16 @@ public class UserService {
 			for(PostUser postUser : posts) {
 				if(postUser.getTypePost() == TypePost.UPDATE) {
 					PostUpdateMiniDTO postUpdateMiniDTO = (PostUpdateMiniDTO) postService.findByIdMini(postUser.getId(),  idUser).getBody();
-					objs.add(postUpdateMiniDTO);
+					//objs.add(postUpdateMiniDTO);
+					objs.add(0, postUpdateMiniDTO);
 				}else if(postUser.getTypePost() == TypePost.TALK) {
 					PostTalkMiniDTO postTalkMiniDTO = (PostTalkMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
-					objs.add(postTalkMiniDTO);
+					//objs.add(postTalkMiniDTO);
+					objs.add(0, postTalkMiniDTO);
 				}else if(postUser.getTypePost() == TypePost.QUEST) {
 					PostQuestMiniDTO postQuestMiniDTO = (PostQuestMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
-					objs.add(postQuestMiniDTO);
+					//objs.add(postQuestMiniDTO);
+					objs.add(0, postQuestMiniDTO);
 				}
 			}
 			return ResponseEntity.ok().body(objs);
