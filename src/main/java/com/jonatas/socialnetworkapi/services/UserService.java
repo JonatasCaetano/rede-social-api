@@ -239,6 +239,24 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	public ResponseEntity<Object> getGoals(String id) {
+		try {
+			User user = userRepository.findById(id).get();
+			List<EntitySave> entitySaves = user.getEntitySaves();
+			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
+			for(EntitySave entitySave : entitySaves) {		
+				if(entitySave.getLevel() == Level.ENTITY && entitySave.isGoal()) {
+					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+					entitySaveMiniDTOs.add(0, entitySaveMiniDTO);
+
+				}
+			}
+			return ResponseEntity.ok().body(entitySaveMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 		
 	public ResponseEntity<Object> loginMini(String email, String password){
 		try {

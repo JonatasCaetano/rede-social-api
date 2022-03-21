@@ -61,6 +61,11 @@ public class UserController {
 		return userService.isBlocked(idUser, idBlocked);
 	}
 	
+	@GetMapping(value = "{id}/goals")
+	public ResponseEntity<Object> getGoals(@PathVariable String id) {
+		return userService.getGoals(id);
+	}
+	
 	/*
 	
 	@GetMapping(value = "get/user/{id}/posts/all")
