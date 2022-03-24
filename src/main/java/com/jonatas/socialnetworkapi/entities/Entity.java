@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
@@ -18,41 +18,42 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Entity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
 	
 	private String name;
 	private String description;
 	private String image;
-	
 	private TypeEntity typeEntity;
-	
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private int seasonQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
-	
 	private int category1 = 0;
 	private int category2 = 0;
 	private int category3 = 0;
 	private int category4 = 0;
 		
-	@DBRef(lazy = true)
 	@JsonBackReference
+	@DocumentReference(lazy = true, collection = "worker")
 	private List<Worker> workers = new ArrayList<>();
 	
-	@DBRef(lazy = true)
 	@JsonBackReference
+	@DocumentReference(lazy = true, collection = "season")
 	private List<Season> seasons = new ArrayList<>();
 	
-	@DBRef(lazy = true)
 	@JsonBackReference
+	@DocumentReference(lazy = true, collection = "edition")
 	private List<Edition> editions = new ArrayList<>();
 	
-	@DBRef(lazy = true)
 	@JsonBackReference
+	@DocumentReference(lazy = true, collection = "entitySave")
 	private List<EntitySave> entitySaves = new ArrayList<>();
+	
+	//variables
 		
 	public Entity() {
 		super();

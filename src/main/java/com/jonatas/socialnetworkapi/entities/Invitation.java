@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -17,25 +17,26 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Invitation implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
 	
 	private Date release;
-	
 	private String value;
-	
 	private TypeObject typeObject = TypeObject.INVITATION;
-	
-	@DBRef(lazy = true)
+
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User>  invited = new ArrayList<>();
 	
+	//variables
+	
 	public Invitation() {
-		
 	}
 
 	public Invitation(String id, User user, String value) {

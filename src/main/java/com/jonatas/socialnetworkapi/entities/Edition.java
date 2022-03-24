@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.Level;
@@ -15,30 +15,35 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Edition implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	//variables
+	
 	@Id
 	private String id;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private User user;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Entity entity;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Season season;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Episode episode;
+		
 	private Date release;
 	private Object previous;
 	private Object current;
 	private String attribute;
 	private TypeObject typeObject = TypeObject.EDITION;
 	private Level level;
+	
+	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "user")
+	private User user;
+	
+	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "entity")
+	private Entity entity;
+	
+	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "season")
+	private Season season;
+	
+	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "episode")
+	private Episode episode;
+	
+	//variables
 	
 	public Edition() {
 		super();

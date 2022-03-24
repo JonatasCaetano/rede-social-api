@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -17,23 +17,25 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Follower implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	//variables
+	
 	@Id
 	private String id;
 	
 	private Date release;
-	
 	private TypeObject typeObject = TypeObject.FOLLOWER;
-	
-	@DBRef(lazy = true)
+
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User> following = new ArrayList<>();
+	
+	//variables
 
-	public Follower() {
-		
+	public Follower() {	
 	}
 
 	public Follower(String id, User user) {

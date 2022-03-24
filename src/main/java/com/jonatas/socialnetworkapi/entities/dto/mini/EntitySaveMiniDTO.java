@@ -1,8 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -22,7 +19,6 @@ public class EntitySaveMiniDTO {
 	private int evaluation;
 	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
-	List<String> historic = new ArrayList<>();
 	private boolean spoiler = false;
 	private String release;
 	private int likeQuantity = 0;
@@ -48,7 +44,6 @@ public class EntitySaveMiniDTO {
 		this.episode = entitySave.getEpisode() != null ? new EpisodeMiniDTO(entitySave.getEpisode()) : null;
 		this.evaluation = entitySave.getEvaluation();
 		this.review = entitySave.getReview();
-		this.historic = entitySave.getHistoric();
 		this.spoiler = entitySave.getSpoiler();
 		this.release = entitySave.getRelease();
 		this.likeQuantity = entitySave.getLikeQuantity();
@@ -157,14 +152,6 @@ public class EntitySaveMiniDTO {
 
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
-	}
-
-	public List<String> getHistoric() {
-		return historic;
-	}
-
-	public void setHistoric(List<String> historic) {
-		this.historic = historic;
 	}
 
 	public boolean isSpoiler() {

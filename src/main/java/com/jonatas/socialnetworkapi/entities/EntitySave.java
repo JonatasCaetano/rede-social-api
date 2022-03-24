@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -18,6 +18,8 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class EntitySave implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	//variables
+	
 	@Id
 	private String id;
 	
@@ -34,32 +36,31 @@ public class EntitySave implements Serializable{
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "entity")
 	private Entity entity;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "season")
 	private Season season;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "episode")
 	private Episode episode;
 	
-	@DBRef(lazy = true)
 	@JsonBackReference
+	@DocumentReference(lazy = true, collection = "comment")
 	private List<Comment> comments = new ArrayList<>();
 	
-	@DBRef(lazy = true)
 	@JsonBackReference
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User> likes = new ArrayList<>();
 	
-			
-	List<String> historic = new ArrayList<>();
+	//variables
 
 	public EntitySave() {
 		super();
@@ -142,10 +143,6 @@ public class EntitySave implements Serializable{
 
 	public String getId() {
 		return id;
-	}
-
-	public List<String> getHistoric() {
-		return historic;
 	}
 	
 	public TypeObject getTypeObject() {
