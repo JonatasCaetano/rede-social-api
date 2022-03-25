@@ -107,4 +107,20 @@ public class GroupController {
 		}
 	}
 	
+	@PutMapping(value = "silence/{idGroup}/{idModerator}/add/{idMember}")
+	public ResponseEntity<GroupMiniDTO> addMemberSilenced(@PathVariable String idGroup, @PathVariable String idModerator, @PathVariable String idMember){
+		try {
+			boolean added = groupService.addMemberSilenced(idGroup, idModerator, idMember);
+			if(added) {
+				return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+			}else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	
+	
 }

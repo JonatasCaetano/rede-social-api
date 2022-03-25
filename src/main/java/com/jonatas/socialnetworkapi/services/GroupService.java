@@ -119,5 +119,23 @@ public class GroupService {
 		}
 	}
 	
+	public boolean addMemberSilenced(String idGroup, String idModerator, String idMember) {
+		User moderator = (User) userService.findById(idModerator).getBody();
+		User member = (User) userService.findById(idMember).getBody();
+		Group group = groupRepository.findById(idGroup).get();
+		if((group.getCreator().equals(moderator) || group.getModerators().contains(moderator)) && group.getMembers().contains(member) && !group.getModerators().contains(member)) {
+			if(!group.getMembersSilenced().contains(member)) {
+				group.getMembersSilenced().add(member);
+				groupRepository.save(group);
+				return true;
+			}else{
+				return 	true;
+			}
+		}else {
+				return false;
+		}
+	}
+	
+	
 	
 }
