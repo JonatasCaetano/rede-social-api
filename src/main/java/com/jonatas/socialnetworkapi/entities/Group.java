@@ -48,6 +48,14 @@ public class Group implements Serializable {
 	public Group() {
 		super();
 	}
+	
+	public Group(String name, String description, User creator, String creationDate) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.creator = creator;
+		this.creationDate = creationDate;
+	}
 
 	public String getName() {
 		return name;
