@@ -15,6 +15,8 @@ public class GroupMiniDTO {
 	private int QuantitySilenced;
 	private int QuantityPosts;
 	
+	private boolean UserIsMember;
+	
 	public GroupMiniDTO(Group group) {
 		super();
 		this.id = group.getId();
@@ -99,6 +101,15 @@ public class GroupMiniDTO {
 	public void setQuantityPosts(int quantityPosts) {
 		QuantityPosts = quantityPosts;
 	}
+
+	public boolean isUserIsMember() {
+		return UserIsMember;
+	}
+
+	public void setUserIsMember(boolean userIsMember) {
+		UserIsMember = userIsMember;
+	}
+
 	
 	
 	
