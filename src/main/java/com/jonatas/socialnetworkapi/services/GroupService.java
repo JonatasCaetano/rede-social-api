@@ -49,6 +49,16 @@ public class GroupService {
 		return members;
 	}
 	
+	public List<UserMiniDTO> getModerators(String idGroup){
+		Group group = groupRepository.findById(idGroup).get();
+		List<UserMiniDTO> moderators = new ArrayList<>();
+		for(User user : group.getModerators()) {
+			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+			moderators.add(userMiniDTO);
+		}
+		return moderators;
+	}
+	
 	
 	//post
 	
@@ -56,6 +66,20 @@ public class GroupService {
 		User user = (User) userService.findById(groupDTO.getIdCreator()).getBody();
 		Group group = new Group(groupDTO.getName(), groupDTO.getDescription(), user, groupDTO.getCreationDate());
 		group = groupRepository.insert(group);
+		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+		groupMiniDTO.setUserIsMember(true);
+		return groupMiniDTO;
+	}
+	
+	//put
+	
+	public GroupMiniDTO enterGroup(String idGroup, String idUser) {
+		User user = (User) userService.findById(idUser).getBody();
+		Group group = groupRepository.findById(idGroup).get();
+		if(!group.getMembers().contains(user) && !group.getCreator().equals(user)) {
+			group.getMembers().add(user);
+			groupRepository.save(group);
+		}
 		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
 		groupMiniDTO.setUserIsMember(true);
 		return groupMiniDTO;

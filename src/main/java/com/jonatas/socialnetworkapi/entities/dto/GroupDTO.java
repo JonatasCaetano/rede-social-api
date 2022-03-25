@@ -6,6 +6,7 @@ public class GroupDTO {
 	private String description;
 	private String idCreator;
 	private String creationDate;
+	private String image;
 	
 	public GroupDTO() {
 		super();
@@ -41,6 +42,14 @@ public class GroupDTO {
 
 	public void setCreationDate(String creationDate) {
 		this.creationDate = creationDate;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

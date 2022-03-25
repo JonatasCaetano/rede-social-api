@@ -9,6 +9,7 @@ public class GroupMiniDTO {
 	private String description;
 	private UserMiniDTO creator;
 	private String creationDate;
+	private String image;
 	
 	private int QuantityMembers;
 	private int QuantityModertors;
@@ -24,7 +25,8 @@ public class GroupMiniDTO {
 		this.description = group.getDescription();
 		this.creator = group.getCreator() != null ? new UserMiniDTO(group.getCreator()) : null;
 		this.creationDate = group.getCreationDate();
-		this.QuantityMembers = group.getMembers().size();
+		this.image = group.getImage();
+		this.QuantityMembers = group.getMembers().size() + 1;
 		this.QuantityModertors = group.getModerators().size();
 		this.QuantitySilenced = group.getMembersSilenced().size();
 		this.QuantityPosts = group.getPosts().size();
@@ -108,6 +110,14 @@ public class GroupMiniDTO {
 
 	public void setUserIsMember(boolean userIsMember) {
 		UserIsMember = userIsMember;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	

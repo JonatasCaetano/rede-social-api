@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +25,8 @@ public class GroupController {
 	@Autowired
 	private GroupService groupService;
 	
+	//get
+	
 	@GetMapping(value = "/{idGroup}/{idUser}")
 	public ResponseEntity<GroupMiniDTO> getGroup(@PathVariable String idGroup, @PathVariable String idUser){
 		try {
@@ -34,8 +37,8 @@ public class GroupController {
 		}
 	}
 	
-	@GetMapping(value = "/{idGroup}")
-	public ResponseEntity<List<UserMiniDTO>> getGroup(@PathVariable String idGroup){
+	@GetMapping(value = "/{idGroup}/members")
+	public ResponseEntity<List<UserMiniDTO>> getMembers(@PathVariable String idGroup){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(groupService.getMembers(idGroup));
 		} catch (Exception e) {
@@ -43,12 +46,34 @@ public class GroupController {
 		}
 	}
 	
+	@GetMapping(value = "/{idGroup}/moderators")
+	public ResponseEntity<List<UserMiniDTO>> getModerators(@PathVariable String idGroup){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(groupService.getModerators(idGroup));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+	
+	//post
+	
 	@PostMapping
 	public ResponseEntity<GroupMiniDTO> createGroup(@RequestBody GroupDTO groupDTO){
 		try {
 			//GroupMiniDTO groupMiniDTO = groupService.createGroup(groupDTO);
 			return ResponseEntity.status(HttpStatus.CREATED).body(groupService.createGroup(groupDTO));
 			
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	//put
+	
+	@PutMapping(value = "{idGroup}/add/{idUser}")
+	public ResponseEntity<GroupMiniDTO> enterGroup(@PathVariable String idGroup, @PathVariable String idUser){
+		try {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(groupService.enterGroup(idGroup, idUser));
 		}catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}

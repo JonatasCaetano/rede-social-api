@@ -24,6 +24,7 @@ public class Group implements Serializable {
 	private String description;
 	private User creator;
 	private String creationDate;
+	private String image;
 	
 	private int QuantityMembers;
 	private int QuantityModertors;
@@ -143,6 +144,14 @@ public class Group implements Serializable {
 
 	public List<Post> getPosts() {
 		return posts;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	@Override
