@@ -1,5 +1,8 @@
 package com.jonatas.socialnetworkapi.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
@@ -8,6 +11,7 @@ import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.GroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.GroupRepository;
 
 @Service
@@ -32,6 +36,17 @@ public class GroupService {
 			groupMiniDTO.setUserIsMember(false);
 		}
 		return groupMiniDTO;
+	}
+	
+	public List<UserMiniDTO> getMembers(String idGroup){
+		Group group = groupRepository.findById(idGroup).get();
+		List<UserMiniDTO> members = new ArrayList<>();
+		members.add(new UserMiniDTO(group.getCreator()));
+		for(User user : group.getMembers()) {
+			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+			members.add(userMiniDTO);
+		}
+		return members;
 	}
 	
 	

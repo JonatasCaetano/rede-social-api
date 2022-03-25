@@ -1,5 +1,7 @@
 package com.jonatas.socialnetworkapi.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.entities.dto.GroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.services.GroupService;
 
 @RestController
@@ -24,8 +27,17 @@ public class GroupController {
 	@GetMapping(value = "/{idGroup}/{idUser}")
 	public ResponseEntity<GroupMiniDTO> getGroup(@PathVariable String idGroup, @PathVariable String idUser){
 		try {
-			GroupMiniDTO groupMiniDTO = groupService.getGroup(idGroup, idUser);
-			return ResponseEntity.status(HttpStatus.OK).body(groupMiniDTO);
+			//GroupMiniDTO groupMiniDTO = groupService.getGroup(idGroup, idUser);
+			return ResponseEntity.status(HttpStatus.OK).body(groupService.getGroup(idGroup, idUser));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+	
+	@GetMapping(value = "/{idGroup}")
+	public ResponseEntity<List<UserMiniDTO>> getGroup(@PathVariable String idGroup){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(groupService.getMembers(idGroup));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
@@ -34,8 +46,8 @@ public class GroupController {
 	@PostMapping
 	public ResponseEntity<GroupMiniDTO> createGroup(@RequestBody GroupDTO groupDTO){
 		try {
-			GroupMiniDTO groupMiniDTO = groupService.createGroup(groupDTO);
-			return ResponseEntity.status(HttpStatus.CREATED).body(groupMiniDTO);
+			//GroupMiniDTO groupMiniDTO = groupService.createGroup(groupDTO);
+			return ResponseEntity.status(HttpStatus.CREATED).body(groupService.createGroup(groupDTO));
 			
 		}catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
