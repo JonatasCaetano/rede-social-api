@@ -45,12 +45,7 @@ public class UserController {
 	public ResponseEntity<Object> getInvitationMini(@PathVariable String id){
 		return userService.getInvitationMini(id);
 	}
-	
-	@GetMapping(value = "get/user/{id}/workers")
-	public ResponseEntity<Object> getWorkersMini(@PathVariable String id){
-		return userService.getWorkersMini(id);
-	}
-		
+			
 	@GetMapping(value = "get/user/{idUserPost}/posts/my/{idUser}")
 	public ResponseEntity<Object> getMyPostsMini(@PathVariable String idUserPost, @PathVariable String idUser){
 		return userService.getMyPostsMini(idUserPost, idUser);

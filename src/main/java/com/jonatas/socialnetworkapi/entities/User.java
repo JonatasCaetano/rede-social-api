@@ -48,10 +48,6 @@ public class User implements Serializable{
 	private Invitation invitation;
 
 	@JsonBackReference
-	@DocumentReference(collection = "worker")
-	private List<Worker> workers = new ArrayList<>();
-
-	@JsonBackReference
 	@DocumentReference(collection = "entitySave")
 	private List<EntitySave> entitySaves = new ArrayList<>();
 
@@ -116,10 +112,6 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Worker> getWorkers() {
-		return workers;
 	}
 
 	public Follower getFollower() {

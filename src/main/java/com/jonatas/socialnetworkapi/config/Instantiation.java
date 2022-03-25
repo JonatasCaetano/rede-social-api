@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
-import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
-import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.repositories.CommentRepository;
@@ -24,7 +22,6 @@ import com.jonatas.socialnetworkapi.repositories.PostRepository;
 import com.jonatas.socialnetworkapi.repositories.ReportRepository;
 import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
-import com.jonatas.socialnetworkapi.repositories.WorkerRepository;
 import com.jonatas.socialnetworkapi.services.CommentService;
 import com.jonatas.socialnetworkapi.services.EditionService;
 import com.jonatas.socialnetworkapi.services.EntitySaveService;
@@ -36,7 +33,6 @@ import com.jonatas.socialnetworkapi.services.PostService;
 import com.jonatas.socialnetworkapi.services.ReportService;
 import com.jonatas.socialnetworkapi.services.SeasonService;
 import com.jonatas.socialnetworkapi.services.UserService;
-import com.jonatas.socialnetworkapi.services.WorkerService;
 
 @Configuration
 public class Instantiation implements CommandLineRunner{
@@ -48,8 +44,6 @@ public class Instantiation implements CommandLineRunner{
 	private UserRepository userRepository;
 	@Autowired
 	private EntityRepository entityRepository;
-	@Autowired
-	private WorkerRepository workerRepository;
 	@Autowired
 	private FollowerRepository followerRepository;
 	@Autowired
@@ -75,8 +69,6 @@ public class Instantiation implements CommandLineRunner{
 	private UserService userService;
 	@Autowired
 	private EntityService entityService;
-	@Autowired
-	private WorkerService workerService;
 	@Autowired
 	private FollowerService followerService;
 	@Autowired
@@ -104,7 +96,6 @@ public class Instantiation implements CommandLineRunner{
 		/*
 		
 		userRepository.deleteAll();	
-		workerRepository.deleteAll();
 		followerRepository.deleteAll();
 		invitationRepository.deleteAll();
 		entityRepository.deleteAll();
