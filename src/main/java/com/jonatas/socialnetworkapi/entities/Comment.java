@@ -30,19 +30,19 @@ public class Comment implements Serializable{
 	private TypeComment typeComment;
 	
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	List<User> likes = new ArrayList<>();
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private User author;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "post")
+	@DocumentReference(collection = "post")
 	private Post post;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "entitySave")
+	@DocumentReference(collection = "entitySave")
 	private EntitySave entitySave;
 	
 	//variables

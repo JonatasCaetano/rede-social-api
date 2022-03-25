@@ -28,19 +28,19 @@ public class Edition implements Serializable{
 	private Level level;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private User user;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "entity")
+	@DocumentReference(collection = "entity")
 	private Entity entity;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "season")
+	@DocumentReference(collection = "season")
 	private Season season;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "episode")
+	@DocumentReference(collection = "episode")
 	private Episode episode;
 	
 	//variables

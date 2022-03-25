@@ -37,27 +37,27 @@ public class EntitySave implements Serializable{
 	private int commentQuantity = 0;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private User user;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "entity")
+	@DocumentReference(collection = "entity")
 	private Entity entity;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "season")
+	@DocumentReference(collection = "season")
 	private Season season;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "episode")
+	@DocumentReference(collection = "episode")
 	private Episode episode;
 	
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "comment")
+	@DocumentReference(collection = "comment")
 	private List<Comment> comments = new ArrayList<>();
 	
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private List<User> likes = new ArrayList<>();
 	
 	//variables

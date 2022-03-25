@@ -38,19 +38,19 @@ public class Entity implements Serializable{
 	private int category4 = 0;
 		
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "worker")
+	@DocumentReference(collection = "worker")
 	private List<Worker> workers = new ArrayList<>();
 	
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "season")
+	@DocumentReference(collection = "season")
 	private List<Season> seasons = new ArrayList<>();
 	
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "edition")
+	@DocumentReference(collection = "edition")
 	private List<Edition> editions = new ArrayList<>();
 	
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "entitySave")
+	@DocumentReference(collection = "entitySave")
 	private List<EntitySave> entitySaves = new ArrayList<>();
 	
 	//variables

@@ -40,27 +40,27 @@ public class User implements Serializable{
 	private TypeObject typeObject = TypeObject.USER;
 
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "follower")
+	@DocumentReference(collection = "follower")
 	private Follower follower;
 
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "invitation")
+	@DocumentReference(collection = "invitation")
 	private Invitation invitation;
 
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "worker")
+	@DocumentReference(collection = "worker")
 	private List<Worker> workers = new ArrayList<>();
 
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "entitySave")
+	@DocumentReference(collection = "entitySave")
 	private List<EntitySave> entitySaves = new ArrayList<>();
 
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "comment")
+	@DocumentReference(collection = "comment")
 	private List<Comment> comments = new ArrayList<>();
 
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private List<User> blocked =  new ArrayList<>();
 	
 	private List<LikeUser> likes = new ArrayList<>();

@@ -27,11 +27,11 @@ public class Worker  implements Serializable{
 	private Level level;
 
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private User user;
 
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "entity")
+	@DocumentReference(collection = "entity")
 	private Entity entity;
 	
 	//variables

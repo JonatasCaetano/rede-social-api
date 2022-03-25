@@ -34,15 +34,15 @@ public class Post implements Serializable{
 	private Boolean spoiler;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private User author;
 		
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "comment")
+	@DocumentReference(collection = "comment")
 	private List<Comment> comments = new ArrayList<>();
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
+	@DocumentReference(collection = "user")
 	private List<User> likes = new ArrayList<>();
 	
 	//variables
