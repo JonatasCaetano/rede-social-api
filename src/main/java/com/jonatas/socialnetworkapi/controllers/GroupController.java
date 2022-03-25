@@ -80,9 +80,9 @@ public class GroupController {
 	}
 	
 	@PutMapping(value = "{idGroup}/{idCreator}/add/moderator/{idMember}")
-	public ResponseEntity<GroupMiniDTO> addModerators(@PathVariable String idGroup, @PathVariable String idCreator, @PathVariable String idMember){
+	public ResponseEntity<GroupMiniDTO> addModerator(@PathVariable String idGroup, @PathVariable String idCreator, @PathVariable String idMember){
 		try {
-			boolean added = groupService.addModerators(idGroup, idCreator, idMember);
+			boolean added = groupService.addModerator(idGroup, idCreator, idMember);
 			if(added) {
 				return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 			}else {
@@ -92,4 +92,19 @@ public class GroupController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}
+	
+	@PutMapping(value = "{idGroup}/{idCreator}/remove/moderator/{idMember}")
+	public ResponseEntity<GroupMiniDTO> removeModerator(@PathVariable String idGroup, @PathVariable String idCreator, @PathVariable String idMember){
+		try {
+			boolean added = groupService.removeModerator(idGroup, idCreator, idMember);
+			if(added) {
+				return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+			}else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
 }

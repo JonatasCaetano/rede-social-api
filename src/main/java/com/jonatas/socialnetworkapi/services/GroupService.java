@@ -14,8 +14,6 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.GroupRepository;
 
-import ch.qos.logback.core.status.Status;
-
 @Service
 public class GroupService {
 
@@ -87,7 +85,7 @@ public class GroupService {
 		return groupMiniDTO;
 	}
 	
-	public boolean addModerators(String idGroup, String idCreator, String idMember) {
+	public boolean addModerator(String idGroup, String idCreator, String idMember) {
 		User creator = (User) userService.findById(idCreator).getBody();
 		User member = (User) userService.findById(idMember).getBody();
 		Group group = groupRepository.findById(idGroup).get();
@@ -101,6 +99,23 @@ public class GroupService {
 			}
 		}else {
 				return false;
+		}
+	}
+	
+	public boolean removeModerator(String idGroup, String idCreator, String idMember) {
+		User creator = (User) userService.findById(idCreator).getBody();
+		User member = (User) userService.findById(idMember).getBody();
+		Group group = groupRepository.findById(idGroup).get();
+		if(group.getCreator().equals(creator) && group.getModerators().contains(member) ) {
+			if(group.getModerators().contains(member)) {
+				group.getModerators().remove(member);
+				groupRepository.save(group);
+				return true;
+			}else{
+				return 	true;
+			}
+		}else {
+			return false;
 		}
 	}
 	
