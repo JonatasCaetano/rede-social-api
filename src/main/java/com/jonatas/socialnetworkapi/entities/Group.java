@@ -26,10 +26,10 @@ public class Group implements Serializable {
 	private String creationDate;
 	private String image;
 	
-	private int QuantityMembers;
-	private int QuantityModertors;
-	private int QuantitySilenced;
-	private int QuantityPosts;
+	private int quantityMembers;
+	private int quantityModertors;
+	private int quantitySilenced;
+	private int quantityPosts;
 	
 	@JsonBackReference
 	//@DBRef(lazy = true)
@@ -95,35 +95,35 @@ public class Group implements Serializable {
 	}
 
 	public int getQuantityMembers() {
-		return QuantityMembers;
+		return quantityMembers;
 	}
 
 	public void setQuantityMembers(int quantityMembers) {
-		QuantityMembers = this.members.size();
+		this.quantityMembers = this.members.size() + 1;;
 	}
 
 	public int getQuantityModertors() {
-		return QuantityModertors;
+		return quantityModertors;
 	}
 
 	public void setQuantityModertors(int quantityModertors) {
-		QuantityModertors = this.moderators.size();
+		quantityModertors = this.moderators.size();
 	}
 
 	public int getQuantitySilenced() {
-		return QuantitySilenced;
+		return quantitySilenced;
 	}
 
 	public void setQuantitySilenced(int quantitySilenced) {
-		QuantitySilenced = this.membersSilenced.size();
+		quantitySilenced = this.membersSilenced.size();
 	}
 
 	public int getQuantityPosts() {
-		return QuantityPosts;
+		return quantityPosts;
 	}
 
 	public void setQuantityPosts(int quantityPosts) {
-		QuantityPosts = this.posts.size();
+		quantityPosts = this.posts.size();
 	}
 
 	public static long getSerialversionuid() {

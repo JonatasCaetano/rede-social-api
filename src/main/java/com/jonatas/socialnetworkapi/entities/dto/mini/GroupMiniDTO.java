@@ -11,14 +11,14 @@ public class GroupMiniDTO {
 	private String creationDate;
 	private String image;
 	
-	private int QuantityMembers;
-	private int QuantityModertors;
-	private int QuantitySilenced;
-	private int QuantityPosts;
+	private int quantityMembers;
+	private int quantityModertors;
+	private int quantitySilenced;
+	private int quantityPosts;
 	
-	private boolean UserIsMember;
-	private boolean UserIsModerator;
-	private boolean UserIsSilenced;
+	private boolean userIsMember;
+	private boolean userIsModerator;
+	private boolean userIsSilenced;
 	
 	public GroupMiniDTO(Group group) {
 		super();
@@ -28,10 +28,10 @@ public class GroupMiniDTO {
 		this.creator = group.getCreator() != null ? new UserMiniDTO(group.getCreator()) : null;
 		this.creationDate = group.getCreationDate();
 		this.image = group.getImage();
-		this.QuantityMembers = group.getMembers().size() + 1;
-		this.QuantityModertors = group.getModerators().size();
-		this.QuantitySilenced = group.getMembersSilenced().size();
-		this.QuantityPosts = group.getPosts().size();
+		this.quantityMembers = group.getMembers().size() + 1;
+		this.quantityModertors = group.getModerators().size();
+		this.quantitySilenced = group.getMembersSilenced().size();
+		this.quantityPosts = group.getPosts().size();
 	}
 
 	public String getId() {
@@ -74,46 +74,6 @@ public class GroupMiniDTO {
 		this.creationDate = creationDate;
 	}
 
-	public int getQuantityMembers() {
-		return QuantityMembers;
-	}
-
-	public void setQuantityMembers(int quantityMembers) {
-		QuantityMembers = quantityMembers;
-	}
-
-	public int getQuantityModertors() {
-		return QuantityModertors;
-	}
-
-	public void setQuantityModertors(int quantityModertors) {
-		QuantityModertors = quantityModertors;
-	}
-
-	public int getQuantitySilenced() {
-		return QuantitySilenced;
-	}
-
-	public void setQuantitySilenced(int quantitySilenced) {
-		QuantitySilenced = quantitySilenced;
-	}
-
-	public int getQuantityPosts() {
-		return QuantityPosts;
-	}
-
-	public void setQuantityPosts(int quantityPosts) {
-		QuantityPosts = quantityPosts;
-	}
-
-	public boolean isUserIsMember() {
-		return UserIsMember;
-	}
-
-	public void setUserIsMember(boolean userIsMember) {
-		UserIsMember = userIsMember;
-	}
-
 	public String getImage() {
 		return image;
 	}
@@ -122,21 +82,64 @@ public class GroupMiniDTO {
 		this.image = image;
 	}
 
+	public int getQuantityMembers() {
+		return quantityMembers;
+	}
+
+	public void setQuantityMembers(int quantityMembers) {
+		this.quantityMembers = quantityMembers;
+	}
+
+	public int getQuantityModertors() {
+		return quantityModertors;
+	}
+
+	public void setQuantityModertors(int quantityModertors) {
+		this.quantityModertors = quantityModertors;
+	}
+
+	public int getQuantitySilenced() {
+		return quantitySilenced;
+	}
+
+	public void setQuantitySilenced(int quantitySilenced) {
+		this.quantitySilenced = quantitySilenced;
+	}
+
+	public int getQuantityPosts() {
+		return quantityPosts;
+	}
+
+	public void setQuantityPosts(int quantityPosts) {
+		this.quantityPosts = quantityPosts;
+	}
+
+	public boolean isUserIsMember() {
+		return userIsMember;
+	}
+
+	public void setUserIsMember(boolean userIsMember) {
+		this.userIsMember = userIsMember;
+	}
+
 	public boolean isUserIsModerator() {
-		return UserIsModerator;
+		return userIsModerator;
 	}
 
 	public void setUserIsModerator(boolean userIsModerator) {
-		UserIsModerator = userIsModerator;
+		this.userIsModerator = userIsModerator;
 	}
 
 	public boolean isUserIsSilenced() {
-		return UserIsSilenced;
+		return userIsSilenced;
 	}
 
 	public void setUserIsSilenced(boolean userIsSilenced) {
-		UserIsSilenced = userIsSilenced;
+		this.userIsSilenced = userIsSilenced;
 	}
+
+	
+
 
 	
 	
