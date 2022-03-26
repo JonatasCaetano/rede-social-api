@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.entities.Group;
@@ -86,6 +87,20 @@ public class GroupService {
 			silenced.add(userMiniDTO);
 		}
 		return silenced;
+	}
+	
+	public ResponseEntity<Object> findByName(String name){
+		try {
+			List<Group> groups = groupRepository.searchByName(name);
+			List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
+			for(Group group : groups) {
+				GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+				groupMiniDTOs.add(groupMiniDTO);
+			}
+			return ResponseEntity.ok().body(groupMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
 	}
 	
 	

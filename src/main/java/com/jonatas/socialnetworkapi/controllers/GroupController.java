@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.entities.dto.GroupDTO;
@@ -72,6 +73,11 @@ public class GroupController {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
+	}
+	
+	@GetMapping(value = "/name")
+	public ResponseEntity<Object> findByName(@RequestParam(value = "name", defaultValue = "") String name){
+		return groupService.findByName(name);
 	}
 	
 	//post
