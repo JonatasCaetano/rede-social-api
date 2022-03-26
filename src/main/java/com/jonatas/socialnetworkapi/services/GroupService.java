@@ -25,6 +25,15 @@ public class GroupService {
 	private UserService userService;
 	
 	//get
+	public List<GroupMiniDTO> getGroups() {
+		List<Group> groups = groupRepository.findAll();
+		List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
+		for(Group group : groups) {
+			GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+			groupMiniDTOs.add(groupMiniDTO);
+		}		
+		return groupMiniDTOs;
+	}
 	
 	public GroupMiniDTO getGroup(String idGroup, String idUser) {
 		User user = (User) userService.findById(idUser).getBody();
@@ -34,6 +43,16 @@ public class GroupService {
 			groupMiniDTO.setUserIsMember(true);
 		}else {
 			groupMiniDTO.setUserIsMember(false);
+		}
+		if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
+			groupMiniDTO.setUserIsModerator(true);
+		}else {
+			groupMiniDTO.setUserIsModerator(false);
+		}
+		if(group.getMembersSilenced().contains(user)) {
+			groupMiniDTO.setUserIsSilenced(true);
+		}else {
+			groupMiniDTO.setUserIsSilenced(false);
 		}
 		return groupMiniDTO;
 	}
@@ -57,6 +76,16 @@ public class GroupService {
 			moderators.add(userMiniDTO);
 		}
 		return moderators;
+	}
+	
+	public List<UserMiniDTO> getMembersSilenced(String idGroup){
+		Group group = groupRepository.findById(idGroup).get();
+		List<UserMiniDTO> silenced = new ArrayList<>();
+		for(User user : group.getMembersSilenced()) {
+			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+			silenced.add(userMiniDTO);
+		}
+		return silenced;
 	}
 	
 	
@@ -126,6 +155,23 @@ public class GroupService {
 		if((group.getCreator().equals(moderator) || group.getModerators().contains(moderator)) && group.getMembers().contains(member) && !group.getModerators().contains(member)) {
 			if(!group.getMembersSilenced().contains(member)) {
 				group.getMembersSilenced().add(member);
+				groupRepository.save(group);
+				return true;
+			}else{
+				return 	true;
+			}
+		}else {
+				return false;
+		}
+	}
+	
+	public boolean removeMemberSilenced(String idGroup, String idModerator, String idMember) {
+		User moderator = (User) userService.findById(idModerator).getBody();
+		User member = (User) userService.findById(idMember).getBody();
+		Group group = groupRepository.findById(idGroup).get();
+		if((group.getCreator().equals(moderator) || group.getModerators().contains(moderator)) && group.getMembers().contains(member)) {
+			if(group.getMembersSilenced().contains(member)) {
+				group.getMembersSilenced().remove(member);
 				groupRepository.save(group);
 				return true;
 			}else{

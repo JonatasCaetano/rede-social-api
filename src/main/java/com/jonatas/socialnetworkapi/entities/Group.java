@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -32,15 +33,19 @@ public class Group implements Serializable {
 	private int QuantityPosts;
 	
 	@JsonBackReference
+	@DBRef(lazy = true)
 	@DocumentReference(collection = "user")
 	private List<User> members = new ArrayList<>();
 	@JsonBackReference
+	@DBRef(lazy = true)
 	@DocumentReference(collection = "user")
 	private List<User> moderators = new ArrayList<>();
 	@JsonBackReference
+	@DBRef(lazy = true)
 	@DocumentReference(collection = "user")
 	private List<User> membersSilenced = new ArrayList<>();
 	@JsonBackReference
+	@DBRef(lazy = true)
 	@DocumentReference(collection = "post")
 	private List<Post> posts = new ArrayList<>();
 	

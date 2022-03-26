@@ -9,6 +9,7 @@ import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
+import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.repositories.CommentRepository;
@@ -17,6 +18,7 @@ import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
 import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
+import com.jonatas.socialnetworkapi.repositories.GroupRepository;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 import com.jonatas.socialnetworkapi.repositories.PostRepository;
 import com.jonatas.socialnetworkapi.repositories.ReportRepository;
@@ -28,6 +30,7 @@ import com.jonatas.socialnetworkapi.services.EntitySaveService;
 import com.jonatas.socialnetworkapi.services.EntityService;
 import com.jonatas.socialnetworkapi.services.EpisodeService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
+import com.jonatas.socialnetworkapi.services.GroupService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 import com.jonatas.socialnetworkapi.services.PostService;
 import com.jonatas.socialnetworkapi.services.ReportService;
@@ -62,6 +65,8 @@ public class Instantiation implements CommandLineRunner{
 	private CommentRepository commentRepository;
 	@Autowired
 	private ReportRepository reportRepository;
+	@Autowired
+	private GroupRepository groupRepository;
 	
 	//Services
 	
@@ -87,6 +92,8 @@ public class Instantiation implements CommandLineRunner{
 	private CommentService commentService;
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private GroupService groupService;
 	
 	//start of function 
 	
@@ -106,6 +113,7 @@ public class Instantiation implements CommandLineRunner{
 		postRepository.deleteAll();
 		commentRepository.deleteAll();
 		reportRepository.deleteAll();
+		groupRepository.deleteAll();
 		
 		User user1 = new User(
 				"Marley Alexandre",

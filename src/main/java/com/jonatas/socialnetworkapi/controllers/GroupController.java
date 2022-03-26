@@ -27,6 +27,16 @@ public class GroupController {
 	
 	//get
 	
+	@GetMapping
+	public ResponseEntity<List<GroupMiniDTO>> getGroups(){
+		try {
+			//GroupMiniDTO groupMiniDTO = groupService.getGroup(idGroup, idUser);
+			return ResponseEntity.status(HttpStatus.OK).body(groupService.getGroups());
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+	
 	@GetMapping(value = "/{idGroup}/{idUser}")
 	public ResponseEntity<GroupMiniDTO> getGroup(@PathVariable String idGroup, @PathVariable String idUser){
 		try {
@@ -50,6 +60,15 @@ public class GroupController {
 	public ResponseEntity<List<UserMiniDTO>> getModerators(@PathVariable String idGroup){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(groupService.getModerators(idGroup));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+	}
+	
+	@GetMapping(value = "/{idGroup}/silenced")
+	public ResponseEntity<List<UserMiniDTO>> getMembersSilenced(@PathVariable String idGroup){
+		try {
+			return ResponseEntity.status(HttpStatus.OK).body(groupService.getMembersSilenced(idGroup));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
@@ -111,6 +130,20 @@ public class GroupController {
 	public ResponseEntity<GroupMiniDTO> addMemberSilenced(@PathVariable String idGroup, @PathVariable String idModerator, @PathVariable String idMember){
 		try {
 			boolean added = groupService.addMemberSilenced(idGroup, idModerator, idMember);
+			if(added) {
+				return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+			}else {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@PutMapping(value = "silence/{idGroup}/{idModerator}/remove/{idMember}")
+	public ResponseEntity<GroupMiniDTO> removeMemberSilenced(@PathVariable String idGroup, @PathVariable String idModerator, @PathVariable String idMember){
+		try {
+			boolean added = groupService.removeMemberSilenced(idGroup, idModerator, idMember);
 			if(added) {
 				return ResponseEntity.status(HttpStatus.ACCEPTED).build();
 			}else {

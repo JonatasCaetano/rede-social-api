@@ -17,6 +17,8 @@ public class GroupMiniDTO {
 	private int QuantityPosts;
 	
 	private boolean UserIsMember;
+	private boolean UserIsModerator;
+	private boolean UserIsSilenced;
 	
 	public GroupMiniDTO(Group group) {
 		super();
@@ -118,6 +120,22 @@ public class GroupMiniDTO {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public boolean isUserIsModerator() {
+		return UserIsModerator;
+	}
+
+	public void setUserIsModerator(boolean userIsModerator) {
+		UserIsModerator = userIsModerator;
+	}
+
+	public boolean isUserIsSilenced() {
+		return UserIsSilenced;
+	}
+
+	public void setUserIsSilenced(boolean userIsSilenced) {
+		UserIsSilenced = userIsSilenced;
 	}
 
 	
