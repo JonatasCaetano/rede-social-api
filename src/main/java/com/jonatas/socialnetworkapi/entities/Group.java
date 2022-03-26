@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 @Document
 public class Group implements Serializable {
@@ -30,6 +31,8 @@ public class Group implements Serializable {
 	private int quantityModertors;
 	private int quantitySilenced;
 	private int quantityPosts;
+	
+	private TypeObject typeObject = TypeObject.GROUP;	
 	
 	@JsonBackReference
 	//@DBRef(lazy = true)
@@ -156,6 +159,10 @@ public class Group implements Serializable {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	public TypeObject getTypeObject() {
+		return typeObject;
 	}
 
 	@Override

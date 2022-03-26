@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Group;
+import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class GroupMiniDTO {
 
@@ -19,6 +20,8 @@ public class GroupMiniDTO {
 	private boolean userIsMember;
 	private boolean userIsModerator;
 	private boolean userIsSilenced;
+	
+	private TypeObject typeObject = TypeObject.GROUP;
 	
 	public GroupMiniDTO(Group group) {
 		super();
@@ -138,11 +141,13 @@ public class GroupMiniDTO {
 		this.userIsSilenced = userIsSilenced;
 	}
 
-	
+	public TypeObject getTypeObject() {
+		return typeObject;
+	}
 
-
-	
-	
+	public void setTypeObject(TypeObject typeObject) {
+		this.typeObject = typeObject;
+	}
 	
 	
 }

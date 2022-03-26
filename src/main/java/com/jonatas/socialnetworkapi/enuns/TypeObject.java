@@ -15,5 +15,6 @@ public enum TypeObject {
 	EDITION,
 	COMMENT,
 	TALK,
-	REPORT;
+	REPORT,
+	GROUP;
 }
