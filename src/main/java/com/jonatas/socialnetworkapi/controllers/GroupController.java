@@ -20,7 +20,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.services.GroupService;
 
 @RestController
-@RequestMapping(value = "group")
+@RequestMapping(value = "groups")
 public class GroupController {
 
 	@Autowired

@@ -28,7 +28,7 @@ public class Group implements Serializable {
 	private String image;
 	
 	private int quantityMembers;
-	private int quantityModertors;
+	private int quantityModerators;
 	private int quantitySilenced;
 	private int quantityPosts;
 	
@@ -105,12 +105,12 @@ public class Group implements Serializable {
 		this.quantityMembers = this.members.size() + 1;;
 	}
 
-	public int getQuantityModertors() {
-		return quantityModertors;
+	public int getQuantityModerators() {
+		return quantityModerators;
 	}
 
-	public void setQuantityModertors(int quantityModertors) {
-		quantityModertors = this.moderators.size();
+	public void setQuantityModerators(int quantityModerators) {
+		this.quantityModerators = this.moderators.size();
 	}
 
 	public int getQuantitySilenced() {
