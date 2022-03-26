@@ -110,6 +110,8 @@ public class GroupService {
 		User user = (User) userService.findById(groupDTO.getIdCreator()).getBody();
 		Group group = new Group(groupDTO.getName(), groupDTO.getDescription(), user, groupDTO.getCreationDate());
 		group = groupRepository.insert(group);
+		user.getGroups().add(group);
+		userService.save(user);
 		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
 		groupMiniDTO.setUserIsMember(true);
 		return groupMiniDTO;
@@ -123,11 +125,29 @@ public class GroupService {
 		if(!group.getMembers().contains(user) && !group.getCreator().equals(user)) {
 			group.getMembers().add(user);
 			groupRepository.save(group);
+			user.getGroups().add(group);
+			userService.save(user);
 		}
 		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
 		groupMiniDTO.setUserIsMember(true);
 		return groupMiniDTO;
 	}
+	
+	public GroupMiniDTO goOutGroup(String idGroup, String idUser) {
+		User user = (User) userService.findById(idUser).getBody();
+		Group group = groupRepository.findById(idGroup).get();
+		if(group.getMembers().contains(user) && !group.getCreator().equals(user)) {
+			group.getMembers().remove(user);
+			groupRepository.save(group);
+			user.getGroups().remove(group);
+			userService.save(user);
+		}
+		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+		groupMiniDTO.setUserIsMember(false);
+		return groupMiniDTO;
+	}
+	
+	
 	
 	public boolean addModerator(String idGroup, String idCreator, String idMember) {
 		User creator = (User) userService.findById(idCreator).getBody();

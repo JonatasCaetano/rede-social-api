@@ -104,6 +104,15 @@ public class GroupController {
 		}
 	}
 	
+	@PutMapping(value = "{idGroup}/remove/{idUser}")
+	public ResponseEntity<GroupMiniDTO> goOutGroup(@PathVariable String idGroup, @PathVariable String idUser){
+		try {
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(groupService.goOutGroup(idGroup, idUser));
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
 	@PutMapping(value = "{idGroup}/{idCreator}/add/moderator/{idMember}")
 	public ResponseEntity<GroupMiniDTO> addModerator(@PathVariable String idGroup, @PathVariable String idCreator, @PathVariable String idMember){
 		try {

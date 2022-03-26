@@ -59,6 +59,10 @@ public class User implements Serializable{
 	@DocumentReference(collection = "user")
 	private List<User> blocked =  new ArrayList<>();
 	
+	@JsonBackReference
+	@DocumentReference(collection = "group")
+	private List<Group> groups = new ArrayList<>();
+	
 	private List<LikeUser> likes = new ArrayList<>();
 	
 	private List<PostUser> posts = new ArrayList<>();
@@ -232,6 +236,10 @@ public class User implements Serializable{
 
 	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+	
+	public List<Group> getGroups() {
+		return groups;
 	}
 
 	@Override
