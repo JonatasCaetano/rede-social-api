@@ -28,11 +28,11 @@ public class GroupController {
 	
 	//get
 	
-	@GetMapping
-	public ResponseEntity<List<GroupMiniDTO>> getGroups(){
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<List<GroupMiniDTO>> getGroups(@PathVariable String id){
 		try {
 			//GroupMiniDTO groupMiniDTO = groupService.getGroup(idGroup, idUser);
-			return ResponseEntity.status(HttpStatus.OK).body(groupService.getGroups());
+			return ResponseEntity.status(HttpStatus.OK).body(groupService.getGroups(id));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

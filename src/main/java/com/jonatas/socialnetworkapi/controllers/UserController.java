@@ -100,6 +100,11 @@ public class UserController {
 		return userService.findByName(name);
 	}
 	
+	@GetMapping(value = "/{id}/groups")
+	public ResponseEntity<Object> getGroups(@PathVariable String id){
+		return userService.getGroups(id);
+	}
+	
 	//post
 	
 	@PostMapping(value = "post/user")

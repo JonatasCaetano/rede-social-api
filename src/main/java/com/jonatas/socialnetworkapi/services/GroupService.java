@@ -26,11 +26,27 @@ public class GroupService {
 	private UserService userService;
 	
 	//get
-	public List<GroupMiniDTO> getGroups() {
+	public List<GroupMiniDTO> getGroups(String id) {
+		User user = (User) userService.findById(id).getBody();
 		List<Group> groups = groupRepository.findAll();
 		List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
 		for(Group group : groups) {
 			GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+			if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
+				groupMiniDTO.setUserIsMember(true);
+			}else {
+				groupMiniDTO.setUserIsMember(false);
+			}
+			if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
+				groupMiniDTO.setUserIsModerator(true);
+			}else {
+				groupMiniDTO.setUserIsModerator(false);
+			}
+			if(group.getMembersSilenced().contains(user)) {
+				groupMiniDTO.setUserIsSilenced(true);
+			}else {
+				groupMiniDTO.setUserIsSilenced(false);
+			}
 			groupMiniDTOs.add(groupMiniDTO);
 		}		
 		return groupMiniDTOs;
