@@ -261,6 +261,19 @@ public class GroupService {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(groupMiniDTO);
 	}
 	
+	public ResponseEntity<GroupMiniDTO> updateImage(GroupDTO groupDTO, String idUser, String idGroup) {
+		User creator = (User) userService.findById(idUser).getBody();
+		Group group = groupRepository.findById(idGroup).get();
+		if(group.getCreator().equals(creator)) {
+			group.setImage(groupDTO.getImage());
+			groupRepository.save(group);
+		}else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(groupMiniDTO);
+	}
+	
 	
 	
 }

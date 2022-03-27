@@ -187,6 +187,15 @@ public class GroupController {
 		}
 	}
 	
+	@PutMapping(value = "/{idGroup}/{idUser}/image")
+	public ResponseEntity<GroupMiniDTO> updateImage(@RequestBody GroupDTO groupDTO, @PathVariable String idGroup, @PathVariable String idUser){
+		try {
+			return groupService.updateImage(groupDTO, idUser, idGroup);
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
 	
 	
 }
