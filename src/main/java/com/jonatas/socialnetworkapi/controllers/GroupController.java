@@ -178,6 +178,15 @@ public class GroupController {
 		}
 	}
 	
+	@PutMapping(value = "/{idGroup}/{idUser}/description")
+	public ResponseEntity<GroupMiniDTO> updateDescription(@RequestBody GroupDTO groupDTO, @PathVariable String idGroup, @PathVariable String idUser){
+		try {
+			return groupService.updateDescription(groupDTO, idUser, idGroup);
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
 	
 	
 }
