@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -231,6 +232,20 @@ public class GroupService {
 		}else {
 				return false;
 		}
+	}
+	
+	
+	public ResponseEntity<GroupMiniDTO> updateName(GroupDTO groupDTO, String idUser, String idGroup) {
+		User creator = (User) userService.findById(idUser).getBody();
+		Group group = groupRepository.findById(idGroup).get();
+		if(group.getCreator().equals(creator)) {
+			group.setName(groupDTO.getName());
+			groupRepository.save(group);
+		}else {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		}
+		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(groupMiniDTO);
 	}
 	
 	
