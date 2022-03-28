@@ -36,19 +36,19 @@ public class Group implements Serializable {
 	
 	@JsonBackReference
 	//@DBRef(lazy = true)
-	@DocumentReference(collection = "user")
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User> members = new ArrayList<>();
 	@JsonBackReference
 	//@DBRef(lazy = true)
-	@DocumentReference(collection = "user")
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User> moderators = new ArrayList<>();
 	@JsonBackReference
 	//@DBRef(lazy = true)
-	@DocumentReference(collection = "user")
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User> membersSilenced = new ArrayList<>();
 	@JsonBackReference
 	//@DBRef(lazy = true)
-	@DocumentReference(collection = "post")
+	@DocumentReference(lazy = true, collection = "post")
 	private List<Post> posts = new ArrayList<>();
 	
 	//variables

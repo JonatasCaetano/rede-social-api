@@ -1,6 +1,6 @@
 package com.jonatas.socialnetworkapi.entities.post;
 
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.entities.Entity;
@@ -19,16 +19,16 @@ public class Update extends Post {
 	private Level level;
 	private int evaluation;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "entity")
 	private Entity entity;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "season")
 	private Season season;
 	
-	@DBRef(lazy = true)
 	@JsonManagedReference
+	@DocumentReference(lazy = true, collection = "episode")
 	private Episode episode;
 	
 	public Update() {

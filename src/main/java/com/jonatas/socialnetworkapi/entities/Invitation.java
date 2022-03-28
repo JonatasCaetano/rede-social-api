@@ -27,11 +27,11 @@ public class Invitation implements Serializable{
 	private TypeObject typeObject = TypeObject.INVITATION;
 
 	@JsonManagedReference
-	@DocumentReference(collection = "user")
+	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
 	@JsonManagedReference
-	@DocumentReference(collection = "user")
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User>  invited = new ArrayList<>();
 	
 	//variables

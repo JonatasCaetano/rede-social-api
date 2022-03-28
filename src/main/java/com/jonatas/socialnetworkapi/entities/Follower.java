@@ -26,11 +26,11 @@ public class Follower implements Serializable{
 	private TypeObject typeObject = TypeObject.FOLLOWER;
 
 	@JsonManagedReference
-	@DocumentReference(collection = "user")
+	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
 	@JsonManagedReference
-	@DocumentReference(collection = "user")
+	@DocumentReference(lazy = true, collection = "user")
 	private List<User> following = new ArrayList<>();
 	
 	//variables

@@ -36,19 +36,19 @@ public class Episode implements Serializable{
 	private int category4 = 0;
 	
 	@JsonManagedReference
-	@DocumentReference(collection = "season")
+	@DocumentReference(lazy = true, collection = "season")
 	private Season season;
 	
 	@JsonBackReference
-	@DocumentReference(collection = "edition")
+	@DocumentReference(lazy = true, collection = "edition")
 	private List<Edition> editions = new ArrayList<>();
 	
 	@JsonBackReference
-	@DocumentReference(collection = "entitySave")
+	@DocumentReference(lazy = true, collection = "entitySave")
 	private List<EntitySave> entitySaves = new ArrayList<>();
 	
 	@JsonBackReference
-	@DocumentReference(collection = "post")
+	@DocumentReference(lazy = true, collection = "post")
 	private List<Post> posts = new ArrayList<>();
 	
 	//variables
