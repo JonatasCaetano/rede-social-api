@@ -1,3 +1,4 @@
+/*
 package com.jonatas.socialnetworkapi.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,3 +96,5 @@ public class SeasonController {
 		return seasonService.updateDescription(editionDTO);
 	}
 }
+
+*/

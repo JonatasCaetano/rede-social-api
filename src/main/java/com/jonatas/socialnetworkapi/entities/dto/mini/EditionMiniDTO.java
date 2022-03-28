@@ -11,8 +11,8 @@ public class EditionMiniDTO {
 	private String id;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
-	private SeasonMiniDTO season;
-	private EpisodeMiniDTO episode;
+//	private SeasonMiniDTO season;
+//	private EpisodeMiniDTO episode;
 	private String attribute;
 	private Object previous;
 	private Object current;
@@ -29,8 +29,8 @@ public class EditionMiniDTO {
 		this.id = edition.getId();
 		this.user = edition.getUser() != null ? new UserMiniDTO(edition.getUser()) : null;
 		this.entity = edition.getEntity() != null ? new EntityMiniDTO(edition.getEntity()): null;
-		this.season = edition.getSeason() != null ? new SeasonMiniDTO(edition.getSeason()) : null;
-		this.episode = edition.getEpisode() != null ? new EpisodeMiniDTO(edition.getEpisode()) : null;
+//		this.season = edition.getSeason() != null ? new SeasonMiniDTO(edition.getSeason()) : null;
+//		this.episode = edition.getEpisode() != null ? new EpisodeMiniDTO(edition.getEpisode()) : null;
 		this.release = edition.getRelease();
 		this.previous = edition.getPrevious();
 		this.current = edition.getCurrent();
@@ -62,21 +62,21 @@ public class EditionMiniDTO {
 		this.entity = entity;
 	}
 
-	public SeasonMiniDTO getSeason() {
-		return season;
-	}
-
-	public void setSeason(SeasonMiniDTO season) {
-		this.season = season;
-	}
-
-	public EpisodeMiniDTO getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(EpisodeMiniDTO episode) {
-		this.episode = episode;
-	}
+//	public SeasonMiniDTO getSeason() {
+//		return season;
+//	}
+//
+//	public void setSeason(SeasonMiniDTO season) {
+//		this.season = season;
+//	}
+//
+//	public EpisodeMiniDTO getEpisode() {
+//		return episode;
+//	}
+//
+//	public void setEpisode(EpisodeMiniDTO episode) {
+//		this.episode = episode;
+//	}
 
 	public Date getRelease() {
 		return release;

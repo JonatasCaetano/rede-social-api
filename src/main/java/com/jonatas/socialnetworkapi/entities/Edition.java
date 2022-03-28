@@ -35,13 +35,13 @@ public class Edition implements Serializable{
 	@DocumentReference(lazy = true, collection = "entity")
 	private Entity entity;
 	
-	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "season")
-	private Season season;
-	
-	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "episode")
-	private Episode episode;
+//	@JsonManagedReference
+//	@DocumentReference(lazy = true, collection = "season")
+//	private Season season;
+//	
+//	@JsonManagedReference
+//	@DocumentReference(lazy = true, collection = "episode")
+//	private Episode episode;
 	
 	//variables
 	
@@ -49,13 +49,13 @@ public class Edition implements Serializable{
 		super();
 	}
 
-	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previous,
+	public Edition(User user, Entity entity, Date release, Object previous,
 			Object current, String attribute, Level level) {
 		super();
 		this.user = user;
 		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
+//		this.season = season;
+//		this.episode = episode;
 		this.release = release;
 		this.previous = previous;
 		this.current = current;
@@ -79,21 +79,21 @@ public class Edition implements Serializable{
 		this.entity = entity;
 	}
 
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
-
-	public Episode getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(Episode episode) {
-		this.episode = episode;
-	}
+//	public Season getSeason() {
+//		return season;
+//	}
+//
+//	public void setSeason(Season season) {
+//		this.season = season;
+//	}
+//
+//	public Episode getEpisode() {
+//		return episode;
+//	}
+//
+//	public void setEpisode(Episode episode) {
+//		this.episode = episode;
+//	}
 
 	public Date getRelease() {
 		return release;

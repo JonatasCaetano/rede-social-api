@@ -1,3 +1,4 @@
+/*
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Episode;
@@ -147,6 +148,6 @@ public class EpisodeMiniDTO {
 		this.category4 = category4;
 	}	
 	
-	
-	
 }
+
+*/

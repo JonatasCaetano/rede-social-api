@@ -1,3 +1,5 @@
+/*
+
 package com.jonatas.socialnetworkapi.repositories;
 
 import java.util.List;
@@ -14,3 +16,5 @@ public interface EpisodeRepository extends MongoRepository<Episode, String> {
 	@Query("{ 'name' : { $regex: ?0, $options: 'i' } }")
 	public List<Episode> searchByName(String text);
 }
+
+*/

@@ -1,3 +1,5 @@
+/*
+
 package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
@@ -219,3 +221,5 @@ public class Season implements Serializable{
 		return numberSeason == other.numberSeason;
 	}
 }
+
+*/

@@ -14,8 +14,8 @@ public class EntitySaveMiniDTO {
 	private boolean reviewed;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
-	private SeasonMiniDTO season;
-	private EpisodeMiniDTO episode;
+//	private SeasonMiniDTO season;
+//	private EpisodeMiniDTO episode;
 	private int evaluation;
 	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
@@ -40,8 +40,8 @@ public class EntitySaveMiniDTO {
 		this.reviewed = entitySave.isReviewed();
 		this.user = entitySave.getUser()!= null ? new UserMiniDTO(entitySave.getUser()) : null;
 		this.entity = entitySave.getEntity() != null? new EntityMiniDTO(entitySave.getEntity()) : null;
-		this.season = entitySave.getSeason() != null? new SeasonMiniDTO(entitySave.getSeason()) : null;
-		this.episode = entitySave.getEpisode() != null ? new EpisodeMiniDTO(entitySave.getEpisode()) : null;
+//		this.season = entitySave.getSeason() != null? new SeasonMiniDTO(entitySave.getSeason()) : null;
+//		this.episode = entitySave.getEpisode() != null ? new EpisodeMiniDTO(entitySave.getEpisode()) : null;
 		this.evaluation = entitySave.getEvaluation();
 		this.review = entitySave.getReview();
 		this.spoiler = entitySave.getSpoiler();
@@ -114,21 +114,21 @@ public class EntitySaveMiniDTO {
 		this.entity = entity;
 	}
 
-	public SeasonMiniDTO getSeason() {
-		return season;
-	}
-
-	public void setSeason(SeasonMiniDTO season) {
-		this.season = season;
-	}
-
-	public EpisodeMiniDTO getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(EpisodeMiniDTO episode) {
-		this.episode = episode;
-	}
+//	public SeasonMiniDTO getSeason() {
+//		return season;
+//	}
+//
+//	public void setSeason(SeasonMiniDTO season) {
+//		this.season = season;
+//	}
+//
+//	public EpisodeMiniDTO getEpisode() {
+//		return episode;
+//	}
+//
+//	public void setEpisode(EpisodeMiniDTO episode) {
+//		this.episode = episode;
+//	}
 
 	public int getEvaluation() {
 		return evaluation;

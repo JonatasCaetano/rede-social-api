@@ -8,8 +8,6 @@ public class EditionDTO {
 
 	private String idUser;
 	private String idEntity;
-	private String idSeason;
-	private String idEpisode;
 	private Date release;
 	private Object previous;
 	private Object current;
@@ -20,13 +18,11 @@ public class EditionDTO {
 		super();
 	}
 
-	public EditionDTO(String user, String entity, String season, String episode, Date release, Object previous,
+	public EditionDTO(String user, String entity, Date release, Object previous,
 			Object current, String attribute, Level level) {
 		super();
 		this.idUser = user;
 		this.idEntity = entity;
-		this.idSeason = season;
-		this.idEpisode = episode;
 		this.release = release;
 		this.previous = previous;
 		this.current = current;
@@ -50,21 +46,21 @@ public class EditionDTO {
 		this.idEntity = idEntity;
 	}
 
-	public String getIdSeason() {
-		return idSeason;
-	}
-
-	public void setIdSeason(String idSeason) {
-		this.idSeason = idSeason;
-	}
-
-	public String getIdEpisode() {
-		return idEpisode;
-	}
-
-	public void setIdEpisode(String idEpisode) {
-		this.idEpisode = idEpisode;
-	}
+//	public String getIdSeason() {
+//		return idSeason;
+//	}
+//
+//	public void setIdSeason(String idSeason) {
+//		this.idSeason = idSeason;
+//	}
+//
+//	public String getIdEpisode() {
+//		return idEpisode;
+//	}
+//
+//	public void setIdEpisode(String idEpisode) {
+//		this.idEpisode = idEpisode;
+//	}
 
 	public Date getRelease() {
 		return release;

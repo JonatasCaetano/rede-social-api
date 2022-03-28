@@ -12,8 +12,6 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.entities.Episode;
-import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EntitySaveDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
@@ -42,13 +40,13 @@ public class EntitySaveService {
 	@Lazy
 	private EntityService entityService;
 	
-	@Autowired
-	@Lazy
-	private SeasonService seasonService;
-	
-	@Autowired
-	@Lazy
-	private EpisodeService episodeService;
+//	@Autowired
+//	@Lazy
+//	private SeasonService seasonService;
+//	
+//	@Autowired
+//	@Lazy
+//	private EpisodeService episodeService;
 	
 	@Autowired
 	@Lazy
@@ -168,8 +166,6 @@ public class EntitySaveService {
 			EntitySave entitySave = new EntitySave(
 					user,
 					entity,
-					null,
-					null,
 					entitySaveDTO.getCategory(),
 					Level.ENTITY, 
 					entitySaveDTO.isSpoiler()
@@ -212,6 +208,7 @@ public class EntitySaveService {
 		}
 	}
 	
+	/*
 	public ResponseEntity<Object> newEntitySaveSeason(EntitySaveDTO entitySaveDTO){
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
@@ -316,6 +313,7 @@ public class EntitySaveService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	*/
 	
 	//put
 	
@@ -363,6 +361,8 @@ public class EntitySaveService {
 			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
 				return ResponseEntity.badRequest().build();
 			}
+			updateQuantityCategoryEntity(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
+			/*
 			switch (entitySave.getLevel()) {
 			case ENTITY:
 				updateQuantityCategoryEntity(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
@@ -375,6 +375,7 @@ public class EntitySaveService {
 				break;	
 			
 			}
+			*/
 			entitySave.setCategory(entitySaveDTO.getCategory());
 			entitySave = entitySaveRepository.save(entitySave);
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
@@ -391,6 +392,22 @@ public class EntitySaveService {
 			if(entitySaveDTO.getEvaluation() < 1 || entitySaveDTO.getEvaluation() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
+			if(entitySave.isRated()) {
+				Entity entity = entitySave.getEntity();
+				entity.setEvaluationSum(- entitySave.getEvaluation());
+				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+				entity.setEvaluationAverage();
+				entityService.save(entity);
+			}else {
+				Entity entity = entitySave.getEntity();
+				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+				entity.setEvaluationQuantity(+ 1);
+				entity.setEvaluationAverage();
+				entityService.save(entity);
+			}
+			
+			/*
+			
 			switch (entitySave.getLevel()) {
 			case ENTITY:
 				if(entitySave.isRated()) {
@@ -438,6 +455,8 @@ public class EntitySaveService {
 				}
 				break;
 			}
+			
+			*/
 			
 			entitySave.setEvaluation(entitySaveDTO.getEvaluation());
 			entitySave.setRated(true);
@@ -495,6 +514,8 @@ public class EntitySaveService {
 		}
 	}
 	
+	/*
+	
 	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
@@ -526,6 +547,8 @@ public class EntitySaveService {
 			return ResponseEntity.notFound().build();
 		}
 	}
+	
+	*/
 	
 	//internal
 	
@@ -586,6 +609,8 @@ public class EntitySaveService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	/*
 	
 	public ResponseEntity<Object> updateQuantityCategorySeason(EntitySave entitySave, int current, int newValue){
 		try {
@@ -664,5 +689,7 @@ public class EntitySaveService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	*/
 	
 }

@@ -44,13 +44,13 @@ public class EntitySave implements Serializable{
 	@DocumentReference(lazy = true, collection = "entity")
 	private Entity entity;
 	
-	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "season")
-	private Season season;
-	
-	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "episode")
-	private Episode episode;
+//	@JsonManagedReference
+//	@DocumentReference(lazy = true, collection = "season")
+//	private Season season;
+//	
+//	@JsonManagedReference
+//	@DocumentReference(lazy = true, collection = "episode")
+//	private Episode episode;
 	
 	@JsonBackReference
 	@DocumentReference(lazy = true, collection = "comment")
@@ -66,12 +66,12 @@ public class EntitySave implements Serializable{
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, Level level, Boolean spoiler) {
+	public EntitySave(User user, Entity entity, int category, Level level, Boolean spoiler) {
 		super();
 		this.user = user;
 		this.entity = entity;
-		this.season = season;
-		this.episode = episode;
+//		this.season = season;
+//		this.episode = episode;
 		this.category = category;
 		this.level = level;
 		this.spoiler = spoiler;
@@ -93,21 +93,21 @@ public class EntitySave implements Serializable{
 		this.entity = entity;
 	}
 
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
-	}
-
-	public Episode getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(Episode episode) {
-		this.episode = episode;
-	}
+//	public Season getSeason() {
+//		return season;
+//	}
+//
+//	public void setSeason(Season season) {
+//		this.season = season;
+//	}
+//
+//	public Episode getEpisode() {
+//		return episode;
+//	}
+//
+//	public void setEpisode(Episode episode) {
+//		this.episode = episode;
+//	}
 
 	public int getCategory() {
 		return category;

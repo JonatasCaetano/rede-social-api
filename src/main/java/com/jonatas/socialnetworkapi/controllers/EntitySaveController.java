@@ -52,15 +52,15 @@ public class EntitySaveController {
 		return entitySaveService.newEntitySaveEntity(entitySaveDTO);
 	}
 	
-	@PostMapping(value = "post/season")
-	public ResponseEntity<Object> newEntitySaveSeason(@RequestBody EntitySaveDTO entitySaveDTO){
-		return entitySaveService.newEntitySaveSeason(entitySaveDTO);
-	}
-	
-	@PostMapping(value = "post/episode")
-	public ResponseEntity<Object> newEntitySaveEpisode(@RequestBody EntitySaveDTO entitySaveDTO){
-		return entitySaveService.newEntitySaveEpisode(entitySaveDTO);
-	}
+//	@PostMapping(value = "post/season")
+//	public ResponseEntity<Object> newEntitySaveSeason(@RequestBody EntitySaveDTO entitySaveDTO){
+//		return entitySaveService.newEntitySaveSeason(entitySaveDTO);
+//	}
+//	
+//	@PostMapping(value = "post/episode")
+//	public ResponseEntity<Object> newEntitySaveEpisode(@RequestBody EntitySaveDTO entitySaveDTO){
+//		return entitySaveService.newEntitySaveEpisode(entitySaveDTO);
+//	}
 	
 	//put
 	@PutMapping(value = "put/category")
@@ -96,13 +96,13 @@ public class EntitySaveController {
 		return entitySaveService.deleteEntitySaveEntity(entitySaveDTO);
 	}
 	
-	@DeleteMapping(value = "delete/season")
-	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
-		return entitySaveService.deleteEntitySaveSeason(entitySaveDTO);
-	}
-	
-	@DeleteMapping(value = "delete/episode")
-	public ResponseEntity<Object> deleteEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
-		return entitySaveService.deleteEntitySaveEpisode(entitySaveDTO);
-	}
+//	@DeleteMapping(value = "delete/season")
+//	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
+//		return entitySaveService.deleteEntitySaveSeason(entitySaveDTO);
+//	}
+//	
+//	@DeleteMapping(value = "delete/episode")
+//	public ResponseEntity<Object> deleteEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
+//		return entitySaveService.deleteEntitySaveEpisode(entitySaveDTO);
+//	}
 }

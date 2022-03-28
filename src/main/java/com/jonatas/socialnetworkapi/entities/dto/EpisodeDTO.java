@@ -1,3 +1,4 @@
+/*
 package com.jonatas.socialnetworkapi.entities.dto;
 
 import java.util.Date;
@@ -55,3 +56,5 @@ public class EpisodeDTO {
 	
 	
 }
+
+*/

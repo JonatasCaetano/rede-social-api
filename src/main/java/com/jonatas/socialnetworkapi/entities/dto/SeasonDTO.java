@@ -1,3 +1,5 @@
+/*
+ 
 package com.jonatas.socialnetworkapi.entities.dto;
 
 public class SeasonDTO {
@@ -41,3 +43,5 @@ public class SeasonDTO {
 		this.numberSeason = numberSeason;
 	}
 }
+
+*/

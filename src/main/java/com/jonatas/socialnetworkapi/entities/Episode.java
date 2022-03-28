@@ -1,3 +1,5 @@
+/*
+ 
 package com.jonatas.socialnetworkapi.entities;
 
 import java.io.Serializable;
@@ -204,3 +206,5 @@ public class Episode implements Serializable{
 		return numberEpisode == other.numberEpisode;
 	}
 }
+
+*/

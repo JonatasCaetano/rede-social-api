@@ -9,32 +9,27 @@ import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
-import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.TypeEntity;
 import com.jonatas.socialnetworkapi.repositories.CommentRepository;
 import com.jonatas.socialnetworkapi.repositories.EditionRepository;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
-import com.jonatas.socialnetworkapi.repositories.EpisodeRepository;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 import com.jonatas.socialnetworkapi.repositories.GroupRepository;
 import com.jonatas.socialnetworkapi.repositories.InvitationRepository;
 import com.jonatas.socialnetworkapi.repositories.PostRepository;
 import com.jonatas.socialnetworkapi.repositories.ReportRepository;
-import com.jonatas.socialnetworkapi.repositories.SeasonRepository;
 import com.jonatas.socialnetworkapi.repositories.UserRepository;
 import com.jonatas.socialnetworkapi.services.CommentService;
 import com.jonatas.socialnetworkapi.services.EditionService;
 import com.jonatas.socialnetworkapi.services.EntitySaveService;
 import com.jonatas.socialnetworkapi.services.EntityService;
-import com.jonatas.socialnetworkapi.services.EpisodeService;
 import com.jonatas.socialnetworkapi.services.FollowerService;
 import com.jonatas.socialnetworkapi.services.GroupService;
 import com.jonatas.socialnetworkapi.services.InvitationService;
 import com.jonatas.socialnetworkapi.services.PostService;
 import com.jonatas.socialnetworkapi.services.ReportService;
-import com.jonatas.socialnetworkapi.services.SeasonService;
 import com.jonatas.socialnetworkapi.services.UserService;
 
 @Configuration
@@ -51,10 +46,10 @@ public class Instantiation implements CommandLineRunner{
 	private FollowerRepository followerRepository;
 	@Autowired
 	private InvitationRepository invitationRepository;
-	@Autowired
-	private SeasonRepository seasonRepository;
-	@Autowired
-	private EpisodeRepository episodeRepository;
+//	@Autowired
+//	private SeasonRepository seasonRepository;
+//	@Autowired
+//	private EpisodeRepository episodeRepository;
 	@Autowired
 	private EditionRepository editionRepository;
 	@Autowired
@@ -78,10 +73,10 @@ public class Instantiation implements CommandLineRunner{
 	private FollowerService followerService;
 	@Autowired
 	private InvitationService invitationService;
-	@Autowired
-	private SeasonService seasonService;
-	@Autowired
-	private EpisodeService episodeService;
+//	@Autowired
+//	private SeasonService seasonService;
+//	@Autowired
+//	private EpisodeService episodeService;
 	@Autowired
 	private EditionService editionService;
 	@Autowired
@@ -106,8 +101,8 @@ public class Instantiation implements CommandLineRunner{
 		followerRepository.deleteAll();
 		invitationRepository.deleteAll();
 		entityRepository.deleteAll();
-		seasonRepository.deleteAll();
-		episodeRepository.deleteAll();
+//		seasonRepository.deleteAll();
+//		episodeRepository.deleteAll();
 		editionRepository.deleteAll();
 		entitySaveRepository.deleteAll();
 		postRepository.deleteAll();
@@ -164,10 +159,10 @@ public class Instantiation implements CommandLineRunner{
 		EntityMiniDTO entity3 = (EntityMiniDTO) entityService.createEntity(entityDTO3, user1.getId()).getBody();
 		EntityMiniDTO entity4 = (EntityMiniDTO) entityService.createEntity(entityDTO4, user1.getId()).getBody();
 		
-		EditionDTO ed1 = new EditionDTO(user1.getId(), entity1.getId(), null, null, null, null, "https://p2.trrsf.com/image/fget/cf/1200/628/middle/images.terra.com/2021/03/19/147185854-game-of-thrones-cover.jpeg", null, null);
-		EditionDTO ed2 = new EditionDTO(user1.getId(), entity2.getId(), null, null, null, null, "https://sanatoriogeek.com/wp-content/uploads/2021/06/AH-Stories--scaled.jpg", null, null);
-		EditionDTO ed3 = new EditionDTO(user1.getId(), entity3.getId(), null, null, null, null, "https://sm.ign.com/ign_pt/news/s/spider-man/spider-man-no-way-home-swings-to-a-record-breaking-253-milli_cbgj.jpg", null, null);
-		EditionDTO ed4 = new EditionDTO(user1.getId(), entity4.getId(), null, null, null, null, "https://images-na.ssl-images-amazon.com/images/I/51U2I+1cVTL._SX349_BO1,204,203,200_.jpg", null, null);
+		EditionDTO ed1 = new EditionDTO(user1.getId(), entity1.getId(), null, null, "https://p2.trrsf.com/image/fget/cf/1200/628/middle/images.terra.com/2021/03/19/147185854-game-of-thrones-cover.jpeg", null, null);
+		EditionDTO ed2 = new EditionDTO(user1.getId(), entity2.getId(), null, null, "https://sanatoriogeek.com/wp-content/uploads/2021/06/AH-Stories--scaled.jpg", null, null);
+		EditionDTO ed3 = new EditionDTO(user1.getId(), entity3.getId(), null, null, "https://sm.ign.com/ign_pt/news/s/spider-man/spider-man-no-way-home-swings-to-a-record-breaking-253-milli_cbgj.jpg", null, null);
+		EditionDTO ed4 = new EditionDTO(user1.getId(), entity4.getId(), null, null, "https://images-na.ssl-images-amazon.com/images/I/51U2I+1cVTL._SX349_BO1,204,203,200_.jpg", null, null);
 	
 		entityService.addImage(ed1);
 		entityService.addImage(ed2);

@@ -1,3 +1,5 @@
+/*
+
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Season;
@@ -164,3 +166,5 @@ public class SeasonMiniDTO {
 	
 	
 }
+
+*/
