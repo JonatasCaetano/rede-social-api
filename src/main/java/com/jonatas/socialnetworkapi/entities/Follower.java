@@ -75,6 +75,11 @@ public class Follower implements Serializable{
 	public TypeObject getTypeObject() {
 		return typeObject;
 	}
+	
+	@Override
+	public String toString() {
+		return "Follower [id=" + id + ", user=" + user + ", following=" + following + "]";
+	}
 
 	@Override
 	public int hashCode() {

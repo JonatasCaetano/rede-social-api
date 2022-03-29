@@ -169,7 +169,7 @@ public class Instantiation implements CommandLineRunner{
 		entityService.addImage(ed3);
 		entityService.addImage(ed4);
 		
-		*/
 		
+		*/
 	}	
 }

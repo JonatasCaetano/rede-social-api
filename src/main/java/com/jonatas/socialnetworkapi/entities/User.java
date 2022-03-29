@@ -241,6 +241,13 @@ public class User implements Serializable{
 	public List<Group> getGroups() {
 		return groups;
 	}
+	
+	
+
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", email=" + email + "]";
+	}
 
 	@Override
 	public int hashCode() {
