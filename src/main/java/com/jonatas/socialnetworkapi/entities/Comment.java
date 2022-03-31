@@ -29,6 +29,8 @@ public class Comment implements Serializable{
 	private int likeQuantity = 0;
 	private TypeComment typeComment;
 	
+	//References
+	
 	@JsonBackReference
 	@DocumentReference(lazy = true, collection = "user")
 	List<User> likes = new ArrayList<>();
@@ -44,6 +46,8 @@ public class Comment implements Serializable{
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "entitySave")
 	private EntitySave entitySave;
+	
+	//References
 	
 	//variables
 

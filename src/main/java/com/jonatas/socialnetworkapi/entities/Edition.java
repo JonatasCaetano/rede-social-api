@@ -17,6 +17,8 @@ public class Edition implements Serializable{
 
 	//variables
 	
+	
+	
 	@Id
 	private String id;
 		
@@ -27,21 +29,17 @@ public class Edition implements Serializable{
 	private TypeObject typeObject = TypeObject.EDITION;
 	private Level level;
 	
+	//References
+	
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "entity")
+	@DocumentReference(lazy = true, collection = "ENTITY")
 	private Entity entity;
 	
-//	@JsonManagedReference
-//	@DocumentReference(lazy = true, collection = "season")
-//	private Season season;
-//	
-//	@JsonManagedReference
-//	@DocumentReference(lazy = true, collection = "episode")
-//	private Episode episode;
+	//References
 	
 	//variables
 	

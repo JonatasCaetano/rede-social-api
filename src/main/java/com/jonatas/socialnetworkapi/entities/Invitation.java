@@ -25,6 +25,8 @@ public class Invitation implements Serializable{
 	private Date release;
 	private String value;
 	private TypeObject typeObject = TypeObject.INVITATION;
+	
+	//References
 
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
@@ -33,6 +35,8 @@ public class Invitation implements Serializable{
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
 	private List<User>  invited = new ArrayList<>();
+	
+	//References
 	
 	//variables
 	

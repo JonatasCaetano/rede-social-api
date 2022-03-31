@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -36,22 +37,17 @@ public class EntitySave implements Serializable{
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	
+	//References
+	
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "entity")
+	//@DocumentReference(lazy = true, collection = "ENTITY")
+	@DBRef(lazy = true)
 	private Entity entity;
-	
-//	@JsonManagedReference
-//	@DocumentReference(lazy = true, collection = "season")
-//	private Season season;
-//	
-//	@JsonManagedReference
-//	@DocumentReference(lazy = true, collection = "episode")
-//	private Episode episode;
-	
+
 	@JsonBackReference
 	@DocumentReference(lazy = true, collection = "comment")
 	private List<Comment> comments = new ArrayList<>();
@@ -59,6 +55,8 @@ public class EntitySave implements Serializable{
 	@JsonBackReference
 	@DocumentReference(lazy = true, collection = "user")
 	private List<User> likes = new ArrayList<>();
+	
+	//References
 	
 	//variables
 

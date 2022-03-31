@@ -11,7 +11,6 @@ public class EntityMiniDTO {
 	private String description;
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
-//	private int seasonQuantity = 0;
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private TypeEntity typeEntity;
 	private String image;

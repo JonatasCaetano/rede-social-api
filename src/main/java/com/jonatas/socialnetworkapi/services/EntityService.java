@@ -325,6 +325,9 @@ public class EntityService {
 			Entity obj = entityRepository.save(entity);
 			return ResponseEntity.ok().body(obj);
 		}catch (RuntimeException e) {
+			e.getCause();
+			e.getMessage();
+			e.getStackTrace();
 			return ResponseEntity.badRequest().build();
 		}
 	}

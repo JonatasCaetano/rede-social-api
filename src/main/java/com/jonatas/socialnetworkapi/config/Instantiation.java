@@ -46,10 +46,6 @@ public class Instantiation implements CommandLineRunner{
 	private FollowerRepository followerRepository;
 	@Autowired
 	private InvitationRepository invitationRepository;
-//	@Autowired
-//	private SeasonRepository seasonRepository;
-//	@Autowired
-//	private EpisodeRepository episodeRepository;
 	@Autowired
 	private EditionRepository editionRepository;
 	@Autowired
@@ -73,10 +69,6 @@ public class Instantiation implements CommandLineRunner{
 	private FollowerService followerService;
 	@Autowired
 	private InvitationService invitationService;
-//	@Autowired
-//	private SeasonService seasonService;
-//	@Autowired
-//	private EpisodeService episodeService;
 	@Autowired
 	private EditionService editionService;
 	@Autowired
@@ -101,8 +93,6 @@ public class Instantiation implements CommandLineRunner{
 		followerRepository.deleteAll();
 		invitationRepository.deleteAll();
 		entityRepository.deleteAll();
-//		seasonRepository.deleteAll();
-//		episodeRepository.deleteAll();
 		editionRepository.deleteAll();
 		entitySaveRepository.deleteAll();
 		postRepository.deleteAll();
@@ -119,8 +109,6 @@ public class Instantiation implements CommandLineRunner{
 				);
 		userRepository.insert(user1);	
 		invitationService.createdInvitation(user1);
-		userRepository.save(user1);
-		user1.setChecked(true);
 		userRepository.save(user1);
 		Follower follower1 = followerRepository.insert(new Follower(null, user1));
 		user1.setFollower(follower1);
@@ -169,7 +157,7 @@ public class Instantiation implements CommandLineRunner{
 		entityService.addImage(ed3);
 		entityService.addImage(ed4);
 		
-		
 		*/
+		
 	}	
 }

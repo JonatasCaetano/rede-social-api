@@ -33,6 +33,8 @@ public class Post implements Serializable{
 	private TypeObject typeObject = TypeObject.POST;
 	private Boolean spoiler;
 	
+	//References
+	
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
 	private User author;
@@ -44,6 +46,8 @@ public class Post implements Serializable{
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
 	private List<User> likes = new ArrayList<>();
+	
+	//References
 	
 	//variables
 

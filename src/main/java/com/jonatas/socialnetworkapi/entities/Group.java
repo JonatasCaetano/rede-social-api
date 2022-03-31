@@ -26,30 +26,28 @@ public class Group implements Serializable {
 	private User creator;
 	private String creationDate;
 	private String image;
-	
 	private int quantityMembers;
 	private int quantityModerators;
 	private int quantitySilenced;
 	private int quantityPosts;
-	
 	private TypeObject typeObject = TypeObject.GROUP;	
 	
+	//References
+	
 	@JsonBackReference
-	//@DBRef(lazy = true)
 	@DocumentReference(lazy = true, collection = "user")
 	private List<User> members = new ArrayList<>();
 	@JsonBackReference
-	//@DBRef(lazy = true)
 	@DocumentReference(lazy = true, collection = "user")
 	private List<User> moderators = new ArrayList<>();
 	@JsonBackReference
-	//@DBRef(lazy = true)
 	@DocumentReference(lazy = true, collection = "user")
 	private List<User> membersSilenced = new ArrayList<>();
 	@JsonBackReference
-	//@DBRef(lazy = true)
 	@DocumentReference(lazy = true, collection = "post")
 	private List<Post> posts = new ArrayList<>();
+	
+	//References
 	
 	//variables
 	

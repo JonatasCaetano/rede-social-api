@@ -38,6 +38,8 @@ public class User implements Serializable{
 	private int quantityFollowing = 0;
 	private int quantityFollowers = 0;
 	private TypeObject typeObject = TypeObject.USER;
+	
+	//References
 
 	@JsonBackReference
 	@DocumentReference(lazy = true, collection = "follower")
@@ -66,6 +68,8 @@ public class User implements Serializable{
 	private List<LikeUser> likes = new ArrayList<>();
 	
 	private List<PostUser> posts = new ArrayList<>();
+	
+	//References
 	
 	//variables
 		

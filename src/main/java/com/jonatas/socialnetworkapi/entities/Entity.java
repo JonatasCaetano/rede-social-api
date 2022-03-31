@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -28,7 +29,6 @@ public class Entity implements Serializable{
 	private String image;
 	private TypeEntity typeEntity;
 	private TypeObject typeObject = TypeObject.ENTITY;
-	//private int seasonQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
@@ -36,18 +36,20 @@ public class Entity implements Serializable{
 	private int category2 = 0;
 	private int category3 = 0;
 	private int category4 = 0;
-			
-//	@JsonBackReference
-//	@DocumentReference(lazy = true, collection = "season")
-//	private List<Season> seasons = new ArrayList<>();
 	
+	//References
+				
 	@JsonBackReference
+	@DBRef(lazy = true)
 	@DocumentReference(lazy = true, collection = "edition")
 	private List<Edition> editions = new ArrayList<>();
 	
 	@JsonBackReference
+	@DBRef(lazy = true)
 	@DocumentReference(lazy = true, collection = "entitySave")
 	private List<EntitySave> entitySaves = new ArrayList<>();
+	
+	//References
 	
 	//variables
 		
@@ -89,18 +91,6 @@ public class Entity implements Serializable{
 		this.description = description;
 	}
 		
-//	public List<Season> getSeasons() {
-//		return seasons;
-//	}
-//	
-//	public int getSeasonQuantity() {
-//		return seasonQuantity;
-//	}
-//
-//	public void setSeasonQuantity(int seasonQuantity) {
-//		this.seasonQuantity += seasonQuantity;
-//	}
-
 	public double getEvaluationAverage() {
 		return evaluationAverage;
 	}
@@ -187,6 +177,11 @@ public class Entity implements Serializable{
 
 	public void setCategory4(int category4) {
 		this.category4 += category4;
+	}
+	
+	@Override
+	public String toString() {
+		return "Entity [id=" + id + ", name=" + name + "]";
 	}
 
 	@Override

@@ -24,6 +24,8 @@ public class Follower implements Serializable{
 	
 	private Date release;
 	private TypeObject typeObject = TypeObject.FOLLOWER;
+	
+	//References
 
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
@@ -32,6 +34,8 @@ public class Follower implements Serializable{
 	@JsonManagedReference
 	@DocumentReference(lazy = true, collection = "user")
 	private List<User> following = new ArrayList<>();
+	
+	//References
 	
 	//variables
 
