@@ -34,10 +34,15 @@ public class EntityController {
 		return entityService.findByIdMini(id);
 	}
 	
-//	@GetMapping(value = "get/entity/{id}/seasons")
-//	public ResponseEntity<Object> getSeasonsMini(@PathVariable String id){
-//		return entityService.getSeasonsMini(id);
-//	}
+	@GetMapping(value = "get/entity/{id}/workers")
+	public ResponseEntity<Object> getWorkersMini(@PathVariable String id){
+		return entityService.getWorkersMini(id);
+	}
+	
+	@GetMapping(value = "get/entity/{id}/seasons")
+	public ResponseEntity<Object> getSeasonsMini(@PathVariable String id){
+		return entityService.getSeasonsMini(id);
+	}
 	
 	@GetMapping(value = "get/entity/{id}/entitysaves")
 	public ResponseEntity<Object> getAllEntitySaveMini(@PathVariable String id){

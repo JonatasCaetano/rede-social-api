@@ -110,8 +110,7 @@ public class FollowerService {
 		try {
 			User userFollower = (User) userService.findById(followerId).getBody();
 			User userFollowing = (User) userService.findById(followingId).getBody();
-			Follower follower = followerRepository.findByUser(userFollower);
-			//Follower follower = userFollower.getFollower();
+			Follower follower = userFollower.getFollower();
 			if(userFollower.equals(userFollowing)) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
@@ -124,40 +123,6 @@ public class FollowerService {
 				userService.save(userFollower);
 				userFollowing.setQuantityFollowers(+ 1);
 				userService.save(userFollowing);
-				
-//				try {
-//					follower.getFollowing().add(userFollowing);
-//				} catch (Exception e) {
-//					System.out.println(5);
-//					System.out.println(follower);
-//				}
-//				try {
-//					followerRepository.save(follower);
-//				} catch (Exception e) {
-//					System.out.println(6);
-//				}
-//				try {
-//					userFollower.setQuantityFollowing(+ 1);
-//				} catch (Exception e) {
-//					System.out.println(7);
-//				}
-//				try {
-//					userService.save(userFollower);
-//				} catch (Exception e) {
-//					System.out.println(8);
-//				}
-//				try {
-//					userFollowing.setQuantityFollowers(+ 1);
-//				} catch (Exception e) {
-//					System.out.println(9);
-//				}
-//				try {
-//					userService.save(userFollowing);
-//				} catch (Exception e) {
-//					System.out.println(10);
-//				}
-//							
-//				System.out.println(11);
 				return ResponseEntity.accepted().build();
 			}
 		}catch(RuntimeException e) {

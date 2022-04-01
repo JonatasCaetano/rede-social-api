@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.Level;
@@ -15,13 +15,24 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Edition implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	//variables
-	
-	
-	
 	@Id
 	private String id;
-		
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private User user;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Entity entity;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Season season;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Episode episode;
 	private Date release;
 	private Object previous;
 	private Object current;
@@ -29,31 +40,17 @@ public class Edition implements Serializable{
 	private TypeObject typeObject = TypeObject.EDITION;
 	private Level level;
 	
-	//References
-	
-	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
-	private User user;
-	
-	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "ENTITY")
-	private Entity entity;
-	
-	//References
-	
-	//variables
-	
 	public Edition() {
 		super();
 	}
 
-	public Edition(User user, Entity entity, Date release, Object previous,
+	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previous,
 			Object current, String attribute, Level level) {
 		super();
 		this.user = user;
 		this.entity = entity;
-//		this.season = season;
-//		this.episode = episode;
+		this.season = season;
+		this.episode = episode;
 		this.release = release;
 		this.previous = previous;
 		this.current = current;
@@ -77,21 +74,21 @@ public class Edition implements Serializable{
 		this.entity = entity;
 	}
 
-//	public Season getSeason() {
-//		return season;
-//	}
-//
-//	public void setSeason(Season season) {
-//		this.season = season;
-//	}
-//
-//	public Episode getEpisode() {
-//		return episode;
-//	}
-//
-//	public void setEpisode(Episode episode) {
-//		this.episode = episode;
-//	}
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
+	public Episode getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Episode episode) {
+		this.episode = episode;
+	}
 
 	public Date getRelease() {
 		return release;

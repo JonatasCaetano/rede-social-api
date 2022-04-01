@@ -8,7 +8,6 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
@@ -19,39 +18,41 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Entity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	//variables
-	
 	@Id
 	private String id;
 	
 	private String name;
 	private String description;
 	private String image;
+	
 	private TypeEntity typeEntity;
+	
 	private TypeObject typeObject = TypeObject.ENTITY;
+	private int seasonQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
+	
 	private int category1 = 0;
 	private int category2 = 0;
 	private int category3 = 0;
 	private int category4 = 0;
-	
-	//References
-				
-	@JsonBackReference
+		
 	@DBRef(lazy = true)
-	@DocumentReference(lazy = true, collection = "edition")
+	@JsonBackReference
+	private List<Worker> workers = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Season> seasons = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
 	private List<Edition> editions = new ArrayList<>();
 	
-	@JsonBackReference
 	@DBRef(lazy = true)
-	@DocumentReference(lazy = true, collection = "entitySave")
+	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
-	
-	//References
-	
-	//variables
 		
 	public Entity() {
 		super();
@@ -91,6 +92,22 @@ public class Entity implements Serializable{
 		this.description = description;
 	}
 		
+	public List<Worker> getWorkers() {
+		return workers;
+	}
+
+	public List<Season> getSeasons() {
+		return seasons;
+	}
+	
+	public int getSeasonQuantity() {
+		return seasonQuantity;
+	}
+
+	public void setSeasonQuantity(int seasonQuantity) {
+		this.seasonQuantity += seasonQuantity;
+	}
+
 	public double getEvaluationAverage() {
 		return evaluationAverage;
 	}
@@ -177,11 +194,6 @@ public class Entity implements Serializable{
 
 	public void setCategory4(int category4) {
 		this.category4 += category4;
-	}
-	
-	@Override
-	public String toString() {
-		return "Entity [id=" + id + ", name=" + name + "]";
 	}
 
 	@Override

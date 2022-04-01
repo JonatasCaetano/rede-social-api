@@ -8,7 +8,6 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -19,8 +18,6 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class EntitySave implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	//variables
-	
 	@Id
 	private String id;
 	
@@ -37,39 +34,43 @@ public class EntitySave implements Serializable{
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	
-	//References
-	
+	@DBRef(lazy = true)
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
 	private User user;
 	
-	@JsonManagedReference
-	//@DocumentReference(lazy = true, collection = "ENTITY")
 	@DBRef(lazy = true)
+	@JsonManagedReference
 	private Entity entity;
-
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Season season;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private Episode episode;
+	
+	@DBRef(lazy = true)
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "comment")
 	private List<Comment> comments = new ArrayList<>();
 	
+	@DBRef(lazy = true)
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "user")
 	private List<User> likes = new ArrayList<>();
 	
-	//References
-	
-	//variables
+			
+	List<String> historic = new ArrayList<>();
 
 	public EntitySave() {
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, int category, Level level, Boolean spoiler) {
+	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, Level level, Boolean spoiler) {
 		super();
 		this.user = user;
 		this.entity = entity;
-//		this.season = season;
-//		this.episode = episode;
+		this.season = season;
+		this.episode = episode;
 		this.category = category;
 		this.level = level;
 		this.spoiler = spoiler;
@@ -91,21 +92,21 @@ public class EntitySave implements Serializable{
 		this.entity = entity;
 	}
 
-//	public Season getSeason() {
-//		return season;
-//	}
-//
-//	public void setSeason(Season season) {
-//		this.season = season;
-//	}
-//
-//	public Episode getEpisode() {
-//		return episode;
-//	}
-//
-//	public void setEpisode(Episode episode) {
-//		this.episode = episode;
-//	}
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
+	public Episode getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(Episode episode) {
+		this.episode = episode;
+	}
 
 	public int getCategory() {
 		return category;
@@ -141,6 +142,10 @@ public class EntitySave implements Serializable{
 
 	public String getId() {
 		return id;
+	}
+
+	public List<String> getHistoric() {
+		return historic;
 	}
 	
 	public TypeObject getTypeObject() {

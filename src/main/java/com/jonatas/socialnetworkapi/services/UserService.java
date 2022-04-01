@@ -11,17 +11,17 @@ import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Follower;
-import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
+import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostQuestMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
 import com.jonatas.socialnetworkapi.enuns.Level;
@@ -92,7 +92,22 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-			
+	
+	public ResponseEntity<Object> getWorkersMini(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Worker> workers = user.getWorkers();
+			List<WorkerMiniDTO> workerMiniDTOs = new ArrayList<>();
+			for(Worker worker : workers) {
+				WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
+				workerMiniDTOs.add(workerMiniDTO);
+			}
+			return ResponseEntity.ok().body(workerMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+		
 	public ResponseEntity<Object> getMyPostsMini(String idUserPost, String idUser){
 		try {
 			User user = userRepository.findById(idUserPost).get();
@@ -238,36 +253,6 @@ public class UserService {
 				}
 			}
 			return ResponseEntity.ok().body(entitySaveMiniDTOs);
-		}catch(RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Object> getGroups(String id) {
-		try {
-			User user = userRepository.findById(id).get();
-			List<Group> groups = user.getGroups();
-			List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
-			for(Group group : groups) {
-				GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
-				if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
-					groupMiniDTO.setUserIsMember(true);
-				}else {
-					groupMiniDTO.setUserIsMember(false);
-				}
-				if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
-					groupMiniDTO.setUserIsModerator(true);
-				}else {
-					groupMiniDTO.setUserIsModerator(false);
-				}
-				if(group.getMembersSilenced().contains(user)) {
-					groupMiniDTO.setUserIsSilenced(true);
-				}else {
-					groupMiniDTO.setUserIsSilenced(false);
-				}
-				groupMiniDTOs.add(groupMiniDTO);
-			}
-			return ResponseEntity.ok().body(groupMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

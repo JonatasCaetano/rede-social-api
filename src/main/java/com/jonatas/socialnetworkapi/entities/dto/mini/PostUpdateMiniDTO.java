@@ -13,8 +13,8 @@ public class PostUpdateMiniDTO {
 	private int category;
 	private UserMiniDTO author;
 	private EntityMiniDTO entity;
-//	private SeasonMiniDTO season;
-//	private EpisodeMiniDTO episode;
+	private SeasonMiniDTO season;
+	private EpisodeMiniDTO episode;
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
@@ -37,8 +37,8 @@ public class PostUpdateMiniDTO {
 		this.category = post.getCategory();
 		this.author = post.getAuthor() != null ? new UserMiniDTO(post.getAuthor()) : null;
 		this.entity = post.getEntity() != null ? new EntityMiniDTO(post.getEntity()) : null;
-//		this.season = post.getSeason() != null ? new SeasonMiniDTO(post.getSeason()) : null;
-//		this.episode = post.getEpisode() != null ? new EpisodeMiniDTO(post.getEpisode()) : null;
+		this.season = post.getSeason() != null ? new SeasonMiniDTO(post.getSeason()) : null;
+		this.episode = post.getEpisode() != null ? new EpisodeMiniDTO(post.getEpisode()) : null;
 		this.likeQuantity = post.getLikeQuantity();
 		this.commentQuantity = post.getCommentQuantity();
 		this.level = post.getLevel();
@@ -96,21 +96,21 @@ public class PostUpdateMiniDTO {
 		this.entity = entity;
 	}
 
-//	public SeasonMiniDTO getSeason() {
-//		return season;
-//	}
-//
-//	public void setSeason(SeasonMiniDTO season) {
-//		this.season = season;
-//	}
-//
-//	public EpisodeMiniDTO getEpisode() {
-//		return episode;
-//	}
-//
-//	public void setEpisode(EpisodeMiniDTO episode) {
-//		this.episode = episode;
-//	}
+	public SeasonMiniDTO getSeason() {
+		return season;
+	}
+
+	public void setSeason(SeasonMiniDTO season) {
+		this.season = season;
+	}
+
+	public EpisodeMiniDTO getEpisode() {
+		return episode;
+	}
+
+	public void setEpisode(EpisodeMiniDTO episode) {
+		this.episode = episode;
+	}
 
 	public int getLikeQuantity() {
 		return likeQuantity;

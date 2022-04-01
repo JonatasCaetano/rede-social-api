@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
+import com.jonatas.socialnetworkapi.entities.Episode;
+import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EntitySaveDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
@@ -39,7 +41,15 @@ public class EntitySaveService {
 	@Autowired
 	@Lazy
 	private EntityService entityService;
-			
+	
+	@Autowired
+	@Lazy
+	private SeasonService seasonService;
+	
+	@Autowired
+	@Lazy
+	private EpisodeService episodeService;
+	
 	@Autowired
 	@Lazy
 	private PostService postService;
@@ -158,6 +168,8 @@ public class EntitySaveService {
 			EntitySave entitySave = new EntitySave(
 					user,
 					entity,
+					null,
+					null,
 					entitySaveDTO.getCategory(),
 					Level.ENTITY, 
 					entitySaveDTO.isSpoiler()
@@ -183,13 +195,13 @@ public class EntitySaveService {
 				entity.setCategory1(1);
 				break;
 			case 2:
-				entity.setCategory2(1);
+				entity.setCategory1(1);
 				break;
 			case 3:
-				entity.setCategory3(1);
+				entity.setCategory1(1);
 				break;
 			case 4:
-				entity.setCategory4(1);
+				entity.setCategory1(1);
 				break;
 			}
 			entityService.save(entity);
@@ -200,7 +212,6 @@ public class EntitySaveService {
 		}
 	}
 	
-	/*
 	public ResponseEntity<Object> newEntitySaveSeason(EntitySaveDTO entitySaveDTO){
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
@@ -238,13 +249,13 @@ public class EntitySaveService {
 				season.setCategory1(1);
 				break;
 			case 2:
-				season.setCategory2(1);
+				season.setCategory1(1);
 				break;
 			case 3:
-				season.setCategory3(1);
+				season.setCategory1(1);
 				break;
 			case 4:
-				season.setCategory4(1);
+				season.setCategory1(1);
 				break;
 			}
 			seasonService.save(season);
@@ -289,13 +300,13 @@ public class EntitySaveService {
 				episode.setCategory1(1);
 				break;
 			case 2:
-				episode.setCategory2(1);
+				episode.setCategory1(1);
 				break;
 			case 3:
-				episode.setCategory3(1);
+				episode.setCategory1(1);
 				break;
 			case 4:
-				episode.setCategory4(1);
+				episode.setCategory1(1);
 				break;
 			}
 			episodeService.save(episode);
@@ -305,7 +316,6 @@ public class EntitySaveService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	*/
 	
 	//put
 	
@@ -353,10 +363,6 @@ public class EntitySaveService {
 			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
 				return ResponseEntity.badRequest().build();
 			}
-			System.out.println("+1");
-			updateQuantityCategoryEntity(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
-			System.out.println("+11");
-			/*
 			switch (entitySave.getLevel()) {
 			case ENTITY:
 				updateQuantityCategoryEntity(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
@@ -369,7 +375,6 @@ public class EntitySaveService {
 				break;	
 			
 			}
-			*/
 			entitySave.setCategory(entitySaveDTO.getCategory());
 			entitySave = entitySaveRepository.save(entitySave);
 			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
@@ -380,46 +385,12 @@ public class EntitySaveService {
 		}
 	}
 	
-	@SuppressWarnings("incomplete-switch")
 	public ResponseEntity<Object> updateEntitySaveEvaluation(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
 			if(entitySaveDTO.getEvaluation() < 1 || entitySaveDTO.getEvaluation() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
-//			System.out.println("+1");
-//			Entity entity = entitySave.getEntity();
-//			if(entitySave.isRated()) {	
-//				System.out.println("+2");
-//				entity.setEvaluationSum(- entitySave.getEvaluation());
-//				System.out.println("+3");
-//				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-//				System.out.println("+4");
-//				entity.setEvaluationAverage();
-//				System.out.println("+5");
-////				entityService.save(entity);
-////				System.out.println("+6");
-//			}else {
-////				System.out.println("*1");
-////				Entity entity = entitySave.getEntity();
-//				System.out.println("*2");
-//				entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-//				System.out.println("*3");
-//				entity.setEvaluationQuantity(+ 1);
-//				System.out.println("*4");
-//				entity.setEvaluationAverage();
-//				System.out.println("*5");
-//				
-//			}
-//			try {
-//				entityRepository.save(entity);
-//				System.out.println("*6");
-//			} catch (Exception e) {
-//				System.out.println(e.getMessage());
-//			}
-			
-			
-			
 			switch (entitySave.getLevel()) {
 			case ENTITY:
 				if(entitySave.isRated()) {
@@ -427,61 +398,46 @@ public class EntitySaveService {
 					entity.setEvaluationSum(- entitySave.getEvaluation());
 					entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
 					entity.setEvaluationAverage();
-					try {
-						entityService.save(entity);
-					} catch (Exception e) {
-						e.getMessage();
-						e.getStackTrace();
-						e.getCause();
-					}
+					entityService.save(entity);
 				}else {
 					Entity entity = entitySave.getEntity();
 					entity.setEvaluationSum(+ entitySaveDTO.getEvaluation());
 					entity.setEvaluationQuantity(+ 1);
 					entity.setEvaluationAverage();
-					try {
-						entityService.save(entity);
-					} catch (Exception e) {
-						e.getMessage();
-						e.getStackTrace();
-						e.getCause();
-					}
-					
+					entityService.save(entity);
 				}
 				break;
-//			case SEASON:
-//				if(entitySave.isRated()) {
-//					Season season = entitySave.getSeason();
-//					season.setEvaluationSum(- entitySave.getEvaluation());
-//					season.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-//					season.setEvaluationAverage();
-//					seasonService.save(season);
-//				}else {
-//					Season season = entitySave.getSeason();
-//					season.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-//					season.setEvaluationQuantity(+ 1);
-//					season.setEvaluationAverage();
-//					seasonService.save(season);
-//				}
-//				break;
-//			case EPISODE:
-//				if(entitySave.isRated()) {
-//					Episode episode = entitySave.getEpisode();
-//					episode.setEvaluationSum(- entitySave.getEvaluation());
-//					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-//					episode.setEvaluationAverage();
-//					episodeService.save(episode);
-//				}else {
-//					Episode episode = entitySave.getEpisode();
-//					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-//					episode.setEvaluationQuantity(+ 1);
-//					episode.setEvaluationAverage();
-//					episodeService.save(episode);
-//				}
-//				break;
+			case SEASON:
+				if(entitySave.isRated()) {
+					Season season = entitySave.getSeason();
+					season.setEvaluationSum(- entitySave.getEvaluation());
+					season.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					season.setEvaluationAverage();
+					seasonService.save(season);
+				}else {
+					Season season = entitySave.getSeason();
+					season.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					season.setEvaluationQuantity(+ 1);
+					season.setEvaluationAverage();
+					seasonService.save(season);
+				}
+				break;
+			case EPISODE:
+				if(entitySave.isRated()) {
+					Episode episode = entitySave.getEpisode();
+					episode.setEvaluationSum(- entitySave.getEvaluation());
+					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					episode.setEvaluationAverage();
+					episodeService.save(episode);
+				}else {
+					Episode episode = entitySave.getEpisode();
+					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
+					episode.setEvaluationQuantity(+ 1);
+					episode.setEvaluationAverage();
+					episodeService.save(episode);
+				}
+				break;
 			}
-			
-			
 			
 			entitySave.setEvaluation(entitySaveDTO.getEvaluation());
 			entitySave.setRated(true);
@@ -539,8 +495,6 @@ public class EntitySaveService {
 		}
 	}
 	
-	/*
-	
 	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
 		try {
 			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
@@ -573,8 +527,6 @@ public class EntitySaveService {
 		}
 	}
 	
-	*/
-	
 	//internal
 	
 	public ResponseEntity<Object> save(EntitySave entitySave){
@@ -598,6 +550,7 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateQuantityCategoryEntity(EntitySave entitySave, int current, int newValue){
 		try {
 			Entity entity = entitySave.getEntity();
+
 			switch (current) {
 			case 1:
 				entity.setCategory1(-1);
@@ -612,6 +565,7 @@ public class EntitySaveService {
 				entity.setCategory4(-1);
 				break;
 			}
+			
 			switch (newValue) {
 			case 1:
 				entity.setCategory1(1);
@@ -626,19 +580,12 @@ public class EntitySaveService {
 				entity.setCategory4(1);
 				break;
 			}
-			try {
-				entityService.save(entity);
-			} catch (Exception e) {
-				e.getMessage();
-				e.getStackTrace();
-			}
+			entityService.save(entity);
 			return ResponseEntity.accepted().body(entitySave);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-	/*
 	
 	public ResponseEntity<Object> updateQuantityCategorySeason(EntitySave entitySave, int current, int newValue){
 		try {
@@ -717,7 +664,5 @@ public class EntitySaveService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-	*/
 	
 }

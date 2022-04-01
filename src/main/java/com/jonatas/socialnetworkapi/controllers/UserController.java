@@ -45,7 +45,12 @@ public class UserController {
 	public ResponseEntity<Object> getInvitationMini(@PathVariable String id){
 		return userService.getInvitationMini(id);
 	}
-			
+	
+	@GetMapping(value = "get/user/{id}/workers")
+	public ResponseEntity<Object> getWorkersMini(@PathVariable String id){
+		return userService.getWorkersMini(id);
+	}
+		
 	@GetMapping(value = "get/user/{idUserPost}/posts/my/{idUser}")
 	public ResponseEntity<Object> getMyPostsMini(@PathVariable String idUserPost, @PathVariable String idUser){
 		return userService.getMyPostsMini(idUserPost, idUser);
@@ -98,11 +103,6 @@ public class UserController {
 	@GetMapping(value = "get/users/name")
 	public ResponseEntity<Object> findByName(@RequestParam(value = "name", defaultValue = "") String name){
 		return userService.findByName(name);
-	}
-	
-	@GetMapping(value = "/{id}/groups")
-	public ResponseEntity<Object> getGroups(@PathVariable String id){
-		return userService.getGroups(id);
 	}
 	
 	//post

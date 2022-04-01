@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
@@ -18,8 +18,6 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 @Document
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	//variables
 	
 	@Id
 	private String id;
@@ -32,46 +30,42 @@ public class User implements Serializable{
 	private String lastLogin;
 	private String description;
 	private String place;
+	
 	private boolean privacy = false;
 	private boolean status = true;
 	private boolean checked = false;
+
 	private int quantityFollowing = 0;
 	private int quantityFollowers = 0;
 	private TypeObject typeObject = TypeObject.USER;
 	
-	//References
-
+	@DBRef(lazy = true)
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "follower")
 	private Follower follower;
-
-	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "invitation")
-	private Invitation invitation;
-
-	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "entitySave")
-	private List<EntitySave> entitySaves = new ArrayList<>();
-
-	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "comment")
-	private List<Comment> comments = new ArrayList<>();
-
-	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "user")
-	private List<User> blocked =  new ArrayList<>();
 	
+	@DBRef(lazy = true)
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "group")
-	private List<Group> groups = new ArrayList<>();
+	private Invitation invitation;
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Worker> workers = new ArrayList<>();
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<EntitySave> entitySaves = new ArrayList<>();
+		
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Comment> comments = new ArrayList<>();
 	
 	private List<LikeUser> likes = new ArrayList<>();
 	
 	private List<PostUser> posts = new ArrayList<>();
 	
-	//References
-	
-	//variables
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<User> blocked =  new ArrayList<>();
 		
 	public User() {
 		super();
@@ -120,6 +114,10 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Worker> getWorkers() {
+		return workers;
 	}
 
 	public Follower getFollower() {
@@ -240,17 +238,6 @@ public class User implements Serializable{
 
 	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
-	}
-	
-	public List<Group> getGroups() {
-		return groups;
-	}
-	
-	
-
-	@Override
-	public String toString() {
-		return "User [name=" + name + ", email=" + email + "]";
 	}
 
 	@Override

@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Objects;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -18,38 +18,29 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Comment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	//variables
-	
 	@Id
 	private String id;
-	
 	private String release;
 	private String body;
 	private TypeObject typeObject = TypeObject.COMMENT;
 	private int likeQuantity = 0;
 	private TypeComment typeComment;
 	
-	//References
-	
+	@DBRef(lazy = true)
 	@JsonBackReference
-	@DocumentReference(lazy = true, collection = "user")
 	List<User> likes = new ArrayList<>();
 	
+	@DBRef(lazy = true)
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "user")
 	private User author;
 	
+	@DBRef(lazy = true)
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "post")
 	private Post post;
 	
+	@DBRef(lazy = true)
 	@JsonManagedReference
-	@DocumentReference(lazy = true, collection = "entitySave")
 	private EntitySave entitySave;
-	
-	//References
-	
-	//variables
 
 	public Comment() {
 		super();
