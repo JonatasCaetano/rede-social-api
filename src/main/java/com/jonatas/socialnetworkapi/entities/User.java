@@ -59,13 +59,20 @@ public class User implements Serializable{
 	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
 	
-	private List<LikeUser> likes = new ArrayList<>();
-	
-	private List<PostUser> posts = new ArrayList<>();
+	@DBRef(lazy = true)
+	@JsonBackReference
+	private List<Group> groups = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<User> blocked =  new ArrayList<>();
+	
+	
+	private List<LikeUser> likes = new ArrayList<>();
+	
+	private List<PostUser> posts = new ArrayList<>();
+	
+	
 		
 	public User() {
 		super();
@@ -238,6 +245,10 @@ public class User implements Serializable{
 
 	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
+	}
+	
+	public List<Group> getGroups() {
+		return groups;
 	}
 
 	@Override
