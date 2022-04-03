@@ -340,7 +340,7 @@ public class PostService {
 					postDTO.getRelease(),
 					postDTO.getBody(),
 					postDTO.getTypePost(),
-					postDTO.getTypePostVisibility(),
+					TypePostVisibility.USER,
 					user,
 					postDTO.getSpoiler(),
 					postDTO.getCategory(),

@@ -4,6 +4,7 @@ import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
+import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 
 public class PostUpdateMiniDTO {
 
@@ -18,6 +19,7 @@ public class PostUpdateMiniDTO {
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
+	private TypePostVisibility typePostVisibility = TypePostVisibility.USER;
 	private Level level;
 	private TypePost typePost;
 	private boolean spoiler;
