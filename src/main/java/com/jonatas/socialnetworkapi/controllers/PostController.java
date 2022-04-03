@@ -89,6 +89,11 @@ public class PostController {
 	public ResponseEntity<Object> updateVotePostQuest(@PathVariable int value, @PathVariable String idUser, @PathVariable String idPost){
 		return postService.updateVotePostQuest(value, idUser, idPost);
 	}
+	
+	@PutMapping(value = "/user/{idUser}/post/{idPost}/group/{idGroup}/close")
+	public ResponseEntity<Object> updateVotePostQuest(@PathVariable String idUser, @PathVariable String idPost,  @PathVariable String idGroup){
+		return postService.closeTalkGroup(idUser, idPost, idGroup);
+	}
 		
 	//delete
 	

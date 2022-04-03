@@ -509,7 +509,7 @@ public class PostService {
 			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().add(like);
 			userService.save(user);
-			return ResponseEntity.accepted().body(post);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
@@ -525,7 +525,27 @@ public class PostService {
 			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().remove(like);
 			userService.save(user);
-			return ResponseEntity.accepted().body(post);
+			return ResponseEntity.accepted().build();
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> closeTalkGroup(String idUser, String idPost, String idGroup){
+		try {
+			User user = (User) userService.findById(idUser).getBody();
+			Group group = groupService.findById(idGroup);
+			TalkGroup post = (TalkGroup) postRepository.findById(idPost).get();
+			if(!post.getTypePost().equals(TypePost.TALK_GROUP)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			if(!group.getModerators().contains(user) && !group.getCreator().equals(user)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			post.setClose(true);
+			post.setClosedBy(user);
+			postRepository.save(post);
+			return ResponseEntity.accepted().build();
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}

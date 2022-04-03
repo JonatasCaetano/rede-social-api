@@ -16,8 +16,10 @@ import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.CommentDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
+import com.jonatas.socialnetworkapi.entities.post.TalkGroup;
 import com.jonatas.socialnetworkapi.enuns.TypeComment;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
+import com.jonatas.socialnetworkapi.enuns.TypePost;
 import com.jonatas.socialnetworkapi.repositories.CommentRepository;
 
 @Service
@@ -75,6 +77,12 @@ public class CommentService {
 
 			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
+			if(post.getTypePost().equals(TypePost.TALK_GROUP)) {
+				TalkGroup talkGroup = (TalkGroup) post;
+				if(talkGroup.isClose()) {
+					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+				}
+			}
 			Comment comment = new Comment(commentDTO.getRelease(), commentDTO.getBody(), user, post, null, TypeComment.POST);
 			comment = commentRepository.insert(comment);
 			user.getComments().add(comment);
