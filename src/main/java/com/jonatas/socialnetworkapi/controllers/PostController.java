@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.entities.dto.PostQuestDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
+import com.jonatas.socialnetworkapi.entities.dto.PostTalkGroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.services.PostService;
 
@@ -59,7 +60,12 @@ public class PostController {
 	
 	@PostMapping(value = "post/talk")
 	public ResponseEntity<Object> newPostTalk(@RequestBody PostTalkDTO postTalkDTO){
-		return postService.newPostTalk(postTalkDTO);
+		return postService.newPostTalkUser(postTalkDTO);
+	}
+	
+	@PostMapping(value = "post/talk/group")
+	public ResponseEntity<Object> newPostTalkGroup(@RequestBody PostTalkGroupDTO postTalkGroupDTO){
+		return postService.newPostTalkGroup(postTalkGroupDTO);
 	}
 	
 	@PostMapping(value = "post/quest")

@@ -13,14 +13,17 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Episode;
+import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.PostQuestDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
+import com.jonatas.socialnetworkapi.entities.dto.PostTalkGroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostQuestMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
@@ -28,6 +31,7 @@ import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
 import com.jonatas.socialnetworkapi.entities.helper.VoteQuest;
 import com.jonatas.socialnetworkapi.entities.post.Quest;
+import com.jonatas.socialnetworkapi.entities.post.TalkGroup;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
@@ -60,6 +64,10 @@ public class PostService {
 	@Lazy
 	private EpisodeService episodeService;
 	
+	@Autowired
+	@Lazy
+	private GroupService groupService;
+	
 	//methods
 	
 	//get
@@ -73,7 +81,7 @@ public class PostService {
 				if(post.getTypePost() == TypePost.UPDATE) {
 					PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
 					objs.add(postUpdateMiniDTO);
-				}else if(post.getTypePost() == TypePost.TALK) {
+				}else if(post.getTypePost() == TypePost.TALK_USER) {
 					PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
 					objs.add(postTalkMiniDTO);
 					
@@ -112,7 +120,7 @@ public class PostService {
 					}
 				}
 				return ResponseEntity.ok().body(postUpdateMiniDTO);
-			}else if(post.getTypePost() == TypePost.TALK) {
+			}else if(post.getTypePost() == TypePost.TALK_USER) {
 				PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
 				if(post.getLikes().contains(user)) {
 					postTalkMiniDTO.setLiked(true);
@@ -160,6 +168,7 @@ public class PostService {
 	public ResponseEntity<Object> getPostAll(String id){
 		try {
 			User user = (User) userService.findById(id).getBody();
+			List<Group> groups = user.getGroups();
 			Sort sort = Sort.by("release").descending();
 			List<Post> objs = postRepository.findAll(sort);
 			List<Object> posts = new ArrayList<>();
@@ -191,7 +200,7 @@ public class PostService {
 							}
 							
 							posts.add(postUpdateMiniDTO);
-						}else if(post.getTypePost() == TypePost.TALK) {
+						}else if(post.getTypePost() == TypePost.TALK_USER) {
 							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
 							
 							if(post.getLikes().contains(user)) {
@@ -242,6 +251,29 @@ public class PostService {
 						
 					}
 					
+				}else if(post.getTypePostVisibility() == TypePostVisibility.GROUP) {
+					TalkGroup postTalkGroup =  (TalkGroup) post;
+					if(groups.contains(postTalkGroup.getGroup())) {
+						PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(postTalkGroup);
+						if(post.getLikes().contains(user)) {
+							postTalkGroupMiniDTO.setLiked(true);
+						}else {
+							postTalkGroupMiniDTO.setLiked(false);
+						}
+						if(!post.getLikes().isEmpty()) {
+							UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+							if(userMiniDTO.getId().hashCode() != id.hashCode()) {
+								postTalkGroupMiniDTO.setLike(userMiniDTO);
+							}else {
+								if(post.getLikes().size() > 1) {
+									userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+									postTalkGroupMiniDTO.setLike(userMiniDTO);
+								}
+							}
+						}
+						
+						posts.add(postTalkGroupMiniDTO);
+					}
 				}
 				value += value;
 				if(value >= 500) {
@@ -332,19 +364,40 @@ public class PostService {
 	
 		
 		
-	public ResponseEntity<Object> newPostTalk(PostTalkDTO postDTO){
+	public ResponseEntity<Object> newPostTalkUser(PostTalkDTO postDTO){
 		try {
 			if(postDTO.getRelease() == null) {
 				return ResponseEntity.badRequest().build();
 			}
 			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
-			Post post = new Post(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK, postDTO.getTypePostVisibility(), user, postDTO.getSpoiler());
+			Post post = new Post(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK_USER, TypePostVisibility.USER, user, postDTO.getSpoiler());
 			post = postRepository.insert(post);
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().add(postUser);
 			userService.save(user);
 			PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
 			return ResponseEntity.created(null).body(postTalkMiniDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	public ResponseEntity<Object> newPostTalkGroup(PostTalkGroupDTO postDTO){
+		try {
+			if(postDTO.getRelease() == null) {
+				return ResponseEntity.badRequest().build();
+			}
+			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
+			Group group = groupService.findById(postDTO.getIdGroup());
+			TalkGroup post = new TalkGroup(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK_GROUP, TypePostVisibility.GROUP, user, postDTO.getSpoiler(), false, null, group);
+			post = postRepository.insert(post);
+			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
+			user.getPosts().add(postUser);
+			userService.save(user);
+			group.getPosts().add(post);
+			groupService.save(group);
+			PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(post);
+			return ResponseEntity.created(null).body(postTalkGroupMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}

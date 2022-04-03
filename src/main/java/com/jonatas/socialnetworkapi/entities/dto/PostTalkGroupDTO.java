@@ -1,25 +1,27 @@
 package com.jonatas.socialnetworkapi.entities.dto;
 
-public class PostTalkDTO {
+public class PostTalkGroupDTO {
 	
 	private String idPost;
 	private String release;
 	private String body;
 	private Boolean spoiler;
 	private String idAuthor;
+	private String idGroup;
 		
-	public PostTalkDTO() {
+	public PostTalkGroupDTO() {
 		super();
 	}
 
-	public PostTalkDTO(String idPost, String release, String body,
-			Boolean spoiler, String idAuthor) {
+	public PostTalkGroupDTO(String idPost, String release, String body,
+			Boolean spoiler, String idAuthor, String idGroup) {
 		super();
 		this.idPost = idPost;
 		this.release = release;
 		this.body = body;
 		this.spoiler = spoiler;
 		this.idAuthor = idAuthor;
+		this.idGroup = idGroup;
 	}
 
 	public String getIdPost() {
@@ -60,6 +62,14 @@ public class PostTalkDTO {
 
 	public void setIdAuthor(String idAuthor) {
 		this.idAuthor = idAuthor;
+	}
+
+	public String getIdGroup() {
+		return idGroup;
+	}
+
+	public void setIdGroup(String idGroup) {
+		this.idGroup = idGroup;
 	}
 
 	

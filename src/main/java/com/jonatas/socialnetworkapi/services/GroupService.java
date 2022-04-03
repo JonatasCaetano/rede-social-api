@@ -274,6 +274,18 @@ public class GroupService {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(groupMiniDTO);
 	}
 	
+
+	
+	//internal
+	
+	public Group findById(String id) {
+		return groupRepository.findById(id).get();
+	}
+	
+	public Group save(Group group) {
+		return groupRepository.save(group);
+	}
+	
 	
 	
 }

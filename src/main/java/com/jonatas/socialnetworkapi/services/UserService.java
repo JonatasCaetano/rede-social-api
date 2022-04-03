@@ -118,7 +118,7 @@ public class UserService {
 					PostUpdateMiniDTO postUpdateMiniDTO = (PostUpdateMiniDTO) postService.findByIdMini(postUser.getId(),  idUser).getBody();
 					//objs.add(postUpdateMiniDTO);
 					objs.add(0, postUpdateMiniDTO);
-				}else if(postUser.getTypePost() == TypePost.TALK) {
+				}else if(postUser.getTypePost() == TypePost.TALK_USER) {
 					PostTalkMiniDTO postTalkMiniDTO = (PostTalkMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
 					//objs.add(postTalkMiniDTO);
 					objs.add(0, postTalkMiniDTO);

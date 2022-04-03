@@ -5,7 +5,6 @@
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.context.annotation.Configuration;
 //
-//import com.jonatas.socialnetworkapi.entities.Entity;
 //import com.jonatas.socialnetworkapi.entities.Follower;
 //import com.jonatas.socialnetworkapi.entities.User;
 //import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
