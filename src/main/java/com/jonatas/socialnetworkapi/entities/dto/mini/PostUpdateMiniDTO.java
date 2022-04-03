@@ -186,6 +186,14 @@ public class PostUpdateMiniDTO {
 		this.like = like;
 	}
 
+	public TypePostVisibility getTypePostVisibility() {
+		return typePostVisibility;
+	}
+
+	public void setTypePostVisibility(TypePostVisibility typePostVisibility) {
+		this.typePostVisibility = typePostVisibility;
+	}
+
 	
 	
 	
