@@ -10,10 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.entities.Group;
+import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.GroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.post.TalkGroup;
+import com.jonatas.socialnetworkapi.enuns.TypePost;
 import com.jonatas.socialnetworkapi.repositories.GroupRepository;
 
 @Service
@@ -115,6 +119,40 @@ public class GroupService {
 				groupMiniDTOs.add(groupMiniDTO);
 			}
 			return ResponseEntity.ok().body(groupMiniDTOs);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getPostsGroup(String idGroup, String idUser){
+		try {
+			Group group = groupRepository.findById(idGroup).get();
+			User user = (User) userService.findById(idUser).getBody();
+			List<Post> posts = group.getPosts();
+			List<Object> objs = new ArrayList<>();
+			for(Post post : posts) {
+				if(post.getTypePost() == TypePost.TALK_GROUP) {
+					PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post);
+					if(post.getLikes().contains(user)) {
+						postTalkGroupMiniDTO.setLiked(true);
+					}else {
+						postTalkGroupMiniDTO.setLiked(false);
+					}
+					if(!post.getLikes().isEmpty()) {
+						UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+						if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+							postTalkGroupMiniDTO.setLike(userMiniDTO);
+						}else {
+							if(post.getLikes().size() > 1) {
+								userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+								postTalkGroupMiniDTO.setLike(userMiniDTO);
+							}
+						}
+					}
+					objs.add(postTalkGroupMiniDTO);
+				}
+			}
+			return ResponseEntity.ok().body(objs);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

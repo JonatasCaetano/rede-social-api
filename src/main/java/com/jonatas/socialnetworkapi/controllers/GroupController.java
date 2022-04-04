@@ -80,6 +80,11 @@ public class GroupController {
 		return groupService.findByName(name);
 	}
 	
+	@GetMapping(value = "/group/{idGroup}/user/{idUser}/posts")
+	public ResponseEntity<Object> getPostsGroup(@PathVariable String idGroup, @PathVariable String idUser){
+		return groupService.getPostsGroup(idGroup, idUser);
+	}
+	
 	//post
 	
 	@PostMapping
