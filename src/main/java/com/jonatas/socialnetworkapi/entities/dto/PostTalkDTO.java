@@ -7,19 +7,21 @@ public class PostTalkDTO {
 	private String body;
 	private Boolean spoiler;
 	private String idAuthor;
+	private String title;
 		
 	public PostTalkDTO() {
 		super();
 	}
 
 	public PostTalkDTO(String idPost, String release, String body,
-			Boolean spoiler, String idAuthor) {
+			Boolean spoiler, String idAuthor, String title) {
 		super();
 		this.idPost = idPost;
 		this.release = release;
 		this.body = body;
 		this.spoiler = spoiler;
 		this.idAuthor = idAuthor;
+		this.title = title;
 	}
 
 	public String getIdPost() {
@@ -60,6 +62,14 @@ public class PostTalkDTO {
 
 	public void setIdAuthor(String idAuthor) {
 		this.idAuthor = idAuthor;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	

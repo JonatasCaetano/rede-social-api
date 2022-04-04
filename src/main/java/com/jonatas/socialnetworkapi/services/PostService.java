@@ -17,7 +17,6 @@ import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
-import com.jonatas.socialnetworkapi.entities.dto.PostQuestDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkGroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
@@ -31,6 +30,7 @@ import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
 import com.jonatas.socialnetworkapi.entities.helper.VoteQuest;
 import com.jonatas.socialnetworkapi.entities.post.Quest;
+import com.jonatas.socialnetworkapi.entities.post.Talk;
 import com.jonatas.socialnetworkapi.entities.post.TalkGroup;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -78,16 +78,20 @@ public class PostService {
 			List<Post> posts = postRepository.findAll(sort);
 			List<Object> objs = new ArrayList<>();
 			for(Post post : posts) {
+				System.out.println(post.getId());
 				if(post.getTypePost() == TypePost.UPDATE) {
 					PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
 					objs.add(postUpdateMiniDTO);
 				}else if(post.getTypePost() == TypePost.TALK_USER) {
-					PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+					PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post);
 					objs.add(postTalkMiniDTO);
 					
 				}else if(post.getTypePost() == TypePost.QUEST) {
 					PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
 					objs.add(postQuestMiniDTO);
+				}else if(post.getTypePost() == TypePost.TALK_GROUP) {
+					PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO((TalkGroup) post);
+					objs.add(postTalkGroupMiniDTO);
 				}
 			
 			}
@@ -121,7 +125,7 @@ public class PostService {
 				}
 				return ResponseEntity.ok().body(postUpdateMiniDTO);
 			}else if(post.getTypePost() == TypePost.TALK_USER) {
-				PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+				PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post);
 				if(post.getLikes().contains(user)) {
 					postTalkMiniDTO.setLiked(true);
 				}else {
@@ -158,6 +162,25 @@ public class PostService {
 					}
 				}
 				return ResponseEntity.ok().body(postQuestMiniDTO); 
+			}else if(post.getTypePost() == TypePost.TALK_GROUP) {
+				PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post);
+				if(post.getLikes().contains(user)) {
+					postTalkGroupMiniDTO.setLiked(true);
+				}else {
+					postTalkGroupMiniDTO.setLiked(false);
+				}
+				if(!post.getLikes().isEmpty()) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+						postTalkGroupMiniDTO.setLike(userMiniDTO);
+					}else {
+						if(post.getLikes().size() > 1) {
+							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+							postTalkGroupMiniDTO.setLike(userMiniDTO);
+						}
+					}
+				}
+				return ResponseEntity.ok().body(postTalkGroupMiniDTO); 
 			}
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
@@ -201,7 +224,7 @@ public class PostService {
 							
 							posts.add(postUpdateMiniDTO);
 						}else if(post.getTypePost() == TypePost.TALK_USER) {
-							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post);
 							
 							if(post.getLikes().contains(user)) {
 								postTalkMiniDTO.setLiked(true);
@@ -252,27 +275,29 @@ public class PostService {
 					}
 					
 				}else if(post.getTypePostVisibility() == TypePostVisibility.GROUP) {
-					TalkGroup postTalkGroup =  (TalkGroup) post;
-					if(groups.contains(postTalkGroup.getGroup())) {
-						PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(postTalkGroup);
-						if(post.getLikes().contains(user)) {
-							postTalkGroupMiniDTO.setLiked(true);
-						}else {
-							postTalkGroupMiniDTO.setLiked(false);
-						}
-						if(!post.getLikes().isEmpty()) {
-							UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-							if(userMiniDTO.getId().hashCode() != id.hashCode()) {
-								postTalkGroupMiniDTO.setLike(userMiniDTO);
+					if(post.getTypePost() == TypePost.TALK_GROUP) {
+						TalkGroup postTalkGroup =  (TalkGroup) post;
+						if(groups.contains(postTalkGroup.getGroup())) {
+							PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(postTalkGroup);
+							if(post.getLikes().contains(user)) {
+								postTalkGroupMiniDTO.setLiked(true);
 							}else {
-								if(post.getLikes().size() > 1) {
-									userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+								postTalkGroupMiniDTO.setLiked(false);
+							}
+							if(!post.getLikes().isEmpty()) {
+								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
 									postTalkGroupMiniDTO.setLike(userMiniDTO);
+								}else {
+									if(post.getLikes().size() > 1) {
+										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+										postTalkGroupMiniDTO.setLike(userMiniDTO);
+									}
 								}
 							}
+							
+							posts.add(postTalkGroupMiniDTO);
 						}
-						
-						posts.add(postTalkGroupMiniDTO);
 					}
 				}
 				value += value;
@@ -370,7 +395,14 @@ public class PostService {
 				return ResponseEntity.badRequest().build();
 			}
 			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
-			Post post = new Post(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK_USER, TypePostVisibility.USER, user, postDTO.getSpoiler());
+			Talk post = new Talk(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK_USER, TypePostVisibility.USER, user, postDTO.getSpoiler());
+			if(postDTO.getSpoiler()) {
+				if(postDTO.getTitle() == null) {
+					return ResponseEntity.badRequest().build();
+				}else {
+					post.setTitle(postDTO.getTitle());
+				}
+			}
 			post = postRepository.insert(post);
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().add(postUser);
@@ -390,6 +422,13 @@ public class PostService {
 			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
 			Group group = groupService.findById(postDTO.getIdGroup());
 			TalkGroup post = new TalkGroup(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK_GROUP, TypePostVisibility.GROUP, user, postDTO.getSpoiler(), false, null, group);
+			if(postDTO.getSpoiler()) {
+				if(postDTO.getTitle() == null) {
+					return ResponseEntity.badRequest().build();
+				}else {
+					post.setTitle(postDTO.getTitle());
+				}
+			}
 			post = postRepository.insert(post);
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().add(postUser);
@@ -403,23 +442,23 @@ public class PostService {
 		}
 	}
 	
-	public ResponseEntity<Object> newPostQuest(PostQuestDTO postDTO){
-		try {
-			if(postDTO.getRelease() == null) {
-				return ResponseEntity.badRequest().build();
-			}
-			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
-			Post post = new Quest(postDTO.getRelease(), postDTO.getBody(), TypePost.QUEST, postDTO.getTypePostVisibility(), user, postDTO.getSpoiler(), postDTO.getOptions(), 0, postDTO.getVotes());
-			post = postRepository.insert(post);
-			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
-			user.getPosts().add(postUser);
-			userService.save(user);
-			PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
-			return ResponseEntity.created(null).body(postTalkMiniDTO);
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
+//	public ResponseEntity<Object> newPostQuest(PostQuestDTO postDTO){
+//		try {
+//			if(postDTO.getRelease() == null) {
+//				return ResponseEntity.badRequest().build();
+//			}
+//			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
+//			Post post = new Quest(postDTO.getRelease(), postDTO.getBody(), TypePost.QUEST, postDTO.getTypePostVisibility(), user, postDTO.getSpoiler(), postDTO.getOptions(), 0, postDTO.getVotes());
+//			post = postRepository.insert(post);
+//			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
+//			user.getPosts().add(postUser);
+//			userService.save(user);
+//			PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+//			return ResponseEntity.created(null).body(postTalkMiniDTO);
+//		}catch (RuntimeException e) {
+//			return ResponseEntity.badRequest().build();
+//		}
+//	}
 	
 	
 	//delete

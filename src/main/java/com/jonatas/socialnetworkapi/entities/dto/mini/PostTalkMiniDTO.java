@@ -1,6 +1,6 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import com.jonatas.socialnetworkapi.entities.Post;
+import com.jonatas.socialnetworkapi.entities.post.Talk;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
 import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
@@ -19,6 +19,7 @@ public class PostTalkMiniDTO {
 	private UserMiniDTO author;
 	private Boolean Liked;
 	private UserMiniDTO like;
+	private String title;
 	
 	public PostTalkMiniDTO() {
 		super();
@@ -26,7 +27,7 @@ public class PostTalkMiniDTO {
 
 	public PostTalkMiniDTO(String id, String release, String body, TypePost typePost,
 			TypePostVisibility typePostVisibility, int likeQuantity, int commentQuantity, TypeObject typeObject,
-			Boolean spoiler, UserMiniDTO author) {
+			Boolean spoiler, UserMiniDTO author, String title) {
 		super();
 		this.id = id;
 		this.release = release;
@@ -38,11 +39,12 @@ public class PostTalkMiniDTO {
 		this.typeObject = typeObject;
 		this.spoiler = spoiler;
 		this.author = author;
+		this.title = title;
 	}
 	
 	
 
-	public PostTalkMiniDTO(Post post) {
+	public PostTalkMiniDTO(Talk post) {
 		super();
 		this.id = post.getId();
 		this.release = post.getRelease();
@@ -54,6 +56,7 @@ public class PostTalkMiniDTO {
 		this.typeObject = post.getTypeObject();
 		this.spoiler = post.getSpoiler();
 		this.author = post.getAuthor() != null ? new UserMiniDTO(post.getAuthor()) : null;
+		this.title = post.getTitle();
 	}
 
 	public String getId() {
@@ -150,6 +153,14 @@ public class PostTalkMiniDTO {
 
 	public void setLike(UserMiniDTO like) {
 		this.like = like;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 	

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jonatas.socialnetworkapi.entities.dto.PostQuestDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkGroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
@@ -68,10 +67,10 @@ public class PostController {
 		return postService.newPostTalkGroup(postTalkGroupDTO);
 	}
 	
-	@PostMapping(value = "post/quest")
-	public ResponseEntity<Object> newPostQuest(@RequestBody PostQuestDTO postQuestDTO){
-		return postService.newPostQuest(postQuestDTO);
-	}
+//	@PostMapping(value = "post/quest")
+//	public ResponseEntity<Object> newPostQuest(@RequestBody PostQuestDTO postQuestDTO){
+//		return postService.newPostQuest(postQuestDTO);
+//	}
 	
 	//put
 	

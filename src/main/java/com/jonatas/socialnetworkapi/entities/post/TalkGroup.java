@@ -14,6 +14,7 @@ public class TalkGroup extends Post {
 	
 	private boolean close;
 	private User closedBy;
+	private String title;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -53,6 +54,18 @@ public class TalkGroup extends Post {
 
 	public void setGroup(Group group) {
 		this.group = group;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 	
 	

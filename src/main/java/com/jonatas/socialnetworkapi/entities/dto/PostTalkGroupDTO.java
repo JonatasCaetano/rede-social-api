@@ -8,13 +8,14 @@ public class PostTalkGroupDTO {
 	private Boolean spoiler;
 	private String idAuthor;
 	private String idGroup;
+	private String title;
 		
 	public PostTalkGroupDTO() {
 		super();
 	}
 
 	public PostTalkGroupDTO(String idPost, String release, String body,
-			Boolean spoiler, String idAuthor, String idGroup) {
+			Boolean spoiler, String idAuthor, String idGroup, String title) {
 		super();
 		this.idPost = idPost;
 		this.release = release;
@@ -22,6 +23,7 @@ public class PostTalkGroupDTO {
 		this.spoiler = spoiler;
 		this.idAuthor = idAuthor;
 		this.idGroup = idGroup;
+		this.title = title;
 	}
 
 	public String getIdPost() {
@@ -70,6 +72,14 @@ public class PostTalkGroupDTO {
 
 	public void setIdGroup(String idGroup) {
 		this.idGroup = idGroup;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	

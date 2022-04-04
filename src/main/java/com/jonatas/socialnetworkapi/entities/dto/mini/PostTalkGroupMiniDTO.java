@@ -22,6 +22,7 @@ public class PostTalkGroupMiniDTO {
 	private boolean close;
 	private UserMiniDTO closedBy;
 	private GroupMiniDTO group;
+	private String title;
 	
 	public PostTalkGroupMiniDTO() {
 		super();
@@ -42,6 +43,7 @@ public class PostTalkGroupMiniDTO {
 		this.close = post.isClose();
 		this.closedBy = post.getClosedBy() != null ? new UserMiniDTO(post.getClosedBy()) : null;
 		this.group = post.getGroup() != null ? new GroupMiniDTO(post.getGroup()) : null;
+		this.title = post.getTitle();
 	}
 
 	public String getId() {
@@ -163,6 +165,15 @@ public class PostTalkGroupMiniDTO {
 	public void setGroup(GroupMiniDTO group) {
 		this.group = group;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	
 	
 	
 	

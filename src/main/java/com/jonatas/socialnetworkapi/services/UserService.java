@@ -18,6 +18,7 @@ import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostQuestMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
@@ -126,6 +127,10 @@ public class UserService {
 					PostQuestMiniDTO postQuestMiniDTO = (PostQuestMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
 					//objs.add(postQuestMiniDTO);
 					objs.add(0, postQuestMiniDTO);
+				}else if(postUser.getTypePost() == TypePost.TALK_GROUP) {
+					PostTalkGroupMiniDTO postTalkGroupMiniDTO = (PostTalkGroupMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
+					//objs.add(postQuestMiniDTO);
+					objs.add(0, postTalkGroupMiniDTO);
 				}
 			}
 			return ResponseEntity.ok().body(objs);
