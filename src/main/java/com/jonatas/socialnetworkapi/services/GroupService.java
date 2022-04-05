@@ -149,7 +149,7 @@ public class GroupService {
 							}
 						}
 					}
-					objs.add(postTalkGroupMiniDTO);
+					objs.add(0, postTalkGroupMiniDTO);;
 				}
 			}
 			return ResponseEntity.ok().body(objs);
