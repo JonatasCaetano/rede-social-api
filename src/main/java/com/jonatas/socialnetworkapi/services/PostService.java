@@ -473,6 +473,12 @@ public class PostService {
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().remove(postUser);
 			userService.save(user);
+			if(post.getTypePost().equals(TypePost.TALK_GROUP)) {
+				TalkGroup talkGroup = (TalkGroup) post;
+				Group group = talkGroup.getGroup();
+				group.getPosts().remove(talkGroup);
+				groupService.save(group);
+			}
 			postRepository.delete(post);
 			return ResponseEntity.ok().build();
 		}catch (RuntimeException e) {
