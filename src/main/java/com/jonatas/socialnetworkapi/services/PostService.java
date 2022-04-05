@@ -421,6 +421,9 @@ public class PostService {
 			}
 			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
 			Group group = groupService.findById(postDTO.getIdGroup());
+			if(group.getMembersSilenced().contains(user)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
 			TalkGroup post = new TalkGroup(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK_GROUP, TypePostVisibility.GROUP, user, postDTO.getSpoiler(), false, null, group);
 			if(postDTO.getSpoiler()) {
 				if(postDTO.getTitle() == null) {
