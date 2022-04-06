@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -27,7 +28,6 @@ public class EntitySave implements Serializable{
 	private boolean rated = false;
 	private boolean reviewed = false;
 	private int evaluation;
-	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	private boolean spoiler;
 	private String release;
@@ -49,6 +49,10 @@ public class EntitySave implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Episode episode;
+	
+	@DocumentReference(lazy = true, collection = "post")
+	@JsonManagedReference
+	private Post review;
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -159,15 +163,15 @@ public class EntitySave implements Serializable{
 	public void setEvaluation(int evaluation) {
 		this.evaluation = evaluation;
 	}
-
-	public String getReview() {
+	
+	public Post getReview() {
 		return review;
 	}
 
-	public void setReview(String review) {
+	public void setReview(Post review) {
 		this.review = review;
 	}
-	
+
 	public Level getLevel() {
 		return level;
 	}

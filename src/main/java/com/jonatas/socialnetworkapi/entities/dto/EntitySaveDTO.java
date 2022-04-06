@@ -14,7 +14,7 @@ public class EntitySaveDTO {
 	private boolean rated;
 	private boolean reviewed;
 	private int evaluation;
-	private String review;
+//	private String review;
 	private Level level;
 	private boolean spoiler = false;
 	private String release;
@@ -37,7 +37,7 @@ public class EntitySaveDTO {
 		this.rated = rated;
 		this.reviewed = reviewed;
 		this.evaluation = evaluation;
-		this.review = review;
+//		this.review = review;
 		this.level = level;
 		this.spoiler = spoiler;
 	}
@@ -122,13 +122,13 @@ public class EntitySaveDTO {
 		this.evaluation = evaluation;
 	}
 
-	public String getReview() {
-		return review;
-	}
-
-	public void setReview(String review) {
-		this.review = review;
-	}
+//	public String getReview() {
+//		return review;
+//	}
+//
+//	public void setReview(String review) {
+//		this.review = review;
+//	}
 
 	public Level getLevel() {
 		return level;
