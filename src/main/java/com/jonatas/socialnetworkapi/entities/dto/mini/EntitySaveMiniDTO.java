@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
@@ -20,8 +19,8 @@ public class EntitySaveMiniDTO {
 	private EntityMiniDTO entity;
 	private SeasonMiniDTO season;
 	private EpisodeMiniDTO episode;
-	private PostUpdateMiniDTO review;
 	private int evaluation;
+	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
 	List<String> historic = new ArrayList<>();
 	private boolean spoiler = false;
@@ -48,7 +47,7 @@ public class EntitySaveMiniDTO {
 		this.season = entitySave.getSeason() != null? new SeasonMiniDTO(entitySave.getSeason()) : null;
 		this.episode = entitySave.getEpisode() != null ? new EpisodeMiniDTO(entitySave.getEpisode()) : null;
 		this.evaluation = entitySave.getEvaluation();
-		this.review = entitySave.getReview() != null ? new PostUpdateMiniDTO((Update) entitySave.getReview()) : null;
+		this.review = entitySave.getReview();
 		this.historic = entitySave.getHistoric();
 		this.spoiler = entitySave.getSpoiler();
 		this.release = entitySave.getRelease();
@@ -144,11 +143,11 @@ public class EntitySaveMiniDTO {
 		this.evaluation = evaluation;
 	}
 
-	public PostUpdateMiniDTO getReview() {
+	public String getReview() {
 		return review;
 	}
 
-	public void setReview(PostUpdateMiniDTO review) {
+	public void setReview(String review) {
 		this.review = review;
 	}
 

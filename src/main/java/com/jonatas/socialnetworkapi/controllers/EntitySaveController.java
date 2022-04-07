@@ -78,9 +78,9 @@ public class EntitySaveController {
 		return entitySaveService.updateEntitySaveGoal(entitySaveDTO);
 	}
 	
-	@PutMapping(value = "put/review/{idPost}")
-	public ResponseEntity<Object> updateEntitySaveReview(@RequestBody EntitySaveDTO entitySaveDTO, @PathVariable String idPost){
-		return entitySaveService.updateEntitySaveReview(entitySaveDTO, idPost);
+	@PutMapping(value = "put/review")
+	public ResponseEntity<Object> updateEntitySaveReview(@RequestBody EntitySaveDTO entitySaveDTO){
+		return entitySaveService.updateEntitySaveReview(entitySaveDTO);
 	}
 	
 	@PutMapping(value = "put/like/entitysave/{idEntitySave}/user/{idUser}")

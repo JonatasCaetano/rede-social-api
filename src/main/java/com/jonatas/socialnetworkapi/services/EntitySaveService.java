@@ -20,7 +20,6 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
-import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.repositories.EntitySaveRepository;
@@ -463,12 +462,11 @@ public class EntitySaveService {
 	}
 
 	
-	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO, String idPost){
+	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			Update post = (Update) postService.findById(idPost).getBody();
 			entitySave.setReviewed(entitySaveDTO.isReviewed());	
-			entitySave.setReview(post);
+			entitySave.setReview(entitySaveDTO.getReview());
 			entitySave.setSpoiler(entitySaveDTO.isSpoiler());
 			entitySave.setRelease(entitySaveDTO.getRelease());
 			entitySave = entitySaveRepository.save(entitySave);
