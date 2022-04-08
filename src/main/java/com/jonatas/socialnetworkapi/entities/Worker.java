@@ -16,12 +16,15 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Worker  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
 	private Date release;
 	private String role;
 	private TypeObject typeObject = TypeObject.WORKER;
 	private Level level;
+	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User user;
@@ -29,6 +32,8 @@ public class Worker  implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Entity entity;
+	
+	//variables
 		
 	public Worker() {
 		super();

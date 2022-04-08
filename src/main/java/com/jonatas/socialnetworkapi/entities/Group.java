@@ -20,7 +20,6 @@ public class Group implements Serializable {
 	
 	@Id
 	private String id;
-	
 	private String name;
 	private String description;
 	private User creator;

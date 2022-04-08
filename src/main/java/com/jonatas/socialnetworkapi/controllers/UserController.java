@@ -66,6 +66,11 @@ public class UserController {
 		return userService.getGoals(id);
 	}
 	
+	@GetMapping(value = "{id}/groups")
+	public ResponseEntity<Object> getGroups(@PathVariable String id) {
+		return userService.getGroups(id);
+	}
+	
 	/*
 	
 	@GetMapping(value = "get/user/{id}/posts/all")

@@ -18,9 +18,10 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class EntitySave implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	//variables
+	
 	@Id
 	private String id;
-	
 	private Level level;
 	private int category;
 	private boolean goal = false;
@@ -33,6 +34,7 @@ public class EntitySave implements Serializable{
 	private String release;
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
+	List<String> historic = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -57,9 +59,8 @@ public class EntitySave implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<User> likes = new ArrayList<>();
-	
-			
-	List<String> historic = new ArrayList<>();
+		
+	//variables
 
 	public EntitySave() {
 		super();

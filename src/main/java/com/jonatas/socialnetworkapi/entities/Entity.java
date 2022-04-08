@@ -18,21 +18,19 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Entity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
-	
 	private String name;
 	private String description;
 	private String image;
-	
 	private TypeEntity typeEntity;
-	
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private int seasonQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
-	
 	private int category1 = 0;
 	private int category2 = 0;
 	private int category3 = 0;
@@ -53,6 +51,8 @@ public class Entity implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
+	
+	//variables
 		
 	public Entity() {
 		super();

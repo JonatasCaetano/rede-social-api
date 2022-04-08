@@ -17,21 +17,19 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Season implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
-	
 	private String name;
 	private String description;
 	private String image;
-		
 	private int numberSeason;
-	
 	private int episodeQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
 	private TypeObject typeObject = TypeObject.SEASON;
-	
 	private int category1 = 0;
 	private int category2 = 0;
 	private int category3 = 0;
@@ -56,6 +54,8 @@ public class Season implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Post> posts = new ArrayList<>();
+	
+	//variables
 
 	public Season() {
 		super();

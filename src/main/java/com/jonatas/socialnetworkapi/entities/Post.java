@@ -19,6 +19,8 @@ import com.jonatas.socialnetworkapi.enuns.TypePostVisibility;
 public class Post implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
 	private String release;
@@ -29,7 +31,6 @@ public class Post implements Serializable{
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
 	private Boolean spoiler;
-	
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -42,6 +43,8 @@ public class Post implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<User> likes = new ArrayList<>();
+	
+	//variables
 
 	public Post() {
 		super();

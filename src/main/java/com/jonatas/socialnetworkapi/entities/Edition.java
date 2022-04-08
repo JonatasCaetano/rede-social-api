@@ -15,8 +15,16 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Edition implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	//variables
+	
 	@Id
 	private String id;
+	private Date release;
+	private Object previous;
+	private Object current;
+	private String attribute;
+	private TypeObject typeObject = TypeObject.EDITION;
+	private Level level;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -33,12 +41,8 @@ public class Edition implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Episode episode;
-	private Date release;
-	private Object previous;
-	private Object current;
-	private String attribute;
-	private TypeObject typeObject = TypeObject.EDITION;
-	private Level level;
+	
+	//variables
 	
 	public Edition() {
 		super();

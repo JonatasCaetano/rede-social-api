@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Follower;
+import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostQuestMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
@@ -104,6 +106,21 @@ public class UserService {
 				workerMiniDTOs.add(workerMiniDTO);
 			}
 			return ResponseEntity.ok().body(workerMiniDTOs);
+		}catch(RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
+	
+	public ResponseEntity<Object> getGroups(String id){
+		try {
+			User user = userRepository.findById(id).get();
+			List<Group> groups = user.getGroups();
+			List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
+			for(Group group : groups) {
+				GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+				groupMiniDTOs.add(groupMiniDTO);
+			}
+			return ResponseEntity.ok().body(groupMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

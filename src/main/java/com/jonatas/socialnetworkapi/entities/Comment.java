@@ -18,6 +18,8 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Comment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
 	private String release;
@@ -25,10 +27,6 @@ public class Comment implements Serializable{
 	private TypeObject typeObject = TypeObject.COMMENT;
 	private int likeQuantity = 0;
 	private TypeComment typeComment;
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
-	List<User> likes = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -41,6 +39,12 @@ public class Comment implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private EntitySave entitySave;
+	
+	@DBRef(lazy = true)
+	@JsonBackReference
+	List<User> likes = new ArrayList<>();
+	
+	//variables
 
 	public Comment() {
 		super();

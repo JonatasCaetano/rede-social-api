@@ -17,13 +17,12 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Invitation implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
-	
 	private Date release;
-	
 	private String value;
-	
 	private TypeObject typeObject = TypeObject.INVITATION;
 	
 	@DBRef(lazy = true)
@@ -33,6 +32,8 @@ public class Invitation implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<User>  invited = new ArrayList<>();
+	
+	//variables
 	
 	public Invitation() {
 		

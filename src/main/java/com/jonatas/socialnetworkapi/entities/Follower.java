@@ -17,11 +17,11 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class Follower implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	//variables
+	
 	@Id
 	private String id;
-	
 	private Date release;
-	
 	private TypeObject typeObject = TypeObject.FOLLOWER;
 	
 	@DBRef(lazy = true)
@@ -31,6 +31,8 @@ public class Follower implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<User> following = new ArrayList<>();
+	
+	//variables
 
 	public Follower() {
 		

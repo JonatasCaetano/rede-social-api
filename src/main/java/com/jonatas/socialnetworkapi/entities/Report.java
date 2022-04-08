@@ -9,6 +9,8 @@ import com.jonatas.socialnetworkapi.enuns.TypeReport;
 
 @Document
 public class Report {
+	
+	//variables
 
 	@Id
 	private String id;
@@ -19,6 +21,8 @@ public class Report {
 	private User author;
 	private Boolean checked = false;
 	private String release;
+	
+	//variables
 		
 	public Report() {
 		super();

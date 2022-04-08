@@ -19,9 +19,10 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
+	//variables
+	
 	@Id
 	private String id;
-	
 	private String name;
 	private String email;
 	private String password;
@@ -30,14 +31,14 @@ public class User implements Serializable{
 	private String lastLogin;
 	private String description;
 	private String place;
-	
 	private boolean privacy = false;
 	private boolean status = true;
 	private boolean checked = false;
-
 	private int quantityFollowing = 0;
 	private int quantityFollowers = 0;
 	private TypeObject typeObject = TypeObject.USER;
+	private List<LikeUser> likes = new ArrayList<>();
+	private List<PostUser> posts = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonBackReference
@@ -66,11 +67,8 @@ public class User implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<User> blocked =  new ArrayList<>();
-	
-	
-	private List<LikeUser> likes = new ArrayList<>();
-	
-	private List<PostUser> posts = new ArrayList<>();
+		
+	//variables
 	
 	
 		
