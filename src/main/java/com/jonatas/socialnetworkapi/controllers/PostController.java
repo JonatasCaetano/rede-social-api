@@ -25,9 +25,9 @@ public class PostController {
 	
 	//get
 	
-	@GetMapping(value = "/get/posts")
-	public ResponseEntity<Object> findAllMini(){
-		return postService.findAllMini();
+	@GetMapping(value = "/get/{idUser}/posts")
+	public ResponseEntity<Object> findAllMini(@PathVariable String idUser){
+		return postService.findAllMini(idUser);
 	}
 		
 	@GetMapping(value = "/get/post/{idPost}/user/{idUser}")

@@ -1,6 +1,7 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
 import com.jonatas.socialnetworkapi.entities.Group;
+import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
 public class GroupMiniDTO {
@@ -23,6 +24,36 @@ public class GroupMiniDTO {
 	
 	private TypeObject typeObject = TypeObject.GROUP;
 	
+	public GroupMiniDTO(Group group, User user) {
+		super();
+		this.id = group.getId();
+		this.name = group.getName();
+		this.description = group.getDescription();
+		this.creator = group.getCreator() != null ? new UserMiniDTO(group.getCreator()) : null;
+		this.creationDate = group.getCreationDate();
+		this.image = group.getImage();
+		this.quantityMembers = group.getMembers().size() + 1;
+		this.quantityModerators = group.getModerators().size();
+		this.quantitySilenced = group.getMembersSilenced().size();
+		this.quantityPosts = group.getPosts().size();
+		
+		if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
+			setUserIsMember(true);
+		}else {
+			setUserIsMember(false);
+		}
+		if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
+			setUserIsModerator(true);
+		}else {
+			setUserIsModerator(false);
+		}
+		if(group.getMembersSilenced().contains(user)) {
+			setUserIsSilenced(true);
+		}else {
+			setUserIsSilenced(false);
+		}
+	}
+	
 	public GroupMiniDTO(Group group) {
 		super();
 		this.id = group.getId();
@@ -35,6 +66,7 @@ public class GroupMiniDTO {
 		this.quantityModerators = group.getModerators().size();
 		this.quantitySilenced = group.getMembersSilenced().size();
 		this.quantityPosts = group.getPosts().size();
+	
 	}
 
 	public String getId() {

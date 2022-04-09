@@ -36,7 +36,7 @@ public class GroupService {
 		List<Group> groups = groupRepository.findAll();
 		List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
 		for(Group group : groups) {
-			GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+			GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group, user);
 			if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
 				groupMiniDTO.setUserIsMember(true);
 			}else {
@@ -60,7 +60,7 @@ public class GroupService {
 	public GroupMiniDTO getGroup(String idGroup, String idUser) {
 		User user = (User) userService.findById(idUser).getBody();
 		Group group = groupRepository.findById(idGroup).get();
-		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group, user);
 		if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
 			groupMiniDTO.setUserIsMember(true);
 		}else {
@@ -132,7 +132,7 @@ public class GroupService {
 			List<Object> objs = new ArrayList<>();
 			for(Post post : posts) {
 				if(post.getTypePost() == TypePost.TALK_GROUP) {
-					PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post);
+					PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post, user);
 					if(post.getLikes().contains(user)) {
 						postTalkGroupMiniDTO.setLiked(true);
 					}else {

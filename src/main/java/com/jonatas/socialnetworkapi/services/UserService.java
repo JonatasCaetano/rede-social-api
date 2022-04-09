@@ -117,7 +117,7 @@ public class UserService {
 			List<Group> groups = user.getGroups();
 			List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
 			for(Group group : groups) {
-				GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group);
+				GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group, user);
 				groupMiniDTOs.add(groupMiniDTO);
 			}
 			return ResponseEntity.ok().body(groupMiniDTOs);

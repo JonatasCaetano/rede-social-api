@@ -72,8 +72,9 @@ public class PostService {
 	
 	//get
 		
-	public ResponseEntity<Object> findAllMini(){
+	public ResponseEntity<Object> findAllMini(String idUser){
 		try {
+			User user = (User) userService.findById(idUser).getBody();
 			Sort sort = Sort.by("release").descending();
 			List<Post> posts = postRepository.findAll(sort);
 			List<Object> objs = new ArrayList<>();
@@ -90,7 +91,7 @@ public class PostService {
 					PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
 					objs.add(postQuestMiniDTO);
 				}else if(post.getTypePost() == TypePost.TALK_GROUP) {
-					PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO((TalkGroup) post);
+					PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO((TalkGroup) post, user);
 					objs.add(postTalkGroupMiniDTO);
 				}
 			
@@ -163,7 +164,7 @@ public class PostService {
 				}
 				return ResponseEntity.ok().body(postQuestMiniDTO); 
 			}else if(post.getTypePost() == TypePost.TALK_GROUP) {
-				PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post);
+				PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post, user);
 				if(post.getLikes().contains(user)) {
 					postTalkGroupMiniDTO.setLiked(true);
 				}else {
@@ -278,7 +279,7 @@ public class PostService {
 					if(post.getTypePost() == TypePost.TALK_GROUP) {
 						TalkGroup postTalkGroup =  (TalkGroup) post;
 						if(groups.contains(postTalkGroup.getGroup())) {
-							PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(postTalkGroup);
+							PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(postTalkGroup, user);
 							if(post.getLikes().contains(user)) {
 								postTalkGroupMiniDTO.setLiked(true);
 							}else {
@@ -438,7 +439,7 @@ public class PostService {
 			userService.save(user);
 			group.getPosts().add(post);
 			groupService.save(group);
-			PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(post);
+			PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(post, user);
 			return ResponseEntity.created(null).body(postTalkGroupMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();

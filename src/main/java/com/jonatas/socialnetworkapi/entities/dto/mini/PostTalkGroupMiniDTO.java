@@ -1,5 +1,6 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
+import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.post.TalkGroup;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
@@ -28,7 +29,7 @@ public class PostTalkGroupMiniDTO {
 		super();
 	}
 	
-	public PostTalkGroupMiniDTO(TalkGroup post) {
+	public PostTalkGroupMiniDTO(TalkGroup post, User user) {
 		super();
 		this.id = post.getId();
 		this.release = post.getRelease();
@@ -42,7 +43,7 @@ public class PostTalkGroupMiniDTO {
 		this.author = post.getAuthor() != null ? new UserMiniDTO(post.getAuthor()) : null;
 		this.close = post.isClose();
 		this.closedBy = post.getClosedBy() != null ? new UserMiniDTO(post.getClosedBy()) : null;
-		this.group = post.getGroup() != null ? new GroupMiniDTO(post.getGroup()) : null;
+		this.group = post.getGroup() != null ? new GroupMiniDTO(post.getGroup(), user) : null;
 		this.title = post.getTitle();
 	}
 
