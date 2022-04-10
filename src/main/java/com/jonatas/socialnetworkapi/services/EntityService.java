@@ -311,7 +311,7 @@ public class EntityService {
 //			if(!user.isChecked()) {
 //				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 //			}
-			Entity entity = entityRepository.findById(editionDTO.getIdUser()).get();
+			Entity entity = entityRepository.findById(editionDTO.getIdEntity()).get();
 			editionDTO.setLevel(Level.ENTITY);
 			editionDTO.setAttribute("description");
 			editionDTO.setPrevious(entity.getDescription());
