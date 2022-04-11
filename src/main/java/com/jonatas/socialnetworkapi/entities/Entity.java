@@ -27,7 +27,6 @@ public class Entity implements Serializable{
 	private String image;
 	private TypeEntity typeEntity;
 	private TypeObject typeObject = TypeObject.ENTITY;
-	private int seasonQuantity = 0;
 	private double evaluationAverage = 0.0;
 	private double evaluationSum = 0.0;
 	private int evaluationQuantity = 0;
@@ -35,11 +34,7 @@ public class Entity implements Serializable{
 	private int category2 = 0;
 	private int category3 = 0;
 	private int category4 = 0;
-			
-	@DBRef(lazy = true)
-	@JsonBackReference
-	private List<Season> seasons = new ArrayList<>();
-	
+				
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Edition> editions = new ArrayList<>();
@@ -88,17 +83,6 @@ public class Entity implements Serializable{
 		this.description = description;
 	}
 		
-	public List<Season> getSeasons() {
-		return seasons;
-	}
-	
-	public int getSeasonQuantity() {
-		return seasonQuantity;
-	}
-
-	public void setSeasonQuantity(int seasonQuantity) {
-		this.seasonQuantity += seasonQuantity;
-	}
 
 	public double getEvaluationAverage() {
 		return evaluationAverage;

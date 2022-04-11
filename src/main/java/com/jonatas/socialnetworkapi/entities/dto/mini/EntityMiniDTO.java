@@ -31,7 +31,6 @@ public class EntityMiniDTO {
 		this.description = entity.getDescription();
 		this.evaluationQuantity = entity.getEvaluationQuantity();
 		this.evaluationAverage = entity.getEvaluationAverage();
-		this.seasonQuantity = entity.getSeasonQuantity();
 		this.typeObject = entity.getTypeObject();
 		this.typeEntity = entity.getTypeEntity();
 		this.image = entity.getImage();

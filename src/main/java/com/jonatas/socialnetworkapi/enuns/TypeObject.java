@@ -4,9 +4,6 @@ public enum TypeObject {
 
 	USER,
 	ENTITY,
-	SEASON,
-	EPISODE,
-	WORKER,
 	POST,
 	INVITATION,
 	FOLLOWER,

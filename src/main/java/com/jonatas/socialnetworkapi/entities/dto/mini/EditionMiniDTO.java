@@ -11,7 +11,6 @@ public class EditionMiniDTO {
 	private String id;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
-	private SeasonMiniDTO season;
 	private String attribute;
 	private Object previous;
 	private Object current;
@@ -28,7 +27,6 @@ public class EditionMiniDTO {
 		this.id = edition.getId();
 		this.user = edition.getUser() != null ? new UserMiniDTO(edition.getUser()) : null;
 		this.entity = edition.getEntity() != null ? new EntityMiniDTO(edition.getEntity()): null;
-		this.season = edition.getSeason() != null ? new SeasonMiniDTO(edition.getSeason()) : null;
 		this.release = edition.getRelease();
 		this.previous = edition.getPrevious();
 		this.current = edition.getCurrent();
@@ -58,14 +56,6 @@ public class EditionMiniDTO {
 
 	public void setEntity(EntityMiniDTO entity) {
 		this.entity = entity;
-	}
-
-	public SeasonMiniDTO getSeason() {
-		return season;
-	}
-
-	public void setSeason(SeasonMiniDTO season) {
-		this.season = season;
 	}
 
 	public Date getRelease() {

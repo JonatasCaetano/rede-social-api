@@ -5,7 +5,6 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Post;
-import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
@@ -21,23 +20,18 @@ public class Update extends Post {
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Entity entity;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Season season;
 		
 	public Update() {
 		super();
 	}
 		
 	public Update(String release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User user,
-			Boolean spoiler, int category, Level level, int evaluation, Entity entity, Season season) {
+			Boolean spoiler, int category, Level level, int evaluation, Entity entity) {
 		super(release, body, typePost, typePostVisibility, user, spoiler);
 		this.category = category;
 		this.level = level;
 		this.evaluation = evaluation;
 		this.entity = entity;
-		this.season = season;
 	}
 
 	public int getCategory() {
@@ -62,14 +56,6 @@ public class Update extends Post {
 
 	public void setEntity(Entity entity) {
 		this.entity = entity;
-	}
-
-	public Season getSeason() {
-		return season;
-	}
-
-	public void setSeason(Season season) {
-		this.season = season;
 	}
 
 	public int getEvaluation() {

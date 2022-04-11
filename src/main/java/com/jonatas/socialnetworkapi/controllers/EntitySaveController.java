@@ -51,12 +51,7 @@ public class EntitySaveController {
 	public ResponseEntity<Object> newEntitySaveEntity(@RequestBody EntitySaveDTO entitySaveDTO){
 		return entitySaveService.newEntitySaveEntity(entitySaveDTO);
 	}
-	
-	@PostMapping(value = "post/season")
-	public ResponseEntity<Object> newEntitySaveSeason(@RequestBody EntitySaveDTO entitySaveDTO){
-		return entitySaveService.newEntitySaveSeason(entitySaveDTO);
-	}
-		
+			
 	//put
 	@PutMapping(value = "put/category")
 	public ResponseEntity<Object> updateEntitySaveCategory(@RequestBody EntitySaveDTO entitySaveDTO){
@@ -89,11 +84,6 @@ public class EntitySaveController {
 	@DeleteMapping(value = "delete/entity")
 	public ResponseEntity<Object> deleteEntitySaveEntity(EntitySaveDTO entitySaveDTO){
 		return entitySaveService.deleteEntitySaveEntity(entitySaveDTO);
-	}
-	
-	@DeleteMapping(value = "delete/season")
-	public ResponseEntity<Object> deleteEntitySaveSeason(EntitySaveDTO entitySaveDTO){
-		return entitySaveService.deleteEntitySaveSeason(entitySaveDTO);
 	}
 	
 }

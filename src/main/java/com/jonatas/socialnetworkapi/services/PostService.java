@@ -14,7 +14,6 @@ import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.Post;
-import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkGroupDTO;
@@ -54,11 +53,7 @@ public class PostService {
 	@Autowired
 	@Lazy
 	private EntityService entityService;
-	
-	@Autowired
-	@Lazy
-	private SeasonService seasonService;
-		
+			
 	@Autowired
 	@Lazy
 	private GroupService groupService;
@@ -355,7 +350,6 @@ public class PostService {
 			}
 			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
 			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
-			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
 			Update post = new Update(
 					postDTO.getRelease(),
 					postDTO.getBody(),
@@ -366,8 +360,7 @@ public class PostService {
 					postDTO.getCategory(),
 					postDTO.getLevel(),
 					postDTO.getEvaluation(),
-					entity,
-					season
+					entity
 					);
 			Post obj = post;
 			obj = postRepository.insert(obj);
@@ -438,26 +431,7 @@ public class PostService {
 			return ResponseEntity.badRequest().build();
 		}
 	}
-	
-//	public ResponseEntity<Object> newPostQuest(PostQuestDTO postDTO){
-//		try {
-//			if(postDTO.getRelease() == null) {
-//				return ResponseEntity.badRequest().build();
-//			}
-//			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
-//			Post post = new Quest(postDTO.getRelease(), postDTO.getBody(), TypePost.QUEST, postDTO.getTypePostVisibility(), user, postDTO.getSpoiler(), postDTO.getOptions(), 0, postDTO.getVotes());
-//			post = postRepository.insert(post);
-//			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
-//			user.getPosts().add(postUser);
-//			userService.save(user);
-//			PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
-//			return ResponseEntity.created(null).body(postTalkMiniDTO);
-//		}catch (RuntimeException e) {
-//			return ResponseEntity.badRequest().build();
-//		}
-//	}
-	
-	
+		
 	//delete
 	
 	public ResponseEntity<Object> deletePost(String idPost, String idUser){

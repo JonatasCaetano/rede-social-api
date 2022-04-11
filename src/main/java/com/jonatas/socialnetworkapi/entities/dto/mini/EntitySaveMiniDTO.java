@@ -17,7 +17,6 @@ public class EntitySaveMiniDTO {
 	private boolean reviewed;
 	private UserMiniDTO user;
 	private EntityMiniDTO entity;
-	private SeasonMiniDTO season;
 	private int evaluation;
 	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
@@ -43,7 +42,6 @@ public class EntitySaveMiniDTO {
 		this.reviewed = entitySave.isReviewed();
 		this.user = entitySave.getUser()!= null ? new UserMiniDTO(entitySave.getUser()) : null;
 		this.entity = entitySave.getEntity() != null? new EntityMiniDTO(entitySave.getEntity()) : null;
-		this.season = entitySave.getSeason() != null? new SeasonMiniDTO(entitySave.getSeason()) : null;
 		this.evaluation = entitySave.getEvaluation();
 		this.review = entitySave.getReview();
 		this.historic = entitySave.getHistoric();
@@ -115,14 +113,6 @@ public class EntitySaveMiniDTO {
 
 	public void setEntity(EntityMiniDTO entity) {
 		this.entity = entity;
-	}
-
-	public SeasonMiniDTO getSeason() {
-		return season;
-	}
-
-	public void setSeason(SeasonMiniDTO season) {
-		this.season = season;
 	}
 
 	public int getEvaluation() {
