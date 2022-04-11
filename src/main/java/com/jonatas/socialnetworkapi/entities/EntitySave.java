@@ -47,11 +47,7 @@ public class EntitySave implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Season season;
-	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Episode episode;
-	
+		
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
@@ -66,12 +62,11 @@ public class EntitySave implements Serializable{
 		super();
 	}
 
-	public EntitySave(User user, Entity entity, Season season, Episode episode, int category, Level level, Boolean spoiler) {
+	public EntitySave(User user, Entity entity, Season season, int category, Level level, Boolean spoiler) {
 		super();
 		this.user = user;
 		this.entity = entity;
 		this.season = season;
-		this.episode = episode;
 		this.category = category;
 		this.level = level;
 		this.spoiler = spoiler;
@@ -99,14 +94,6 @@ public class EntitySave implements Serializable{
 
 	public void setSeason(Season season) {
 		this.season = season;
-	}
-
-	public Episode getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(Episode episode) {
-		this.episode = episode;
 	}
 
 	public int getCategory() {

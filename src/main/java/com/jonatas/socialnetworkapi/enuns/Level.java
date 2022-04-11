@@ -3,7 +3,5 @@ package com.jonatas.socialnetworkapi.enuns;
 public enum Level {
 
 	ENTITY,
-	SEASON,
-	EPISODE,
-	
+	SEASON,	
 }

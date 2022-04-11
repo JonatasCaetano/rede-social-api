@@ -46,11 +46,6 @@ public class SeasonController {
 		return seasonService.getEntitySaveMini(idSeason, idUser);
 	}
 	
-	@GetMapping(value = "get/season/{id}/episodes")
-	public ResponseEntity<Object> getEpisodesMini(@PathVariable String id){
-		return seasonService.getEpisodesMini(id);
-	}
-	
 	@GetMapping(value = "get/season/{id}/editions")
 	public ResponseEntity<Object> getEditionsMini(@PathVariable String id){
 		return seasonService.getEditionsMini(id);

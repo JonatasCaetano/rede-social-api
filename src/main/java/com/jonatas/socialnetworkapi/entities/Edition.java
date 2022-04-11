@@ -38,23 +38,18 @@ public class Edition implements Serializable{
 	@JsonManagedReference
 	private Season season;
 	
-	@DBRef(lazy = true)
-	@JsonManagedReference
-	private Episode episode;
-	
 	//variables
 	
 	public Edition() {
 		super();
 	}
 
-	public Edition(User user, Entity entity, Season season, Episode episode, Date release, Object previous,
+	public Edition(User user, Entity entity, Season season, Date release, Object previous,
 			Object current, String attribute, Level level) {
 		super();
 		this.user = user;
 		this.entity = entity;
 		this.season = season;
-		this.episode = episode;
 		this.release = release;
 		this.previous = previous;
 		this.current = current;
@@ -84,14 +79,6 @@ public class Edition implements Serializable{
 
 	public void setSeason(Season season) {
 		this.season = season;
-	}
-
-	public Episode getEpisode() {
-		return episode;
-	}
-
-	public void setEpisode(Episode episode) {
-		this.episode = episode;
 	}
 
 	public Date getRelease() {

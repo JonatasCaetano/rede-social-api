@@ -225,7 +225,7 @@ public class EntityService {
 			editionDTO.setPrevious(entity.getName());
 			entity.setName((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
@@ -250,7 +250,7 @@ public class EntityService {
 			entity.setImage((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
 			editionDTO.setCurrent(entity.getImage());			
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			
@@ -277,7 +277,7 @@ public class EntityService {
 			entity.setImage(null);
 			entityRepository.save(entity);
 			editionDTO.setCurrent(entity.getImage());
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);
@@ -300,7 +300,7 @@ public class EntityService {
 			editionDTO.setPrevious(entity.getDescription());
 			entity.setDescription((String) editionDTO.getCurrent());
 			entityRepository.save(entity);
-			Edition edition = new Edition(user, entity, null, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, entity, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			entity.getEditions().add(edition);

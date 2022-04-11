@@ -39,7 +39,6 @@ public class SeasonMiniDTO {
 		this.description = season.getDescription();
 		this.numberSeason = season.getNumberSeason();
 		this.evaluationAverage = season.getEvaluationAverage();
-		this.episodeQuantity = season.getEpisodeQuantity();
 		this.evaluationQuantity = season.getEvaluationQuantity();
 		this.entity = season.getEntity() != null ? new EntityMiniDTO(season.getEntity()) : null;
 		this.category1 = season.getCategory1();

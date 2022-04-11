@@ -11,14 +11,12 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.Edition;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.entities.dto.SeasonDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.EpisodeMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.Level;
@@ -117,22 +115,7 @@ public class SeasonService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	public ResponseEntity<Object> getEpisodesMini(String id){
-		try {
-			Season season = seasonRepository.findById(id).get();
-			List<Episode> episodes = season.getEpisodes();
-			List<EpisodeMiniDTO> episodeMiniDTOs = new ArrayList<>();
-			for(Episode episode : episodes) {
-				EpisodeMiniDTO episodeMiniDTO = new EpisodeMiniDTO(episode);
-				episodeMiniDTOs.add(episodeMiniDTO);
-			}
-			return ResponseEntity.ok().body(episodeMiniDTOs);
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
+		
 	public ResponseEntity<Object> getEditionsMini(String id){
 		try {
 			Season season = seasonRepository.findById(id).get();
@@ -244,7 +227,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getName());
 			season.setName((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
@@ -268,7 +251,7 @@ public class SeasonService {
 			season.setImage((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
 			editionDTO.setCurrent(season.getImage());
-			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
@@ -292,7 +275,7 @@ public class SeasonService {
 			season.setImage(null);
 			seasonRepository.save(season);
 			editionDTO.setCurrent(season.getImage());
-			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);
@@ -316,7 +299,7 @@ public class SeasonService {
 			editionDTO.setPrevious(season.getDescription());
 			season.setDescription((String) editionDTO.getCurrent());
 			seasonRepository.save(season);
-			Edition edition = new Edition(user, null, season, null, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
+			Edition edition = new Edition(user, null, season, null, editionDTO.getPrevious(), editionDTO.getCurrent(), editionDTO.getAttribute(), editionDTO.getLevel());
 			EditionMiniDTO editionMiniDTO = (EditionMiniDTO) editionService.newEdition(edition).getBody();
 			edition = (Edition) editionService.findById(editionMiniDTO.getId()).getBody();
 			season.getEditions().add(edition);

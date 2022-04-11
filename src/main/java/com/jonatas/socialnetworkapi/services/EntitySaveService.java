@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.EntitySaveDTO;
@@ -45,10 +44,6 @@ public class EntitySaveService {
 	@Autowired
 	@Lazy
 	private SeasonService seasonService;
-	
-	@Autowired
-	@Lazy
-	private EpisodeService episodeService;
 	
 	@Autowired
 	@Lazy
@@ -169,7 +164,6 @@ public class EntitySaveService {
 					user,
 					entity,
 					null,
-					null,
 					entitySaveDTO.getCategory(),
 					Level.ENTITY, 
 					entitySaveDTO.isSpoiler()
@@ -223,7 +217,6 @@ public class EntitySaveService {
 					user,
 					null,
 					season,
-					null,
 					entitySaveDTO.getCategory(),
 					Level.SEASON,
 					entitySaveDTO.isSpoiler()
@@ -266,56 +259,7 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> newEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
-		try {
-			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
-			Episode episode = (Episode) episodeService.findById(entitySaveDTO.getIdEpisode()).getBody();
-			EntitySave entitySave = new EntitySave(
-					user,
-					null,
-					null,
-					episode,
-					entitySaveDTO.getCategory(),
-					Level.EPISODE,
-					entitySaveDTO.isSpoiler()
-					);
-			List<EntitySave> entitySaves = user.getEntitySaves();
-			for(EntitySave obj : entitySaves) {
-				boolean entitySaveExists = false;
-				if(obj.getLevel() == Level.EPISODE) {
-				if(obj.getEpisode().getId().hashCode() == episode.getId().hashCode()) {
-					entitySaveExists = true;
-				}
-				if(entitySaveExists) {
-					return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-				}
-				}
-			}
-			entitySave = entitySaveRepository.insert(entitySave);
-			user.getEntitySaves().add(entitySave);
-			userService.save(user);
-			episode.getEntitySaves().add(entitySave);
-			switch (entitySaveDTO.getCategory()) {
-			case 1:
-				episode.setCategory1(1);
-				break;
-			case 2:
-				episode.setCategory2(1);
-				break;
-			case 3:
-				episode.setCategory3(1);
-				break;
-			case 4:
-				episode.setCategory4(1);
-				break;
-			}
-			episodeService.save(episode);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
-			return ResponseEntity.created(null).body(entitySaveMiniDTO);
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
+	
 	
 	//put
 	
@@ -370,9 +314,6 @@ public class EntitySaveService {
 			case SEASON:
 				updateQuantityCategorySeason(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
 				break;
-			case EPISODE:
-				updateQuantityCategoryEpisode(entitySave, entitySave.getCategory(), entitySaveDTO.getCategory());
-				break;	
 			
 			}
 			entitySave.setCategory(entitySaveDTO.getCategory());
@@ -420,21 +361,6 @@ public class EntitySaveService {
 					season.setEvaluationQuantity(+ 1);
 					season.setEvaluationAverage();
 					seasonService.save(season);
-				}
-				break;
-			case EPISODE:
-				if(entitySave.isRated()) {
-					Episode episode = entitySave.getEpisode();
-					episode.setEvaluationSum(- entitySave.getEvaluation());
-					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-					episode.setEvaluationAverage();
-					episodeService.save(episode);
-				}else {
-					Episode episode = entitySave.getEpisode();
-					episode.setEvaluationSum(+ entitySaveDTO.getEvaluation());
-					episode.setEvaluationQuantity(+ 1);
-					episode.setEvaluationAverage();
-					episodeService.save(episode);
 				}
 				break;
 			}
@@ -511,21 +437,6 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> deleteEntitySaveEpisode(EntitySaveDTO entitySaveDTO){
-		try {
-			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
-			Episode episode = (Episode) entityService.findById(entitySaveDTO.getIdEpisode()).getBody();
-			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			user.getEntitySaves().remove(entitySave);
-			userService.save(user);
-			episode.getEntitySaves().remove(entitySave);
-			episodeService.save(episode);
-			entitySaveRepository.delete(entitySave);
-			return ResponseEntity.ok().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
 	
 	//internal
 	
@@ -626,43 +537,6 @@ public class EntitySaveService {
 		}
 	}
 	
-	public ResponseEntity<Object> updateQuantityCategoryEpisode(EntitySave entitySave, int current, int newValue){
-		try {
-			Episode episode = entitySave.getEpisode();
-			switch (current) {
-			case 1:
-				episode.setCategory1(-1);
-				break;
-			case 2:
-				episode.setCategory2(-1);
-				break;
-			case 3:
-				episode.setCategory3(-1);
-				break;
-			case 4:
-				episode.setCategory4(-1);
-				break;
-			}
-			
-			switch (newValue) {
-			case 1:
-				episode.setCategory1(1);
-				break;
-			case 2:
-				episode.setCategory2(1);
-				break;
-			case 3:
-				episode.setCategory3(1);
-				break;
-			case 4:
-				episode.setCategory4(1);
-				break;
-			}
-			episodeService.save(episode);
-			return ResponseEntity.accepted().body(entitySave);
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
+	
 	
 }

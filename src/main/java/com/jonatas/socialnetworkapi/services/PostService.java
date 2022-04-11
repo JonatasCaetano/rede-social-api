@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.jonatas.socialnetworkapi.entities.Comment;
 import com.jonatas.socialnetworkapi.entities.Entity;
-import com.jonatas.socialnetworkapi.entities.Episode;
 import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.Post;
 import com.jonatas.socialnetworkapi.entities.Season;
@@ -59,11 +58,7 @@ public class PostService {
 	@Autowired
 	@Lazy
 	private SeasonService seasonService;
-	
-	@Autowired
-	@Lazy
-	private EpisodeService episodeService;
-	
+		
 	@Autowired
 	@Lazy
 	private GroupService groupService;
@@ -361,7 +356,6 @@ public class PostService {
 			User user = (User) userService.findById(postDTO.getIdAuthor()).getBody();
 			Entity entity = (Entity) entityService.findById(postDTO.getIdEntity()).getBody();
 			Season season = (Season) seasonService.findById(postDTO.getIdSeason()).getBody();
-			Episode episode = (Episode) episodeService.findById(postDTO.getIdEpisode()).getBody();
 			Update post = new Update(
 					postDTO.getRelease(),
 					postDTO.getBody(),
@@ -373,8 +367,7 @@ public class PostService {
 					postDTO.getLevel(),
 					postDTO.getEvaluation(),
 					entity,
-					season,
-					episode
+					season
 					);
 			Post obj = post;
 			obj = postRepository.insert(obj);
