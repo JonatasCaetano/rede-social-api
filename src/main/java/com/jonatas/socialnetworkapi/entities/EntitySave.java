@@ -14,6 +14,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
+//alterar o nome de EntitySave para Register//
 @Document
 public class EntitySave implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -22,19 +23,26 @@ public class EntitySave implements Serializable{
 	
 	@Id
 	private String id;
+	
+	//alterar Level para TypeEdition//
 	private Level level;
+	
 	private int category;
 	private boolean goal = false;
 	private boolean rated = false;
 	private boolean reviewed = false;
 	private int evaluation;
+	
+	//alterar review para uma referencia de um post//
 	private String review;
+	
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
+	
+	//remover//
 	private boolean spoiler;
+	
+	//alterar release para data//
 	private String release;
-	private int likeQuantity = 0;
-	private int commentQuantity = 0;
-	List<String> historic = new ArrayList<>();
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
@@ -43,11 +51,13 @@ public class EntitySave implements Serializable{
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private Entity entity;
-		
+	
+	//remover comments//
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
 	
+	//remover likes//
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<User> likes = new ArrayList<>();
@@ -119,10 +129,6 @@ public class EntitySave implements Serializable{
 		return id;
 	}
 
-	public List<String> getHistoric() {
-		return historic;
-	}
-	
 	public TypeObject getTypeObject() {
 		return typeObject;
 	}
@@ -168,19 +174,11 @@ public class EntitySave implements Serializable{
 	}
 	
 	public int getLikeQuantity() {
-		return likeQuantity;
-	}
-
-	public void setLikeQuantity(int likeQuantity) {
-		this.likeQuantity += likeQuantity;
+		return getLikes().size();
 	}
 
 	public int getCommentQuantity() {
-		return commentQuantity;
-	}
-
-	public void setCommentQuantity(int commentQuantity) {
-		this.commentQuantity += commentQuantity;
+		return getComments().size();
 	}
 
 	public List<Comment> getComments() {

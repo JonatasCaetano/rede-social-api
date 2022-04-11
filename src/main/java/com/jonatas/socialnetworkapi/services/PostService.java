@@ -435,7 +435,6 @@ public class PostService {
 				return removeLike(idUser, idPost);
 			}
 			post.getLikes().add(user);
-			post.setLikeQuantity(1);
 			postRepository.save(post);
 			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().add(like);
@@ -451,7 +450,6 @@ public class PostService {
 			User user = (User) userService.findById(idUser).getBody();
 			Post post = postRepository.findById(idPost).get();
 			post.getLikes().remove(user);
-			post.setLikeQuantity(-1);
 			postRepository.save(post);
 			LikeUser like = new LikeUser(post.getId(), TypeObject.POST);
 			user.getLikes().remove(like);

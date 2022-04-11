@@ -19,11 +19,16 @@ public class Edition implements Serializable{
 	
 	@Id
 	private String id;
+	
+	//alterar release para data//
 	private Date release;
+	
 	private Object previous;
 	private Object current;
 	private String attribute;
 	private TypeObject typeObject = TypeObject.EDITION;
+	
+	//alterar Level para TypeEdition//
 	private Level level;
 	
 	@DBRef(lazy = true)

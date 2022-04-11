@@ -22,10 +22,12 @@ public class Comment implements Serializable{
 	
 	@Id
 	private String id;
+	
+	//alterar release para data//
 	private String release;
+	
 	private String body;
 	private TypeObject typeObject = TypeObject.COMMENT;
-	private int likeQuantity = 0;
 	private TypeComment typeComment;
 	
 	@DBRef(lazy = true)
@@ -36,6 +38,7 @@ public class Comment implements Serializable{
 	@JsonManagedReference
 	private Post post;
 	
+	//remover entitySave//
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private EntitySave entitySave;
@@ -101,11 +104,7 @@ public class Comment implements Serializable{
 	}
 
 	public int getLikeQuantity() {
-		return likeQuantity;
-	}
-
-	public void setLikeQuantity(int likeQuantity) {
-		this.likeQuantity += likeQuantity;
+		return getLikes().size();
 	}
 
 	public List<User> getLikes() {

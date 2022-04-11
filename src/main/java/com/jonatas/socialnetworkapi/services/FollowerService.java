@@ -119,8 +119,8 @@ public class FollowerService {
 			}else {
 				follower.getFollowing().add(userFollowing);
 				followerRepository.save(follower);
-				userFollower.setQuantityFollowing(+ 1);
-				userService.save(userFollower);
+//				userFollower.setQuantityFollowing(+ 1);
+//				userService.save(userFollower);
 				userFollowing.setQuantityFollowers(+ 1);
 				userService.save(userFollowing);
 				return ResponseEntity.accepted().build();
@@ -142,8 +142,8 @@ public class FollowerService {
 			}else {
 				follower.getFollowing().remove(userFollowing);
 				followerRepository.save(follower);
-				userFollower.setQuantityFollowing(- 1);
-				userService.save(userFollower);
+//				userFollower.setQuantityFollowing(- 1);
+//				userService.save(userFollower);
 				userFollowing.setQuantityFollowers(- 1);
 				userService.save(userFollowing);
 				return ResponseEntity.accepted().build();

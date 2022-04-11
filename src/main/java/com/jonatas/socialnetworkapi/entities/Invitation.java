@@ -21,7 +21,10 @@ public class Invitation implements Serializable{
 	
 	@Id
 	private String id;
+	
+	//alterar release para data//
 	private Date release;
+	
 	private String value;
 	private TypeObject typeObject = TypeObject.INVITATION;
 	

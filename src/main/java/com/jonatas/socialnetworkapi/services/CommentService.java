@@ -88,7 +88,6 @@ public class CommentService {
 			user.getComments().add(comment);
 			userService.save(user);
 			post.getComments().add(comment);
-			post.setCommentQuantity(1);
 			postService.save(post);
 			CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
 			return ResponseEntity.created(null).body(commentMiniDTO);
@@ -108,7 +107,6 @@ public class CommentService {
 			user.getComments().add(comment);
 			userService.save(user);
 			entitySave.getComments().add(comment);
-			entitySave.setCommentQuantity(1);
 			entitySaveService.save(entitySave);
 			CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
 			return ResponseEntity.created(null).body(commentMiniDTO);
@@ -122,9 +120,6 @@ public class CommentService {
 	
 	public ResponseEntity<Object> deleteComment(CommentDTO commentDTO){
 		try {
-//			System.out.println(commentDTO.getIdComment());
-//			System.out.println(commentDTO.getIdPost());
-//			System.out.println(commentDTO.getIdAuthor());
 			User user = (User) userService.findById(commentDTO.getIdAuthor()).getBody();
 			Post post = (Post) postService.findById(commentDTO.getIdPost()).getBody();
 			Comment comment = commentRepository.findById(commentDTO.getIdComment()).get();
@@ -136,7 +131,6 @@ public class CommentService {
 			user.getComments().remove(comment);
 			userService.save(user);
 			post.getComments().remove(comment);
-			post.setCommentQuantity(-1);
 			postService.save(post);
 			commentRepository.delete(comment);
 			return ResponseEntity.ok().build();
@@ -159,7 +153,6 @@ public class CommentService {
 			user.getComments().remove(comment);
 			userService.save(user);
 			entitySave.getComments().remove(comment);
-			entitySave.setCommentQuantity(-1);
 			entitySaveService.save(entitySave);
 			commentRepository.delete(comment);
 			return ResponseEntity.ok().build();
@@ -180,7 +173,6 @@ public class CommentService {
 					return removeLike(idUser, idComment);
 				}
 				comment.getLikes().add(user);
-				comment.setLikeQuantity(1);
 				commentRepository.save(comment);
 				LikeUser like = new LikeUser(comment.getId(), TypeObject.COMMENT);
 				user.getLikes().add(like);
@@ -197,7 +189,6 @@ public class CommentService {
 				User user = (User) userService.findById(idUser).getBody();
 				Comment comment = commentRepository.findById(idComment).get();
 				comment.getLikes().remove(user);
-				comment.setLikeQuantity(-1);
 				commentRepository.save(comment);
 				LikeUser like = new LikeUser(comment.getId(), TypeObject.COMMENT);
 				user.getLikes().remove(like);

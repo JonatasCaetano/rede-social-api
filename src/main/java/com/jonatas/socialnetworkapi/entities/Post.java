@@ -23,23 +23,28 @@ public class Post implements Serializable{
 	
 	@Id
 	private String id;
+	
+	//alterar release para data//
 	private String release;
+	
 	private String body;
 	private TypePost typePost;
 	private TypePostVisibility typePostVisibility;
-	private int likeQuantity = 0;
-	private int commentQuantity = 0;
+//	private int likeQuantity = 0;
+//	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
-	private Boolean spoiler;
+	private boolean spoiler;
 	
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private User author;
-		
+
+	//alterar para Objeto do tipo CommentsPost//
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Comment> comments = new ArrayList<>();
 	
+	//alterar para Objeto do tipo LikesPost//
 	@DBRef(lazy = true)
 	@JsonManagedReference
 	private List<User> likes = new ArrayList<>();
@@ -50,7 +55,7 @@ public class Post implements Serializable{
 		super();
 	}
 
-	public Post(String release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User author, Boolean spoiler) {
+	public Post(String release, String body, TypePost typePost, TypePostVisibility typePostVisibility, User author, boolean spoiler) {
 		super();
 		this.release = release;
 		this.body = body;
@@ -93,19 +98,11 @@ public class Post implements Serializable{
 	}
 
 	public int getLikeQuantity() {
-		return likeQuantity;
-	}
-
-	public void setLikeQuantity(int likeQuantity) {
-		this.likeQuantity += likeQuantity;
+		return getLikes().size();
 	}
 
 	public int getCommentQuantity() {
-		return commentQuantity;
-	}
-
-	public void setCommentQuantity(int commentQuantity) {
-		this.commentQuantity += commentQuantity;
+		return getComments().size();
 	}
 
 	public User getAuthor() {

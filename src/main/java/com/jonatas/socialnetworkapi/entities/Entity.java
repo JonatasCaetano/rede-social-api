@@ -34,11 +34,14 @@ public class Entity implements Serializable{
 	private int category2 = 0;
 	private int category3 = 0;
 	private int category4 = 0;
-				
+	
+	
+	//alterar DBFef para DocumentReference//			
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Edition> editions = new ArrayList<>();
 	
+	//alterar DBFef para DocumentReference//
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();

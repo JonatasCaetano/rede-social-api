@@ -213,7 +213,6 @@ public class EntitySaveService {
 			}
 			LikeUser likeUser = new LikeUser(entitySave.getId(), TypeObject.ENTITY_SAVE);
 			user.getLikes().add(likeUser);
-			entitySave.setLikeQuantity(1);
 			entitySave.getLikes().add(user);
 			entitySaveRepository.save(entitySave);
 			userService.save(user);
@@ -229,7 +228,6 @@ public class EntitySaveService {
 			User user = (User) userService.findById(idUser).getBody();
 			EntitySave entitySave = entitySaveRepository.findById(idEntitySave).get();
 			entitySave.getLikes().remove(user);
-			entitySave.setLikeQuantity(-1);
 			entitySaveRepository.save(entitySave);
 			LikeUser like = new LikeUser(entitySave.getId(), TypeObject.ENTITY_SAVE);
 			user.getLikes().remove(like);

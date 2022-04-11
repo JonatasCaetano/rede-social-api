@@ -44,7 +44,6 @@ public class EntitySaveMiniDTO {
 		this.entity = entitySave.getEntity() != null? new EntityMiniDTO(entitySave.getEntity()) : null;
 		this.evaluation = entitySave.getEvaluation();
 		this.review = entitySave.getReview();
-		this.historic = entitySave.getHistoric();
 		this.spoiler = entitySave.getSpoiler();
 		this.release = entitySave.getRelease();
 		this.likeQuantity = entitySave.getLikeQuantity();
@@ -137,14 +136,6 @@ public class EntitySaveMiniDTO {
 
 	public void setTypeObject(TypeObject typeObject) {
 		this.typeObject = typeObject;
-	}
-
-	public List<String> getHistoric() {
-		return historic;
-	}
-
-	public void setHistoric(List<String> historic) {
-		this.historic = historic;
 	}
 
 	public boolean isSpoiler() {

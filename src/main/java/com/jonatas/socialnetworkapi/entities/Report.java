@@ -1,8 +1,10 @@
 package com.jonatas.socialnetworkapi.entities;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jonatas.socialnetworkapi.enuns.LevelReport;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypeReport;
@@ -15,12 +17,23 @@ public class Report {
 	@Id
 	private String id;
 	private TypeObject typeObject = TypeObject.REPORT;
+	
+	//alterar levelReport para typeReport//
 	private LevelReport levelReport;
+	
 	private String idReported;
+	
+	//alterar TypeReport para TypeInfraction//
 	private TypeReport typeReport;
-	private User author;
-	private Boolean checked = false;
+	
+	private boolean checked = false;
+	
+	//alterar release para data//
 	private String release;
+	
+	@DBRef(lazy = true)
+	@JsonManagedReference
+	private User author;
 	
 	//variables
 		

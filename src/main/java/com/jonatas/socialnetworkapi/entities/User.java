@@ -27,17 +27,27 @@ public class User implements Serializable{
 	private String email;
 	private String password;
 	private String imageProfile;
+	
+	//alterar release para data//
 	private String release;
+	
+	//alterar para data//
 	private String lastLogin;
 	private String description;
+	
+	//remover//
 	private String place;
+	
 	private boolean privacy = false;
 	private boolean status = true;
 	private boolean checked = false;
-	private int quantityFollowing = 0;
 	private int quantityFollowers = 0;
 	private TypeObject typeObject = TypeObject.USER;
+	
+	//Alterar//
 	private List<LikeUser> likes = new ArrayList<>();
+	
+	//alterar//
 	private List<PostUser> posts = new ArrayList<>();
 	
 	@DBRef(lazy = true)
@@ -66,8 +76,6 @@ public class User implements Serializable{
 		
 	//variables
 	
-	
-		
 	public User() {
 		super();
 	}
@@ -182,11 +190,7 @@ public class User implements Serializable{
 	}
 		
 	public int getQuantityFollowing() {
-		return quantityFollowing;
-	}
-
-	public void setQuantityFollowing(int quantityFollowing) {
-		this.quantityFollowing += quantityFollowing;
+		return getFollower().getFollowing().size();
 	}
 
 	public int getQuantityFollowers() {

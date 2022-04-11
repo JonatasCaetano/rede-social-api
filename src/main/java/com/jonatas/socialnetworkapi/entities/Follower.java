@@ -21,7 +21,10 @@ public class Follower implements Serializable{
 	
 	@Id
 	private String id;
+	
+	//alterar release para data//
 	private Date release;
+	
 	private TypeObject typeObject = TypeObject.FOLLOWER;
 	
 	@DBRef(lazy = true)
