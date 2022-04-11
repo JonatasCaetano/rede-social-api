@@ -15,7 +15,6 @@ import com.jonatas.socialnetworkapi.entities.Entity;
 import com.jonatas.socialnetworkapi.entities.EntitySave;
 import com.jonatas.socialnetworkapi.entities.Season;
 import com.jonatas.socialnetworkapi.entities.User;
-import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.EditionDTO;
 import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
@@ -23,7 +22,6 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.SeasonMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 
@@ -83,21 +81,6 @@ public class EntityService {
 			EntityMiniDTO entityMiniDTO = new EntityMiniDTO(entity);
 			return ResponseEntity.ok().body(entityMiniDTO);
 		}catch (RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
-	public ResponseEntity<Object> getWorkersMini(String id){
-		try {
-			Entity entity = entityRepository.findById(id).get();
-			List<Worker> workers = entity.getWorkers();
-			List<WorkerMiniDTO> workerMiniDTOs = new ArrayList<>();
-			for(Worker worker : workers) {
-				WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
-				workerMiniDTOs.add(workerMiniDTO);
-			}
-			return ResponseEntity.ok().body(workerMiniDTOs);
-		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}
 	}

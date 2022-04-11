@@ -35,11 +35,7 @@ public class Entity implements Serializable{
 	private int category2 = 0;
 	private int category3 = 0;
 	private int category4 = 0;
-		
-	@DBRef(lazy = true)
-	@JsonBackReference
-	private List<Worker> workers = new ArrayList<>();
-	
+			
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<Season> seasons = new ArrayList<>();
@@ -92,10 +88,6 @@ public class Entity implements Serializable{
 		this.description = description;
 	}
 		
-	public List<Worker> getWorkers() {
-		return workers;
-	}
-
 	public List<Season> getSeasons() {
 		return seasons;
 	}

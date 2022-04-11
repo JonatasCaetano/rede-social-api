@@ -33,12 +33,7 @@ public class EntityController {
 	public ResponseEntity<Object> findByIdMini(@PathVariable String id){
 		return entityService.findByIdMini(id);
 	}
-	
-	@GetMapping(value = "get/entity/{id}/workers")
-	public ResponseEntity<Object> getWorkersMini(@PathVariable String id){
-		return entityService.getWorkersMini(id);
-	}
-	
+		
 	@GetMapping(value = "get/entity/{id}/seasons")
 	public ResponseEntity<Object> getSeasonsMini(@PathVariable String id){
 		return entityService.getSeasonsMini(id);

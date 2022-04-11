@@ -47,11 +47,7 @@ public class User implements Serializable{
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private Invitation invitation;
-	
-	@DBRef(lazy = true)
-	@JsonBackReference
-	private List<Worker> workers = new ArrayList<>();
-	
+		
 	@DBRef(lazy = true)
 	@JsonBackReference
 	private List<EntitySave> entitySaves = new ArrayList<>();
@@ -119,10 +115,6 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public List<Worker> getWorkers() {
-		return workers;
 	}
 
 	public Follower getFollower() {

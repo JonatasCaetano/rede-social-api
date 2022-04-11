@@ -14,7 +14,6 @@ import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.Group;
 import com.jonatas.socialnetworkapi.entities.Invitation;
 import com.jonatas.socialnetworkapi.entities.User;
-import com.jonatas.socialnetworkapi.entities.Worker;
 import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
@@ -24,7 +23,6 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.WorkerMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
 import com.jonatas.socialnetworkapi.enuns.Level;
@@ -95,22 +93,7 @@ public class UserService {
 			return ResponseEntity.notFound().build();
 		}
 	}
-	
-	public ResponseEntity<Object> getWorkersMini(String id){
-		try {
-			User user = userRepository.findById(id).get();
-			List<Worker> workers = user.getWorkers();
-			List<WorkerMiniDTO> workerMiniDTOs = new ArrayList<>();
-			for(Worker worker : workers) {
-				WorkerMiniDTO workerMiniDTO = new WorkerMiniDTO(worker);
-				workerMiniDTOs.add(workerMiniDTO);
-			}
-			return ResponseEntity.ok().body(workerMiniDTOs);
-		}catch(RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	
+		
 	public ResponseEntity<Object> getGroups(String id){
 		try {
 			User user = userRepository.findById(id).get();
