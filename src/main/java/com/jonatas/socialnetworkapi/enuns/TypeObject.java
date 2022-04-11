@@ -11,7 +11,6 @@ public enum TypeObject {
 	ENTITY_SAVE,
 	EDITION,
 	COMMENT,
-	TALK,
 	REPORT,
 	GROUP;
 }

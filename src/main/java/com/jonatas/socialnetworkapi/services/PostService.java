@@ -19,15 +19,12 @@ import com.jonatas.socialnetworkapi.entities.dto.PostTalkDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostTalkGroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.PostUpdateDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.CommentMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.PostQuestMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
-import com.jonatas.socialnetworkapi.entities.helper.VoteQuest;
-import com.jonatas.socialnetworkapi.entities.post.Quest;
 import com.jonatas.socialnetworkapi.entities.post.Talk;
 import com.jonatas.socialnetworkapi.entities.post.TalkGroup;
 import com.jonatas.socialnetworkapi.entities.post.Update;
@@ -77,9 +74,6 @@ public class PostService {
 					PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post);
 					objs.add(postTalkMiniDTO);
 					
-				}else if(post.getTypePost() == TypePost.QUEST) {
-					PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
-					objs.add(postQuestMiniDTO);
 				}else if(post.getTypePost() == TypePost.TALK_GROUP) {
 					PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO((TalkGroup) post, user);
 					objs.add(postTalkGroupMiniDTO);
@@ -134,25 +128,6 @@ public class PostService {
 					}
 				}
 				return ResponseEntity.ok().body(postTalkMiniDTO); 
-			}else if(post.getTypePost() == TypePost.QUEST) {
-				PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
-				if(post.getLikes().contains(user)) {
-					postQuestMiniDTO.setLiked(true);
-				}else {
-					postQuestMiniDTO.setLiked(false);
-				}
-				if(!post.getLikes().isEmpty()) {
-					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
-						postQuestMiniDTO.setLike(userMiniDTO);
-					}else {
-						if(post.getLikes().size() > 1) {
-							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-							postQuestMiniDTO.setLike(userMiniDTO);
-						}
-					}
-				}
-				return ResponseEntity.ok().body(postQuestMiniDTO); 
 			}else if(post.getTypePost() == TypePost.TALK_GROUP) {
 				PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post, user);
 				if(post.getLikes().contains(user)) {
@@ -234,33 +209,6 @@ public class PostService {
 								}
 							}
 							posts.add(postTalkMiniDTO);
-						}else if(post.getTypePost() == TypePost.QUEST) {
-							Quest quest = (Quest) post;
-							PostQuestMiniDTO postQuestMiniDTO = new PostQuestMiniDTO((Quest) post);
-							
-							if(post.getLikes().contains(user)) {
-								postQuestMiniDTO.setLiked(true);
-							}else {
-								postQuestMiniDTO.setLiked(false);
-							}
-							for(VoteQuest voteQuest : quest.getUsersVotes()) {
-								if(voteQuest.getUser().equals(user)) {
-									postQuestMiniDTO.setVoted(true);
-									postQuestMiniDTO.setValueVoted(voteQuest.getVote());
-								}
-							}
-							if(!post.getLikes().isEmpty()) {
-								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
-									postQuestMiniDTO.setLike(userMiniDTO);
-								}else {
-									if(post.getLikes().size() > 1) {
-										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-										postQuestMiniDTO.setLike(userMiniDTO);
-									}
-								}
-							}
-							posts.add(postQuestMiniDTO);
 						}
 						
 					}
@@ -477,39 +425,6 @@ public class PostService {
 		}
 	}
 	
-	public ResponseEntity<Object> updateVotePostQuest(int value, String idUser, String idPost){
-		try {
-			User user = (User) userService.findById(idUser).getBody();
-			Quest post = (Quest) postRepository.findById(idPost).get();
-			for(VoteQuest voteQuest :  post.getUsersVotes()) {
-				if(voteQuest.getUser().equals(user)) {
-					if(value != voteQuest.getVote()) {
-						//post.setVotesQuantity(+1);
-						post.getVotes().add(voteQuest.getVote(), post.getVotes().get(value) - 1);
-						post.getVotes().add(value, post.getVotes().get(value) + 1);
-						voteQuest = new VoteQuest(post, user, value);
-						post.getUsersVotes().add(voteQuest);
-						postRepository.save(post);
-						return ResponseEntity.accepted().build();
-					}else {
-						post.setVotesQuantity(-1);
-						post.getVotes().add(value, post.getVotes().get(value) - 1);
-						post.getUsersVotes().remove(voteQuest);
-						postRepository.save(post);
-						return ResponseEntity.accepted().build();
-					}
-				}
-			}
-			post.setVotesQuantity(+1);
-			post.getVotes().add(value, post.getVotes().get(value) + 1);
-			VoteQuest voteQuest = new VoteQuest(post, user, value);
-			post.getUsersVotes().add(voteQuest);
-			postRepository.save(post);
-			return ResponseEntity.accepted().build();
-		}catch (RuntimeException e) {
-			return ResponseEntity.badRequest().build();
-		}
-	}
 	
 	public ResponseEntity<Object> addLike(String idUser, String idPost){
 		try {

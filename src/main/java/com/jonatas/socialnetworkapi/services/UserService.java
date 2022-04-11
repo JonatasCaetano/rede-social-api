@@ -18,7 +18,6 @@ import com.jonatas.socialnetworkapi.entities.dto.UserDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.InvitationMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.PostQuestMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
@@ -123,10 +122,6 @@ public class UserService {
 					PostTalkMiniDTO postTalkMiniDTO = (PostTalkMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
 					//objs.add(postTalkMiniDTO);
 					objs.add(0, postTalkMiniDTO);
-				}else if(postUser.getTypePost() == TypePost.QUEST) {
-					PostQuestMiniDTO postQuestMiniDTO = (PostQuestMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
-					//objs.add(postQuestMiniDTO);
-					objs.add(0, postQuestMiniDTO);
 				}else if(postUser.getTypePost() == TypePost.TALK_GROUP) {
 					PostTalkGroupMiniDTO postTalkGroupMiniDTO = (PostTalkGroupMiniDTO) postService.findByIdMini(postUser.getId(), idUser).getBody();
 					//objs.add(postQuestMiniDTO);
@@ -153,59 +148,14 @@ public class UserService {
 		}
 	}
 	
-	/*
 	
-	public ResponseEntity<Object> getAllPostsMini(String id){
-		try {
-			System.out.println(1);
-			User user = userRepository.findById(id).get();
-			System.out.println(2);
-			List<Post> posts = user.getPosts();
-			System.out.println(3);
-			for(Object post : posts) {
-				System.out.println(post);
-			}
-			System.out.println();
-			List<Object> postMiniDTOs = new ArrayList<>();
-			for(Post post : posts) {
-				Object obj = postService.findById(post.getId());
-				postMiniDTOs.add(obj);
-			}
-			return ResponseEntity.ok().body(posts);
-		}catch(RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-		
-	public ResponseEntity<Object> getCommentsMini(String id){
-		try {
-			User user = userRepository.findById(id).get();
-			List<Comment> comments = user.getComments();
-			List<CommentMiniDTO> commentMiniDTOs = new ArrayList<>();
-			for(Comment comment : comments) {
-				CommentMiniDTO commentMiniDTO = new CommentMiniDTO(comment);
-				commentMiniDTOs.add(commentMiniDTO);
-			}
-			return ResponseEntity.ok().body(commentMiniDTOs);
-		}catch(RuntimeException e) {
-			return ResponseEntity.notFound().build();
-		}
-	}
-	*/
 	
 	public ResponseEntity<Object> getLikesMini(String id){
 		try {
 			User user = userRepository.findById(id).get();
 			List<LikeUser> likes = user.getLikes();
 			return ResponseEntity.ok().body(likes);
-			/*
-			List<PostUpdateMiniDTO> postMiniDTOs = new ArrayList<>();
-			for(Post post : likes) {
-				PostUpdateMiniDTO postMiniDTO = new PostUpdateMiniDTO((Update) post);
-				postMiniDTOs.add(postMiniDTO);
-			}	
-			return ResponseEntity.ok().body(postMiniDTOs);
-			*/
+
 		}catch(RuntimeException e) {
 			return ResponseEntity.notFound().build();
 		}

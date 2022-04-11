@@ -67,11 +67,6 @@ public class PostController {
 		return postService.newPostTalkGroup(postTalkGroupDTO);
 	}
 	
-//	@PostMapping(value = "post/quest")
-//	public ResponseEntity<Object> newPostQuest(@RequestBody PostQuestDTO postQuestDTO){
-//		return postService.newPostQuest(postQuestDTO);
-//	}
-	
 	//put
 	
 	@PutMapping(value = "put/like/post/{idPost}/user/{idUser}")
@@ -83,12 +78,7 @@ public class PostController {
 	public ResponseEntity<Object> addBodyUpdatePost(@RequestBody PostUpdateDTO postUpdateDTO){
 		return postService.addBodyUpdatePost(postUpdateDTO);
 	}
-	
-	@PutMapping(value = "put/vote/{value}/user/{idUser}/post/{idPost}")
-	public ResponseEntity<Object> updateVotePostQuest(@PathVariable int value, @PathVariable String idUser, @PathVariable String idPost){
-		return postService.updateVotePostQuest(value, idUser, idPost);
-	}
-	
+		
 	@PutMapping(value = "/user/{idUser}/post/{idPost}/group/{idGroup}/close")
 	public ResponseEntity<Object> updateVotePostQuest(@PathVariable String idUser, @PathVariable String idPost,  @PathVariable String idGroup){
 		return postService.closeTalkGroup(idUser, idPost, idGroup);
