@@ -13,9 +13,9 @@ public class InvitationMiniDTO {
     private String id;
 	private Date release;	
 	private String value;
-	private UserMiniDTO user;
+	private UserMicroWidgetDTO user;
 	private TypeObject typeObject = TypeObject.INVITATION;
-	private List<UserMiniDTO>  invited = new ArrayList<>();
+	private List<UserMicroWidgetDTO>  invited = new ArrayList<>();
 	
 	public InvitationMiniDTO() {
 		super();
@@ -26,7 +26,7 @@ public class InvitationMiniDTO {
 		this.id = invitation.getId();
 		this.release = invitation.getRelease();
 		this.value = invitation.getValue();
-		this.user = invitation.getUser() != null ? new UserMiniDTO(invitation.getUser()) : null;
+		this.user = invitation.getUser() != null ? new UserMicroWidgetDTO(invitation.getUser()) : null;
 		setInvited(invitation.getInvited());
 	}
 
@@ -54,23 +54,23 @@ public class InvitationMiniDTO {
 		this.value = value;
 	}
 
-	public UserMiniDTO getUser() {
+	public UserMicroWidgetDTO getUser() {
 		return user;
 	}
 
-	public void setUser(UserMiniDTO user) {
+	public void setUser(UserMicroWidgetDTO user) {
 		this.user = user;
 	}
 	
-	public List<UserMiniDTO> getInvited() {
+	public List<UserMicroWidgetDTO> getInvited() {
 		return invited;
 	}
 
 	public void setInvited(List<User> invited) {
 		for(User user : invited) {
 			if(user != null) {
-				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-				this.invited.add(userMiniDTO);
+				UserMicroWidgetDTO userMicroWidgetDTO = new UserMicroWidgetDTO(user);
+				this.invited.add(userMicroWidgetDTO);
 			}
 		}
 	}

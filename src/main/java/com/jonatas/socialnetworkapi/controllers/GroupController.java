@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jonatas.socialnetworkapi.entities.dto.GroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMicroGroupDTO;
 import com.jonatas.socialnetworkapi.services.GroupService;
 
 @RestController
@@ -49,7 +49,7 @@ public class GroupController {
 	}
 	
 	@GetMapping(value = "/{idGroup}/members")
-	public ResponseEntity<List<UserMiniDTO>> getMembers(@PathVariable String idGroup){
+	public ResponseEntity<List<UserMicroGroupDTO>> getMembers(@PathVariable String idGroup){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(groupService.getMembers(idGroup));
 		} catch (Exception e) {
@@ -58,7 +58,7 @@ public class GroupController {
 	}
 	
 	@GetMapping(value = "/{idGroup}/moderators")
-	public ResponseEntity<List<UserMiniDTO>> getModerators(@PathVariable String idGroup){
+	public ResponseEntity<List<UserMicroGroupDTO>> getModerators(@PathVariable String idGroup){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(groupService.getModerators(idGroup));
 		} catch (Exception e) {
@@ -67,7 +67,7 @@ public class GroupController {
 	}
 	
 	@GetMapping(value = "/{idGroup}/silenced")
-	public ResponseEntity<List<UserMiniDTO>> getMembersSilenced(@PathVariable String idGroup){
+	public ResponseEntity<List<UserMicroGroupDTO>> getMembersSilenced(@PathVariable String idGroup){
 		try {
 			return ResponseEntity.status(HttpStatus.OK).body(groupService.getMembersSilenced(idGroup));
 		} catch (Exception e) {

@@ -68,10 +68,10 @@ public class PostService {
 			for(Post post : posts) {
 				System.out.println(post.getId());
 				if(post.getTypePost() == TypePost.UPDATE) {
-					PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
+					PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post, user);
 					objs.add(postUpdateMiniDTO);
 				}else if(post.getTypePost() == TypePost.TALK_USER) {
-					PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post);
+					PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post, user);
 					objs.add(postTalkMiniDTO);
 					
 				}else if(post.getTypePost() == TypePost.TALK_GROUP) {
@@ -91,61 +91,46 @@ public class PostService {
 			User user = (User) userService.findById(idUser).getBody();
 			Post post = postRepository.findById(idPost).get();
 			if(post.getTypePost() == TypePost.UPDATE) {
-				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
-				if(post.getLikes().contains(user)) {
-					postUpdateMiniDTO.setLiked(true);
-				}else {
-					postUpdateMiniDTO.setLiked(false);
-				}
-				if(!post.getLikes().isEmpty()) {
-					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
-						postUpdateMiniDTO.setLike(userMiniDTO);
-					}else {
-						if(post.getLikes().size() > 1) {
-							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-							postUpdateMiniDTO.setLike(userMiniDTO);
-						}
-					}
-				}
+				PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post, user);
+//				if(post.getLikes().contains(user)) {
+//					postUpdateMiniDTO.setLiked(true);
+//				}else {
+//					postUpdateMiniDTO.setLiked(false);
+//				}
+//				if(!post.getLikes().isEmpty()) {
+//					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+//					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+//						postUpdateMiniDTO.setLike(userMiniDTO);
+//					}else {
+//						if(post.getLikes().size() > 1) {
+//							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+//							postUpdateMiniDTO.setLike(userMiniDTO);
+//						}
+//					}
+//				}
 				return ResponseEntity.ok().body(postUpdateMiniDTO);
 			}else if(post.getTypePost() == TypePost.TALK_USER) {
-				PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post);
-				if(post.getLikes().contains(user)) {
-					postTalkMiniDTO.setLiked(true);
-				}else {
-					postTalkMiniDTO.setLiked(false);
-				}
-				if(!post.getLikes().isEmpty()) {
-					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
-						postTalkMiniDTO.setLike(userMiniDTO);
-					}else {
-						if(post.getLikes().size() > 1) {
-							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-							postTalkMiniDTO.setLike(userMiniDTO);
-						}
-					}
-				}
+				PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post, user);
+				
 				return ResponseEntity.ok().body(postTalkMiniDTO); 
 			}else if(post.getTypePost() == TypePost.TALK_GROUP) {
 				PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post, user);
-				if(post.getLikes().contains(user)) {
-					postTalkGroupMiniDTO.setLiked(true);
-				}else {
-					postTalkGroupMiniDTO.setLiked(false);
-				}
-				if(!post.getLikes().isEmpty()) {
-					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
-						postTalkGroupMiniDTO.setLike(userMiniDTO);
-					}else {
-						if(post.getLikes().size() > 1) {
-							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-							postTalkGroupMiniDTO.setLike(userMiniDTO);
-						}
-					}
-				}
+//				if(post.getLikes().contains(user)) {
+//					postTalkGroupMiniDTO.setLiked(true);
+//				}else {
+//					postTalkGroupMiniDTO.setLiked(false);
+//				}
+//				if(!post.getLikes().isEmpty()) {
+//					UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+//					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+//						postTalkGroupMiniDTO.setLike(userMiniDTO);
+//					}else {
+//						if(post.getLikes().size() > 1) {
+//							userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+//							postTalkGroupMiniDTO.setLike(userMiniDTO);
+//						}
+//					}
+//				}
 				return ResponseEntity.ok().body(postTalkGroupMiniDTO); 
 			}
 		}catch (RuntimeException e) {
@@ -170,44 +155,44 @@ public class PostService {
 				if(post.getTypePostVisibility() == TypePostVisibility.USER) {
 					if(ids.contains(post.getAuthor().getId()) || user.getId().hashCode() == post.getAuthor().getId().hashCode() ) {
 						if(post.getTypePost() == TypePost.UPDATE) {
-							PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post);
-							if(post.getLikes().contains(user)) {
-								postUpdateMiniDTO.setLiked(true);
-							}else {
-								postUpdateMiniDTO.setLiked(false);
-							}
-							if(!post.getLikes().isEmpty()) {
-								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
-									postUpdateMiniDTO.setLike(userMiniDTO);
-								}else {
-									if(post.getLikes().size() > 1) {
-										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-										postUpdateMiniDTO.setLike(userMiniDTO);
-									}
-								}
-							}
+							PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO((Update) post, user);
+//							if(post.getLikes().contains(user)) {
+//								postUpdateMiniDTO.setLiked(true);
+//							}else {
+//								postUpdateMiniDTO.setLiked(false);
+//							}
+//							if(!post.getLikes().isEmpty()) {
+//								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+//								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
+//									postUpdateMiniDTO.setLike(userMiniDTO);
+//								}else {
+//									if(post.getLikes().size() > 1) {
+//										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+//										postUpdateMiniDTO.setLike(userMiniDTO);
+//									}
+//								}
+//							}
 							
 							posts.add(postUpdateMiniDTO);
 						}else if(post.getTypePost() == TypePost.TALK_USER) {
-							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post);
+							PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO((Talk) post, user);
 							
-							if(post.getLikes().contains(user)) {
-								postTalkMiniDTO.setLiked(true);
-							}else {
-								postTalkMiniDTO.setLiked(false);
-							}
-							if(!post.getLikes().isEmpty()) {
-								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
-									postTalkMiniDTO.setLike(userMiniDTO);
-								}else {
-									if(post.getLikes().size() > 1) {
-										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-										postTalkMiniDTO.setLike(userMiniDTO);
-									}
-								}
-							}
+//							if(post.getLikes().contains(user)) {
+//								postTalkMiniDTO.setLiked(true);
+//							}else {
+//								postTalkMiniDTO.setLiked(false);
+//							}
+//							if(!post.getLikes().isEmpty()) {
+//								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+//								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
+//									postTalkMiniDTO.setLike(userMiniDTO);
+//								}else {
+//									if(post.getLikes().size() > 1) {
+//										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+//										postTalkMiniDTO.setLike(userMiniDTO);
+//									}
+//								}
+//							}
 							posts.add(postTalkMiniDTO);
 						}
 						
@@ -218,22 +203,22 @@ public class PostService {
 						TalkGroup postTalkGroup =  (TalkGroup) post;
 						if(groups.contains(postTalkGroup.getGroup())) {
 							PostTalkGroupMiniDTO postTalkGroupMiniDTO = new PostTalkGroupMiniDTO(postTalkGroup, user);
-							if(post.getLikes().contains(user)) {
-								postTalkGroupMiniDTO.setLiked(true);
-							}else {
-								postTalkGroupMiniDTO.setLiked(false);
-							}
-							if(!post.getLikes().isEmpty()) {
-								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
-									postTalkGroupMiniDTO.setLike(userMiniDTO);
-								}else {
-									if(post.getLikes().size() > 1) {
-										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-										postTalkGroupMiniDTO.setLike(userMiniDTO);
-									}
-								}
-							}
+//							if(post.getLikes().contains(user)) {
+//								postTalkGroupMiniDTO.setLiked(true);
+//							}else {
+//								postTalkGroupMiniDTO.setLiked(false);
+//							}
+//							if(!post.getLikes().isEmpty()) {
+//								UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+//								if(userMiniDTO.getId().hashCode() != id.hashCode()) {
+//									postTalkGroupMiniDTO.setLike(userMiniDTO);
+//								}else {
+//									if(post.getLikes().size() > 1) {
+//										userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+//										postTalkGroupMiniDTO.setLike(userMiniDTO);
+//									}
+//								}
+//							}
 							
 							posts.add(postTalkGroupMiniDTO);
 						}
@@ -315,7 +300,7 @@ public class PostService {
 			PostUser postUser = new PostUser(obj.getId(), obj.getTypePost());
 			user.getPosts().add(postUser);
 			userService.save(user);
-			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post);
+			PostUpdateMiniDTO postUpdateMiniDTO = new PostUpdateMiniDTO(post, user);
 			return ResponseEntity.created(null).body(postUpdateMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
@@ -342,7 +327,7 @@ public class PostService {
 			PostUser postUser = new PostUser(post.getId(), post.getTypePost());
 			user.getPosts().add(postUser);
 			userService.save(user);
-			PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post);
+			PostTalkMiniDTO postTalkMiniDTO = new PostTalkMiniDTO(post, user);
 			return ResponseEntity.created(null).body(postTalkMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
@@ -359,6 +344,11 @@ public class PostService {
 			if(group.getMembersSilenced().contains(user)) {
 				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 			}
+			
+			if(!group.getMembers().contains(user) && !group.getCreator().equals(user)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+			}
+			
 			TalkGroup post = new TalkGroup(postDTO.getRelease(), postDTO.getBody(), TypePost.TALK_GROUP, TypePostVisibility.GROUP, user, postDTO.getSpoiler(), false, null, group);
 			if(postDTO.getSpoiler()) {
 				if(postDTO.getTitle() == null) {

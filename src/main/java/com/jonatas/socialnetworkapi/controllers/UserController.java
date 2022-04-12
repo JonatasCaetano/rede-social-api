@@ -36,6 +36,11 @@ public class UserController {
 		return userService.findByIdMini(id);
 	}
 	
+	@GetMapping(value = "get/profile/{idUser}/send/{idSend}")
+	public ResponseEntity<Object> findByIdMini(@PathVariable String idUser, @PathVariable String idSend){
+		return userService.getProfile(idUser, idSend);
+	}
+	
 	@GetMapping(value = "get/login/email/{email}/password/{password}")
 	public ResponseEntity<Object> loginMini(@PathVariable String email, @PathVariable String password){
 		return userService.loginMini(email, password);

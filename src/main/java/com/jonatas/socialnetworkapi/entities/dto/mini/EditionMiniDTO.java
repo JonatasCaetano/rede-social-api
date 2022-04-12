@@ -9,8 +9,8 @@ import com.jonatas.socialnetworkapi.enuns.TypeObject;
 public class EditionMiniDTO {
 
 	private String id;
-	private UserMiniDTO user;
-	private EntityMiniDTO entity;
+	private UserMicroWidgetDTO user;
+	private EntityMicroDTO entity;
 	private String attribute;
 	private Object previous;
 	private Object current;
@@ -25,8 +25,8 @@ public class EditionMiniDTO {
 	public EditionMiniDTO(Edition edition) {
 		super();
 		this.id = edition.getId();
-		this.user = edition.getUser() != null ? new UserMiniDTO(edition.getUser()) : null;
-		this.entity = edition.getEntity() != null ? new EntityMiniDTO(edition.getEntity()): null;
+		this.user = edition.getUser() != null ? new UserMicroWidgetDTO(edition.getUser()) : null;
+		this.entity = edition.getEntity() != null ? new EntityMicroDTO(edition.getEntity()): null;
 		this.release = edition.getRelease();
 		this.previous = edition.getPrevious();
 		this.current = edition.getCurrent();
@@ -42,19 +42,19 @@ public class EditionMiniDTO {
 		this.id = id;
 	}
 
-	public UserMiniDTO getUser() {
+	public UserMicroWidgetDTO getUser() {
 		return user;
 	}
 
-	public void setUser(UserMiniDTO user) {
+	public void setUser(UserMicroWidgetDTO user) {
 		this.user = user;
 	}
 
-	public EntityMiniDTO getEntity() {
+	public EntityMicroDTO getEntity() {
 		return entity;
 	}
 
-	public void setEntity(EntityMiniDTO entity) {
+	public void setEntity(EntityMicroDTO entity) {
 		this.entity = entity;
 	}
 

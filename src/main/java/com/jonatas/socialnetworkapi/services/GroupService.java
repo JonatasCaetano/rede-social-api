@@ -15,7 +15,7 @@ import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.GroupDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.GroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMicroGroupDTO;
 import com.jonatas.socialnetworkapi.entities.post.TalkGroup;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
 import com.jonatas.socialnetworkapi.repositories.GroupRepository;
@@ -37,21 +37,21 @@ public class GroupService {
 		List<GroupMiniDTO> groupMiniDTOs = new ArrayList<>();
 		for(Group group : groups) {
 			GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group, user);
-			if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
-				groupMiniDTO.setUserIsMember(true);
-			}else {
-				groupMiniDTO.setUserIsMember(false);
-			}
-			if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
-				groupMiniDTO.setUserIsModerator(true);
-			}else {
-				groupMiniDTO.setUserIsModerator(false);
-			}
-			if(group.getMembersSilenced().contains(user)) {
-				groupMiniDTO.setUserIsSilenced(true);
-			}else {
-				groupMiniDTO.setUserIsSilenced(false);
-			}
+//			if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
+//				groupMiniDTO.setUserIsMember(true);
+//			}else {
+//				groupMiniDTO.setUserIsMember(false);
+//			}
+//			if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
+//				groupMiniDTO.setUserIsModerator(true);
+//			}else {
+//				groupMiniDTO.setUserIsModerator(false);
+//			}
+//			if(group.getMembersSilenced().contains(user)) {
+//				groupMiniDTO.setUserIsSilenced(true);
+//			}else {
+//				groupMiniDTO.setUserIsSilenced(false);
+//			}
 			groupMiniDTOs.add(groupMiniDTO);
 		}		
 		return groupMiniDTOs;
@@ -61,51 +61,52 @@ public class GroupService {
 		User user = (User) userService.findById(idUser).getBody();
 		Group group = groupRepository.findById(idGroup).get();
 		GroupMiniDTO groupMiniDTO = new GroupMiniDTO(group, user);
-		if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
-			groupMiniDTO.setUserIsMember(true);
-		}else {
-			groupMiniDTO.setUserIsMember(false);
-		}
-		if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
-			groupMiniDTO.setUserIsModerator(true);
-		}else {
-			groupMiniDTO.setUserIsModerator(false);
-		}
-		if(group.getMembersSilenced().contains(user)) {
-			groupMiniDTO.setUserIsSilenced(true);
-		}else {
-			groupMiniDTO.setUserIsSilenced(false);
-		}
+//		if(group.getMembers().contains(user) || group.getCreator().equals(user)) {
+//			groupMiniDTO.setUserIsMember(true);
+//		}else {
+//			groupMiniDTO.setUserIsMember(false);
+//		}
+//		if(group.getModerators().contains(user) || group.getCreator().equals(user)) {
+//			groupMiniDTO.setUserIsModerator(true);
+//		}else {
+//			groupMiniDTO.setUserIsModerator(false);
+//		}
+//		if(group.getMembersSilenced().contains(user)) {
+//			groupMiniDTO.setUserIsSilenced(true);
+//		}else {
+//			groupMiniDTO.setUserIsSilenced(false);
+//		}
 		return groupMiniDTO;
 	}
 	
-	public List<UserMiniDTO> getMembers(String idGroup){
+	public List<UserMicroGroupDTO> getMembers(String idGroup){
 		Group group = groupRepository.findById(idGroup).get();
-		List<UserMiniDTO> members = new ArrayList<>();
-		members.add(new UserMiniDTO(group.getCreator()));
+		List<UserMicroGroupDTO> members = new ArrayList<>();
+		members.add(new UserMicroGroupDTO(group, group.getCreator()));
 		for(User user : group.getMembers()) {
-			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-			members.add(userMiniDTO);
+			UserMicroGroupDTO userMicroGroupDTO = new UserMicroGroupDTO(group, user);
+			members.add(userMicroGroupDTO);
 		}
 		return members;
 	}
 	
-	public List<UserMiniDTO> getModerators(String idGroup){
+	public List<UserMicroGroupDTO> getModerators(String idGroup){
 		Group group = groupRepository.findById(idGroup).get();
-		List<UserMiniDTO> moderators = new ArrayList<>();
+		List<UserMicroGroupDTO> moderators = new ArrayList<>();
+		moderators.add(new UserMicroGroupDTO(group, group.getCreator()));
 		for(User user : group.getModerators()) {
-			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-			moderators.add(userMiniDTO);
+			UserMicroGroupDTO userMicroGroupDTO = new UserMicroGroupDTO(group, user);
+			moderators.add(userMicroGroupDTO);
 		}
 		return moderators;
 	}
 	
-	public List<UserMiniDTO> getMembersSilenced(String idGroup){
+	public List<UserMicroGroupDTO> getMembersSilenced(String idGroup){
 		Group group = groupRepository.findById(idGroup).get();
-		List<UserMiniDTO> silenced = new ArrayList<>();
+		List<UserMicroGroupDTO> silenced = new ArrayList<>();
 		for(User user : group.getMembersSilenced()) {
-			UserMiniDTO userMiniDTO = new UserMiniDTO(user);
-			silenced.add(userMiniDTO);
+			UserMicroGroupDTO userMicroGroupDTO = new UserMicroGroupDTO(group, user);
+			silenced.add(userMicroGroupDTO);
 		}
 		return silenced;
 	}
@@ -133,22 +134,22 @@ public class GroupService {
 			for(Post post : posts) {
 				if(post.getTypePost() == TypePost.TALK_GROUP) {
 					PostTalkGroupMiniDTO postTalkGroupMiniDTO  = new PostTalkGroupMiniDTO((TalkGroup) post, user);
-					if(post.getLikes().contains(user)) {
-						postTalkGroupMiniDTO.setLiked(true);
-					}else {
-						postTalkGroupMiniDTO.setLiked(false);
-					}
-					if(!post.getLikes().isEmpty()) {
-						UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
-						if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
-							postTalkGroupMiniDTO.setLike(userMiniDTO);
-						}else {
-							if(post.getLikes().size() > 1) {
-								userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
-								postTalkGroupMiniDTO.setLike(userMiniDTO);
-							}
-						}
-					}
+//					if(post.getLikes().contains(user)) {
+//						postTalkGroupMiniDTO.setLiked(true);
+//					}else {
+//						postTalkGroupMiniDTO.setLiked(false);
+//					}
+//					if(!post.getLikes().isEmpty()) {
+//						UserMiniDTO userMiniDTO = new UserMiniDTO(post.getLikes().get(0));
+//						if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+//							postTalkGroupMiniDTO.setLike(userMiniDTO);
+//						}else {
+//							if(post.getLikes().size() > 1) {
+//								userMiniDTO = new UserMiniDTO(post.getLikes().get(1));
+//								postTalkGroupMiniDTO.setLike(userMiniDTO);
+//							}
+//						}
+//					}
 					objs.add(0, postTalkGroupMiniDTO);;
 				}
 			}

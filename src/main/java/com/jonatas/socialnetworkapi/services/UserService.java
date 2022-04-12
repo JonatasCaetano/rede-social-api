@@ -22,6 +22,7 @@ import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkGroupMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostTalkMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.PostUpdateMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniProfileDTO;
 import com.jonatas.socialnetworkapi.entities.helper.LikeUser;
 import com.jonatas.socialnetworkapi.entities.helper.PostUser;
 import com.jonatas.socialnetworkapi.enuns.Level;
@@ -54,6 +55,17 @@ public class UserService {
 	//methods
 	
 	//get
+	
+	public ResponseEntity<Object> getProfile(String idUser, String idSend) {
+		try {
+			User user = userRepository.findById(idUser).get();
+			User send = userRepository.findById(idSend).get();
+			UserMiniProfileDTO userMiniProfileDTO = new UserMiniProfileDTO(user, send);
+			return ResponseEntity.ok().body(userMiniProfileDTO);
+		}catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 	
 	public ResponseEntity<Object> findAllMini() {
 		try {
@@ -183,7 +195,7 @@ public class UserService {
 				if(entitySave.getLevel() == Level.ENTITY) {
 					if(entitySave.getEntity().getTypeEntity() == typeEntity) {
 						System.out.println(entitySave.getEntity().getTypeEntity() + " == " + typeEntity);
-						EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+						EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
 						entitySaveMiniDTOs.add(entitySaveMiniDTO);
 					}
 
@@ -202,7 +214,7 @@ public class UserService {
 			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
 			for(EntitySave entitySave : entitySaves) {		
 				if(entitySave.getLevel() == Level.ENTITY && entitySave.isGoal()) {
-					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
+					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
 					entitySaveMiniDTOs.add(0, entitySaveMiniDTO);
 
 				}

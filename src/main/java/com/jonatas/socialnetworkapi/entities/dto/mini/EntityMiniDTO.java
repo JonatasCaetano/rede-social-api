@@ -8,13 +8,12 @@ public class EntityMiniDTO {
 	
 	private String id;
 	private String name;
+	private String image;
 	private String description;
 	private int evaluationQuantity = 0;
 	private double evaluationAverage = 0.0;
-	private int seasonQuantity = 0;
 	private TypeObject typeObject = TypeObject.ENTITY;
 	private TypeEntity typeEntity;
-	private String image;
 	private int category1 = 0;
 	private int category2 = 0;
 	private int category3 = 0;
@@ -79,14 +78,6 @@ public class EntityMiniDTO {
 
 	public void setEvaluationAverage(double evaluationAverage) {
 		this.evaluationAverage = evaluationAverage;
-	}
-
-	public int getSeasonQuantity() {
-		return seasonQuantity;
-	}
-
-	public void setSeasonQuantity(int seasonQuantity) {
-		this.seasonQuantity = seasonQuantity;
 	}
 
 	public TypeObject getTypeObject() {
