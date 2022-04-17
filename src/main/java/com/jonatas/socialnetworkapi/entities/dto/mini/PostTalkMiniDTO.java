@@ -1,6 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.post.Talk;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 import com.jonatas.socialnetworkapi.enuns.TypePost;
@@ -17,16 +16,35 @@ public class PostTalkMiniDTO {
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
 	private Boolean spoiler;
-	private UserMicroWidgetDTO author;
-	private boolean liked;
-	private UserMicroWidgetDTO like;
+	private UserMiniDTO author;
+	private Boolean Liked;
+	private UserMiniDTO like;
 	private String title;
 	
 	public PostTalkMiniDTO() {
 		super();
 	}
 
-	public PostTalkMiniDTO(Talk post, User user) {
+	public PostTalkMiniDTO(String id, String release, String body, TypePost typePost,
+			TypePostVisibility typePostVisibility, int likeQuantity, int commentQuantity, TypeObject typeObject,
+			Boolean spoiler, UserMiniDTO author, String title) {
+		super();
+		this.id = id;
+		this.release = release;
+		this.body = body;
+		this.typePost = typePost;
+		this.typePostVisibility = typePostVisibility;
+		this.likeQuantity = likeQuantity;
+		this.commentQuantity = commentQuantity;
+		this.typeObject = typeObject;
+		this.spoiler = spoiler;
+		this.author = author;
+		this.title = title;
+	}
+	
+	
+
+	public PostTalkMiniDTO(Talk post) {
 		super();
 		this.id = post.getId();
 		this.release = post.getRelease();
@@ -37,10 +55,8 @@ public class PostTalkMiniDTO {
 		this.commentQuantity = post.getCommentQuantity();
 		this.typeObject = post.getTypeObject();
 		this.spoiler = post.getSpoiler();
-		this.author = post.getAuthor() != null ? new UserMicroWidgetDTO(post.getAuthor()) : null;
+		this.author = post.getAuthor() != null ? new UserMiniDTO(post.getAuthor()) : null;
 		this.title = post.getTitle();
-		setLike(post, user);
-		setLiked(post, user);
 	}
 
 	public String getId() {
@@ -114,43 +130,29 @@ public class PostTalkMiniDTO {
 	public void setSpoiler(Boolean spoiler) {
 		this.spoiler = spoiler;
 	}
-	
-	public UserMicroWidgetDTO getAuthor() {
+
+	public UserMiniDTO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserMicroWidgetDTO author) {
+	public void setAuthor(UserMiniDTO author) {
 		this.author = author;
 	}
-
-	public void setLike(Talk post, User user) {
-		if(!post.getLikes().isEmpty()) {
-			UserMicroWidgetDTO userMicroWidgetDTO = new UserMicroWidgetDTO(post.getLikes().get(0));
-			if(userMicroWidgetDTO.getId().hashCode() != user.getId().hashCode()) {
-				this.like = userMicroWidgetDTO;
-			}else {
-				if(post.getLikes().size() > 1) {
-					userMicroWidgetDTO = new UserMicroWidgetDTO(post.getLikes().get(1));
-					this.like = userMicroWidgetDTO;
-				}
-			}
-		}
-	}
 	
-	public UserMicroWidgetDTO getLike() {
+	public Boolean getLiked() {
+		return Liked;
+	}
+
+	public void setLiked(Boolean liked) {
+		Liked = liked;
+	}
+
+	public UserMiniDTO getLike() {
 		return like;
 	}
 
-	public boolean isLiked() {
-		return liked;
-	}
-
-	public void setLiked(Talk post, User user) {
-		if(post.getLikes().contains(user)) {
-			this.liked = true;
-		}else {
-			this.liked = false;
-		}
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
 	}
 
 	public String getTitle() {

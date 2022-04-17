@@ -1,7 +1,9 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jonatas.socialnetworkapi.entities.EntitySave;
-import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
 
@@ -13,23 +15,24 @@ public class EntitySaveMiniDTO {
 	private boolean goal;
 	private boolean rated;
 	private boolean reviewed;
-	private UserMicroWidgetDTO user;
-	private EntityMicroDTO entity;
+	private UserMiniDTO user;
+	private EntityMiniDTO entity;
 	private int evaluation;
 	private String review;
 	private TypeObject typeObject = TypeObject.ENTITY_SAVE;
+	List<String> historic = new ArrayList<>();
 	private boolean spoiler = false;
 	private String release;
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
-	private Boolean liked;
-	private UserMicroWidgetDTO like;
+	private Boolean Liked;
+	private UserMiniDTO like;
 	
 	public EntitySaveMiniDTO() {
 		super();
 	}
 	
-	public EntitySaveMiniDTO(EntitySave entitySave, User user) {
+	public EntitySaveMiniDTO(EntitySave entitySave) {
 		super();
 		this.id = entitySave.getId();
 		this.level = entitySave.getLevel();
@@ -37,16 +40,14 @@ public class EntitySaveMiniDTO {
 		this.goal = entitySave.isGoal();
 		this.rated = entitySave.isRated();
 		this.reviewed = entitySave.isReviewed();
-		this.user = entitySave.getUser()!= null ? new UserMicroWidgetDTO(entitySave.getUser()) : null;
-		this.entity = entitySave.getEntity() != null? new EntityMicroDTO(entitySave.getEntity()) : null;
+		this.user = entitySave.getUser()!= null ? new UserMiniDTO(entitySave.getUser()) : null;
+		this.entity = entitySave.getEntity() != null? new EntityMiniDTO(entitySave.getEntity()) : null;
 		this.evaluation = entitySave.getEvaluation();
 		this.review = entitySave.getReview();
 		this.spoiler = entitySave.getSpoiler();
 		this.release = entitySave.getRelease();
 		this.likeQuantity = entitySave.getLikeQuantity();
 		this.commentQuantity = entitySave.getCommentQuantity();
-		setLike(entitySave, user);
-		setLiked(entitySave, user);
 	}
 
 	public String getId() {
@@ -95,6 +96,22 @@ public class EntitySaveMiniDTO {
 
 	public void setReviewed(boolean reviewed) {
 		this.reviewed = reviewed;
+	}
+
+	public UserMiniDTO getUser() {
+		return user;
+	}
+
+	public void setUser(UserMiniDTO user) {
+		this.user = user;
+	}
+
+	public EntityMiniDTO getEntity() {
+		return entity;
+	}
+
+	public void setEntity(EntityMiniDTO entity) {
+		this.entity = entity;
 	}
 
 	public int getEvaluation() {
@@ -154,49 +171,19 @@ public class EntitySaveMiniDTO {
 	}
 
 	public Boolean getLiked() {
-		return liked;
+		return Liked;
 	}
 
-	public void setLiked(EntitySave entitySave, User user) {
-		if(entitySave.getLikes().contains(user)) {
-			liked = true;
-		}else {
-			liked = false;
-		}
+	public void setLiked(Boolean liked) {
+		Liked = liked;
 	}
 
-	public UserMicroWidgetDTO getUser() {
-		return user;
-	}
-
-	public void setUser(UserMicroWidgetDTO user) {
-		this.user = user;
-	}
-
-	public EntityMicroDTO getEntity() {
-		return entity;
-	}
-
-	public void setEntity(EntityMicroDTO entity) {
-		this.entity = entity;
-	}
-
-	public UserMicroWidgetDTO getLike() {
+	public UserMiniDTO getLike() {
 		return like;
 	}
 
-	public void setLike(EntitySave entitySave, User user) {
-		if(!entitySave.getLikes().isEmpty()) {
-			UserMicroWidgetDTO userMicroWidgetDTO = new UserMicroWidgetDTO(entitySave.getLikes().get(0));
-			if(userMicroWidgetDTO.getId().hashCode() != user.getId().hashCode()) {
-				like = userMicroWidgetDTO;
-			}else {
-				if(entitySave.getLikes().size() > 1) {
-					userMicroWidgetDTO = new UserMicroWidgetDTO(entitySave.getLikes().get(1));
-					like = userMicroWidgetDTO;
-				}
-			}
-		}
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
 	}
-	
+		
 }

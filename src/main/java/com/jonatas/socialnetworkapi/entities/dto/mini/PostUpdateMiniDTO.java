@@ -1,6 +1,5 @@
 package com.jonatas.socialnetworkapi.entities.dto.mini;
 
-import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.post.Update;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.enuns.TypeObject;
@@ -13,8 +12,8 @@ public class PostUpdateMiniDTO {
 	private String release;
 	private String body;
 	private int category;
-	private UserMicroWidgetDTO author;
-	private EntityMicroDTO entity;
+	private UserMiniDTO author;
+	private EntityMiniDTO entity;
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
@@ -23,29 +22,27 @@ public class PostUpdateMiniDTO {
 	private TypePost typePost;
 	private boolean spoiler;
 	private int evaluation;
-	private boolean liked;
-	private UserMicroWidgetDTO like;
+	private Boolean Liked;
+	private UserMiniDTO like;
 	
 	public PostUpdateMiniDTO() {
 		super();
 	}
 	
-	public PostUpdateMiniDTO(Update post, User user) {
+	public PostUpdateMiniDTO(Update post) {
 		super();
 		this.id = post.getId();
 		this.release = post.getRelease();
 		this.body = post.getBody();
 		this.category = post.getCategory();
-		this.author = post.getAuthor() != null ? new UserMicroWidgetDTO(post.getAuthor()) : null;
-		this.entity = post.getEntity() != null ? new EntityMicroDTO(post.getEntity()) : null;
+		this.author = post.getAuthor() != null ? new UserMiniDTO(post.getAuthor()) : null;
+		this.entity = post.getEntity() != null ? new EntityMiniDTO(post.getEntity()) : null;
 		this.likeQuantity = post.getLikeQuantity();
 		this.commentQuantity = post.getCommentQuantity();
 		this.level = post.getLevel();
 		this.spoiler = post.getSpoiler();
 		this.typePost = post.getTypePost();
 		this.evaluation = post.getEvaluation();
-		setLike(post, user);
-		setLiked(post, user);
 		
 	}
 
@@ -81,49 +78,19 @@ public class PostUpdateMiniDTO {
 		this.category = category;
 	}
 
-	public UserMicroWidgetDTO getAuthor() {
+	public UserMiniDTO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserMicroWidgetDTO author) {
+	public void setAuthor(UserMiniDTO author) {
 		this.author = author;
 	}
 
-	public void setLiked(Update post, User user) {
-		if(post.getLikes().contains(user)) {
-			this.liked = true;
-		}else {
-			this.liked = false;
-		}
-	}
-	
-	public boolean isLiked() {
-		return liked;
-	}
-
-	public UserMicroWidgetDTO getLike() {
-		return like;
-	}
-
-	public void setLike(Update post, User user) {
-		if(!post.getLikes().isEmpty()) {
-			UserMicroWidgetDTO userMicroWidgetDTO = new UserMicroWidgetDTO(post.getLikes().get(0));
-			if(userMicroWidgetDTO.getId().hashCode() != user.getId().hashCode()) {
-				this.like = userMicroWidgetDTO;
-			}else {
-				if(post.getLikes().size() > 1) {
-					userMicroWidgetDTO = new UserMicroWidgetDTO(post.getLikes().get(1));
-					this.like = userMicroWidgetDTO;
-				}
-			}
-		}
-	}
-
-	public EntityMicroDTO getEntity() {
+	public EntityMiniDTO getEntity() {
 		return entity;
 	}
 
-	public void setEntity(EntityMicroDTO entity) {
+	public void setEntity(EntityMiniDTO entity) {
 		this.entity = entity;
 	}
 
@@ -181,6 +148,22 @@ public class PostUpdateMiniDTO {
 
 	public void setEvaluation(int evaluation) {
 		this.evaluation = evaluation;
+	}
+
+	public Boolean getLiked() {
+		return Liked;
+	}
+
+	public void setLiked(Boolean liked) {
+		Liked = liked;
+	}
+
+	public UserMiniDTO getLike() {
+		return like;
+	}
+
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
 	}
 
 	public TypePostVisibility getTypePostVisibility() {

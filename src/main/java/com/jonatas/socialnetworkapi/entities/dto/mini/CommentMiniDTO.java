@@ -9,7 +9,7 @@ public class CommentMiniDTO {
 	private String id;
 	private String release;
 	private String body;
-	private UserMicroWidgetDTO author;
+	private UserMiniDTO author;
 	private TypeObject typeObject = TypeObject.COMMENT;
 	private int likeQuantity = 0;
 	private Boolean liked;
@@ -24,7 +24,7 @@ public class CommentMiniDTO {
 		this.id = comment.getId();
 		this.release = comment.getRelease();
 		this.body = comment.getBody();
-		this.author = comment.getAuthor() != null ? new UserMicroWidgetDTO(comment.getAuthor()) : null;
+		this.author = comment.getAuthor() != null ? new UserMiniDTO(comment.getAuthor()) : null;
 		this.likeQuantity = comment.getLikeQuantity();
 		this.typeComment = comment.getTypeComment();
 	}
@@ -53,11 +53,11 @@ public class CommentMiniDTO {
 		this.body = body;
 	}
 
-	public UserMicroWidgetDTO getAuthor() {
+	public UserMiniDTO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserMicroWidgetDTO author) {
+	public void setAuthor(UserMiniDTO author) {
 		this.author = author;
 	}
 

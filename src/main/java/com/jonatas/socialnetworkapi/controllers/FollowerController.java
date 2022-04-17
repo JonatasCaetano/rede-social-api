@@ -30,14 +30,14 @@ public class FollowerController {
 		return followerService.findByIdMini(id);
 	}
 	
-	@GetMapping(value = "get/followings/user/{userId}/send/{sendId}")
-	public ResponseEntity<Object> getAllFollowingMini(@PathVariable String userId, @PathVariable String sendId){
-		return followerService.getAllFollowingMini(userId, sendId);
+	@GetMapping(value = "get/followings/user/{userId}")
+	public ResponseEntity<Object> getAllFollowingMini(@PathVariable String userId){
+		return followerService.getAllFollowingMini(userId);
 	}
 	
-	@GetMapping(value = "get/followers/user/{userId}/send/{sendId}")
-	public ResponseEntity<Object> getAllFollowerMini(@PathVariable String userId, @PathVariable String sendId){
-		return followerService.getAllFollowerMini(userId, sendId);
+	@GetMapping(value = "get/followers/user/{userId}")
+	public ResponseEntity<Object> getAllFollowerMini(@PathVariable String userId){
+		return followerService.getAllFollowerMini(userId);
 	}
 	
 	@GetMapping(value = "get/check/following/user/{followerId}/following/{followingId}")

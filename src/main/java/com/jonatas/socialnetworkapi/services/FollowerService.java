@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.jonatas.socialnetworkapi.entities.Follower;
 import com.jonatas.socialnetworkapi.entities.User;
 import com.jonatas.socialnetworkapi.entities.dto.mini.FollowerMiniDTO;
-import com.jonatas.socialnetworkapi.entities.dto.mini.UserMicroDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.repositories.FollowerRepository;
 
 @Service
@@ -55,36 +55,34 @@ public class FollowerService {
 		}
 	}
 
-	public ResponseEntity<Object> getAllFollowingMini(String userId, String sendId){
+	public ResponseEntity<Object> getAllFollowingMini(String userId){
 		try {
-			User Userfollower = (User) userService.findById(userId).getBody();
-			User send = (User) userService.findById(sendId).getBody();
-			//Follower follower = Userfollower.getFollower();
-			List<User> users = Userfollower.getFollower().getFollowing();
-			List<UserMicroDTO> userMicroDtos = new ArrayList<>();
-			for(User user : users) {
-				UserMicroDTO userMicroDto = new UserMicroDTO(user, send);
-				userMicroDtos.add(userMicroDto);
+			User user = (User) userService.findById(userId).getBody();
+			Follower follower = followerRepository.findByUser(user);
+			List<User> users = follower.getFollowing();
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
+			for(User userList : users) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(userList);
+				userMiniDTOs.add(userMiniDTO);
 			}
-			return ResponseEntity.ok().body(userMicroDtos);
+			return ResponseEntity.ok().body(userMiniDTOs);
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();
 		}
 	}
 	
-	public ResponseEntity<Object> getAllFollowerMini(String userId, String sendId){
+	public ResponseEntity<Object> getAllFollowerMini(String userId){
 		try {
-			User userFollowing = (User) userService.findById(userId).getBody();
-			User send = (User) userService.findById(sendId).getBody();
+			User user = (User) userService.findById(userId).getBody();
 			List<Follower> followers = followerRepository.findAll();
-			List<UserMicroDTO> userMicroDtos = new ArrayList<>();
+			List<UserMiniDTO> userMiniDTOs = new ArrayList<>();
 			for(Follower follower : followers) {
-				if(follower.getFollowing().contains(userFollowing)) {
-					UserMicroDTO userMicroDto = new UserMicroDTO(follower.getUser(), send);
-					userMicroDtos.add(userMicroDto);
+				if(follower.getFollowing().contains(user)) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(follower.getUser());
+					userMiniDTOs.add(userMiniDTO);
 				}
 			}
-			return ResponseEntity.ok().body(userMicroDtos);
+			return ResponseEntity.ok().body(userMiniDTOs);
 			
 		}catch(RuntimeException e) {
 			return ResponseEntity.badRequest().build();

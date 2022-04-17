@@ -8,11 +8,10 @@ public class GroupMiniDTO {
 
 	private String id;
 	private String name;
-	private String image;
 	private String description;
-	private UserMicroWidgetDTO creator;
+	private UserMiniDTO creator;
 	private String creationDate;
-
+	private String image;
 	
 	private int quantityMembers;
 	private int quantityModerators;
@@ -30,7 +29,7 @@ public class GroupMiniDTO {
 		this.id = group.getId();
 		this.name = group.getName();
 		this.description = group.getDescription();
-		this.creator = group.getCreator() != null ? new UserMicroWidgetDTO(group.getCreator()) : null;
+		this.creator = group.getCreator() != null ? new UserMiniDTO(group.getCreator()) : null;
 		this.creationDate = group.getCreationDate();
 		this.image = group.getImage();
 		this.quantityMembers = group.getMembers().size() + 1;
@@ -60,7 +59,7 @@ public class GroupMiniDTO {
 		this.id = group.getId();
 		this.name = group.getName();
 		this.description = group.getDescription();
-		this.creator = group.getCreator() != null ? new UserMicroWidgetDTO(group.getCreator()) : null;
+		this.creator = group.getCreator() != null ? new UserMiniDTO(group.getCreator()) : null;
 		this.creationDate = group.getCreationDate();
 		this.image = group.getImage();
 		this.quantityMembers = group.getMembers().size() + 1;
@@ -94,11 +93,11 @@ public class GroupMiniDTO {
 		this.description = description;
 	}
 
-	public UserMicroWidgetDTO getCreator() {
+	public UserMiniDTO getCreator() {
 		return creator;
 	}
 
-	public void setCreator(UserMicroWidgetDTO creator) {
+	public void setCreator(UserMiniDTO creator) {
 		this.creator = creator;
 	}
 

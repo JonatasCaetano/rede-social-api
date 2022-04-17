@@ -16,13 +16,13 @@ public class PostTalkGroupMiniDTO {
 	private int likeQuantity = 0;
 	private int commentQuantity = 0;
 	private TypeObject typeObject = TypeObject.POST;
-	private boolean spoiler;
-	private UserMicroWidgetDTO author;
-	private boolean liked;
-	private UserMicroWidgetDTO like;
+	private Boolean spoiler;
+	private UserMiniDTO author;
+	private Boolean Liked;
+	private UserMiniDTO like;
 	private boolean close;
-	private UserMicroWidgetDTO closedBy;
-	private GroupMicroDTO group;
+	private UserMiniDTO closedBy;
+	private GroupMiniDTO group;
 	private String title;
 	
 	public PostTalkGroupMiniDTO() {
@@ -40,13 +40,11 @@ public class PostTalkGroupMiniDTO {
 		this.commentQuantity = post.getCommentQuantity();
 		this.typeObject = post.getTypeObject();
 		this.spoiler = post.getSpoiler();
-		this.author = post.getAuthor() != null ? new UserMicroWidgetDTO(post.getAuthor()) : null;
+		this.author = post.getAuthor() != null ? new UserMiniDTO(post.getAuthor()) : null;
 		this.close = post.isClose();
-		this.closedBy = post.getClosedBy() != null ? new UserMicroWidgetDTO(post.getClosedBy()) : null;
-		this.group = post.getGroup() != null ? new GroupMicroDTO(post.getGroup(), user) : null;
+		this.closedBy = post.getClosedBy() != null ? new UserMiniDTO(post.getClosedBy()) : null;
+		this.group = post.getGroup() != null ? new GroupMiniDTO(post.getGroup(), user) : null;
 		this.title = post.getTitle();
-		setLike(post, user);
-		setLiked(post, user);
 	}
 
 	public String getId() {
@@ -121,38 +119,28 @@ public class PostTalkGroupMiniDTO {
 		this.spoiler = spoiler;
 	}
 
-	public Boolean getLiked() {
-		return liked;
-	}
-
-	public UserMicroWidgetDTO getAuthor() {
+	public UserMiniDTO getAuthor() {
 		return author;
 	}
 
-	public void setLiked(TalkGroup post, User user) {
-		if(post.getLikes().contains(user)) {
-			this.liked = true;
-		}else {
-			this.liked = false;
-		}
+	public void setAuthor(UserMiniDTO author) {
+		this.author = author;
 	}
 
-	public UserMicroWidgetDTO getLike() {
+	public Boolean getLiked() {
+		return Liked;
+	}
+
+	public void setLiked(Boolean liked) {
+		Liked = liked;
+	}
+
+	public UserMiniDTO getLike() {
 		return like;
 	}
 
-	public void setLike(TalkGroup post, User user) {
-		if(!post.getLikes().isEmpty()) {
-			UserMicroWidgetDTO userMicroWidgetDTO = new UserMicroWidgetDTO(post.getLikes().get(0));
-			if(userMicroWidgetDTO.getId().hashCode() != user.getId().hashCode()) {
-				this.like = userMicroWidgetDTO;
-			}else {
-				if(post.getLikes().size() > 1) {
-					userMicroWidgetDTO = new UserMicroWidgetDTO(post.getLikes().get(1));
-					this.like = userMicroWidgetDTO;
-				}
-			}
-		}
+	public void setLike(UserMiniDTO like) {
+		this.like = like;
 	}
 
 	public boolean isClose() {
@@ -163,28 +151,19 @@ public class PostTalkGroupMiniDTO {
 		this.close = close;
 	}
 
-
-	public UserMicroWidgetDTO getClosedBy() {
+	public UserMiniDTO getClosedBy() {
 		return closedBy;
 	}
 
-	public void setClosedBy(UserMicroWidgetDTO closedBy) {
+	public void setClosedBy(UserMiniDTO closedBy) {
 		this.closedBy = closedBy;
 	}
 
-	public void setAuthor(UserMicroWidgetDTO author) {
-		this.author = author;
-	}
-
-	public void setLike(UserMicroWidgetDTO like) {
-		this.like = like;
-	}
-
-	public GroupMicroDTO getGroup() {
+	public GroupMiniDTO getGroup() {
 		return group;
 	}
 
-	public void setGroup(GroupMicroDTO group) {
+	public void setGroup(GroupMiniDTO group) {
 		this.group = group;
 	}
 

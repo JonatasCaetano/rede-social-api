@@ -34,9 +34,9 @@ public class EntityController {
 		return entityService.findByIdMini(id);
 	}
 			
-	@GetMapping(value = "get/entity/{id}/entitysaves/user/{idUser}")
-	public ResponseEntity<Object> getAllEntitySaveMini(@PathVariable String id, @PathVariable String idUser){
-		return entityService.getAllEntitySaveMini(id, idUser);
+	@GetMapping(value = "get/entity/{id}/entitysaves")
+	public ResponseEntity<Object> getAllEntitySaveMini(@PathVariable String id){
+		return entityService.getAllEntitySaveMini(id);
 	}
 	
 	@GetMapping(value = "get/entity/{idEntity}/entitysave/user/{idUser}")

@@ -12,7 +12,7 @@ public class ReportMiniDTO {
 	private LevelReport levelReport;
 	private String idReported;
 	private TypeReport typeReport;
-	private UserMicroWidgetDTO author;
+	private UserMiniDTO author;
 	private Boolean checked = false;
 	private String release;
 	
@@ -21,7 +21,7 @@ public class ReportMiniDTO {
 	}
 
 	public ReportMiniDTO(String id, TypeObject typeObject, LevelReport levelReport, String idReported,
-			TypeReport typeReport, UserMicroWidgetDTO author, Boolean checked, String release) {
+			TypeReport typeReport, UserMiniDTO author, Boolean checked, String release) {
 		super();
 		this.id = id;
 		this.typeObject = typeObject;
@@ -40,7 +40,7 @@ public class ReportMiniDTO {
 		this.levelReport = report.getLevelReport();
 		this.idReported = report.getIdReported();
 		this.typeReport = report.getTypeReport();
-		this.author = report.getAuthor() != null ? new UserMicroWidgetDTO(report.getAuthor()) : null;
+		this.author = report.getAuthor() != null ? new UserMiniDTO(report.getAuthor()) : null;
 		this.checked = report.getChecked();
 		this.release = report.getRelease();
 		
@@ -86,11 +86,11 @@ public class ReportMiniDTO {
 		this.typeReport = typeReport;
 	}
 	
-	public UserMicroWidgetDTO getAuthor() {
+	public UserMiniDTO getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(UserMicroWidgetDTO author) {
+	public void setAuthor(UserMiniDTO author) {
 		this.author = author;
 	}
 

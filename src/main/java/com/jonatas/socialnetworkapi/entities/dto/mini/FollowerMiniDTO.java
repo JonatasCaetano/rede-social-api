@@ -12,9 +12,9 @@ public class FollowerMiniDTO {
 
 	private String id;
 	private Date release;
-	private UserMicroWidgetDTO user;
+	private UserMiniDTO user;
 	private TypeObject typeObject = TypeObject.FOLLOWER;
-	private List<UserMicroWidgetDTO> following = new ArrayList<>();
+	private List<UserMiniDTO> following = new ArrayList<>();
 	
 	public FollowerMiniDTO() {
 		super();
@@ -24,7 +24,7 @@ public class FollowerMiniDTO {
 		super();
 		this.id = follower.getId();
 		this.release = follower.getRelease();
-		this.user = follower.getUser() != null ? new UserMicroWidgetDTO(follower.getUser()) : null;
+		this.user = follower.getUser() != null ? new UserMiniDTO(follower.getUser()) : null;
 		setFollowing(follower.getFollowing());
 	}
 
@@ -44,23 +44,23 @@ public class FollowerMiniDTO {
 		this.release = release;
 	}
 
-	public UserMicroWidgetDTO getUser() {
+	public UserMiniDTO getUser() {
 		return user;
 	}
 
-	public void setUser(UserMicroWidgetDTO user) {
+	public void setUser(UserMiniDTO user) {
 		this.user = user;
 	}
 
-	public List<UserMicroWidgetDTO> getFollowing() {
+	public List<UserMiniDTO> getFollowing() {
 		return following;
 	}
 
 	public void setFollowing(List<User> following) {
 		for(User user : following) {
 			if(user != null) {
-				UserMicroWidgetDTO userMicroWidgetDTO = new UserMicroWidgetDTO(user);
-				this.following.add(userMicroWidgetDTO);
+				UserMiniDTO userMiniDTO = new UserMiniDTO(user);
+				this.following.add(userMiniDTO);
 			}
 		}
 	}

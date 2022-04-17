@@ -55,24 +55,24 @@ public class EntitySaveService {
 			User user  = (User) userService.findById(idUser).getBody();
 			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
 			for(EntitySave entitySave : list) {
-				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 
-//				if(entitySave.getLikes().contains(user)) {
-//					entitySaveMiniDTO.setLiked(true);
-//				}else {
-//					entitySaveMiniDTO.setLiked(false);
-//				}
-//				if(!entitySave.getLikes().isEmpty()) {
-//					UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
-//					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
-//						entitySaveMiniDTO.setLike(userMiniDTO);
-//					}else {
-//						if(entitySave.getLikes().size() > 1) {
-//							userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
-//							entitySaveMiniDTO.setLike(userMiniDTO);
-//						}
-//					}
-//				}
+				if(entitySave.getLikes().contains(user)) {
+					entitySaveMiniDTO.setLiked(true);
+				}else {
+					entitySaveMiniDTO.setLiked(false);
+				}
+				if(!entitySave.getLikes().isEmpty()) {
+					UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
+					if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+						entitySaveMiniDTO.setLike(userMiniDTO);
+					}else {
+						if(entitySave.getLikes().size() > 1) {
+							userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
+							entitySaveMiniDTO.setLike(userMiniDTO);
+						}
+					}
+				}
 				entitySaveMiniDTOs.add(entitySaveMiniDTO);
 			}
 			return ResponseEntity.ok(entitySaveMiniDTOs);
@@ -85,24 +85,24 @@ public class EntitySaveService {
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(idEntitySave).get();
 			User user  = (User) userService.findById(idUser).getBody();
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			
-//			if(entitySave.getLikes().contains(user)) {
-//				entitySaveMiniDTO.setLiked(true);
-//			}else {
-//				entitySaveMiniDTO.setLiked(false);
-//			}
-//			if(!entitySave.getLikes().isEmpty()) {
-//				UserMicroWidgetDTO userMicroWidgetDTO = new UserMicroWidgetDTO(entitySave.getLikes().get(0));
-//				if(userMicroWidgetDTO.getId().hashCode() != idUser.hashCode()) {
-//					entitySaveMiniDTO.setLike(userMicroWidgetDTO);
-//				}else {
-//					if(entitySave.getLikes().size() > 1) {
-//						userMicroWidgetDTO = new UserMicroWidgetDTO(entitySave.getLikes().get(1));
-//						entitySaveMiniDTO.setLike(userMicroWidgetDTO);
-//					}
-//				}
-//			}
+			if(entitySave.getLikes().contains(user)) {
+				entitySaveMiniDTO.setLiked(true);
+			}else {
+				entitySaveMiniDTO.setLiked(false);
+			}
+			if(!entitySave.getLikes().isEmpty()) {
+				UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
+				if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+					entitySaveMiniDTO.setLike(userMiniDTO);
+				}else {
+					if(entitySave.getLikes().size() > 1) {
+						userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
+						entitySaveMiniDTO.setLike(userMiniDTO);
+					}
+				}
+			}
 			
 			return ResponseEntity.ok(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
@@ -193,7 +193,7 @@ public class EntitySaveService {
 				break;
 			}
 			entityService.save(entity);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.created(null).body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.notFound().build();
@@ -216,7 +216,7 @@ public class EntitySaveService {
 			entitySave.getLikes().add(user);
 			entitySaveRepository.save(entitySave);
 			userService.save(user);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (Exception e) {
 			return ResponseEntity.badRequest().build();
@@ -232,7 +232,7 @@ public class EntitySaveService {
 			LikeUser like = new LikeUser(entitySave.getId(), TypeObject.ENTITY_SAVE);
 			user.getLikes().remove(like);
 			userService.save(user);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
@@ -242,7 +242,6 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveCategory(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
 			if(entitySaveDTO.getCategory() < 1 || entitySaveDTO.getCategory() > 4) {
 				return ResponseEntity.badRequest().build();
 			}
@@ -254,7 +253,7 @@ public class EntitySaveService {
 			}
 			entitySave.setCategory(entitySaveDTO.getCategory());
 			entitySave = entitySaveRepository.save(entitySave);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 			
 		}catch (RuntimeException e) {
@@ -265,7 +264,6 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveEvaluation(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
 			if(entitySaveDTO.getEvaluation() < 1 || entitySaveDTO.getEvaluation() > 5) {
 				return ResponseEntity.badRequest().build();
 			}
@@ -291,7 +289,7 @@ public class EntitySaveService {
 			entitySave.setEvaluation(entitySaveDTO.getEvaluation());
 			entitySave.setRated(true);
 			entitySave = entitySaveRepository.save(entitySave);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
@@ -301,10 +299,9 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveGoal(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
 			entitySave.setGoal(entitySaveDTO.isGoal());		
 			entitySave = entitySaveRepository.save(entitySave);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();
@@ -315,13 +312,12 @@ public class EntitySaveService {
 	public ResponseEntity<Object> updateEntitySaveReview(EntitySaveDTO entitySaveDTO){
 		try {
 			EntitySave entitySave = entitySaveRepository.findById(entitySaveDTO.getIdEntitySave()).get();
-			User user = (User) userService.findById(entitySaveDTO.getIdUser()).getBody();
 			entitySave.setReviewed(entitySaveDTO.isReviewed());	
 			entitySave.setReview(entitySaveDTO.getReview());
 			entitySave.setSpoiler(entitySaveDTO.isSpoiler());
 			entitySave.setRelease(entitySaveDTO.getRelease());
 			entitySave = entitySaveRepository.save(entitySave);
-			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+			EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 			return ResponseEntity.accepted().body(entitySaveMiniDTO);
 		}catch (RuntimeException e) {
 			return ResponseEntity.badRequest().build();

@@ -18,6 +18,7 @@ import com.jonatas.socialnetworkapi.entities.dto.EntityDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EditionMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntityMiniDTO;
 import com.jonatas.socialnetworkapi.entities.dto.mini.EntitySaveMiniDTO;
+import com.jonatas.socialnetworkapi.entities.dto.mini.UserMiniDTO;
 import com.jonatas.socialnetworkapi.enuns.Level;
 import com.jonatas.socialnetworkapi.repositories.EntityRepository;
 
@@ -81,14 +82,13 @@ public class EntityService {
 		}
 	}
 	
-	public ResponseEntity<Object> getAllEntitySaveMini(String id, String idUser){
+	public ResponseEntity<Object> getAllEntitySaveMini(String id){
 		try {
 			Entity entity = entityRepository.findById(id).get();
-			User user  = (User) userService.findById(idUser).getBody();
 			List<EntitySave> entitySaves = entity.getEntitySaves();
 			List<EntitySaveMiniDTO> entitySaveMiniDTOs = new ArrayList<>();
 			for(EntitySave entitySave : entitySaves) {
-				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+				EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 				entitySaveMiniDTOs.add(entitySaveMiniDTO);
 			}
 			return ResponseEntity.ok().body(entitySaveMiniDTOs);
@@ -100,11 +100,10 @@ public class EntityService {
 	public ResponseEntity<Object> getEntitySaveMini(String idEntity, String idUser){
 		try {
 			Entity entity = entityRepository.findById(idEntity).get();
-			User user  = (User) userService.findById(idUser).getBody();
 			List<EntitySave> entitySaves = entity.getEntitySaves();
 			for(EntitySave entitySave : entitySaves) {
 				if(entitySave.getUser().getId().hashCode() == idUser.hashCode()) {
-					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 					return ResponseEntity.ok().body(entitySaveMiniDTO);
 				}
 			}	
@@ -137,24 +136,24 @@ public class EntityService {
 			List<EntitySaveMiniDTO> reviews = new ArrayList<>();
 			for(EntitySave entitySave : entitySaves) {
 				if(entitySave.isReviewed()) {
-					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave, user);
+					EntitySaveMiniDTO entitySaveMiniDTO = new EntitySaveMiniDTO(entitySave);
 					
-//					if(entitySave.getLikes().contains(user)) {
-//						entitySaveMiniDTO.setLiked(true);
-//					}else {
-//						entitySaveMiniDTO.setLiked(false);
-//					}
-//					if(!entitySave.getLikes().isEmpty()) {
-//						UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
-//						if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
-//							entitySaveMiniDTO.setLike(userMiniDTO);
-//						}else {
-//							if(entitySave.getLikes().size() > 1) {
-//								userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
-//								entitySaveMiniDTO.setLike(userMiniDTO);
-//							}
-//						}
-//					}
+					if(entitySave.getLikes().contains(user)) {
+						entitySaveMiniDTO.setLiked(true);
+					}else {
+						entitySaveMiniDTO.setLiked(false);
+					}
+					if(!entitySave.getLikes().isEmpty()) {
+						UserMiniDTO userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(0));
+						if(userMiniDTO.getId().hashCode() != idUser.hashCode()) {
+							entitySaveMiniDTO.setLike(userMiniDTO);
+						}else {
+							if(entitySave.getLikes().size() > 1) {
+								userMiniDTO = new UserMiniDTO(entitySave.getLikes().get(1));
+								entitySaveMiniDTO.setLike(userMiniDTO);
+							}
+						}
+					}
 					reviews.add(entitySaveMiniDTO);
 				}
 			}
